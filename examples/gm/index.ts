@@ -1,4 +1,3 @@
-import { ContentTypeText } from "@xmtp/content-type-text";
 import { Client, type XmtpEnv } from "@xmtp/node-sdk";
 import { createSigner, getEncryptionKeyFromHex } from "@/helpers";
 
@@ -12,16 +11,20 @@ if (!ENCRYPTION_KEY) {
   throw new Error("ENCRYPTION_KEY must be set");
 }
 
+/* Create the signer using viem and parse the encryption key for the local db */
 const signer = createSigner(WALLET_KEY);
 const encryptionKey = getEncryptionKeyFromHex(ENCRYPTION_KEY);
 
+/* Set the environment to dev or production */
 const env: XmtpEnv = "dev";
 
 async function main() {
   console.log(`Creating client on the '${env}' network...`);
+  /* Initialize the xmtp client */
   const client = await Client.create(signer, encryptionKey, { env });
 
   console.log("Syncing conversations...");
+  /* Sync the conversations from the network to update the local db */
   await client.conversations.sync();
 
   console.log(
@@ -29,20 +32,15 @@ async function main() {
   );
 
   console.log("Waiting for messages...");
+  /* Stream all messages from the network */
   const stream = client.conversations.streamAllMessages();
 
   for await (const message of await stream) {
+    /* Ignore messages from the same agent or non-text messages */
     if (
-      !message ||
-      !message.contentType ||
-      !ContentTypeText.sameAs(message.contentType)
+      message?.senderInboxId.toLowerCase() === client.inboxId.toLowerCase() ||
+      message?.contentType?.typeId !== "text"
     ) {
-      console.log("Invalid message, skipping", message);
-      continue;
-    }
-
-    // Ignore own messages
-    if (message.senderInboxId === client.inboxId) {
       continue;
     }
 
@@ -50,6 +48,7 @@ async function main() {
       `Received message: ${message.content as string} by ${message.senderInboxId}`,
     );
 
+    /* Get the conversation by id */
     const conversation = client.conversations.getConversationById(
       message.conversationId,
     );
@@ -60,6 +59,7 @@ async function main() {
     }
 
     console.log(`Sending "gm" response...`);
+    /* Send a message to the conversation */
     await conversation.send("gm");
 
     console.log("Waiting for messages...");
