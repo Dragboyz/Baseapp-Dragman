@@ -46,6 +46,7 @@ const signer = createSigner(WALLET_KEY);
 const encryptionKey = getEncryptionKeyFromHex(ENCRYPTION_KEY);
 const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
+/* Set the environment to dev or production */
 const env: XmtpEnv = "dev";
 
 async function main() {
@@ -55,6 +56,7 @@ async function main() {
   });
 
   console.log("Syncing conversations...");
+  /* Sync the conversations from the network to update the local db */
   await client.conversations.sync();
 
   console.log(
@@ -65,6 +67,7 @@ async function main() {
   const stream = client.conversations.streamAllMessages();
 
   for await (const message of await stream) {
+    /* Ignore messages from the same agent or non-text messages */
     if (
       message?.senderInboxId.toLowerCase() === client.inboxId.toLowerCase() ||
       message?.contentType?.typeId !== "text"
@@ -91,9 +94,11 @@ async function main() {
         model: "gpt-3.5-turbo",
       });
 
+      /* Get the AI response */
       const response =
         completion.choices[0]?.message?.content ||
         "I'm not sure how to respond to that.";
+
       console.log(`Sending AI response: ${response}`);
       await conversation.send(response);
     } catch (error) {
@@ -110,6 +115,17 @@ async function main() {
 main().catch(console.error);
 ```
 
-Run the agent and send a test message from [xmtp.chat](https://xmtp.chat).
+## Run the agent
 
-Enjoy your GPT-powered XMTP agent!
+```bash
+# git clone repo
+git clone https://github.com/ephemeraHQ/xmtp-agent-examples.git
+# go to the folder
+cd xmtp-agent-examples
+# install packages
+yarn
+# generate random keys (optional)
+yarn gen:keys
+# run the example
+yarn examples:gpt
+```

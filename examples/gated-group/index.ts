@@ -3,10 +3,13 @@ import { Alchemy, Network } from "alchemy-sdk";
 import { createSigner, getEncryptionKeyFromHex } from "@/helpers";
 
 const settings = {
-  apiKey: process.env.ALCHEMY_API_KEY, // Replace with your Alchemy API key
-  network: Network.BASE_MAINNET, // Use the appropriate network
+  apiKey: process.env.ALCHEMY_API_KEY,
+  network: Network.BASE_MAINNET,
 };
 
+/* Get the wallet key associated to the public key of
+ * the agent and the encryption key for the local db
+ * that stores your agent's messages */
 const { WALLET_KEY, ENCRYPTION_KEY } = process.env;
 
 if (!WALLET_KEY) {
@@ -17,9 +20,11 @@ if (!ENCRYPTION_KEY) {
   throw new Error("ENCRYPTION_KEY must be set");
 }
 
+/* Create the signer using viem and parse the encryption key for the local db */
 const signer = createSigner(WALLET_KEY);
 const encryptionKey = getEncryptionKeyFromHex(ENCRYPTION_KEY);
 
+/* Set the environment to dev or production */
 const env: XmtpEnv = "dev";
 
 async function main() {
@@ -39,6 +44,7 @@ async function main() {
   const stream = client.conversations.streamAllMessages();
 
   for await (const message of await stream) {
+    /* Ignore messages from the same agent or non-text messages */
     if (
       message?.senderInboxId.toLowerCase() === client.inboxId.toLowerCase() ||
       message?.contentType?.typeId !== "text"
@@ -58,6 +64,11 @@ async function main() {
       console.log("Unable to find conversation, skipping");
       continue;
     }
+
+    /* This example works by parsing slash commands to create a new group or add a member to a group
+     * /create - create a new group
+     * /add <group_id> <wallet_address> - add a member to a group */
+
     if (message.content === "/create") {
       console.log("Creating group");
       const group = await client.conversations.newGroup([]);
@@ -97,7 +108,6 @@ async function main() {
         await conversation.send("Please provide a wallet address");
         return;
       }
-
       const result = await checkNft(walletAddress, "XMTPeople");
       if (!result) {
         console.log("User can't be added to the group");
@@ -118,6 +128,12 @@ async function main() {
 
 main().catch(console.error);
 
+/**
+ * Check if the user has the NFT
+ * @param walletAddress - The wallet address of the user
+ * @param collectionSlug - The slug of the collection
+ * @returns true if the user has the NFT, false otherwise
+ */
 async function checkNft(
   walletAddress: string,
   collectionSlug: string,
