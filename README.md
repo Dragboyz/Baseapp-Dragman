@@ -44,7 +44,7 @@ Examples integrating XMTP with external libraries from the ecosystem
 
 - [grok](/integrations/grok/): Integrate XMTP to the Grok API
 
-> See all the available [examples](/integrations/).
+> See all the available [integrations](/integrations/).
 
 ## Web inbox
 
