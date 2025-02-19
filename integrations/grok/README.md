@@ -1,11 +1,36 @@
+# Grok agent example
+
+This example uses the [Grok](https://x.ai/api) API for responses and [XMTP](https://xmtp.org) for secure messaging. You can test your agent on [xmtp.chat](https://xmtp.chat) or any other XMTP-compatible client.
+
+## Environment variables
+
+Add the following keys to a `.env` file:
+
+```bash
+WALLET_KEY= # the private key of the wallet
+ENCRYPTION_KEY= # a second random 32 bytes encryption key for local db encryption
+GROK_API_KEY= # the API key for the Grok API
+```
+
+You can generate random keys with the following command:
+
+```bash
+yarn gen:keys
+```
+
+> [!WARNING]
+> Running the `gen:keys` script will overwrite the existing `.env` file.
+
+## Usage
+
+```tsx
 import { Client, type XmtpEnv } from "@xmtp/node-sdk";
-import OpenAI from "openai";
 import { createSigner, getEncryptionKeyFromHex } from "@/helpers";
 
 /* Get the wallet key associated to the public key of
  * the agent and the encryption key for the local db
  * that stores your agent's messages */
-const { WALLET_KEY, ENCRYPTION_KEY, OPENAI_API_KEY } = process.env;
+const { WALLET_KEY, ENCRYPTION_KEY, GROK_API_KEY } = process.env;
 
 /* Check if the environment variables are set */
 if (!WALLET_KEY) {
@@ -17,17 +42,14 @@ if (!ENCRYPTION_KEY) {
   throw new Error("ENCRYPTION_KEY must be set");
 }
 
-/* Check if the OpenAI API key is set */
-if (!OPENAI_API_KEY) {
-  throw new Error("OPENAI_API_KEY must be set");
+/* Check if the Grok API key is set */
+if (!GROK_API_KEY) {
+  throw new Error("GROK_API_KEY must be set");
 }
 
 /* Create the signer using viem and parse the encryption key for the local db */
 const signer = createSigner(WALLET_KEY);
 const encryptionKey = getEncryptionKeyFromHex(ENCRYPTION_KEY);
-
-/* Initialize the OpenAI client */
-const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
 /* Set the environment to dev or production */
 const env: XmtpEnv = "dev";
@@ -49,7 +71,6 @@ async function main() {
   console.log(
     `Agent initialized on ${client.accountAddress}\nSend a message on http://xmtp.chat/dm/${client.accountAddress}?env=${env}`,
   );
-
   console.log("Waiting for messages...");
   /* Stream all messages from the network */
   const stream = client.conversations.streamAllMessages();
@@ -79,20 +100,32 @@ async function main() {
     }
 
     try {
-      /* Get the AI response */
-      const completion = await openai.chat.completions.create({
-        messages: [{ role: "user", content: message.content as string }],
-        model: "gpt-3.5-turbo",
-      });
-
-      /* Get the AI response */
-      const response =
-        completion.choices[0]?.message?.content ||
-        "I'm not sure how to respond to that.";
-
-      console.log(`Sending AI response: ${response}`);
+      /* Get the AI response from Grok */
+      const response = await fetch("https://api.x.ai/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${GROK_API_KEY}`, // Use the same API key variable
+        },
+        body: JSON.stringify({
+          messages: [
+            { role: "system", content: "You are a test assistant." },
+            { role: "user", content: message.content as string },
+          ],
+          model: "grok-2-latest",
+          stream: false,
+          temperature: 0,
+        }),
+      }).then(
+        (res) =>
+          res.json() as Promise<{
+            choices: { message: { content: string } }[];
+          }>,
+      );
+      const aiResponse = response.choices[0]?.message?.content || "";
+      console.log(`Sending AI response: ${aiResponse}`);
       /* Send the AI response to the conversation */
-      await conversation.send(response);
+      await conversation.send(aiResponse);
     } catch (error) {
       console.error("Error getting AI response:", error);
       await conversation.send(
@@ -105,3 +138,21 @@ async function main() {
 }
 
 main().catch(console.error);
+```
+
+## Run the agent
+
+```bash
+# git clone repo
+git clone https://github.com/ephemeraHQ/xmtp-agent-examples.git
+# go to the folder
+cd xmtp-agent-examples
+cd integrations
+cd grok
+# install packages
+yarn
+# generate random keys (optional)
+yarn gen:keys
+# run the example
+yarn dev
+```
