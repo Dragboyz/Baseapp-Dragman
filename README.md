@@ -38,7 +38,6 @@ There are to ways to fetch messages from a conversation, one is by starting a st
 
 ```tsx
 const stream = client.conversations.streamAllMessages();
-
 for await (const message of await stream) {
   /*You message*/
 }
