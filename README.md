@@ -30,6 +30,31 @@ yarn gen:keys
 > [!WARNING]
 > Running the `gen:keys` script will overwrite the existing `.env` file.
 
+## Working with addresses
+
+Conversations in XMTP can be `DMs` or `Groups`. The underlying technicalities are the same, but DMs are essentially groups locked between two users that can be reused - basically a fixed group of 2. This is how MLS works.
+
+Each member of a conversation has the following properties:
+
+```tsx
+inboxId: string; // unique identifier from the XMTP network
+accountAddresses: Array<string>; // ethereum network addresses
+installationIds: Array<string>; // How many active devices the user has
+permissionLevel: PermissionLevel; // In the context of a group, if it's admin or not
+consentState: ConsentState; // If it's blocked or allowed via consent
+```
+
+To fetch an ethereum address in a DM, you can use a script like the following:
+
+```tsx
+const address =
+  (await group.members?.find(
+    (member: any) => member.inboxId === dm.dmPeerInboxId,
+  )?.accountAddresses[0]) || "";
+```
+
+> XMTP is working on integrating passkeys as a pillar of identity. Expect a breaking change soon as XMTP prepares for the first v3 stable release.
+
 ## Examples
 
 - [gm](/examples/gm/): A simple agent that replies to all text messages with "gm".
@@ -51,6 +76,3 @@ Examples integrating XMTP with external libraries from the ecosystem
 Interact with the XMTP network using [xmtp.chat](https://xmtp.chat), the official web inbox for developers.
 
 ![](/media/chat.png)
-
-> [!WARNING]
-> This React app isn't a complete solution. For example, the list of conversations doesn't update when new messages arrive in existing conversations.
