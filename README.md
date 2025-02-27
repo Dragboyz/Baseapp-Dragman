@@ -76,6 +76,7 @@ const address =
   )?.accountAddresses[0]) || "";
 ```
 
+> [!WARNING]
 > XMTP is working on integrating passkeys as a pillar of identity. Expect a breaking change soon as XMTP prepares for the first v3 stable release.
 
 ## Web inbox
