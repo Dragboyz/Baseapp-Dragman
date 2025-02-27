@@ -12,7 +12,9 @@ This repository contains examples of agents that use the [XMTP](https://docs.xmt
 
 > See [FAQ](https://docs.xmtp.org/intro/faq) for more detailed information.
 
-## Environment variables
+## Getting started
+
+### Environment variables
 
 To run your XMTP agent, you must create a `.env` file with the following variables:
 
@@ -30,7 +32,28 @@ yarn gen:keys
 > [!WARNING]
 > Running the `gen:keys` script will overwrite the existing `.env` file.
 
-## Working with addresses
+### Fetching messages
+
+There are to ways to fetch messages from a conversation, one is by starting a stream
+
+```tsx
+const stream = client.conversations.streamAllMessages();
+
+for await (const message of await stream) {
+  /*You message*/
+}
+```
+
+And by polling you can call all the messages at once, which we stored in your local database
+
+```tsx
+/* Sync the conversations from the network to update the local db */
+await client.conversations.sync();
+// get message array
+await client.conversations.messages();
+```
+
+### Working with addresses
 
 Conversations in XMTP can be `DMs` or `Groups`. The underlying technicalities are the same, but DMs are essentially groups locked between two users that can be reused - basically a fixed group of 2. This is how MLS works.
 
@@ -55,6 +78,12 @@ const address =
 
 > XMTP is working on integrating passkeys as a pillar of identity. Expect a breaking change soon as XMTP prepares for the first v3 stable release.
 
+## Web inbox
+
+Interact with the XMTP network using [xmtp.chat](https://xmtp.chat), the official web inbox for developers.
+
+![](/media/chat.png)
+
 ## Examples
 
 - [gm](/examples/gm/): A simple agent that replies to all text messages with "gm".
@@ -70,9 +99,3 @@ Examples integrating XMTP with external libraries from the ecosystem
 - [grok](/integrations/grok/): Integrate XMTP to the Grok API
 
 > See all the available [integrations](/integrations/).
-
-## Web inbox
-
-Interact with the XMTP network using [xmtp.chat](https://xmtp.chat), the official web inbox for developers.
-
-![](/media/chat.png)
