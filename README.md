@@ -28,17 +28,25 @@ You can generate random keys with the following command:
 ```bash
 yarn gen:keys <name>
 ```
+
 > [!TIP]
 > Running the `gen:keys` or `gen:keys <name>` command will append keys to your existing `.env` file.
 
 ### Work in local network
 
-XMTP network can be hosted in dev, local or production environments. Dev and production networks are hosted by XMTP, while local network is hosted by yourself.
+`Dev` and `production` networks are hosted by XMTP, while `local` network is hosted by yourself. Use local network for development purposes only.
 
-To start the XMTP service and database locally, navigate to the project terminal and run:
+- 1. Install docker
+- 2. Start the XMTP service and database
 
 ```bash
 ./dev/up
+```
+
+- 3. Change the .env file to use the local network
+
+```bash
+XMTP_ENV=local
 ```
 
 ## Concepts
