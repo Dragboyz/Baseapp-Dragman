@@ -25,7 +25,7 @@ ENCRYPTION_KEY= # encryption key for the local database
 
 You can generate random keys with the following command:
 
-```bash
+```tsx
 yarn gen:keys <name>
 ```
 
@@ -39,13 +39,13 @@ yarn gen:keys <name>
 - 1. Install docker
 - 2. Start the XMTP service and database
 
-```bash
+```tsx
 ./dev/up
 ```
 
 - 3. Change the .env file to use the local network
 
-```bash
+```tsx
 XMTP_ENV=local
 ```
 
