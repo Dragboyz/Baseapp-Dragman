@@ -29,7 +29,7 @@ You can generate random keys with the following command:
 yarn gen:keys <name>
 ```
 
-> [!TIP]
+> [!WARNING]
 > Running the `gen:keys` or `gen:keys <name>` command will append keys to your existing `.env` file.
 
 ### Work in local network
