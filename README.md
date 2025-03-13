@@ -28,9 +28,20 @@ You can generate random keys with the following command:
 ```bash
 yarn gen:keys <name>
 ```
-
 > [!TIP]
 > Running the `gen:keys` or `gen:keys <name>` command will append keys to your existing `.env` file.
+
+### Work in local network
+
+XMTP network can be hosted in dev, local or production environments. Dev and production networks are hosted by XMTP, while local network is hosted by yourself.
+
+To start the XMTP service and database locally, navigate to the project terminal and run:
+
+```bash
+./dev/up
+```
+
+## Concepts
 
 ### Fetching messages
 
@@ -72,7 +83,7 @@ for (const conversation of conversations) {
 }
 ```
 
-## Working with addresses
+### Working with addresses
 
 Because XMTP is interoperable, you may interact with inboxes that are not on your app. In these scenarios, you will need to find the appropriate inbox ID or address.
 

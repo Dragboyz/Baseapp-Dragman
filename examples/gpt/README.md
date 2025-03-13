@@ -43,8 +43,8 @@ const signer = createSigner(WALLET_KEY);
 const encryptionKey = getEncryptionKeyFromHex(ENCRYPTION_KEY);
 const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
-/* Set the environment to dev or production */
-const env: XmtpEnv = "dev";
+/* Set the environment to local, dev or production */
+const env: XmtpEnv = process.env.XMTP_ENV as XmtpEnv;
 
 async function main() {
   console.log(`Creating client on the '${env}' network...`);
@@ -57,7 +57,7 @@ async function main() {
   await client.conversations.sync();
 
   console.log(
-    `Agent initialized on ${address}\nSend a message on http://xmtp.chat/dm/${address}`,
+    `Agent initialized on ${address}\nSend a message on http://xmtp.chat/dm/${address}?env=${env}`,
   );
 
   console.log("Waiting for messages...");

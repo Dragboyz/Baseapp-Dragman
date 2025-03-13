@@ -25,8 +25,8 @@ if (!GROK_API_KEY) {
 const signer = createSigner(WALLET_KEY);
 const encryptionKey = getEncryptionKeyFromHex(ENCRYPTION_KEY);
 
-/* Set the environment to dev or production */
-const env: XmtpEnv = "dev";
+/* Set the environment to local, dev or production */
+const env: XmtpEnv = process.env.XMTP_ENV as XmtpEnv;
 
 /**
  * Main function to run the agent
@@ -45,7 +45,7 @@ async function main() {
   const identifier = await signer.getIdentifier();
   const address = identifier.identifier;
   console.log(
-    `Agent initialized on ${address}\nSend a message on http://xmtp.chat/dm/${address}`,
+    `Agent initialized on ${address}\nSend a message on http://xmtp.chat/dm/${address}?env=${env}`,
   );
 
   console.log("Waiting for messages...");
