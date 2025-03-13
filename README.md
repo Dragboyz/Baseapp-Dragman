@@ -26,11 +26,11 @@ ENCRYPTION_KEY= # encryption key for the local database
 You can generate random keys with the following command:
 
 ```bash
-yarn gen:keys
+yarn gen:keys <name>
 ```
 
-> [!WARNING]
-> Running the `gen:keys` script will overwrite the existing `.env` file.
+> [!TIP]
+> Running the `gen:keys` or `gen:keys <name>` command will append keys to your existing `.env` file.
 
 ### Fetching messages
 
@@ -52,31 +52,51 @@ await client.conversations.sync();
 await client.conversations.messages();
 ```
 
-### Working with addresses
+### Conversations can be of type `Group` or `Dm`
 
-Conversations in XMTP can be `DMs` or `Groups`. The underlying technicalities are the same, but DMs are essentially groups locked between two users that can be reused - basically a fixed group of 2. This is how MLS works.
-
-Each member of a conversation has the following properties:
+The new `Group` and `Dm` classes extend the `Conversation` class and provide specific functionality based on the conversation type.
 
 ```tsx
-inboxId: string; // unique identifier from the XMTP network
-accountAddresses: Array<string>; // ethereum network addresses
-installationIds: Array<string>; // How many active devices the user has
-permissionLevel: PermissionLevel; // In the context of a group, if it's admin or not
-consentState: ConsentState; // If it's blocked or allowed via consent
+const conversations: (Group | Dm)[] = await client.conversations.list();
+
+for (const conversation of conversations) {
+  // narrow the type to Group to access the group name
+  if (conversation instanceof Group) {
+    console.log(group.name);
+  }
+
+  // narrow the type to Dm to access the peer inboxId
+  if (conversation instanceof Dm) {
+    console.log(conversation.peerInboxId);
+  }
+}
 ```
 
-To fetch an ethereum address in a DM, you can use a script like the following:
+## Working with addresses
+
+Because XMTP is interoperable, you may interact with inboxes that are not on your app. In these scenarios, you will need to find the appropriate inbox ID or address.
 
 ```tsx
-const address =
-  (await group.members?.find(
-    (member: any) => member.inboxId === dm.dmPeerInboxId,
-  )?.accountAddresses[0]) || "";
-```
+// get an inbox ID from an address
+const inboxId = await getInboxIdForIdentifier({
+  identifier: "0x1234567890abcdef1234567890abcdef12345678",
+  identifierKind: IdentifierKind.Ethereum,
+});
 
-> [!WARNING]
-> XMTP is working on integrating passkeys as a pillar of identity. Expect a breaking change soon as XMTP prepares for the first v3 stable release.
+// find the addresses associated with an inbox ID
+const inboxState = await client.inboxStateFromInboxIds([inboxId]);
+
+interface InboxState {
+  inboxId: string;
+  recoveryIdentifier: Identifier;
+  installations: Installation[];
+  identifiers: Identifier[];
+}
+
+const addresses = inboxState.identifiers
+  .filter((i) => i.identifierKind === IdentifierKind.Ethereum)
+  .map((i) => i.identifier);
+```
 
 ## Web inbox
 
@@ -97,5 +117,6 @@ Interact with the XMTP network using [xmtp.chat](https://xmtp.chat), the officia
 Examples integrating XMTP with external libraries from the ecosystem
 
 - [grok](/integrations/grok/): Integrate XMTP to the Grok API
+- [gaia](/integrations/gaia/): Integrate XMTP to the Gaia API
 
 > See all the available [integrations](/integrations/).

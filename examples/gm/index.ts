@@ -1,5 +1,9 @@
 import { Client, type XmtpEnv } from "@xmtp/node-sdk";
-import { createSigner, getEncryptionKeyFromHex } from "@/helpers";
+import {
+  createSigner,
+  getAddressOfMember,
+  getEncryptionKeyFromHex,
+} from "@/helpers";
 
 /* Get the wallet key associated to the public key of
  * the agent and the encryption key for the local db
@@ -30,8 +34,10 @@ async function main() {
   /* Sync the conversations from the network to update the local db */
   await client.conversations.sync();
 
+  const identifier = await signer.getIdentifier();
+  const address = identifier.identifier;
   console.log(
-    `Agent initialized on ${client.accountAddress}\nSend a message on http://xmtp.chat/dm/${client.accountAddress}?env=${env}`,
+    `Agent initialized on ${address}\nSend a message on http://xmtp.chat/dm/${address}`,
   );
 
   console.log("Waiting for messages...");
@@ -52,16 +58,18 @@ async function main() {
     );
 
     /* Get the conversation by id */
-    const conversation = client.conversations.getConversationById(
-      message.conversationId,
+    const conversation = client.conversations.getDmByInboxId(
+      message.senderInboxId,
     );
 
     if (!conversation) {
       console.log("Unable to find conversation, skipping");
       continue;
     }
+    const members = await conversation.members();
 
-    console.log(`Sending "gm" response...`);
+    const address = getAddressOfMember(members, message.senderInboxId);
+    console.log(`Sending "gm" response to ${address}...`);
     /* Send a message to the conversation */
     await conversation.send("gm");
 

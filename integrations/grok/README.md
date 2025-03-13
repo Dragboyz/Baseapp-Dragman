@@ -18,9 +18,6 @@ You can generate random keys with the following command:
 yarn gen:keys
 ```
 
-> [!WARNING]
-> Running the `gen:keys` script will overwrite the existing `.env` file.
-
 ## Usage
 
 ```tsx
@@ -68,9 +65,12 @@ async function main() {
   /* Sync the conversations from the network to update the local db */
   await client.conversations.sync();
 
+  const identifier = await signer.getIdentifier();
+  const address = identifier.identifier;
   console.log(
-    `Agent initialized on ${client.accountAddress}\nSend a message on http://xmtp.chat/dm/${client.accountAddress}?env=${env}`,
+    `Agent initialized on ${address}\nSend a message on http://xmtp.chat/dm/${address}`,
   );
+
   console.log("Waiting for messages...");
   /* Stream all messages from the network */
   const stream = client.conversations.streamAllMessages();
