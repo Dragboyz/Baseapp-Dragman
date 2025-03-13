@@ -18,7 +18,7 @@ This repository contains examples of agents that use the [XMTP](https://docs.xmt
 
 To run your XMTP agent, you must create a `.env` file with the following variables:
 
-```bash
+```tsx
 WALLET_KEY= # the private key of the wallet
 ENCRYPTION_KEY= # encryption key for the local database
 ```
