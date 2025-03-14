@@ -1305,6 +1305,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@xmtp/node-sdk@npm:1.0.0-rc2":
+  version: 1.0.0-rc2
+  resolution: "@xmtp/node-sdk@npm:1.0.0-rc2"
+  dependencies:
+    "@xmtp/content-type-group-updated": "npm:^2.0.0"
+    "@xmtp/content-type-primitives": "npm:^2.0.0"
+    "@xmtp/content-type-text": "npm:^2.0.0"
+    "@xmtp/node-bindings": "npm:^1.0.0-rc2"
+    "@xmtp/proto": "npm:^3.72.3"
+  checksum: 10/ec5a95eb2bfc624680ee88aec0020f032a6cb64a283f8163a62d7c68e72241b875e2bec8cf919aa3af6f2d9d53f56f233e855a5459c9b5fcadd8d835f309f559
+  languageName: node
+  linkType: hard
+
 "@xmtp/proto@npm:^3.72.0, @xmtp/proto@npm:^3.72.3":
   version: 3.73.0
   resolution: "@xmtp/proto@npm:3.73.0"
@@ -3842,7 +3855,7 @@ __metadata:
     "@ianvs/prettier-plugin-sort-imports": "npm:^4.4.1"
     "@types/eslint__js": "npm:^8.42.3"
     "@types/node": "npm:^22.13.0"
-    "@xmtp/node-sdk": "npm:1.0.0-rc1"
+    "@xmtp/node-sdk": "npm:1.0.0-rc2"
     alchemy-sdk: "npm:^3.0.0"
     eslint: "npm:^9.19.0"
     eslint-config-prettier: "npm:^10.0.1"
