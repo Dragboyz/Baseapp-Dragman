@@ -137,5 +137,6 @@ Examples integrating XMTP with external libraries from the ecosystem
 
 - [grok](/integrations/grok/): Integrate your agent with the Grok API
 - [gaia](/integrations/gaia/): Integrate with the Gaia API
+- [coinbase-langchain](/integrations/coinbase-langchain/): Agent that uses a CDP for gassless USDC on base
 
 > See all the available [integrations](/integrations/).
