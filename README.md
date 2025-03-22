@@ -24,12 +24,6 @@ This repository contains examples of agents that use the [XMTP](https://docs.xmt
 > [!NOTE]
 > See our [Cursor Rules](/.cursor/README.md) for XMTP Agent development standards and best practices.
 
-### Web inbox
-
-Interact with the XMTP network using [xmtp.chat](https://xmtp.chat), the official web inbox for developers.
-
-![](/media/chat.png)
-
 ### Environment variables
 
 To run your XMTP agent, you must create a `.env` file with the following variables:
@@ -64,6 +58,12 @@ yarn gen:keys
 yarn dev
 ```
 
+### Web inbox
+
+Interact with the XMTP network using [xmtp.chat](https://xmtp.chat), the official web inbox for developers.
+
+![](/media/chat.png)
+
 ### Work in local network
 
 `Dev` and `production` networks are hosted by XMTP, while `local` network is hosted by yourself, so it's faster for development purposes.
@@ -80,4 +80,3 @@ yarn dev
 ```tsx
 XMTP_ENV = local;
 ```
-
