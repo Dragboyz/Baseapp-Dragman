@@ -10,12 +10,10 @@ This repository contains examples of agents that use the [XMTP](https://docs.xmt
 - **Decentralized**: Operates on a peer-to-peer network, eliminating single points of failure.
 - **Multi-agent**: Allows multi-agent multi-human confidential communication over MLS group chats.
 
-> See [FAQ](https://docs.xmtp.org/intro/faq) for more detailed information.
-
 ## Getting started
 
 > [!NOTE]
-> For detailed XMTP Agent development guidelines, please refer to our [Cursor Rules documentation](/.cursor/README.md) which contains comprehensive coding standards and best practices for XMTP integration.
+> See our [Cursor Rules](/.cursor/README.md) for XMTP Agent development standards and best practices.
 
 ### Environment variables
 
