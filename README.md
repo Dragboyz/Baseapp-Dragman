@@ -36,6 +36,21 @@ yarn gen:keys <name>
 > [!WARNING]
 > Running the `gen:keys` or `gen:keys <name>` command will append keys to your existing `.env` file.
 
+### Run the gm agent
+
+```bash
+# git clone repo
+git clone https://github.com/ephemeraHQ/xmtp-agent-examples.git
+# go to the folder
+cd xmtp-agent-examples
+# install packages
+yarn
+# generate random xmtp keys (optional)
+yarn gen:keys
+# run the example
+yarn dev
+```
+
 ### Work in local network
 
 `Dev` and `production` networks are hosted by XMTP, while `local` network is hosted by yourself, so it's faster for development purposes.
