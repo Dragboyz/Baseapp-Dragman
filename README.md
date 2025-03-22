@@ -1,8 +1,10 @@
+I think we can improve the order of your README to make it more engaging and logical for new users. Here's my suggested reorganization:
+
 # XMTP agent examples
 
 This repository contains examples of agents that use the [XMTP](https://docs.xmtp.org/) network.
 
-### Why XMTP?
+## Why XMTP?
 
 - **End-to-end & compliant**: Data is encrypted in transit and at rest, meeting strict security and regulatory standards.
 - **Open-source & trustless**: Built on top of the [MLS](https://messaginglayersecurity.rocks/) protocol, it replaces trust in centralized certificate authorities with cryptographic proofs.
@@ -10,12 +12,25 @@ This repository contains examples of agents that use the [XMTP](https://docs.xmt
 - **Decentralized**: Operates on a peer-to-peer network, eliminating single points of failure.
 - **Multi-agent**: Allows multi-agent multi-human confidential communication over MLS group chats.
 
-## Getting Started
+## Examples
 
-### AI quickstart
+- [gm](/gm/): A simple agent that replies to all text messages with "gm".
+- [gpt](/examples/gpt/): An example using GPT API's to answer messages.
+- [gated-group](/examples/gated-group/): Add members to a group that hold a certain NFT.
+- [grok](/examples/grok/): Integrate your agent with the Grok API
+- [gaia](/examples/gaia/): Integrate with the Gaia API
+- [coinbase-langchain](/examples/coinbase-langchain/): Agent that uses a CDP for gassless USDC on base
+
+## Getting started
 
 > [!NOTE]
 > See our [Cursor Rules](/.cursor/README.md) for XMTP Agent development standards and best practices.
+
+### Web inbox
+
+Interact with the XMTP network using [xmtp.chat](https://xmtp.chat), the official web inbox for developers.
+
+![](/media/chat.png)
 
 ### Environment variables
 
@@ -68,19 +83,4 @@ yarn dev
 XMTP_ENV = local;
 ```
 
-## Examples
-
-- [gm](/gm/): A simple agent that replies to all text messages with "gm".
-- [gpt](/examples/gpt/): An example using GPT API's to answer messages.
-- [gated-group](/examples/gated-group/): Add members to a group that hold a certain NFT.
-- [grok](/examples/grok/): Integrate your agent with the Grok API
-- [gaia](/examples/gaia/): Integrate with the Gaia API
-- [coinbase-langchain](/examples/coinbase-langchain/): Agent that uses a CDP for gassless USDC on base
-
 > See our contribution guidelines [here](/CONTRIBUTING.md).
-
-## Web inbox
-
-Interact with the XMTP network using [xmtp.chat](https://xmtp.chat), the official web inbox for developers.
-
-![](/media/chat.png)
