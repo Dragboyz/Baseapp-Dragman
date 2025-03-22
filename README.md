@@ -1,5 +1,3 @@
-I think we can improve the order of your README to make it more engaging and logical for new users. Here's my suggested reorganization:
-
 # XMTP agent examples
 
 This repository contains examples of agents that use the [XMTP](https://docs.xmtp.org/) network.
