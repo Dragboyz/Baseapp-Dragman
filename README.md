@@ -14,6 +14,9 @@ This repository contains examples of agents that use the [XMTP](https://docs.xmt
 
 ## Getting started
 
+> [!NOTE]
+> For detailed XMTP Agent development guidelines, please refer to our [Cursor Rules documentation](/.cursor/README.md) which contains comprehensive coding standards and best practices for XMTP integration.
+
 ### Environment variables
 
 To run your XMTP agent, you must create a `.env` file with the following variables:
@@ -50,74 +53,6 @@ yarn gen:keys <name>
 XMTP_ENV = local;
 ```
 
-## Concepts
-
-### Fetching messages
-
-There are to ways to fetch messages from a conversation, one is by starting a stream
-
-```tsx
-const stream = client.conversations.streamAllMessages();
-for await (const message of await stream) {
-  /*You message*/
-}
-```
-
-And by polling you can call all the messages at once, which we stored in your local database
-
-```tsx
-/* Sync the conversations from the network to update the local db */
-await client.conversations.sync();
-// get message array
-await client.conversations.messages();
-```
-
-### Conversations can be of type `Group` or `Dm`
-
-The new `Group` and `Dm` classes extend the `Conversation` class and provide specific functionality based on the conversation type.
-
-```tsx
-const conversations: (Group | Dm)[] = await client.conversations.list();
-
-for (const conversation of conversations) {
-  // narrow the type to Group to access the group name
-  if (conversation instanceof Group) {
-    console.log(group.name);
-  }
-
-  // narrow the type to Dm to access the peer inboxId
-  if (conversation instanceof Dm) {
-    console.log(conversation.peerInboxId);
-  }
-}
-```
-
-### Working with addresses
-
-Because XMTP is interoperable, you may interact with inboxes that are not on your app. In these scenarios, you will need to find the appropriate inbox ID or address.
-
-```tsx
-// get an inbox ID from an address
-const inboxId = await getInboxIdForIdentifier({
-  identifier: "0x1234567890abcdef1234567890abcdef12345678",
-  identifierKind: IdentifierKind.Ethereum,
-});
-
-// find the addresses associated with an inbox ID
-const inboxState = await client.inboxStateFromInboxIds([inboxId]);
-
-interface InboxState {
-  inboxId: string;
-  recoveryIdentifier: Identifier;
-  installations: Installation[];
-  identifiers: Identifier[];
-}
-
-const addresses = inboxState.identifiers
-  .filter((i) => i.identifierKind === IdentifierKind.Ethereum)
-  .map((i) => i.identifier);
-```
-
 ## Web inbox
 
 Interact with the XMTP network using [xmtp.chat](https://xmtp.chat), the official web inbox for developers.
@@ -133,4 +68,4 @@ Interact with the XMTP network using [xmtp.chat](https://xmtp.chat), the officia
 - [gaia](/examples/gaia/): Integrate with the Gaia API
 - [coinbase-langchain](/examples/coinbase-langchain/): Agent that uses a CDP for gassless USDC on base
 
-> See all the available [examples](/examples/).
+> See our contribution guidelines [here](/CONTRIBUTING.md).
