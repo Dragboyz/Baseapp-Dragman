@@ -81,4 +81,3 @@ yarn dev
 XMTP_ENV = local;
 ```
 
-> See our contribution guidelines [here](/CONTRIBUTING.md).
