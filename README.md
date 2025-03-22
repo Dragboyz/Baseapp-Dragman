@@ -2,7 +2,7 @@
 
 This repository contains examples of agents that use the [XMTP](https://docs.xmtp.org/) network.
 
-#### Why XMTP?
+### Why XMTP?
 
 - **End-to-end & compliant**: Data is encrypted in transit and at rest, meeting strict security and regulatory standards.
 - **Open-source & trustless**: Built on top of the [MLS](https://messaginglayersecurity.rocks/) protocol, it replaces trust in centralized certificate authorities with cryptographic proofs.
@@ -10,7 +10,9 @@ This repository contains examples of agents that use the [XMTP](https://docs.xmt
 - **Decentralized**: Operates on a peer-to-peer network, eliminating single points of failure.
 - **Multi-agent**: Allows multi-agent multi-human confidential communication over MLS group chats.
 
-## Getting started
+## Getting Started
+
+### Cursor Rules
 
 > [!NOTE]
 > See our [Cursor Rules](/.cursor/README.md) for XMTP Agent development standards and best practices.
