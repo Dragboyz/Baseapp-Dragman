@@ -12,7 +12,7 @@ This repository contains examples of agents that use the [XMTP](https://docs.xmt
 
 ## Getting Started
 
-### Cursor Rules
+### AI quickstart
 
 > [!NOTE]
 > See our [Cursor Rules](/.cursor/README.md) for XMTP Agent development standards and best practices.
