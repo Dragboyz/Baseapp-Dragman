@@ -38,7 +38,7 @@ yarn gen:keys <name>
 
 ### Work in local network
 
-`Dev` and `production` networks are hosted by XMTP, while `local` network is hosted by yourself. Use local network for development purposes only.
+`Dev` and `production` networks are hosted by XMTP, while `local` network is hosted by yourself, so it's faster for development purposes.
 
 - 1. Install docker
 - 2. Start the XMTP service and database
@@ -53,12 +53,6 @@ yarn gen:keys <name>
 XMTP_ENV = local;
 ```
 
-## Web inbox
-
-Interact with the XMTP network using [xmtp.chat](https://xmtp.chat), the official web inbox for developers.
-
-![](/media/chat.png)
-
 ## Examples
 
 - [gm](/gm/): A simple agent that replies to all text messages with "gm".
@@ -69,3 +63,9 @@ Interact with the XMTP network using [xmtp.chat](https://xmtp.chat), the officia
 - [coinbase-langchain](/examples/coinbase-langchain/): Agent that uses a CDP for gassless USDC on base
 
 > See our contribution guidelines [here](/CONTRIBUTING.md).
+
+## Web inbox
+
+Interact with the XMTP network using [xmtp.chat](https://xmtp.chat), the official web inbox for developers.
+
+![](/media/chat.png)
