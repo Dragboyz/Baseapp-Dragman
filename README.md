@@ -39,11 +39,12 @@ yarn gen:keys <name>
 These are the steps to initialize the XMTP listener and send messages.
 
 ```tsx
-import { Client, type XmtpEnv, type Signer } from “@xmtp/node-sdk”;
+// import the xmtp sdk
+import { Client, type XmtpEnv, type Signer } from "@xmtp/node-sdk";
 // encryption key, must be consistent across runs
 const encryptionKey: Uint8Array = ...;
 const signer: Signer = ...;
-const env: XmtpEnv = “dev”;
+const env: XmtpEnv = "dev";
 
 async function main() {
   const client = await Client.create(signer, encryptionKey, { env });
@@ -54,8 +55,7 @@ async function main() {
    if (message?.senderInboxId === client.inboxId ) {
       continue;
     }
-    const conversation = client.conversations.getConversationById(message.conversationId,
-    );
+    const conversation = client.conversations.getConversationById(message.conversationId);
     // send a message from the agent
     await conversation.send("gm");
   }
@@ -65,13 +65,14 @@ main().catch(console.error);
 
 ## Examples
 
-- [gm](/gm/): A simple agent that replies to all text messages with "gm".
+- [gm](/examples/gm/): A simple agent that replies to all text messages with "gm".
 - [gpt](/examples/gpt/): An example using GPT API's to answer messages.
 - [gated-group](/examples/gated-group/): Add members to a group that hold a certain NFT.
-- [grok](/examples/grok/): Integrate your agent with the Grok API
-- [gaia](/examples/gaia/): Integrate with the Gaia API
 - [coinbase-langchain](/examples/coinbase-langchain/): Agent that uses a CDP for gassless USDC on base
 - [cointoss](/examples/cointoss/): Enabling group cointosses with friends inside a group chat
+- [gaia](/examples/gaia/): Integrate with the Gaia API
+
+See all the examples [here](/examples).
 
 ## Development
 
