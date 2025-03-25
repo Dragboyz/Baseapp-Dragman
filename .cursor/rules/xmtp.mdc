@@ -352,6 +352,84 @@ main().catch((error: unknown) => {
 });
 ```
 
+## XMTP Helper Functions
+
+```typescript
+import { getRandomValues } from "node:crypto";
+import { IdentifierKind, type Signer } from "@xmtp/node-sdk";
+import { fromString, toString } from "uint8arrays";
+import { createWalletClient, http, toBytes } from "viem";
+import { privateKeyToAccount } from "viem/accounts";
+import { sepolia } from "viem/chains";
+
+interface User {
+  key: `0x${string}`;
+  account: ReturnType<typeof privateKeyToAccount>;
+  wallet: ReturnType<typeof createWalletClient>;
+}
+
+export const createUser = (key: `0x${string}`): User => {
+  const accountKey = key;
+  const account = privateKeyToAccount(accountKey);
+  return {
+    key: accountKey,
+    account,
+    wallet: createWalletClient({
+      account,
+      chain: sepolia,
+      transport: http(),
+    }),
+  };
+};
+
+export const createSigner = (key: `0x${string}`): Signer => {
+  const user = createUser(key);
+  return {
+    type: "EOA",
+    getIdentifier: () => ({
+      identifierKind: IdentifierKind.Ethereum,
+      identifier: user.account.address.toLowerCase(),
+    }),
+    signMessage: async (message: string) => {
+      const signature = await user.wallet.signMessage({
+        message,
+        account: user.account,
+      });
+      return toBytes(signature);
+    },
+  };
+};
+
+/**
+ * Generate a random encryption key
+ * @returns The encryption key
+ */
+export const generateEncryptionKeyHex = () => {
+  /* Generate a random encryption key */
+  const uint8Array = getRandomValues(new Uint8Array(32));
+  /* Convert the encryption key to a hex string */
+  return toString(uint8Array, "hex");
+};
+
+/**
+ * Get the encryption key from a hex string
+ * @param hex - The hex string
+ * @returns The encryption key
+ */
+export const getEncryptionKeyFromHex = (hex: string) => {
+  /* Convert the hex string to an encryption key */
+  return fromString(hex, "hex");
+};
+```
+
+## XMTP Packages Reference
+
+```tsx
+// Client Class
+declare class Client {
+  constructor(client: Client$1, signer: Signer, codecs: ContentCodec[]);
+```
+
 ## XMTP Identifiers Reference
 
 When working with XMTP, you'll encounter several types of identifiers:
@@ -537,7 +615,7 @@ const messages = await conversation.messages();
 
 ## Key Type References
 
-```typescript
+```tsx
 // Client Class
 declare class Client {
   constructor(client: Client$1, signer: Signer, codecs: ContentCodec[]);
@@ -698,3 +776,49 @@ When working with these classes:
    - Access installation IDs through `member.installationIds`
    - Check permission level with `member.permissionLevel`
    - Verify consent state with `member.consentState`
+
+## Advanced Usage
+
+### Handling local database
+
+```jsx
+// Railway deployment support
+let volumePath = process.env.RAILWAY_VOLUME_MOUNT_PATH ?? ".data/xmtp";
+const dbPath = `${volumePath}/${signer.getAddress()}-${env}`;
+
+// Create database directory if it doesn't exist
+if (!fs.existsSync(dbPath)) {
+  fs.mkdirSync(dbPath, { recursive: true });
+}
+```
+
+### Package.js
+
+Example package.json for a project that uses XMTP:
+
+```json
+{
+  "name": "xmtp-agent",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx --watch index.ts",
+    "gen:keys": "tsx scripts/generateKeys.ts",
+    "start": "tsx index.ts"
+  },
+  "dependencies": {
+    "@xmtp/node-sdk": "1.0.2"
+    /* other dependencies */
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "packageManager": "yarn@4.6.0",
+  "engines": {
+    "node": ">=20"
+  }
+}
+```
