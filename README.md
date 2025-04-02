@@ -28,7 +28,7 @@ To run your XMTP agent, you must create a `.env` file with the following variabl
 ```bash
 WALLET_KEY= # the private key of the wallet
 ENCRYPTION_KEY= # encryption key for the local database
-XMTP_ENV= # local, dev, production
+XMTP_ENV=dev # local, dev, production
 ```
 
 You can generate random xmtp keys with the following command:
@@ -57,7 +57,7 @@ yarn dev
 
 ### Work in local network
 
-`Dev` and `production` networks are hosted by XMTP, while `local` network is hosted by yourself, so it's faster for development purposes.
+`dev` and `production` networks are hosted by XMTP, while `local` network is hosted by yourself.
 
 - 1. Install docker
 - 2. Start the XMTP service and database
