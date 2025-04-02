@@ -176,7 +176,7 @@ You're an expert in writing TypeScript with Node.js. Generate **high-quality XMT
 
 To run your XMTP agent, you must create a `.env` file with the following variables:
 
-```tsx
+```bash
 WALLET_KEY= # the private key of the wallet
 ENCRYPTION_KEY= # encryption key for the local database
 XMTP_ENV= # local, dev, production
@@ -191,7 +191,7 @@ Always use the built-in key generation command instead of creating your own scri
 yarn gen:keys
 
 # Generate keys for a specific user
-yarn gen:keys <name>
+yarn gen:keys
 ```
 
 This command will:

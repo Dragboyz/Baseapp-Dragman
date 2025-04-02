@@ -2,6 +2,18 @@
 
 This example uses the [OpenAI](https://openai.com) API for GPT-based responses and [XMTP](https://xmtp.org) for secure messaging. You can test your agent on [xmtp.chat](https://xmtp.chat) or any other XMTP-compatible client.
 
+## Getting started
+
+> [!NOTE]
+> See our [Cursor Rules](/.cursor/README.md) for XMTP Agent development standards and best practices.
+
+### Requirements
+
+- Node.js v20 or higher
+- Yarn v4 or higher
+- Docker (optional, for local network)
+- OpenAI API key
+
 ### Environment variables
 
 To run your XMTP agent, you must create a `.env` file with the following variables:
@@ -9,20 +21,20 @@ To run your XMTP agent, you must create a `.env` file with the following variabl
 ```bash
 WALLET_KEY= # the private key of the wallet
 ENCRYPTION_KEY= # encryption key for the local database
-OPENAI_API_KEY= # the API key for the OpenAI API
 XMTP_ENV= # local, dev, production
+OPENAI_API_KEY= # the API key for the OpenAI API
 ```
 
 You can generate random xmtp keys with the following command:
 
-```tsx
-yarn gen:keys <name>
+```bash
+yarn gen:keys
 ```
 
 > [!WARNING]
-> Running the `gen:keys` or `gen:keys <name>` command will append keys to your existing `.env` file.
+> Running the `gen:keys` command will append keys to your existing `.env` file.
 
-## Run the agent
+### Run the agent
 
 ```bash
 # git clone repo
