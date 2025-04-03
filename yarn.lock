@@ -227,6 +227,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@coinbase/coinbase-sdk@npm:latest":
+  version: 0.22.0
+  resolution: "@coinbase/coinbase-sdk@npm:0.22.0"
+  dependencies:
+    "@scure/bip32": "npm:^1.4.0"
+    abitype: "npm:^1.0.6"
+    axios: "npm:^1.6.8"
+    axios-mock-adapter: "npm:^1.22.0"
+    axios-retry: "npm:^4.4.1"
+    bip32: "npm:^4.0.0"
+    bip39: "npm:^3.1.0"
+    decimal.js: "npm:^10.4.3"
+    dotenv: "npm:^16.4.5"
+    ed2curve: "npm:^0.3.0"
+    ethers: "npm:^6.12.1"
+    jose: "npm:^5.10.0"
+    secp256k1: "npm:^5.0.0"
+    viem: "npm:^2.21.26"
+  checksum: 10/47f2f24d83421f95ee16eb6d6132e7082ff4b1e87be148065a6a97057b06c1f3d67fe0e0cf6839e2d6673f28e2ce6ccab249673c4f3aa0b8fe3aeb9240a1c3d8
+  languageName: node
+  linkType: hard
+
 "@esbuild/aix-ppc64@npm:0.25.2":
   version: 0.25.2
   resolution: "@esbuild/aix-ppc64@npm:0.25.2"
@@ -907,12 +929,8 @@ __metadata:
     "@langchain/langgraph": "npm:^0.2.21"
     "@langchain/openai": "npm:^0.3.14"
     "@xmtp/node-sdk": "npm:1.0.5"
-    dotenv: "npm:^16.4.5"
     tsx: "npm:^4.19.2"
     typescript: "npm:^5.7.3"
-    uint8arrays: "npm:^5.1.0"
-    viem: "npm:^2.7.15"
-    zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
@@ -969,6 +987,17 @@ __metadata:
   dependencies:
     "@xmtp/node-sdk": "npm:1.0.5"
     alchemy-sdk: "npm:^3.0.0"
+    tsx: "npm:^4.19.2"
+    typescript: "npm:^5.7.3"
+  languageName: unknown
+  linkType: soft
+
+"@examples/xmtp-smart-wallet@workspace:examples/xmtp-smart-wallet":
+  version: 0.0.0-use.local
+  resolution: "@examples/xmtp-smart-wallet@workspace:examples/xmtp-smart-wallet"
+  dependencies:
+    "@coinbase/coinbase-sdk": "npm:latest"
+    "@xmtp/node-sdk": "npm:1.0.5"
     tsx: "npm:^4.19.2"
     typescript: "npm:^5.7.3"
   languageName: unknown
@@ -5279,7 +5308,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:^2.21.26, viem@npm:^2.22.16, viem@npm:^2.22.17, viem@npm:^2.7.15":
+"viem@npm:^2.21.26, viem@npm:^2.22.16, viem@npm:^2.22.17":
   version: 2.24.3
   resolution: "viem@npm:2.24.3"
   dependencies:
