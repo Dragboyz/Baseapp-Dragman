@@ -37,7 +37,7 @@ async function main() {
 
   const identifier = await signer.getIdentifier();
   const address = identifier.identifier;
-  logAgentDetails(address, XMTP_ENV);
+  logAgentDetails(address, client.inboxId, XMTP_ENV);
 
   console.log("Waiting for messages...");
   /* Stream all messages from the network */
@@ -57,8 +57,8 @@ async function main() {
     );
 
     /* Get the conversation from the local db */
-    const conversation = client.conversations.getDmByInboxId(
-      message.senderInboxId,
+    const conversation = await client.conversations.getConversationById(
+      message.conversationId,
     );
 
     /* If the conversation is not found, skip the message */

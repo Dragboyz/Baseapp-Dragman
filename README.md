@@ -6,9 +6,9 @@ This repository contains examples of agents that use the [XMTP](https://docs.xmt
 
 - **End-to-end & compliant**: Data is encrypted in transit and at rest, meeting strict security and regulatory standards.
 - **Open-source & trustless**: Built on top of the [MLS](https://messaginglayersecurity.rocks/) protocol, it replaces trust in centralized certificate authorities with cryptographic proofs.
-- **Privacy & metadata protection**: Offers anonymous or pseudonymous usage with no tracking of sender routes, IPs, or device and message timestamps.
-- **Decentralized**: Operates on a peer-to-peer network, eliminating single points of failure.
-- **Multi-agent**: Allows multi-agent multi-human confidential communication over MLS group chats.
+- **Privacy & metadata protection**: Offers anonymous usage through SDKs and pseudonymous usage with nodes tracking minimum metadata.
+- **Decentralized**: Operates on a peer-to-peer network, eliminating single points of failure and ensuring continued operation even if some nodes go offline.
+- **Multi-agent**: Allows confidential communication between multiple agents and humans through MLS group chats.
 
 ## Getting started
 
@@ -71,6 +71,10 @@ yarn dev
 ```bash
 XMTP_ENV = local
 ```
+
+### Deployment
+
+- [Railway](/guides/RAILWAY.md)
 
 ## Basic usage
 

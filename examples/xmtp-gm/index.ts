@@ -23,7 +23,7 @@ async function main() {
 
   const identifier = await signer.getIdentifier();
   const address = identifier.identifier;
-  logAgentDetails(address, XMTP_ENV);
+  logAgentDetails(address, client.inboxId, XMTP_ENV);
 
   console.log("✓ Syncing conversations...");
   await client.conversations.sync();
@@ -39,8 +39,8 @@ async function main() {
       continue;
     }
 
-    const conversation = client.conversations.getDmByInboxId(
-      message.senderInboxId,
+    const conversation = await client.conversations.getConversationById(
+      message.conversationId,
     );
 
     if (!conversation) {
