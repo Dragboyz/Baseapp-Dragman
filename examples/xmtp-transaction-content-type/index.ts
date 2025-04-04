@@ -1,51 +1,40 @@
-import "dotenv/config";
-import { createSigner, getEncryptionKeyFromHex } from "@helpers";
+import { createSigner, getEncryptionKeyFromHex } from "@helpers/client";
+import { createUSDCTransferCalls, getUSDCBalance } from "@helpers/usdc";
+import { logAgentDetails, validateEnvironment } from "@helpers/utils";
 import { TransactionReferenceCodec } from "@xmtp/content-type-transaction-reference";
 import {
   ContentTypeWalletSendCalls,
   WalletSendCallsCodec,
 } from "@xmtp/content-type-wallet-send-calls";
 import { Client, type XmtpEnv } from "@xmtp/node-sdk";
-import { createUSDCTransferCalls, getUSDCBalance } from "./helper";
 
 /* Get the wallet key associated to the public key of
  * the agent and the encryption key for the local db
  * that stores your agent's messages */
-const { WALLET_KEY, ENCRYPTION_KEY } = process.env;
-
-if (!WALLET_KEY) {
-  throw new Error("WALLET_KEY must be set");
-}
-
-if (!ENCRYPTION_KEY) {
-  throw new Error("ENCRYPTION_KEY must be set");
-}
+const { WALLET_KEY, ENCRYPTION_KEY, XMTP_ENV } = validateEnvironment([
+  "WALLET_KEY",
+  "ENCRYPTION_KEY",
+  "XMTP_ENV",
+]);
 
 /* Create the signer using viem and parse the encryption key for the local db */
 const signer = createSigner(WALLET_KEY);
 const encryptionKey = getEncryptionKeyFromHex(ENCRYPTION_KEY);
 
-/* Set the environment to local, dev or production */
-const env: XmtpEnv = process.env.XMTP_ENV as XmtpEnv;
-
 async function main() {
-  console.log("Starting transaction agent...");
-  console.log(`Creating client on the '${env}' network...`);
   /* Initialize the xmtp client */
   const client = await Client.create(signer, encryptionKey, {
-    env,
+    env: XMTP_ENV as XmtpEnv,
     codecs: [new WalletSendCallsCodec(), new TransactionReferenceCodec()],
   });
 
-  console.log("Syncing conversations...");
-  /* Sync the conversations from the network to update the local db */
-  await client.conversations.sync();
-
   const identifier = await signer.getIdentifier();
   const agentAddress = identifier.identifier;
-  console.log(
-    `Agent initialized on ${agentAddress}\nSend a message on http://xmtp.chat/dm/${agentAddress}?env=${env}`,
-  );
+  logAgentDetails(agentAddress, client.inboxId, XMTP_ENV);
+
+  /* Sync the conversations from the network to update the local db */
+  console.log("✓ Syncing conversations...");
+  await client.conversations.sync();
 
   console.log("Waiting for messages...");
   /* Stream all messages from the network */
@@ -88,8 +77,9 @@ async function main() {
 
     try {
       if (command === "/balance") {
-        const balance = await getUSDCBalance(agentAddress);
-        await conversation.send(`Your USDC balance is: ${balance} USDC`);
+        const result = await getUSDCBalance(agentAddress);
+
+        await conversation.send(`Your USDC balance is: ${result} USDC`);
       } else if (command.startsWith("/tx ")) {
         const amount = parseFloat(command.split(" ")[1]);
         if (isNaN(amount) || amount <= 0) {

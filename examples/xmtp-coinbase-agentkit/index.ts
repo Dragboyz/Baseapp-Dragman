@@ -8,13 +8,18 @@ import {
   walletActionProvider,
 } from "@coinbase/agentkit";
 import { getLangChainTools } from "@coinbase/agentkit-langchain";
-import { createSigner, getEncryptionKeyFromHex } from "@helpers";
+import { createSigner, getEncryptionKeyFromHex } from "@helpers/client";
+import { logAgentDetails, validateEnvironment } from "@helpers/utils";
 import { HumanMessage } from "@langchain/core/messages";
 import { MemorySaver } from "@langchain/langgraph";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import { ChatOpenAI } from "@langchain/openai";
-import { logAgentDetails, validateEnvironment } from "@utils";
-import { Client, type DecodedMessage, type XmtpEnv } from "@xmtp/node-sdk";
+import {
+  Client,
+  type Conversation,
+  type DecodedMessage,
+  type XmtpEnv,
+} from "@xmtp/node-sdk";
 
 const {
   WALLET_KEY,
@@ -33,7 +38,8 @@ const {
 ]);
 
 // Storage constants
-const XMTP_STORAGE_DIR = ".data/";
+const XMTP_STORAGE_DIR = ".data/xmtp";
+const WALLET_STORAGE_DIR = ".data/wallet";
 
 // Global stores for memory and agent instances
 const memoryStore: Record<string, MemorySaver> = {};
@@ -54,6 +60,9 @@ function ensureLocalStorage() {
   if (!fs.existsSync(XMTP_STORAGE_DIR)) {
     fs.mkdirSync(XMTP_STORAGE_DIR, { recursive: true });
   }
+  if (!fs.existsSync(WALLET_STORAGE_DIR)) {
+    fs.mkdirSync(WALLET_STORAGE_DIR, { recursive: true });
+  }
 }
 
 /**
@@ -63,9 +72,12 @@ function ensureLocalStorage() {
  * @param walletData - The wallet data to be saved
  */
 function saveWalletData(userId: string, walletData: string) {
-  const localFilePath = `${XMTP_STORAGE_DIR}/${userId}.json`;
+  const localFilePath = `${WALLET_STORAGE_DIR}/${userId}.json`;
   try {
-    fs.writeFileSync(localFilePath, walletData);
+    if (!fs.existsSync(localFilePath)) {
+      console.log(`Wallet data saved for user ${userId}`);
+      fs.writeFileSync(localFilePath, walletData);
+    }
   } catch (error) {
     console.error(`Failed to save wallet data to file: ${error as string}`);
   }
@@ -78,7 +90,7 @@ function saveWalletData(userId: string, walletData: string) {
  * @returns The wallet data as a string, or null if not found
  */
 function getWalletData(userId: string): string | null {
-  const localFilePath = `${XMTP_STORAGE_DIR}/${userId}.json`;
+  const localFilePath = `${WALLET_STORAGE_DIR}/${userId}.json`;
   try {
     if (fs.existsSync(localFilePath)) {
       return fs.readFileSync(localFilePath, "utf8");
@@ -97,18 +109,19 @@ async function initializeXmtpClient() {
   const signer = createSigner(WALLET_KEY);
   const encryptionKey = getEncryptionKeyFromHex(ENCRYPTION_KEY);
 
-  console.log(`Creating XMTP client on the '${XMTP_ENV}' network...`);
-  const client = await Client.create(signer, encryptionKey, {
-    env: XMTP_ENV as XmtpEnv,
-  });
-
-  console.log("Syncing conversations...");
-  await client.conversations.sync();
-
   const identifier = await signer.getIdentifier();
   const address = identifier.identifier;
 
+  const client = await Client.create(signer, encryptionKey, {
+    env: XMTP_ENV as XmtpEnv,
+    dbPath: XMTP_STORAGE_DIR + `/${XMTP_ENV}-${address}`,
+  });
+
   logAgentDetails(address, client.inboxId, XMTP_ENV);
+
+  /* Sync the conversations from the network to update the local db */
+  console.log("✓ Syncing conversations...");
+  await client.conversations.sync();
 
   return client;
 }
@@ -123,9 +136,6 @@ async function initializeAgent(
   userId: string,
 ): Promise<{ agent: Agent; config: AgentConfig }> {
   try {
-    // Always create a new agent for each user
-    console.log(`Creating new agent for user: ${userId}`);
-
     const llm = new ChatOpenAI({
       model: "gpt-4o-mini",
     });
@@ -162,8 +172,6 @@ async function initializeAgent(
 
     const tools = await getLangChainTools(agentkit);
 
-    // Always create a new memory store for each user
-    console.log(`Creating new memory store for user: ${userId}`);
     memoryStore[userId] = new MemorySaver();
 
     const agentConfig: AgentConfig = {
@@ -182,18 +190,14 @@ async function initializeAgent(
         1. Always check the wallet details first to see what network you're on
         2. If on base-sepolia testnet, you can request funds from the faucet if needed
         3. For mainnet operations, provide wallet details and request funds from the user
+        4. If the user doesn't have any funds, ask them to deposit on your wallet address
 
-        Your default network is Base Sepolia testnet.
-        Your main and only token for transactions is USDC. Token address is 0x036CbD53842c5426634e7929541eC2318f3dCF7e. USDC is gasless on Base.
+        IMPORTANT:
+        Your default network is Base Sepolia testnet. Your main and only token for transactions is USDC. Token address is 0x036CbD53842c5426634e7929541eC2318f3dCF7e. USDC is gasless on Base.
 
-        You can only perform payment and wallet-related tasks. For other requests, politely explain that you're 
-        specialized in processing payments and can't assist with other tasks.
-                
-        If you encounter an error:
-        - For 5XX errors: Ask the user to try again later
-        - For other errors: Provide clear troubleshooting advice and offer to retry
         
-        Be concise, helpful, and security-focused in all your interactions.
+        Be concise, helpful, and security-focused in all your interactions. You can only perform payment and wallet-related tasks. For other requests, politely explain that you're 
+        specialized in processing payments and can't assist with other tasks.
       `,
     });
 
@@ -202,7 +206,6 @@ async function initializeAgent(
     const exportedWallet = await walletProvider.exportWallet();
     const walletDataJson = JSON.stringify(exportedWallet);
     saveWalletData(userId, walletDataJson);
-    console.log(`Wallet data saved for user ${userId}`);
 
     return { agent, config: agentConfig };
   } catch (error) {
@@ -255,11 +258,11 @@ async function processMessage(
  * @param client - The XMTP client instance
  */
 async function handleMessage(message: DecodedMessage, client: Client) {
+  let conversation: Conversation | null = null;
   try {
     const senderAddress = message.senderInboxId;
     const botAddress = client.inboxId.toLowerCase();
 
-    console.log(`Received message from ${senderAddress}: ${message.content}`);
     // Ignore messages from the bot itself
     if (senderAddress.toLowerCase() === botAddress) {
       return;
@@ -275,31 +278,23 @@ async function handleMessage(message: DecodedMessage, client: Client) {
     );
 
     // Get the conversation and send response
-    const conversation = await client.conversations.getConversationById(
+    conversation = (await client.conversations.getConversationById(
       message.conversationId,
-    );
+    )) as Conversation | null;
     if (!conversation) {
       throw new Error(
         `Could not find conversation for ID: ${message.conversationId}`,
       );
     }
     await conversation.send(response);
-    console.log(`Sent response to ${senderAddress}: ${response}`);
+    console.debug(`Sent response to ${senderAddress}: ${response}`);
   } catch (error) {
     console.error("Error handling message:", error);
-    // Send error message back to user
-    const conversation = await client.conversations.getConversationById(
-      message.conversationId,
-    );
-    if (!conversation) {
-      console.error(
-        `Could not find conversation for ID: ${message.conversationId}`,
+    if (conversation) {
+      await conversation.send(
+        "I encountered an error while processing your request. Please try again later.",
       );
-      return;
     }
-    await conversation.send(
-      "I encountered an error while processing your request. Please try again later.",
-    );
   }
 }
 
@@ -324,14 +319,6 @@ async function startMessageListener(client: Client) {
 async function main(): Promise<void> {
   console.log("Initializing Agent on XMTP...");
 
-  validateEnvironment([
-    "OPENAI_API_KEY",
-    "CDP_API_KEY_NAME",
-    "CDP_API_KEY_PRIVATE_KEY",
-    "WALLET_KEY",
-    "ENCRYPTION_KEY",
-    "XMTP_ENV",
-  ]);
   ensureLocalStorage();
 
   const xmtpClient = await initializeXmtpClient();

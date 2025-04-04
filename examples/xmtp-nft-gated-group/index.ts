@@ -1,5 +1,5 @@
-import { createSigner, getEncryptionKeyFromHex } from "@helpers";
-import { logAgentDetails, validateEnvironment } from "@utils";
+import { createSigner, getEncryptionKeyFromHex } from "@helpers/client";
+import { logAgentDetails, validateEnvironment } from "@helpers/utils";
 import {
   Client,
   IdentifierKind,
@@ -34,7 +34,7 @@ async function main() {
     env: XMTP_ENV as XmtpEnv,
   });
 
-  console.log("Syncing conversations...");
+  console.log("✓ Syncing conversations...");
   await client.conversations.sync();
 
   const identifier = await signer.getIdentifier();

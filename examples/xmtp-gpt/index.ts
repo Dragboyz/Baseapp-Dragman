@@ -1,5 +1,5 @@
-import { createSigner, getEncryptionKeyFromHex } from "@helpers";
-import { logAgentDetails, validateEnvironment } from "@utils";
+import { createSigner, getEncryptionKeyFromHex } from "@helpers/client";
+import { logAgentDetails, validateEnvironment } from "@helpers/utils";
 import { Client, type XmtpEnv } from "@xmtp/node-sdk";
 import OpenAI from "openai";
 
@@ -30,13 +30,13 @@ async function main() {
     env: XMTP_ENV as XmtpEnv,
   });
 
-  console.log("Syncing conversations...");
-  /* Sync the conversations from the network to update the local db */
-  await client.conversations.sync();
-
   const identifier = await signer.getIdentifier();
   const address = identifier.identifier;
   logAgentDetails(address, client.inboxId, XMTP_ENV);
+
+  /* Sync the conversations from the network to update the local db */
+  console.log("✓ Syncing conversations...");
+  await client.conversations.sync();
 
   console.log("Waiting for messages...");
   /* Stream all messages from the network */

@@ -70,7 +70,7 @@ You're an expert in writing TypeScript with Node.js. Generate **high-quality XMT
 
     ```typescript
     // CORRECT:
-    import { createSigner, getEncryptionKeyFromHex } from "@helpers";
+    import { createSigner, getEncryptionKeyFromHex } from "@helpers/client";
 
     // INCORRECT:
     import { createSigner, getEncryptionKeyFromHex } from "./helpers";
@@ -228,7 +228,7 @@ ENCRYPTION_KEY_ALICE=...
 ### Solution:
 
 ```typescript
-import { createSigner, getEncryptionKeyFromHex } from "@helpers";
+import { createSigner, getEncryptionKeyFromHex } from "@helpers/client";
 import { Client, IdentifierKind, type XmtpEnv } from "@xmtp/node-sdk";
 
 // Environment variables validation
@@ -248,15 +248,16 @@ const env: XmtpEnv = process.env.XMTP_ENV as XmtpEnv;
 async function main() {
   const client = await Client.create(signer, encryptionKey, { env });
 
-  console.log("Syncing conversations...");
-  await client.conversations.sync();
-
   // Log connection details
   const identifier = await signer.getIdentifier();
   const address = identifier.identifier;
   console.log(
     `Group Creator Agent initialized on ${address}\nSend a message on http://xmtp.chat/dm/${address}?env=${env}`,
   );
+
+  console.log("✓ Syncing conversations...");
+  /* Sync the conversations from the network to update the local db */
+  await client.conversations.sync();
 
   // Start listening for messages
   console.log("Waiting for messages...");
