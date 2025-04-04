@@ -1,4 +1,4 @@
-# Transaction agent example
+# Transaction Content Type example
 
 This example uses 2 content types related to transaction requests and receipts.
 
@@ -106,10 +106,4 @@ Once you have a transaction reference, you can send it as part of your conversat
 
 ```tsx
 await conversation.messages.send(walletSendCalls, ContentTypeWalletSendCalls);
-```
-
-### Receive a transaction receipt
-
-```tsx
-const receipt = await conversation.messages.receive();
 ```
