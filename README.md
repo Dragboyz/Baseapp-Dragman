@@ -74,7 +74,7 @@ XMTP_ENV = local
 
 ### Deployment
 
-- [Railway](/guides/RAILWAY.md)
+We have a guide for deploying the agent on [Railway](https://github.com/ephemeraHQ/xmtp-agent-examples/discussions/77).
 
 ## Basic usage
 
