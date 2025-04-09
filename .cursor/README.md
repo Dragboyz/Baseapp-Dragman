@@ -256,7 +256,7 @@ You're an expert in writing TypeScript with Node.js. Generate **high-quality XMT
     ```json
     {
       "dependencies": {
-        "@xmtp/node-sdk": "1.0.5"
+        "@xmtp/node-sdk": "1.1.1"
         /* other dependencies */
       }
     }
@@ -303,7 +303,7 @@ You're an expert in writing TypeScript with Node.js. Generate **high-quality XMT
         "start": "tsx index.ts"
       },
       "dependencies": {
-        "@xmtp/node-sdk": "1.0.5"
+        "@xmtp/node-sdk": "1.1.1"
       },
       "devDependencies": {
         "tsx": "^4.19.2",
@@ -487,13 +487,7 @@ async function main() {
   }
 }
 
-main().catch((error: unknown) => {
-  console.error(
-    "Unhandled error:",
-    error instanceof Error ? error.message : String(error),
-  );
-  process.exit(1);
-});
+main().catch(console.error);
 ```
 
 ## XMTP Helper Functions
