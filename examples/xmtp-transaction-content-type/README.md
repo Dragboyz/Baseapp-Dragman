@@ -31,10 +31,7 @@ ENCRYPTION_KEY= # the encryption key for the wallet
 # public key is
 
 NETWORK_ID=base-sepolia # base-mainnet or others
-OPENAI_API_KEY= # the OpenAI API key
-CDP_API_KEY_NAME= # the name of the CDP API key
-CDP_API_KEY_PRIVATE_KEY= # the private key for the CDP API key
-XMTP_ENV=local # local, dev, production
+XMTP_ENV=dev # local, dev, production
 ```
 
 You can generate random xmtp keys with the following command:
@@ -82,7 +79,7 @@ With XMTP, a transaction request is represented using wallet_sendCalls RPC speci
 const walletSendCalls: WalletSendCallsParams = {
   version: "1.0",
   from: address as `0x${string}`,
-  chainId: "0x2105",
+  chainId: toHex(84532), // Base Sepolia
   calls: [
     {
       to: "0x789...cba",
@@ -93,17 +90,39 @@ const walletSendCalls: WalletSendCallsParams = {
         currency: "USDC",
         amount: 10000000,
         decimals: 6,
-        platform: "base-sepolia",
+        networkId: "base-sepolia",
       },
     },
   ],
 };
 ```
 
-### Send a transaction request
-
 Once you have a transaction reference, you can send it as part of your conversation:
 
 ```tsx
 await conversation.messages.send(walletSendCalls, ContentTypeWalletSendCalls);
+```
+
+### Supported networks
+
+All eth networks are supported.This example covers Base Sepolia and Base Mainnet.
+
+```tsx
+// Configuration constants
+const networks = [
+  {
+    tokenAddress: "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+    chainId: toHex(84532), // Base Sepolia network ID (84532 in hex)
+    decimals: 6,
+    networkName: "Base Sepolia",
+    networkId: "base-sepolia",
+  },
+  {
+    tokenAddress: "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+    chainId: toHex(8453), // Base Mainnet network ID (8453 in hex)
+    decimals: 6,
+    networkName: "Base Mainnet",
+    networkId: "base-mainnet",
+  },
+];
 ```
