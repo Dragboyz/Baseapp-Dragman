@@ -50,38 +50,55 @@ yarn dev
 
 ## Usage
 
-Cancelling a stream will restart it.
+### Automatic retry logic
+
+This example implements a robust retry mechanism with configurable parameters:
 
 ```tsx
-const streamPromise = client.conversations.streamAllMessages();
-const stream = await streamPromise;
+const MAX_RETRIES = 6; // 6 times
+const RETRY_DELAY_MS = 10000; // 10 seconds
 
-stream.onError = (error) => {
-  console.error("Stream error:", error);
-};
-stream.onReturn = () => {
-  console.log("Stream returned");
-};
-console.log("Waiting for messages...");
-const result = await stream.return(undefined);
-console.log("Stream returned", result);
-```
+// Helper function to pause execution
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-Wrap the stream in a promise and return it to restart the stream.
+let retryCount = 0;
 
-```tsx
-while (true) {
+while (retryCount < MAX_RETRIES) {
   try {
-    console.log("Starting message stream...");
+    console.log(
+      `Starting message stream... (attempt ${retryCount + 1}/${MAX_RETRIES})`,
+    );
     const streamPromise = client.conversations.streamAllMessages();
     const stream = await streamPromise;
 
     console.log("Waiting for messages...");
     for await (const message of stream) {
-      // handle message
+      // Process messages here
     }
+
+    // If we get here without an error, reset the retry count
+    retryCount = 0;
   } catch (error) {
-    console.error("Stream error:", error);
+    retryCount++;
+    console.debug(error);
+    if (retryCount < MAX_RETRIES) {
+      console.log(`Waiting ${RETRY_DELAY_MS / 1000} seconds before retry...`);
+      await sleep(RETRY_DELAY_MS);
+    } else {
+      console.log("Maximum retry attempts reached. Exiting.");
+    }
   }
 }
+```
+
+#### External stream restart (optional)
+
+Cancelling a stream will restart it.
+
+```tsx
+const streamPromise = client.conversations.streamAllMessages();
+const stream = await streamPromise;
+console.log("Waiting for messages...");
+const result = await stream.return(undefined);
+console.log("Stream returned", result);
 ```
