@@ -20,8 +20,7 @@
     "types": ["node"],
     "paths": {
       "@helpers/client": ["./helpers/client.ts"],
-      "@helpers/utils": ["./helpers/utils.ts"],
-      "@helpers/usdc": ["./helpers/usdc.ts"]
+      "@helpers/utils": ["./helpers/utils.ts"]
     }
   },
   "include": ["**/*.ts"]

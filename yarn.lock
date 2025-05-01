@@ -910,6 +910,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@examples/xmtp-deployment-example@workspace:examples/xmtp-deployment-example":
+  version: 0.0.0-use.local
+  resolution: "@examples/xmtp-deployment-example@workspace:examples/xmtp-deployment-example"
+  dependencies:
+    "@xmtp/node-sdk": "npm:*"
+    tsx: "npm:*"
+    typescript: "npm:*"
+  languageName: unknown
+  linkType: soft
+
 "@examples/xmtp-gaia@workspace:examples/xmtp-gaia":
   version: 0.0.0-use.local
   resolution: "@examples/xmtp-gaia@workspace:examples/xmtp-gaia"
@@ -942,16 +952,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@examples/xmtp-multiple-clients@workspace:examples/xmtp-multiple-clients":
-  version: 0.0.0-use.local
-  resolution: "@examples/xmtp-multiple-clients@workspace:examples/xmtp-multiple-clients"
-  dependencies:
-    "@xmtp/node-sdk": "npm:*"
-    tsx: "npm:*"
-    typescript: "npm:*"
-  languageName: unknown
-  linkType: soft
-
 "@examples/xmtp-nft-gated-group@workspace:examples/xmtp-nft-gated-group":
   version: 0.0.0-use.local
   resolution: "@examples/xmtp-nft-gated-group@workspace:examples/xmtp-nft-gated-group"
@@ -978,16 +978,6 @@ __metadata:
   resolution: "@examples/xmtp-smart-wallet@workspace:examples/xmtp-smart-wallet"
   dependencies:
     "@coinbase/coinbase-sdk": "npm:^0.22.0"
-    "@xmtp/node-sdk": "npm:*"
-    tsx: "npm:*"
-    typescript: "npm:*"
-  languageName: unknown
-  linkType: soft
-
-"@examples/xmtp-stream-restart@workspace:examples/xmtp-stream-restart":
-  version: 0.0.0-use.local
-  resolution: "@examples/xmtp-stream-restart@workspace:examples/xmtp-stream-restart"
-  dependencies:
     "@xmtp/node-sdk": "npm:*"
     tsx: "npm:*"
     typescript: "npm:*"
@@ -2051,23 +2041,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xmtp/node-bindings@npm:1.1.6":
-  version: 1.1.6
-  resolution: "@xmtp/node-bindings@npm:1.1.6"
-  checksum: 10/8eb5991da04a38fdde053d8f54d8cf2c03b0edfa30aded13e4c277e910cd95009ca48835e437f808624e19c8702d3171a010db05a25bf310c956f4681c14f90a
+"@xmtp/node-bindings@npm:1.1.8":
+  version: 1.1.8
+  resolution: "@xmtp/node-bindings@npm:1.1.8"
+  checksum: 10/24e4bbbaaeb7717b74fc6984823d571805547bedff04092ad0a13b144142ca700ce8d664fa6a2790cf9c62117b5a8cf7c2b6299dd69c285e06368a08d4d115c2
   languageName: node
   linkType: hard
 
-"@xmtp/node-sdk@npm:2.0.7":
-  version: 2.0.7
-  resolution: "@xmtp/node-sdk@npm:2.0.7"
+"@xmtp/node-sdk@npm:2.0.8":
+  version: 2.0.8
+  resolution: "@xmtp/node-sdk@npm:2.0.8"
   dependencies:
     "@xmtp/content-type-group-updated": "npm:^2.0.2"
     "@xmtp/content-type-primitives": "npm:^2.0.2"
     "@xmtp/content-type-text": "npm:^2.0.2"
-    "@xmtp/node-bindings": "npm:1.1.6"
+    "@xmtp/node-bindings": "npm:1.1.8"
     "@xmtp/proto": "npm:^3.78.0"
-  checksum: 10/7ace1b97165ddc42edf8e4ba24404912391c692f55bfbcaa4d367e83a8d78d1e4056c5cda4fc5d376b3c7da4cd6a169d47713e5c70dee4fe6ea2346c74663193
+  checksum: 10/cc76d8eab8094ba9f67d08244b2f2ee2a9b790631d696f7c688c830193ff4a51a177290dd23a2e483711d1933a1fe97f14c194cc1b65726a6935790ed05c3956
   languageName: node
   linkType: hard
 
@@ -5685,7 +5675,7 @@ __metadata:
     "@ianvs/prettier-plugin-sort-imports": "npm:^4.4.1"
     "@types/eslint__js": "npm:^8.42.3"
     "@types/node": "npm:^22.13.0"
-    "@xmtp/node-sdk": "npm:^2.0.7"
+    "@xmtp/node-sdk": "npm:2.0.8"
     eslint: "npm:^9.19.0"
     eslint-config-prettier: "npm:^10.0.1"
     eslint-plugin-prettier: "npm:^5.2.3"
