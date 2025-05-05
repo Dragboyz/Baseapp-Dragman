@@ -1,5 +1,6 @@
 import {
   createSigner,
+  generateEncryptionKeyHex,
   getDbPath,
   getEncryptionKeyFromHex,
 } from "@helpers/client";
@@ -21,7 +22,7 @@ interface AgentOptions {
   /** Whether to accept group conversations */
   acceptGroups?: boolean;
   /** Encryption key for the client */
-  encryptionKey: string;
+  encryptionKey?: string;
   /** Networks to connect to (default: ['dev', 'production']) */
   networks?: string[];
   /** Public key of the agent */
@@ -48,6 +49,8 @@ type MessageHandler = (
   isDm: boolean,
 ) => Promise<void> | void;
 
+const XMTP_ENV = process.env.XMTP_ENV ?? "dev";
+
 // Constants
 const MAX_RETRIES = 6;
 const RETRY_DELAY_MS = 2000;
@@ -59,7 +62,7 @@ const DEFAULT_AGENT_OPTIONS: AgentOptions[] = [
     publicKey: "",
     acceptGroups: false,
     acceptTypes: ["text"],
-    networks: ["dev", "production"],
+    networks: [XMTP_ENV as XmtpEnv],
     connectionTimeout: 30000,
     autoReconnect: true,
   },
@@ -85,7 +88,7 @@ export const initializeClient = async (
     options: AgentOptions,
     onActivity?: () => void,
   ): Promise<void> => {
-    const env = client.options?.env ?? "undefined";
+    const env = client.options?.env ?? (XMTP_ENV as XmtpEnv);
     let retryCount = 0;
     const acceptTypes = options.acceptTypes || ["text"];
     let backoffTime = RETRY_DELAY_MS;
@@ -284,20 +287,24 @@ export const initializeClient = async (
   const streamPromises: Promise<void>[] = [];
 
   for (const option of options) {
-    for (const env of option.networks ?? ["dev", "production"]) {
+    for (const env of option.networks ?? [XMTP_ENV]) {
       try {
         console.log(`[${env}] Initializing client...`);
 
         const signer = createSigner(option.walletKey);
-        const dbEncryptionKey = getEncryptionKeyFromHex(option.encryptionKey);
+        const dbEncryptionKey = getEncryptionKeyFromHex(
+          option.encryptionKey ??
+            process.env.ENCRYPTION_KEY ??
+            generateEncryptionKeyHex(),
+        );
         const loggingLevel = (process.env.LOGGING_LEVEL ?? "off") as LogLevel;
         const signerIdentifier = (await signer.getIdentifier()).identifier;
 
         const client = await Client.create(signer, {
           dbEncryptionKey,
-          env: env as XmtpEnv,
+          env: XMTP_ENV as XmtpEnv,
           loggingLevel,
-          dbPath: getDbPath(`${env}-${signerIdentifier}`),
+          dbPath: getDbPath(`${XMTP_ENV}-${signerIdentifier}`),
           codecs: option.codecs,
         });
 
@@ -337,11 +344,12 @@ export const initializeClient = async (
   await Promise.all(streamPromises);
   return clients;
 };
+
 export const logAgentDetails = (clients: Client[]): void => {
   const clientsByAddress = clients.reduce<Record<string, Client[]>>(
     (acc, client) => {
       const address = client.accountIdentifier?.identifier ?? "";
-      if (!acc[address]) acc[address] = [];
+      acc[address] = acc[address] ?? [];
       acc[address].push(client);
       return acc;
     },
@@ -354,16 +362,16 @@ export const logAgentDetails = (clients: Client[]): void => {
     const environments = clientGroup
       .map((c) => c.options?.env ?? "dev")
       .join(", ");
+    console.log(`\x1b[38;2;252;76;52m
+        ██╗  ██╗███╗   ███╗████████╗██████╗ 
+        ╚██╗██╔╝████╗ ████║╚══██╔══╝██╔══██╗
+         ╚███╔╝ ██╔████╔██║   ██║   ██████╔╝
+         ██╔██╗ ██║╚██╔╝██║   ██║   ██╔═══╝ 
+        ██╔╝ ██╗██║ ╚═╝ ██║   ██║   ██║     
+        ╚═╝  ╚═╝╚═╝     ╚═╝   ╚═╝   ╚═╝     
+      \x1b[0m`);
 
-    const urls = [
-      `http://xmtp.chat/dm/${address}`,
-      ...(environments.includes("dev")
-        ? [`https://preview.convos.org/dm/${inboxId}`]
-        : []),
-      ...(environments.includes("production")
-        ? [`https://convos.org/dm/${inboxId}`]
-        : []),
-    ];
+    const urls = [`http://xmtp.chat/dm/${address}`];
 
     console.log(`
     ✓ XMTP Client:
