@@ -13,6 +13,7 @@ This repository contains examples of agents that use the [XMTP](https://docs.xmt
 ## Getting started
 
 > [!TIP]
+> See the video [here](https://youtu.be/djRLnWUvwIA) for a quickstart guide.
 > See XMTP's [cursor rules](/.cursor/README.md) for vibe coding agents and best practices.
 
 ### Requirements
@@ -126,7 +127,6 @@ This examples are outside of this monorepo and showcase how to use and deploy XM
 
 - [gm-bot](https://github.com/xmtp/gm-bot): Simple standalone agent that replies to all messages with "gm"
 - [xmtp-mini-app](https://github.com/ephemeraHQ/xmtp-mini-app): A simple mini app that interacts with a group
-- [xmtp-group-toss](https://github.com/ephemeraHQ/xmtp-group-toss/): Agent that uses a group to toss a coin
 
 ## Web inbox
 

@@ -34,10 +34,8 @@ interface AgentOptions {
   connectionTimeout?: number;
   /** Whether to auto-reconnect on fatal errors (default: true) */
   autoReconnect?: boolean;
-  /** Welcome message to send to the conversation */
-  welcomeMessage?: string;
   /** Codecs to use */
-  codecs?: any[];
+  codecs?: [];
 }
 
 /**
@@ -63,7 +61,6 @@ const DEFAULT_AGENT_OPTIONS: AgentOptions = {
   networks: process.env.XMTP_ENV ? [process.env.XMTP_ENV] : ["dev"],
   connectionTimeout: 30000,
   autoReconnect: true,
-  welcomeMessage: "",
   codecs: [],
 };
 
@@ -142,17 +139,6 @@ export const initializeClient = async (
             );
 
             const isDm = conversation instanceof Dm;
-            if (options.welcomeMessage && isDm) {
-              const sent = await sendWelcomeMessage(
-                client,
-                conversation,
-                options.welcomeMessage,
-              );
-              if (sent) {
-                console.log(`[${env}] Welcome message sent, skipping`);
-                continue;
-              }
-            }
 
             if (isDm || options.acceptGroups) {
               try {
@@ -304,7 +290,7 @@ export const initializeClient = async (
           env: env as XmtpEnv,
           loggingLevel,
           dbPath: getDbPath(`${env}-${signerIdentifier}`),
-          codecs: option.codecs ?? [],
+          codecs: option.codecs || [],
         });
 
         await client.conversations.sync();
@@ -338,29 +324,8 @@ export const initializeClient = async (
     }
   }
 
-  logAgentDetails(clients);
+  void logAgentDetails(clients);
 
   await Promise.all(streamPromises);
   return clients;
-};
-
-export const sendWelcomeMessage = async (
-  client: Client,
-  conversation: Conversation,
-  welcomeMessage: string,
-) => {
-  // Get all messages from this conversation
-  await conversation.sync();
-  const messages = await conversation.messages();
-  // Check if we have sent any messages in this conversation before
-  const sentMessagesBefore = messages.filter(
-    (msg) => msg.senderInboxId.toLowerCase() === client.inboxId.toLowerCase(),
-  );
-  // If we haven't sent any messages before, send a welcome message and skip validation for this message
-  if (sentMessagesBefore.length === 0) {
-    console.log(`Sending welcome message`);
-    await conversation.send(welcomeMessage);
-    return true;
-  }
-  return false;
 };
