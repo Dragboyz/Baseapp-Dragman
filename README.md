@@ -86,19 +86,22 @@ These are the steps to initialize the XMTP listener and send messages.
 ```tsx
 // import the xmtp sdk
 import { Client, type XmtpEnv, type Signer } from "@xmtp/node-sdk";
+
 // encryption key, must be consistent across runs
 const encryptionKey: Uint8Array = ...;
 const signer: Signer = ...;
 const env: XmtpEnv = "dev";
+
 // create the client
 const client = await Client.create(signer, encryptionKey, { env });
 await client.conversations.sync();
 const stream = await client.conversations.streamAllMessages();
+
+// listen to all messages
 for await (const message of  stream) {
   // ignore messages from the agent
-  if (message?.senderInboxId === client.inboxId ) {
-    continue;
-  }
+  if (message?.senderInboxId === client.inboxId ) continue;
+  // get the conversation by id
   const conversation = await client.conversations.getConversationById(message.conversationId);
   // send a message from the agent
   await conversation.send("gm");
@@ -145,7 +148,3 @@ This examples are outside of this monorepo and showcase how to use and deploy XM
 Interact with the XMTP network using [xmtp.chat](https://xmtp.chat), the official web inbox for developers.
 
 ![](/examples/xmtp-gm/screenshot.png)
-
-```
-
-```
