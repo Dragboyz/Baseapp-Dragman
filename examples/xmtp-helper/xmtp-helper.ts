@@ -5,6 +5,10 @@ import {
 } from "@helpers/client";
 import { Client, type DecodedMessage, type XmtpEnv } from "@xmtp/node-sdk";
 
+// Constants for retry mechanism
+const MAX_RETRIES = 5;
+const RETRY_INTERVAL = 5000; // 5 seconds
+
 export interface XmtpConfig {
   walletKey: string;
   encryptionKey: string;
@@ -25,6 +29,7 @@ export type MessageHandler = (
 export class XmtpHelper {
   private client?: Client;
   private config: XmtpConfig;
+  private retries: number = MAX_RETRIES;
 
   constructor(config: XmtpConfig) {
     this.config = config;
@@ -60,9 +65,6 @@ export class XmtpHelper {
     });
 
     void logAgentDetails(this.client);
-
-    console.log("✓ Syncing conversations...");
-    await this.client.conversations.sync();
   }
 
   /**
@@ -76,15 +78,52 @@ export class XmtpHelper {
   }
 
   /**
-   * Start listening for messages and process them with the provided handler
+   * Retry mechanism for stream handling
    */
-  async startMessageStream(messageHandler: MessageHandler): Promise<void> {
+  private retry(messageHandler: MessageHandler): void {
+    console.log(
+      `Retrying in ${RETRY_INTERVAL / 1000}s, ${this.retries} retries left`,
+    );
+    if (this.retries > 0) {
+      this.retries--;
+      setTimeout(() => {
+        void this.handleStream(messageHandler);
+      }, RETRY_INTERVAL);
+    } else {
+      console.log("Max retries reached, ending process");
+      process.exit(1);
+    }
+  }
+
+  /**
+   * Handle stream failure
+   */
+  private onFail = (messageHandler: MessageHandler) => {
+    console.log("Stream failed");
+    this.retry(messageHandler);
+  };
+
+  /**
+   * Handle the message stream with retry capability
+   */
+  private async handleStream(messageHandler: MessageHandler): Promise<void> {
     if (!this.client) {
       throw new Error("XMTP client not initialized. Call initialize() first.");
     }
 
+    console.log("Syncing conversations...");
+    await this.client.conversations.sync();
+
+    const stream = await this.client.conversations.streamAllMessages(
+      undefined,
+      undefined,
+      undefined,
+      () => {
+        this.onFail(messageHandler);
+      },
+    );
+
     console.log("Waiting for messages...");
-    const stream = await this.client.conversations.streamAllMessages();
 
     for await (const message of stream) {
       if (!message) {
@@ -110,6 +149,13 @@ export class XmtpHelper {
         console.error("Error processing message:", errorMessage);
       }
     }
+  }
+
+  /**
+   * Start listening for messages and process them with the provided handler
+   */
+  async startMessageStream(messageHandler: MessageHandler): Promise<void> {
+    await this.handleStream(messageHandler);
   }
 
   /**
