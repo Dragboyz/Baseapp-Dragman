@@ -22,7 +22,6 @@ This repository provides examples of agents that use the [XMTP](https://docs.xmt
 - [xmtp-gaia](/examples/xmtp-gaia/): Agent that uses a CDP for gasless USDC on base
 - [xmtp-smart-wallet](/examples/xmtp-smart-wallet/): Agent that uses a smart wallet to send messages
 - [xmtp-attachments](/examples/xmtp-attachments/): Agent that sends images
-- [xmtp-revoke-installations](/examples/xmtp-revoke-installations/): Script that revokes excess installations
 - [xmtp-queue-dual-client](/examples/xmtp-queue-dual-client/): Agent that uses two clients to send and receive messages
 - [xmtp-multiple-workers](/examples/xmtp-multiple-workers/): Agent that uses multiple workers to send and receive messages
 - [xmtp-group-welcome](/examples/xmtp-group-welcome/): Sends a welcome message when its added and to new members
@@ -59,6 +58,12 @@ yarn gen:keys
 
 > [!WARNING]
 > Running the `gen:keys` command will append keys to your existing `.env` file.
+
+You can revoke old installations by running:
+
+```bash
+yarn revoke <inbox-id> <revoke-count>
+```
 
 ### Run an example agent
 
