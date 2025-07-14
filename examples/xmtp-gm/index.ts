@@ -9,13 +9,11 @@ import { Client, Group, type LogLevel, type XmtpEnv } from "@xmtp/node-sdk";
 /* Get the wallet key associated to the public key of
  * the agent and the encryption key for the local db
  * that stores your agent's messages */
-const { WALLET_KEY, ENCRYPTION_KEY, XMTP_ENV, LOGGING_LEVEL } =
-  validateEnvironment([
-    "WALLET_KEY",
-    "ENCRYPTION_KEY",
-    "XMTP_ENV",
-    "LOGGING_LEVEL",
-  ]);
+const { WALLET_KEY, ENCRYPTION_KEY, XMTP_ENV } = validateEnvironment([
+  "WALLET_KEY",
+  "ENCRYPTION_KEY",
+  "XMTP_ENV",
+]);
 
 /* Create the signer using viem and parse the encryption key for the local db */
 const signer = createSigner(WALLET_KEY);
@@ -25,7 +23,6 @@ async function main() {
   const client = await Client.create(signer, {
     dbEncryptionKey,
     env: XMTP_ENV as XmtpEnv,
-    loggingLevel: LOGGING_LEVEL as LogLevel,
   });
   void logAgentDetails(client);
 
