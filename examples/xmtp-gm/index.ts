@@ -68,7 +68,6 @@ async function main() {
           console.log("Conversation is a group, skipping");
           return;
         }
-        console.log("Conversation with ", message.senderInboxId);
 
         //Getting the address from the inbox id
         const inboxState = await client.preferences.inboxStateFromInboxIds([
