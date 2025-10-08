@@ -17,16 +17,19 @@
     "gen:keys": "tsx scripts/generateKeys.ts",
     "lint": "eslint .",
     "revoke": "tsx scripts/revokeInstallations.ts",
-    "start": "cd examples/xmtp-gm && tsx index.ts",
+    "start": "node index.js",
     "typecheck": "tsc"
   },
   "resolutions": {
     "@xmtp/agent-sdk": "1.1.5"
   },
   "dependencies": {
-    "@xmtp/agent-sdk": "1.1.5",
-    "uint8arrays": "^5.1.0"
-  },
+  "@xmtp/agent-sdk": "1.1.5",
+  "dotenv": "^17.2.3",
+  "uint8arrays": "^5.1.0",
+  "viem": "^2.21.57",
+  "openai": "^4.71.1"
+ },
   "devDependencies": {
     "@eslint/compat": "^1.2.6",
     "@eslint/js": "^9.19.0",
