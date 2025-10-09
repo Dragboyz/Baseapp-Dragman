@@ -1,0 +1,434 @@
+// --- STEP 0: LOAD ENVIRONMENT VARIABLES ---
+import 'dotenv/config';
+
+// --- STEP 1: IMPORT ALL NECESSARY LIBRARIES ---
+import { Agent } from "@xmtp/agent-sdk";
+import { createPublicClient, http, formatEther, isAddress } from 'viem';
+import { base, mainnet, arbitrum, optimism, bsc } from 'viem/chains';
+import OpenAI from 'openai';
+
+// --- STEP 2.5: ADD A LOGGER ---
+const log = (level, message, data = null) => {
+  const timestamp = new Date().toISOString();
+  const logMessage = `[${timestamp}] [${level.toUpperCase()}]: ${message}`;
+  if (data) {
+    console.log(logMessage, data);
+  } else {
+    console.log(logMessage);
+  }
+};
+
+// --- STEP 2.6: ADD A RATE LIMITER ---
+const userLastRequest = new Map();
+const RATE_LIMIT_MS = 5000; // 5000ms = 5 seconds
+
+// --- STEP 2: CONFIGURE CLIENTS ---
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const ethClient = createPublicClient({ chain: mainnet, transport: http() });
+const baseClient = createPublicClient({ chain: base, transport: http() });
+const arbClient = createPublicClient({ chain: arbitrum, transport: http() });
+const opClient = createPublicClient({ chain: optimism, transport: http() });
+const bscClient = createPublicClient({ chain: bsc, transport: http() });
+
+// In-memory store for conversation history
+const conversationHistory = new Map();
+
+// --- STEP 3: DEFINE HELPER FUNCTIONS ---
+async function getCoinId(symbol) {
+  try {
+    const searchResponse = await fetch(`https://api.coingecko.com/api/v3/search?query=${symbol}`);
+    const searchData = await searchResponse.json();
+    if (searchData.coins && searchData.coins.length > 0) {
+      const exactMatch = searchData.coins.find(coin => coin.symbol.toUpperCase() === symbol.toUpperCase());
+      return exactMatch ? exactMatch.id : searchData.coins[0].id;
+    }
+    return null;
+  } catch (error) {
+    log('error', `Error searching for coin ID for ${symbol}`, { error: error.message });
+    return null;
+  }
+}
+
+// --- STEP 4: DEFINE "TOOLS" FOR THE AI ---
+const tools = [
+  {
+    type: "function",
+    function: {
+      name: "check_project_safety",
+      description: "Performs a safety check on a crypto project. Analyzes its presence on CoinGecko, social links, audit reports, and community size to provide a safety score. Use this whenever a user asks if a project is safe or legitimate.",
+      parameters: {
+        type: "object",
+        properties: {
+          projectName: { type: "string", description: "The name of the project, e.g., 'uniswap' or 'jupiter'." },
+        },
+        required: ["projectName"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "search_web",
+      description: "Search the web for real-time, up-to-date information. Use this for news, specific project details, or anything that requires current data.",
+      parameters: {
+        type: "object",
+        properties: {
+          query: { type: "string", description: "The search query." },
+        },
+        required: ["query"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_crypto_price",
+      description: "Get the current price of one or more cryptocurrencies.",
+      parameters: {
+        type: "object",
+        properties: {
+          tokens: { type: "array", items: { type: "string" }, description: "A list of cryptocurrency symbols, e.g., ['btc', 'eth', 'sol']" },
+        },
+        required: ["tokens"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_wallet_balance",
+      description: "Check the balance of a wallet address. Works for EVM chains. For Solana or Cosmos, it will guide you to the right explorer.",
+      parameters: {
+        type: "object",
+        properties: {
+          address: { type: "string", description: "The wallet address." },
+        },
+        required: ["address"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_network_status",
+      description: "Get current gas fees or network status for multiple chains, including EVM, Solana, and Osmosis.",
+      parameters: { type: "object", properties: {} },
+    },
+  },
+];
+
+// --- STEP 5: DEFINE THE ACTUAL JAVASCRIPT FUNCTIONS FOR THE TOOLS ---
+const availableFunctions = {
+  check_project_safety: async ({ projectName }) => {
+    log('info', `--- SAFETY CHECK START --- Project: ${projectName}`);
+    let score = 0;
+    let report = `🔍 **Safety Report for "${projectName}":**\n\n`;
+    try {
+      const coinId = await getCoinId(projectName);
+      if (coinId) {
+        score += 25;
+        report += `✅ **CoinGecko Listed:** Found on CoinGecko, a trusted data aggregator. (+25)\n`;
+        const response = await fetch(`https://api.coingecko.com/api/v3/coins/${coinId}`);
+        const data = await response.json();
+        if (data.coingecko_rank && data.coingecko_rank < 100) {
+          score += 15;
+          report += `✅ **Top 100 Rank:** Highly ranked on CoinGecko. (+15)\n`;
+        }
+      } else {
+        report += `⚠️ **Not on CoinGecko:** Not found on CoinGecko. This is a significant risk. (-25)\n`;
+      }
+      const searchQuery = await fetch(`https://api.tavily.com/search`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ api_key: process.env.TAVILY_API_KEY, query: `${projectName} official website`, search_depth: "basic" }), });
+      const searchData = await searchQuery.json();
+      if (searchData.results && searchData.results.length > 0) {
+        score += 15;
+        report += `✅ **Official Presence:** Found official website and social links. (+15)\n`;
+      } else {
+        report += `⚠️ **Weak Online Presence:** Could not find a clear official website. (-15)\n`;
+      }
+      const auditQuery = await fetch(`https://api.tavily.com/search`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ api_key: process.env.TAVILY_API_KEY, query: `${projectName} audit report`, search_depth: "basic" }), });
+      const auditData = await auditQuery.json();
+      if (auditData.results && auditData.results.some(r => r.url.includes('certik') || r.url.includes('hacken') || r.url.includes('openzeppelin'))) {
+        score += 20;
+        report += `✅ **Audited:** Found audit reports from top firms (e.g., Certik, Hacken). (+20)\n`;
+      } else {
+        report += `⚠️ **No Audit Found:** Could not find any audit reports from top firms. (-20)\n`;
+      }
+    } catch (error) {
+      log('error', "--- SAFETY CHECK END --- ERROR", { error: error.message });
+      return "Sorry, I had trouble running the safety check.";
+    }
+    report += `\n---\n**Safety Score: ${score}/100**\n`;
+    if (score >= 70) report += `🟢 **Verdict:** This project appears to have strong fundamentals and a good reputation. Always do your own research (DYOR).`;
+    else if (score >= 40) report += `🟡 **Verdict:** This project has some positive signals but also some red flags. Proceed with extreme caution and DYOR.`;
+    else report += `🔴 **Verdict:** This project exhibits multiple red flags. It is highly risky and likely a scam. Avoid interacting.`;
+    log('info', `--- SAFETY CHECK END --- Score: ${score}`);
+    return report.trim();
+  },
+  search_web: async ({ query }) => {
+    log('info', `--- WEB SEARCH START --- Query: ${query}`);
+    if (!process.env.TAVILY_API_KEY) {
+      log('warn', "--- WEB SEARCH END --- Error: No API key.");
+      return "Web search is not configured. Please add a TAVILY_API_KEY to the .env file for the best results.";
+    }
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8-second timeout
+      const response = await fetch('https://api.tavily.com/search', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ api_key: process.env.TAVILY_API_KEY, query: query, search_depth: "basic" }), signal: controller.signal });
+      clearTimeout(timeoutId);
+      if (!response.ok) {
+        throw new Error(`Tavily API returned status ${response.status}`);
+      }
+      const data = await response.json();
+      if (data.results && data.results.length > 0) {
+        let searchResult = `🔍 **Web Search Results:**\n\n`;
+        data.results.forEach(result => {
+          searchResult += `**${result.title}**\n${result.content}\n\n[Read more](${result.url})\n\n`;
+        });
+        log('info', "--- WEB SEARCH END --- Success.");
+        return searchResult.trim();
+      }
+      log('info', "--- WEB SEARCH END --- No results found.");
+      return `I searched for "${query}" but couldn't find any clear results.`;
+    } catch (error) {
+      log('error', "--- WEB SEARCH END --- ERROR", { error: error.message });
+      return "Sorry, I had trouble searching the web right now.";
+    }
+  },
+  get_crypto_price: async ({ tokens }) => {
+    let priceText = `📊 **Price Update:**\n`;
+    for (const symbol of tokens) {
+      const coinId = await getCoinId(symbol);
+      if (coinId) {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 5000); // 5-second timeout
+          const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=usd&include_24hr_change=true`, { signal: controller.signal });
+          clearTimeout(timeoutId);
+          if (!response.ok) {
+            throw new Error(`CoinGecko API returned status ${response.status}`);
+          }
+          const data = await response.json();
+          if (data[coinId]) {
+            const price = data[coinId].usd;
+            const change = data[coinId].usd_24hr_change;
+            const changeEmoji = change >= 0 ? '📈' : '📉';
+            priceText += `• **${symbol.toUpperCase()}:** $${price.toLocaleString()} (${change?.toFixed(2)}% ${changeEmoji})\n`;
+          }
+        } catch (error) {
+          log('warn', `Failed to fetch price for ${symbol}`, { error: error.message });
+          priceText += `• **${symbol.toUpperCase()}:** Could not fetch data.\n`;
+        }
+      } else { priceText += `• **${symbol.toUpperCase()}:** Not found.\n`; }
+    }
+    return priceText.trim();
+  },
+  get_wallet_balance: async ({ address }) => {
+    if (address.length === 44 && /^[1-9A-HJ-NP-Za-km-z]{44}$/.test(address)) return `💰 **Solana Address Detected:** I can't check Solana balances directly. Please use a Solana explorer like [Solscan](https://solscan.io) to check the balance for ${address.slice(0, 6)}...${address.slice(-4)}.`;
+    if (address.startsWith('cosmos1')) return `💰 **Cosmos Address Detected:** I can't check Cosmos balances directly. Please use a Cosmos explorer like [Mintscan](https://mintscan.io) to check the balance for ${address.slice(0, 10)}...${address.slice(-6)}.`;
+    if (!isAddress(address)) return "Please provide a valid EVM, Solana, or Cosmos address.";
+    try {
+      const ethBalance = await ethClient.getBalance({ address });
+      const baseBalance = await baseClient.getBalance({ address });
+      return `💰 **EVM Wallet Balances for ${address.slice(0, 6)}...${address.slice(-4)}:**\n\n**Ethereum (Mainnet):** ${formatEther(ethBalance)} ETH\n**Base:** ${formatEther(baseBalance)} ETH\n\n*Note: This only shows the native ETH balances.*`;
+    } catch (error) { return "Could not fetch balances. The address might be invalid."; }
+  },
+  get_network_status: async () => {
+    let statusText = `🌐 **Multi-Chain Network Status:**\n\n`;
+    try {
+      const chains = [{ name: 'Ethereum', client: ethClient }, { name: 'Base', client: baseClient }, { name: 'Arbitrum', client: arbClient }, { name: 'Optimism', client: opClient }, { name: 'BNB Chain', client: bscClient }];
+      statusText += `⛽ **EVM Gas Prices (Gwei):**\n`;
+      for (const chain of chains) {
+        try { const feeData = await chain.client.estimateFeesPerGas(); const gasPrice = Number(formatEther(feeData.gasPrice || feeData.maxFeePerGas)) * 1e9; statusText += `• **${chain.name}:** ${gasPrice.toFixed(2)} Gwei\n`; } catch (e) { statusText += `• **${chain.name}:** Unavailable\n`; }
+      }
+    } catch (error) { statusText += `⛽ **EVM Gas Prices:** Could not fetch.\n`; }
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+      const solResponse = await fetch('https://api.mainnet-beta.solana.com', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "getRecentPrioritizationFees", params: [] }), signal: controller.signal });
+      clearTimeout(timeoutId);
+      const solData = await solResponse.json();
+      if (solData.result) { const avgFee = solData.result.reduce((sum, fee) => sum + fee.prioritizationFee, 0) / solData.result.length / 1e9; statusText += `\n🔥 **Solana Priority Fee:** ~${avgFee.toFixed(7)} SOL`; } else { statusText += `\n🔥 **Solana Priority Fee:** Unavailable`; }
+    } catch (error) { statusText += `\n🔥 **Solana Priority Fee:** Unavailable`; }
+    statusText += `\n\n*Note: Gas fees are estimates and change rapidly.*`;
+    return statusText.trim();
+  },
+  get_coinbase_price: async ({ symbol }) => {
+    if (!process.env.COINBASE_API_KEY || !process.env.COINBASE_API_SECRET) {
+      return "Coinbase API is not configured.";
+    }
+    try {
+      const auth = Buffer.from(`${process.env.COINBASE_API_KEY}:${process.env.COINBASE_API_SECRET}`).toString('base64');
+      const response = await fetch(`https://api.coinbase.com/v2/exchange-rates?currency=${symbol.toUpperCase()}`, {
+        headers: { 'Authorization': `Basic ${auth}` }
+      });
+      if (!response.ok) {
+        throw new Error(`Coinbase API error: ${response.statusText}`);
+      }
+      const data = await response.json();
+      const rate = data.data.rates.USD;
+      return `📊 **Coinbase Price for ${symbol.toUpperCase()}:** $${rate.toFixed(2)}`;
+    } catch (error) {
+      log('error', `Failed to fetch price from Coinbase for ${symbol}`, { error: error.message });
+      return `Sorry, I couldn't get the price from Coinbase right now.`;
+    }
+  },
+};
+
+// --- STEP 6: THE MAIN AI-POWERED LOGIC ---
+async function main() {
+  if (!process.env.OPENAI_API_KEY) {
+    log('error', "FATAL ERROR: OPENAI_API_KEY is not set in the environment variables. Agent cannot start.");
+    return;
+  }
+
+  const agent = await Agent.createFromEnv({ env: process.env.NODE_ENV || "dev" });
+  log('info', '🛡️ Security Expert Base Dragman Agent is online!');
+
+  agent.on("text", async (ctx) => {
+    const senderInboxId = ctx.inboxId;
+    const now = Date.now();
+
+    // Rate Limiting Check
+    if (userLastRequest.has(senderInboxId)) {
+      const timeSinceLastRequest = now - userLastRequest.get(senderInboxId);
+      if (timeSinceLastRequest < RATE_LIMIT_MS) {
+        const remainingTime = Math.ceil((RATE_LIMIT_MS - timeSinceLastRequest) / 1000);
+        log('warn', `Rate limit exceeded for ${senderInboxId}`);
+        await ctx.sendText(`Please wait ${remainingTime} seconds before sending another message.`);
+        return;
+      }
+    }
+    userLastRequest.set(senderInboxId, now);
+
+    const userMessage = ctx.message.content.trim();
+    log('info', `Message received from ${senderInboxId}`, { content: userMessage });
+
+    // --- NEW: Smarter, More Professional Greeting ---
+    if (userMessage.includes("hello") || userMessage.includes("hi") || userMessage.includes("hey") || userMessage.includes("gm") || userMessage.includes("good morning")) {
+      const greeting = `Greetings! Welcome to the official Dragman Base Agent. I'm here to assist you with navigating the Base ecosystem. How can I help you today?`;
+      const actionsContent = {
+        id: "main_menu_001",
+        description: greeting,
+        actions: [
+          { id: "safety_check_prompt", label: "Check Project Safety", style: "primary" },
+          { id: "gas_fees", label: "Check Gas Fees", style: "secondary" },
+          { id: "price_eth", label: "Price of ETH", style: "secondary" },
+          { id: "price_btc", label: "Price of BTC", style: "secondary" },
+        ],
+      };
+
+      // --- NEW: Robustust Handler ---
+      if (ctx.send && typeof ctx.send === 'function') {
+        // If ctx.send exists, use the interactive buttons.
+        await ctx.send(actionsContent);
+      } else {
+        // If ctx.send is missing, fall back to a text message.
+        await ctx.sendText(`${greeting}\n\nI can also show you interactive buttons if your client supports them. Try saying "hello" again.`);
+      }
+      return;
+    }
+
+    if (!conversationHistory.has(senderInboxId)) { conversationHistory.set(senderInboxId, []); }
+    const history = conversationHistory.get(senderInboxId);
+    history.push({ role: "user", content: ctx.message.content });
+    if (history.length > 10) history.shift();
+
+    try {
+      await ctx.sendText("Thinking... 🤔");
+
+      const completion = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          {
+            role: "system",
+            content: `You are 'Dragman', the official AI guide for the Dragman project and the Base ecosystem. Your identity is professional, knowledgeable, and deeply integrated with the Coinbase mission. You are an expert on Base, its technology (OP Stack, Bridge), its flagship dApps (like Farcaster and friend.tech), and its vibrant community. Your primary goal is to help users, from beginners to experts, understand and build on Base. You are also a multi-chain expert, knowledgeable about EVM, Solana, and Cosmos. Always be helpful, clear, and professional. Use the tools provided to give accurate, up-to-date information. Never give financial advice. Always tell users to DYOR (Do Your Own Research).`
+          },
+          ...history,
+        ],
+        tools: tools,
+        tool_choice: "auto",
+      });
+
+      const responseMessage = completion.choices[0].message;
+      history.push(responseMessage);
+
+      if (responseMessage.tool_calls) {
+        log('info', `AI requested ${responseMessage.tool_calls.length} tool calls.`);
+        const toolResponses = [];
+        if (Array.isArray(responseMessage.tool_calls)) {
+          for (const toolCall of responseMessage.tool_calls) {
+            const functionName = toolCall.function.name;
+            const functionToCall = availableFunctions[functionName];
+            if (!functionToCall) {
+              log('error', `Function ${functionName} not found!`);
+              toolResponses.push({ tool_call_id: toolCall.id, role: "tool", content: `Error: Function ${functionName} not found.` });
+              continue;
+            }
+            const functionArgs = JSON.parse(toolCall.function.arguments);
+            log('info', `Executing ${functionName}`, { args: functionArgs });
+
+            try {
+              const functionResponse = await functionToCall(functionArgs);
+              log('info', `-> ${functionName} SUCCESS.`);
+              toolResponses.push({ tool_call_id: toolCall.id, role: "tool", content: functionResponse });
+            } catch (e) {
+              log('error', `!!! ERROR executing ${functionName}`, { error: e.message });
+              toolResponses.push({ tool_call_id: toolCall.id, role: "tool", content: `I ran into an error while trying to run the ${functionName} tool.` });
+            }
+          }
+        } else {
+          log('error', "!!! ERROR: responseMessage.tool_calls was not an array!");
+        }
+
+        log('info', `Generated ${toolResponses.length} tool responses. Sending back to AI...`);
+        const secondCompletion = await openai.chat.completions.create({
+          model: "gpt-4o",
+          messages: [
+            ...history,
+            ...toolResponses,
+          ],
+        });
+        const finalResponse = secondCompletion.choices[0].message.content;
+        await ctx.sendText(finalResponse);
+        history.push({ role: "assistant", content: finalResponse });
+
+      } else {
+        await ctx.sendText(responseMessage.content);
+      }
+    } catch (error) {
+      log('error', "!!! OPENAI API ERROR", { error: error.message });
+      let userErrorMessage = "I'm having trouble connecting my brain right now. Please try again in a moment.";
+      if (error instanceof OpenAI.APIError) {
+        if (error.status === 401) userErrorMessage = "My API key is invalid. Please check my configuration.";
+        else if (error.status === 429) userErrorMessage = "I'm being rate-limited. Please give me a moment to rest.";
+      }
+      await ctx.sendText(userErrorMessage);
+    }
+  });
+
+  agent.on("intent", async (ctx) => {
+    const intentData = ctx.message.content;
+    log('info', `Intent received from ${ctx.inboxId}`, { action: intentData.actionId });
+
+    const actionId = intentData.actionId;
+    let responseText = "";
+
+    if (actionId === "safety_check_prompt") {
+      responseText = "Sure! Please reply with the name of the project you want me to check for safety. For example, 'check uniswap'.";
+    } else if (actionId === "gas_fees") {
+      responseText = await availableFunctions.get_network_status();
+    } else if (actionId === "price_eth") {
+      responseText = await availableFunctions.get_crypto_price({ tokens: ['eth'] });
+    } else if (actionId === "price_btc") {
+      responseText = await availableFunctions.get_crypto_price({ tokens: ['btc'] });
+    } else {
+      responseText = "Sorry, I don't recognize that action.";
+    }
+
+    await ctx.sendText(responseText);
+  });
+
+  await agent.start();
+}
+
+main().catch(console.error);
