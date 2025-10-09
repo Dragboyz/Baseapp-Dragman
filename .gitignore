@@ -1,3 +1,7 @@
 node_modules/
 .env
 ecosystem.config.js
+# Ignore XMTP database files
+*.db3*
+*.db3-shm
+*.db3-wal
