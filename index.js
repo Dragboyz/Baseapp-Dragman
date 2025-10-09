@@ -57,7 +57,7 @@ const tools = [
     type: "function",
     function: {
       name: "send_eth",
-      description: "MUST be used to create and send a transaction for sending ETH. Ask the user for the 'chain' if they don't provide it. This is the FINAL step. Calling this function will create and send the transaction tray.",
+      description: "Creates a deep link for the user to send ETH. This is the ONLY way to handle transaction requests. Do not provide manual instructions. Ask for the 'chain' if not provided.",
       parameters: {
         type: "object",
         properties: {
@@ -84,6 +84,7 @@ const tools = [
         required: ["amount", "fromCurrency", "toCurrency"],
       },
     },
+  },
   },
   {
     type: "function",
@@ -153,49 +154,44 @@ const tools = [
 
 // --- STEP 5: DEFINE THE ACTUAL JAVASCRIPT FUNCTIONS FOR THE TOOLS ---
 const availableFunctions = {
-  // --- FIX #1: CORRECTED send_eth FUNCTION ---
-  send_eth: async ({ toAddress, amount, chain }, ctx) => {
+  // --- NEW SOLUTION: send_eth CREATES AN EIP-681 URL ---
+  send_eth: async ({ toAddress, amount, chain }) => {
     log('info', `--- SEND ETH START --- To: ${toAddress}, Amount: ${amount} ETH, Chain: ${chain}`);
     if (!isAddress(toAddress)) {
-      await ctx.sendText("❌ That doesn't look like a valid EVM address. Please double-check it and try again.");
-      return "Invalid address.";
+      return { error: "Invalid address.", userMessage: "❌ That doesn't look like a valid EVM address. Please double-check it and try again." };
     }
 
+    // --- FIX: CORRECTED CHAIN IDs FOR EIP-681 ---
     const chainMap = {
-      base: { client: baseClient, chainId: "0x2105", explorer: "https://basescan.org/tx/" },
-      ethereum: { client: ethClient, chainId: "0x1", explorer: "https://etherscan.io/tx/" },
-      arbitrum: { client: arbClient, chainId: "0xa4b1", explorer: "https://arbiscan.io/tx/" },
-      optimism: { client: opClient, chainId: "0xa", explorer: "https://optimistic.etherscan.io/tx/" },
-      bsc: { client: bscClient, chainId: "0x38", explorer: "https://bscscan.com/tx/" },
+      base: { chainId: 8453, explorer: "https://basescan.org/tx/" },
+      ethereum: { chainId: 1, explorer: "https://etherscan.io/tx/" },
+      arbitrum: { chainId: 42161, explorer: "https://arbiscan.io/tx/" },
+      optimism: { chainId: 10, explorer: "https://optimistic.etherscan.io/tx/" },
+      bsc: { chainId: 56, explorer: "https://bscscan.com/tx/" },
     };
 
     const selectedChain = chainMap[chain.toLowerCase()];
     if (!selectedChain) {
-      await ctx.sendText(`❌ Invalid chain specified. Please choose one of: ${Object.keys(chainMap).join(', ')}.`);
-      return "Invalid chain.";
+      return { error: "Invalid chain.", userMessage: `❌ Invalid chain specified. Please choose one of: ${Object.keys(chainMap).join(', ')}.` };
     }
 
     try {
       const valueInWei = parseEther(amount);
-      const transactionContent = {
-        id: "send_eth_tx",
-        description: `Dragman Agent: Send ${amount} ETH on ${chain.charAt(0).toUpperCase() + chain.slice(1)}`,
-        transaction: {
-          chainId: selectedChain.chainId,
-          to: toAddress,
-          value: valueInWei.toString(),
-          data: "0x",
-        },
+      // EIP-681 URL Format
+      const eip681Url = `ethereum:${toAddress}@${selectedChain.chainId}?value=${valueInWei.toString()}`;
+      
+      log('info', `--- EIP-681 URL CREATED ---`, { eip681Url });
+
+      return {
+        userMessage: `Ready to send ${amount} ETH on ${chain.charAt(0).toUpperCase() + chain.slice(1)}? Click the link below to open your wallet and approve the transaction.\n\n[Send ${amount} ETH](${eip681Url})`,
+        deepLink: eip681Url
       };
-      log('info', `--- TRANSACTION CONTENT CREATED ---`);
-      // THE FIX: Return the content object, don't send it from here.
-      return transactionContent;
     } catch (error) {
       log('error', `--- SEND ETH END --- ERROR`, { error: error.message });
-      await ctx.sendText("Sorry, I couldn't construct the transaction. Please check the amount and address.");
-      return "Failed to construct transaction.";
+      return { error: "Failed to construct transaction. Please check the amount and address.";
     }
   },
+  // ... (keep all other availableFunctions the same)
   convert_currency: async ({ amount, fromCurrency, toCurrency }) => {
     log('info', `--- CONVERSION START --- ${amount} ${fromCurrency.toUpperCase()} to ${toCurrency.toUpperCase()}`);
     try {
@@ -251,7 +247,7 @@ const availableFunctions = {
         report += `✅ **CoinGecko Listed:** Found on CoinGecko, a trusted data aggregator. (+25)\n`;
         const response = await fetch(`https://api.coingecko.com/api/v3/coins/${coinId}`);
         const data = await response.json();
-        if (data.coingecko_rank && data.coingecko_rank < 100) {
+        if (data.coingecko_rank && data.coingecko_rank && data.coingecko_rank < 100) {
           score += 15;
           report += `✅ **Top 100 Rank:** Highly ranked on CoinGecko. (+15)\n`;
         }
@@ -294,7 +290,7 @@ const availableFunctions = {
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 8000);
-      const response = await fetch('https://api.tavily.com/search', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ api_key: process.env.TAVILY_API_KEY, query: query, search_depth: "basic" }), signal: controller.signal });
+      const response = await fetch('https://api.tavily.com/search', { method: 'POST', headers: { 'Content-Type: 'application/json' }, body: JSON.stringify({ api_key: process.env.TAVILY_API_KEY, query: query, search_depth: "basic" }), signal: controller.signal });
       clearTimeout(timeoutId);
       if (!response.ok) {
         throw new Error(`Tavily API returned status ${response.status}`);
@@ -365,7 +361,7 @@ const availableFunctions = {
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000);
-      const solResponse = await fetch('https://api.mainnet-beta.solana.com', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "getRecentPrioritizationFees", params: [] }), signal: controller.signal });
+      const solResponse = await fetch('https://api.mainnet-beta.solana.com', { method: 'POST', headers: { 'Content-Type: 'application/json' }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "getRecentPrioritizationFees", params: [] }), signal: controller.signal });
       clearTimeout(timeoutId);
       const solData = await solResponse.json();
       if (solData.result) { const avgFee = solData.result.reduce((sum, fee) => sum + fee.prioritizationFee, 0) / solData.result.length / 1e9; statusText += `\n🔥 **Solana Priority Fee:** ~${avgFee.toFixed(7)} SOL`; } else { statusText += `\n🔥 **Solana Priority Fee:** Unavailable`; }
@@ -378,7 +374,7 @@ const availableFunctions = {
 // --- STEP 6: THE MAIN AI-POWERED LOGIC ---
 async function main() {
   if (!process.env.OPENAI_API_KEY) {
-    log('error', "FATAL ERROR: OPENAI_API_KEY is not set in the environment variables. Agent cannot start.");
+    log('error', "F401 FATAL ERROR: OPENAI_API_KEY is not set in the environment variables. Agent cannot start.");
     return;
   }
 
@@ -418,26 +414,9 @@ async function main() {
       ];
       const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
       
+      // --- FIX #1: REMOVE DUPLICATE GREETING ---
       await ctx.sendText(randomGreeting);
-
-      const actionsContent = {
-        id: "main_menu_001",
-        description: "Here are a few things I can help with:",
-        actions: [
-          { id: "safety_check_prompt", label: "Check Project Safety", style: "primary" },
-          { id: "gas_fees", label: "Check Gas Fees", style: "secondary" },
-          { id: "price_eth", label: "Price of ETH", style: "secondary" },
-          { id: "price_btc", label: "Price of BTC", style: "secondary" },
-        ],
-      };
-      
-      if (ctx.send && typeof ctx.send === 'function') {
-        try {
-          await ctx.send(actionsContent);
-        } catch (e) {
-          log('warn', 'Client does not support interactive content, or an error occurred.', { error: e.message });
-        }
-      }
+      await ctx.sendText("Here are a few things I can help with: Check Project Safety, Check Gas Fees, Price of ETH, Price of BTC. Just ask!";
       processingUsers.delete(senderInboxId);
       return;
     }
@@ -448,10 +427,10 @@ async function main() {
     if (history.length > 10) history.shift();
 
     try {
-      await ctx.sendText("One moment, crunching the data... 🤔");
+      await ctx.sendText("One moment, crunching the data... 🤔�");
 
       const timeout = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Request timed out')), 60000)
+        setTimeout(() => reject(new Error('Request timed out'), 60000)
       );
 
       const openaiCall = openai.chat.completions.create({
@@ -461,8 +440,10 @@ async function main() {
             role: "system",
             content: `You are Dragman, a crypto expert AI.
 
-**TRANSACTION RULE:**
-- If a user asks to send crypto, you MUST use the 'send_eth' tool. This is the FINAL step. The tool will handle everything.
+**CRITICAL TRANSACTION RULE:**
+- When a user asks to send ETH (e.g., "send 0.1 eth to..."), you MUST call the 'send_eth' function.
+- The 'send_eth' function will create a deep link for the user to click and approve the transaction.
+- The response from the 'send_eth' function is the final answer. Do not add any extra summary or guide.
 
 **OTHER RULES:**
 - For other questions, use the 'search_web' tool if you are not 100% certain.
@@ -476,16 +457,23 @@ async function main() {
 
       const completion = await Promise.race([openaiCall, timeout]);
 
+      const completion = await Promise.race([openaiCall, timeout]);
+
       const responseMessage = completion.choices[0].message;
       history.push(responseMessage);
 
-      // --- FIX #2: CORRECTED TOOL CALL HANDLING LOGIC ---
       if (responseMessage.tool_calls) {
         log('info', `AI requested ${responseMessage.tool_calls.length} tool calls.`);
         const toolResponses = [];
+        let lastToolCallWasSendEth = false;
+
         if (Array.isArray(responseMessage.tool_calls)) {
           for (const toolCall of responseMessage.tool_calls) {
             const functionName = toolCall.function.name;
+            if (functionName === 'send_eth') {
+                lastToolCallWasSendEth = true;
+            }
+
             const functionToCall = availableFunctions[functionName];
             if (!functionToCall) {
               log('error', `Function ${functionName} not found!`);
@@ -496,38 +484,41 @@ async function main() {
             log('info', `Executing ${functionName}`, { args: functionArgs });
 
             try {
-              const functionResponse = await functionToCall(functionArgs, ctx);
+              const functionResponse = await functionToCall(functionArgs);
+              log('info', `--- RAW RESPONSE FROM ${functionName} ---`, { response: functionResponse });
 
-              if (functionResponse && typeof functionResponse === 'object' && functionResponse.transaction) {
-                log('info', `--- SENDING TRANSACTION TRAY ---`);
-                await ctx.send(functionResponse);
-                log('info', `--- TRANSACTION TRAY SENT SUCCESSFULLY ---`);
-                
-                const chain = functionResponse.description.match(/on (\w+)/)[1];
-                const chainMap = { base: "basescan.org", ethereum: "etherscan.io", arbitrum: "arbiscan.io", optimism: "optimistic.etherscan.io", bsc: "bscscan.com" };
-                const explorerUrl = `https://${chainMap[chain.toLowerCase()]}/tx/`;
-                await ctx.sendText(`Once you approve, you can track it on [${chainMap[chain.toLowerCase()]}](${explorerUrl}). DYOR!`);
-
-                toolResponses.push({ tool_call_id: toolCall.id, role: "tool", content: "Transaction tray sent to user successfully." });
+              if (functionResponse && functionResponse.userMessage) {
+                await ctx.sendText(functionResponse.userMessage);
+                toolResponses.push({ tool_call_id: toolCall.id, role: "tool", content: "Deep link sent to user." });
+              } else if (functionResponse && functionResponse.error) {
+                log('error', `--- ${functionName} returned an error ---`, { error: functionResponse.error });
+                await ctx.sendText(functionResponse.userMessage || "An error occurred.");
+                toolResponses.push({ tool_call_id: toolCall.id, role: "tool", content: `Error: ${functionResponse.error}` });
               } else {
+                log('warn', `--- ${functionName} did not return a user message. Treating as text response. ---`);
+                await ctx.sendText(JSON.stringify(functionResponse));
                 toolResponses.push({ tool_call_id: toolCall.id, role: "tool", content: JSON.stringify(functionResponse) });
               }
             } catch (e) {
-              log('error', `!!! ERROR executing ${functionName}`, { error: e.message });
-              toolResponses.push({ tool_call_id: toolCall.id, role: "tool", content: `I ran into an error while trying to run the ${functionName} tool.` });
+              log('error', `!!! ERROR EXECUTING ${functionName} ---`, { error: e.message });
+              await ctx.sendText(`I ran into an error while trying to run the ${functionName} tool.`);
+              toolResponses.push({ tool_call_id: toolCall.id, role: "tool", content: `I ran into an error while trying to run the ${functionName} tool.`);
             }
           }
         }
         
-        const secondResponse = await openai.chat.completions.create({
-          model: "gpt-4o",
-          messages: [
-            ...history,
-            ...toolResponses
-          ],
-        });
-        history.push(secondResponse.choices[0].message);
-        await ctx.sendText(secondResponse.choices[0].message.content);
+        // --- FIX #2: SKIP SUMMARY IF send_eth WAS CALLED ---
+        if (!lastToolCallWasSendEth) {
+            const secondResponse = await openai.chat.completions.create({
+                model: "gpt-4o",
+                messages: [
+                    ...history,
+                    ...toolResponses
+                ],
+            });
+            history.push(secondResponse.choices[0].message);
+            await ctx.sendText(secondResponse.choices[0].message.content);
+        }
 
       } else {
         await ctx.sendText(responseMessage.content);
@@ -555,7 +546,49 @@ async function main() {
     let responseText = "";
 
     if (actionId === "safety_check_prompt") {
-      responseText = "Absolutely. Drop the project name and I'll run a full diagnostic. What are we looking at?";
+      responseText = "Absolutely. Drop the name and I'll run a full diagnostic. What are we looking at?";
+    } else if (actionId === "gas_fees") {
+      responseText = await availableFunctions.get_network_status();
+    } else if (actionId === "price_eth") {
+      responseText = await availableFunctions.get_crypto_price({ tokens: ['eth'] });
+    } else if (actionId === "price_btc") {
+      responseText = await availableFunctions.get_crypto_price({ tokens: ['btc'] });
+    } else {
+      responseText = "Hmm, that's not an action I recognize. Try the buttons or just ask me directly!";
+    }
+
+    await ctx.sendText(responseText);
+  });
+
+  agent.on("intent", async (ctx) => {
+    const intentData = ctx.message.content;
+    log('info', `Intent received from ${ctx.inboxId}`, { action: intentData.actionId });
+
+    const actionId = intentData.actionId;
+    let responseText = "";
+
+    if (actionId === "safety_check_prompt") {
+      responseText = "Absolutely. Drop the name and I'll run a full diagnostic. What are we looking at?";
+    } else if (actionId === "gas_fees") {
+      responseText = await availableFunctions.get_network_status();
+    } else if (actionId === "price_eth") {
+      responseText = await availableFunctions.get_crypto_price({ tokens: ['eth'] });
+    } else if (actionId === "price_btc") {
+      responseText = await availableFunctions.get_crypto_price({ tokens: ['btc'] });
+    } else {
+      responseText = "Hmm, that's not an action I recognize. Try the buttons or just ask me directly!";
+    }
+
+    await ctx.sendText(responseText);
+  });
+
+  agent.on("intent", async (ctx) => {
+    const intentData = ctx.message.content;
+    const actionId = intentData.actionId;
+    let responseText = "";
+
+    if (actionId === "safety_check_prompt") {
+      responseText = "Absolutely. Drop the name and I'll run a full diagnostic. What are we looking at?";
     } else if (actionId === "gas_fees") {
       responseText = await availableFunctions.get_network_status();
     } else if (actionId === "price_eth") {
