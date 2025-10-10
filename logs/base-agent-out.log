@@ -1,0 +1,1487 @@
+2025-10-10T19:17:29: [2025-10-10T17:17:29.528Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T19:17:29: [2025-10-10T17:17:29.537Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T19:23:42: [2025-10-10T17:23:42.851Z] [INFO]: Context object properties {
+2025-10-10T19:23:42:   properties: [],
+2025-10-10T19:23:42:   hasInboxId: false,
+2025-10-10T19:23:42:   hasSenderAddress: false,
+2025-10-10T19:23:42:   hasSendContent: false,
+2025-10-10T19:23:42:   hasSendWalletSendCalls: false,
+2025-10-10T19:23:42:   hasSendTransaction: false,
+2025-10-10T19:23:42:   hasSendGeneric: false,
+2025-10-10T19:23:42:   hasSendText: true,
+2025-10-10T19:23:42:   types: {
+2025-10-10T19:23:42:     sendContent: 'undefined',
+2025-10-10T19:23:42:     sendWalletSendCalls: 'undefined',
+2025-10-10T19:23:42:     sendTransaction: 'undefined',
+2025-10-10T19:23:42:     send: 'undefined',
+2025-10-10T19:23:42:     sendText: 'function'
+2025-10-10T19:23:42:   }
+2025-10-10T19:23:42: }
+2025-10-10T19:23:42: [2025-10-10T17:23:42.853Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello' }
+2025-10-10T19:23:42: [2025-10-10T17:23:42.854Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello' }
+2025-10-10T19:23:56: [2025-10-10T17:23:56.024Z] [INFO]: Context object properties {
+2025-10-10T19:23:56:   properties: [],
+2025-10-10T19:23:56:   hasInboxId: false,
+2025-10-10T19:23:56:   hasSenderAddress: false,
+2025-10-10T19:23:56:   hasSendContent: false,
+2025-10-10T19:23:56:   hasSendWalletSendCalls: false,
+2025-10-10T19:23:56:   hasSendTransaction: false,
+2025-10-10T19:23:56:   hasSendGeneric: false,
+2025-10-10T19:23:56:   hasSendText: true,
+2025-10-10T19:23:56:   types: {
+2025-10-10T19:23:56:     sendContent: 'undefined',
+2025-10-10T19:23:56:     sendWalletSendCalls: 'undefined',
+2025-10-10T19:23:56:     sendTransaction: 'undefined',
+2025-10-10T19:23:56:     send: 'undefined',
+2025-10-10T19:23:56:     sendText: 'function'
+2025-10-10T19:23:56:   }
+2025-10-10T19:23:56: }
+2025-10-10T19:23:56: [2025-10-10T17:23:56.030Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T19:23:56:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T19:23:56: }
+2025-10-10T19:23:56: [2025-10-10T17:23:56.035Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T19:23:56:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T19:23:56: }
+2025-10-10T19:24:01: [2025-10-10T17:24:01.863Z] [INFO]: AI requested 1 tool calls.
+2025-10-10T19:24:01: [2025-10-10T17:24:01.870Z] [INFO]: Executing send_eth {
+2025-10-10T19:24:01:   args: {
+2025-10-10T19:24:01:     toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T19:24:01:     amount: '0.00023',
+2025-10-10T19:24:01:     chain: 'base'
+2025-10-10T19:24:01:   }
+2025-10-10T19:24:01: }
+2025-10-10T19:24:01: [2025-10-10T17:24:01.871Z] [INFO]: --- SEND ETH START --- To: 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D, Amount: 0.00023 ETH, Chain: base
+2025-10-10T19:24:01: [2025-10-10T17:24:01.890Z] [INFO]: --- TRANSACTION TRAY CREATED --- {
+2025-10-10T19:24:01:   transactionData: { version: '1.0', chainId: 8453, calls: [ [Object] ] }
+2025-10-10T19:24:01: }
+2025-10-10T19:24:01: [2025-10-10T17:24:01.901Z] [INFO]: --- RAW RESPONSE FROM send_eth --- {
+2025-10-10T19:24:01:   response: {
+2025-10-10T19:24:01:     userMessage: '💸 Ready to send 0.00023 ETH on Base?\n' +
+2025-10-10T19:24:01:       '\n' +
+2025-10-10T19:24:01:       'Check your transaction tray above to approve this transfer.',
+2025-10-10T19:24:01:     transactionData: { version: '1.0', chainId: 8453, calls: [Array] },
+2025-10-10T19:24:01:     isTransaction: true,
+2025-10-10T19:24:01:     functionArgs: {
+2025-10-10T19:24:01:       toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T19:24:01:       amount: '0.00023',
+2025-10-10T19:24:01:       chain: 'base'
+2025-10-10T19:24:01:     }
+2025-10-10T19:24:01:   }
+2025-10-10T19:24:01: }
+2025-10-10T19:24:01: [2025-10-10T17:24:01.919Z] [INFO]: === TRANSACTION TRAY SENDING START === {
+2025-10-10T19:24:01:   contentType: 'xmtp.org/walletSendCalls:1.0',
+2025-10-10T19:24:01:   transactionData: '{\n' +
+2025-10-10T19:24:01:     '  "version": "1.0",\n' +
+2025-10-10T19:24:01:     '  "chainId": 8453,\n' +
+2025-10-10T19:24:01:     '  "calls": [\n' +
+2025-10-10T19:24:01:     '    {\n' +
+2025-10-10T19:24:01:     '      "to": "0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D",\n' +
+2025-10-10T19:24:01:     '      "value": "230000000000000",\n' +
+2025-10-10T19:24:01:     '      "data": "0x",\n' +
+2025-10-10T19:24:01:     '      "metadata": {\n' +
+2025-10-10T19:24:01:     '        "description": "Send 0.00023 ETH on Base",\n' +
+2025-10-10T19:24:01:     '        "hostname": "dragman-agent.base.org",\n' +
+2025-10-10T19:24:01:     '        "faviconUrl": "https://docs.base.org/favicon.ico",\n' +
+2025-10-10T19:24:01:     '        "title": "Dragman Agent"\n' +
+2025-10-10T19:24:01:     '      }\n' +
+2025-10-10T19:24:01:     '    }\n' +
+2025-10-10T19:24:01:     '  ]\n' +
+2025-10-10T19:24:01:     '}'
+2025-10-10T19:24:01: }
+2025-10-10T19:24:01: [2025-10-10T17:24:01.936Z] [ERROR]: ❌ Primary transaction method failed {
+2025-10-10T19:24:01:   error: 'ctx.sendContent is not a function',
+2025-10-10T19:24:01:   stack: 'TypeError: ctx.sendContent is not a function\n' +
+2025-10-10T19:24:01:     '    at sendTransaction (file:///var/www/Baseapp/index.js:228:15)\n' +
+2025-10-10T19:24:01:     '    at Agent.<anonymous> (file:///var/www/Baseapp/index.js:2285:42)\n' +
+2025-10-10T19:24:01:     '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)'
+2025-10-10T19:24:01: }
+2025-10-10T19:24:02: [2025-10-10T17:24:02.588Z] [INFO]: ✅ Fallback deeplink sent {
+2025-10-10T19:24:02:   deeplink: 'https://base.app/send?to=0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D&amount=0.00023&chain=base'
+2025-10-10T19:24:02: }
+2025-10-10T19:34:49: [2025-10-10T17:34:49.661Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T19:34:49: [2025-10-10T17:34:49.670Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T19:35:33: [2025-10-10T17:35:33.579Z] [INFO]: Context object properties {
+2025-10-10T19:35:33:   properties: [],
+2025-10-10T19:35:33:   hasInboxId: false,
+2025-10-10T19:35:33:   hasSenderAddress: false,
+2025-10-10T19:35:33:   hasSendContent: false,
+2025-10-10T19:35:33:   hasSendWalletSendCalls: false,
+2025-10-10T19:35:33:   hasSendTransaction: false,
+2025-10-10T19:35:33:   hasSendGeneric: false,
+2025-10-10T19:35:33:   hasSendText: true,
+2025-10-10T19:35:33:   types: {
+2025-10-10T19:35:33:     sendContent: 'undefined',
+2025-10-10T19:35:33:     sendWalletSendCalls: 'undefined',
+2025-10-10T19:35:33:     sendTransaction: 'undefined',
+2025-10-10T19:35:33:     send: 'undefined',
+2025-10-10T19:35:33:     sendText: 'function'
+2025-10-10T19:35:33:   }
+2025-10-10T19:35:33: }
+2025-10-10T19:35:33: [2025-10-10T17:35:33.580Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Gm' }
+2025-10-10T19:35:33: [2025-10-10T17:35:33.582Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Gm' }
+2025-10-10T19:35:40: [2025-10-10T17:35:40.972Z] [INFO]: Context object properties {
+2025-10-10T19:35:40:   properties: [],
+2025-10-10T19:35:40:   hasInboxId: false,
+2025-10-10T19:35:40:   hasSenderAddress: false,
+2025-10-10T19:35:40:   hasSendContent: false,
+2025-10-10T19:35:40:   hasSendWalletSendCalls: false,
+2025-10-10T19:35:40:   hasSendTransaction: false,
+2025-10-10T19:35:40:   hasSendGeneric: false,
+2025-10-10T19:35:40:   hasSendText: true,
+2025-10-10T19:35:40:   types: {
+2025-10-10T19:35:40:     sendContent: 'undefined',
+2025-10-10T19:35:40:     sendWalletSendCalls: 'undefined',
+2025-10-10T19:35:40:     sendTransaction: 'undefined',
+2025-10-10T19:35:40:     send: 'undefined',
+2025-10-10T19:35:40:     sendText: 'function'
+2025-10-10T19:35:40:   }
+2025-10-10T19:35:40: }
+2025-10-10T19:35:40: [2025-10-10T17:35:40.973Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Gm' }
+2025-10-10T19:35:40: [2025-10-10T17:35:40.973Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Gm' }
+2025-10-10T19:35:53: [2025-10-10T17:35:53.522Z] [INFO]: Context object properties {
+2025-10-10T19:35:53:   properties: [],
+2025-10-10T19:35:53:   hasInboxId: false,
+2025-10-10T19:35:53:   hasSenderAddress: false,
+2025-10-10T19:35:53:   hasSendContent: false,
+2025-10-10T19:35:53:   hasSendWalletSendCalls: false,
+2025-10-10T19:35:53:   hasSendTransaction: false,
+2025-10-10T19:35:53:   hasSendGeneric: false,
+2025-10-10T19:35:53:   hasSendText: true,
+2025-10-10T19:35:53:   types: {
+2025-10-10T19:35:53:     sendContent: 'undefined',
+2025-10-10T19:35:53:     sendWalletSendCalls: 'undefined',
+2025-10-10T19:35:53:     sendTransaction: 'undefined',
+2025-10-10T19:35:53:     send: 'undefined',
+2025-10-10T19:35:53:     sendText: 'function'
+2025-10-10T19:35:53:   }
+2025-10-10T19:35:53: }
+2025-10-10T19:35:53: [2025-10-10T17:35:53.523Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T19:35:53:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T19:35:53: }
+2025-10-10T19:35:53: [2025-10-10T17:35:53.523Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T19:35:53:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T19:35:53: }
+2025-10-10T19:35:57: [2025-10-10T17:35:57.681Z] [INFO]: AI requested 1 tool calls.
+2025-10-10T19:35:57: [2025-10-10T17:35:57.681Z] [INFO]: Executing send_eth {
+2025-10-10T19:35:57:   args: {
+2025-10-10T19:35:57:     toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T19:35:57:     amount: '0.00023',
+2025-10-10T19:35:57:     chain: 'base'
+2025-10-10T19:35:57:   }
+2025-10-10T19:35:57: }
+2025-10-10T19:35:57: [2025-10-10T17:35:57.682Z] [INFO]: --- SEND ETH START --- To: 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D, Amount: 0.00023 ETH, Chain: base
+2025-10-10T19:35:57: [2025-10-10T17:35:57.684Z] [INFO]: --- TRANSACTION TRAY CREATED --- {
+2025-10-10T19:35:57:   transactionData: { version: '1.0', chainId: 8453, calls: [ [Object] ] }
+2025-10-10T19:35:57: }
+2025-10-10T19:35:57: [2025-10-10T17:35:57.685Z] [INFO]: --- RAW RESPONSE FROM send_eth --- {
+2025-10-10T19:35:57:   response: {
+2025-10-10T19:35:57:     userMessage: '💸 Ready to send 0.00023 ETH on Base?\n' +
+2025-10-10T19:35:57:       '\n' +
+2025-10-10T19:35:57:       'Check your transaction tray above to approve this transfer.',
+2025-10-10T19:35:57:     transactionData: { version: '1.0', chainId: 8453, calls: [Array] },
+2025-10-10T19:35:57:     isTransaction: true,
+2025-10-10T19:35:57:     functionArgs: {
+2025-10-10T19:35:57:       toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T19:35:57:       amount: '0.00023',
+2025-10-10T19:35:57:       chain: 'base'
+2025-10-10T19:35:57:     }
+2025-10-10T19:35:57:   }
+2025-10-10T19:35:57: }
+2025-10-10T19:35:57: [2025-10-10T17:35:57.686Z] [INFO]: === TRANSACTION TRAY SENDING START === {
+2025-10-10T19:35:57:   contentType: 'xmtp.org/walletSendCalls:1.0',
+2025-10-10T19:35:57:   transactionData: '{\n' +
+2025-10-10T19:35:57:     '  "version": "1.0",\n' +
+2025-10-10T19:35:57:     '  "chainId": 8453,\n' +
+2025-10-10T19:35:57:     '  "calls": [\n' +
+2025-10-10T19:35:57:     '    {\n' +
+2025-10-10T19:35:57:     '      "to": "0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D",\n' +
+2025-10-10T19:35:57:     '      "value": "230000000000000",\n' +
+2025-10-10T19:35:57:     '      "data": "0x",\n' +
+2025-10-10T19:35:57:     '      "metadata": {\n' +
+2025-10-10T19:35:57:     '        "description": "Send 0.00023 ETH on Base",\n' +
+2025-10-10T19:35:57:     '        "hostname": "dragman-agent.base.org",\n' +
+2025-10-10T19:35:57:     '        "faviconUrl": "https://docs.base.org/favicon.ico",\n' +
+2025-10-10T19:35:57:     '        "title": "Dragman Agent"\n' +
+2025-10-10T19:35:57:     '      }\n' +
+2025-10-10T19:35:57:     '    }\n' +
+2025-10-10T19:35:57:     '  ]\n' +
+2025-10-10T19:35:57:     '}'
+2025-10-10T19:35:57: }
+2025-10-10T19:35:57: [2025-10-10T17:35:57.687Z] [ERROR]: ❌ Primary transaction method failed {
+2025-10-10T19:35:57:   error: 'ctx.sendWalletSendCalls is not a function',
+2025-10-10T19:35:57:   stack: 'TypeError: ctx.sendWalletSendCalls is not a function\n' +
+2025-10-10T19:35:57:     '    at sendTransaction (file:///var/www/Baseapp/index.js:228:15)\n' +
+2025-10-10T19:35:57:     '    at Agent.<anonymous> (file:///var/www/Baseapp/index.js:2285:42)\n' +
+2025-10-10T19:35:57:     '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)'
+2025-10-10T19:35:57: }
+2025-10-10T19:35:58: [2025-10-10T17:35:58.142Z] [INFO]: ✅ Fallback deeplink sent {
+2025-10-10T19:35:58:   deeplink: 'https://base.app/send?to=0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D&amount=0.00023&chain=base'
+2025-10-10T19:35:58: }
+2025-10-10T19:50:52: [2025-10-10T17:50:52.482Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T19:50:52: [2025-10-10T17:50:52.490Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T19:51:27: [2025-10-10T17:51:27.172Z] [INFO]: Context object properties {
+2025-10-10T19:51:27:   properties: [],
+2025-10-10T19:51:27:   hasInboxId: false,
+2025-10-10T19:51:27:   hasSenderAddress: false,
+2025-10-10T19:51:27:   hasSendContent: false,
+2025-10-10T19:51:27:   hasSendWalletSendCalls: false,
+2025-10-10T19:51:27:   hasSendTransaction: false,
+2025-10-10T19:51:27:   hasSendGeneric: false,
+2025-10-10T19:51:27:   hasSendText: true,
+2025-10-10T19:51:27:   types: {
+2025-10-10T19:51:27:     sendContent: 'undefined',
+2025-10-10T19:51:27:     sendWalletSendCalls: 'undefined',
+2025-10-10T19:51:27:     sendTransaction: 'undefined',
+2025-10-10T19:51:27:     send: 'undefined',
+2025-10-10T19:51:27:     sendText: 'function'
+2025-10-10T19:51:27:   }
+2025-10-10T19:51:27: }
+2025-10-10T19:51:27: [2025-10-10T17:51:27.173Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello' }
+2025-10-10T19:51:27: [2025-10-10T17:51:27.174Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello' }
+2025-10-10T19:51:36: [2025-10-10T17:51:36.947Z] [INFO]: Context object properties {
+2025-10-10T19:51:36:   properties: [],
+2025-10-10T19:51:36:   hasInboxId: false,
+2025-10-10T19:51:36:   hasSenderAddress: false,
+2025-10-10T19:51:36:   hasSendContent: false,
+2025-10-10T19:51:36:   hasSendWalletSendCalls: false,
+2025-10-10T19:51:36:   hasSendTransaction: false,
+2025-10-10T19:51:36:   hasSendGeneric: false,
+2025-10-10T19:51:36:   hasSendText: true,
+2025-10-10T19:51:36:   types: {
+2025-10-10T19:51:36:     sendContent: 'undefined',
+2025-10-10T19:51:36:     sendWalletSendCalls: 'undefined',
+2025-10-10T19:51:36:     sendTransaction: 'undefined',
+2025-10-10T19:51:36:     send: 'undefined',
+2025-10-10T19:51:36:     sendText: 'function'
+2025-10-10T19:51:36:   }
+2025-10-10T19:51:36: }
+2025-10-10T19:51:36: [2025-10-10T17:51:36.948Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T19:51:36:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T19:51:36: }
+2025-10-10T19:51:36: [2025-10-10T17:51:36.948Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T19:51:36:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T19:51:36: }
+2025-10-10T19:51:41: [2025-10-10T17:51:41.209Z] [INFO]: AI requested 1 tool calls.
+2025-10-10T19:51:41: [2025-10-10T17:51:41.210Z] [INFO]: Executing send_eth {
+2025-10-10T19:51:41:   args: {
+2025-10-10T19:51:41:     toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T19:51:41:     amount: '0.00023',
+2025-10-10T19:51:41:     chain: 'base'
+2025-10-10T19:51:41:   }
+2025-10-10T19:51:41: }
+2025-10-10T19:51:41: [2025-10-10T17:51:41.211Z] [INFO]: --- SEND ETH START --- To: 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D, Amount: 0.00023 ETH, Chain: base
+2025-10-10T19:51:41: [2025-10-10T17:51:41.215Z] [INFO]: --- TRANSACTION TRAY CREATED --- {
+2025-10-10T19:51:41:   transactionData: { version: '1.0', chainId: 8453, calls: [ [Object] ] }
+2025-10-10T19:51:41: }
+2025-10-10T19:51:41: [2025-10-10T17:51:41.216Z] [INFO]: --- RAW RESPONSE FROM send_eth --- {
+2025-10-10T19:51:41:   response: {
+2025-10-10T19:51:41:     userMessage: '💸 Ready to send 0.00023 ETH on Base?\n' +
+2025-10-10T19:51:41:       '\n' +
+2025-10-10T19:51:41:       'Check your transaction tray above to approve this transfer.',
+2025-10-10T19:51:41:     transactionData: { version: '1.0', chainId: 8453, calls: [Array] },
+2025-10-10T19:51:41:     isTransaction: true,
+2025-10-10T19:51:41:     functionArgs: {
+2025-10-10T19:51:41:       toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T19:51:41:       amount: '0.00023',
+2025-10-10T19:51:41:       chain: 'base'
+2025-10-10T19:51:41:     }
+2025-10-10T19:51:41:   }
+2025-10-10T19:51:41: }
+2025-10-10T19:51:41: [2025-10-10T17:51:41.217Z] [INFO]: === TRANSACTION TRAY SENDING START === {
+2025-10-10T19:51:41:   contentType: 'xmtp.org/walletSendCalls:1.0',
+2025-10-10T19:51:41:   transactionData: '{\n' +
+2025-10-10T19:51:41:     '  "version": "1.0",\n' +
+2025-10-10T19:51:41:     '  "chainId": 8453,\n' +
+2025-10-10T19:51:41:     '  "calls": [\n' +
+2025-10-10T19:51:41:     '    {\n' +
+2025-10-10T19:51:41:     '      "to": "0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D",\n' +
+2025-10-10T19:51:41:     '      "value": "230000000000000",\n' +
+2025-10-10T19:51:41:     '      "data": "0x",\n' +
+2025-10-10T19:51:41:     '      "metadata": {\n' +
+2025-10-10T19:51:41:     '        "description": "Send 0.00023 ETH on Base",\n' +
+2025-10-10T19:51:41:     '        "hostname": "dragman-agent.base.org",\n' +
+2025-10-10T19:51:41:     '        "faviconUrl": "https://docs.base.org/favicon.ico",\n' +
+2025-10-10T19:51:41:     '        "title": "Dragman Agent"\n' +
+2025-10-10T19:51:41:     '      }\n' +
+2025-10-10T19:51:41:     '    }\n' +
+2025-10-10T19:51:41:     '  ]\n' +
+2025-10-10T19:51:41:     '}'
+2025-10-10T19:51:41: }
+2025-10-10T19:51:41: [2025-10-10T17:51:41.218Z] [ERROR]: ❌ Primary transaction method failed {
+2025-10-10T19:51:41:   error: 'ctx.send is not a function',
+2025-10-10T19:51:41:   stack: 'TypeError: ctx.send is not a function\n' +
+2025-10-10T19:51:41:     '    at sendTransaction (file:///var/www/Baseapp/index.js:228:15)\n' +
+2025-10-10T19:51:41:     '    at Agent.<anonymous> (file:///var/www/Baseapp/index.js:2285:42)\n' +
+2025-10-10T19:51:41:     '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)'
+2025-10-10T19:51:41: }
+2025-10-10T19:51:41: [2025-10-10T17:51:41.726Z] [INFO]: ✅ Fallback deeplink sent {
+2025-10-10T19:51:41:   deeplink: 'https://base.app/send?to=0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D&amount=0.00023&chain=base'
+2025-10-10T19:51:41: }
+2025-10-10T19:55:12: [2025-10-10T17:55:12.372Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T19:55:12: [2025-10-10T17:55:12.379Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T19:56:05: [2025-10-10T17:56:05.450Z] [INFO]: Context object properties {
+2025-10-10T19:56:05:   properties: [],
+2025-10-10T19:56:05:   hasInboxId: false,
+2025-10-10T19:56:05:   hasSenderAddress: false,
+2025-10-10T19:56:05:   hasSendContent: false,
+2025-10-10T19:56:05:   hasSendWalletSendCalls: false,
+2025-10-10T19:56:05:   hasSendTransaction: false,
+2025-10-10T19:56:05:   hasSendGeneric: false,
+2025-10-10T19:56:05:   hasSendText: true,
+2025-10-10T19:56:05:   types: {
+2025-10-10T19:56:05:     sendContent: 'undefined',
+2025-10-10T19:56:05:     sendWalletSendCalls: 'undefined',
+2025-10-10T19:56:05:     sendTransaction: 'undefined',
+2025-10-10T19:56:05:     send: 'undefined',
+2025-10-10T19:56:05:     sendText: 'function'
+2025-10-10T19:56:05:   }
+2025-10-10T19:56:05: }
+2025-10-10T19:56:05: [2025-10-10T17:56:05.452Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello' }
+2025-10-10T19:56:05: [2025-10-10T17:56:05.457Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello' }
+2025-10-10T19:56:23: [2025-10-10T17:56:23.752Z] [INFO]: Context object properties {
+2025-10-10T19:56:23:   properties: [],
+2025-10-10T19:56:23:   hasInboxId: false,
+2025-10-10T19:56:23:   hasSenderAddress: false,
+2025-10-10T19:56:23:   hasSendContent: false,
+2025-10-10T19:56:23:   hasSendWalletSendCalls: false,
+2025-10-10T19:56:23:   hasSendTransaction: false,
+2025-10-10T19:56:23:   hasSendGeneric: false,
+2025-10-10T19:56:23:   hasSendText: true,
+2025-10-10T19:56:23:   types: {
+2025-10-10T19:56:23:     sendContent: 'undefined',
+2025-10-10T19:56:23:     sendWalletSendCalls: 'undefined',
+2025-10-10T19:56:23:     sendTransaction: 'undefined',
+2025-10-10T19:56:23:     send: 'undefined',
+2025-10-10T19:56:23:     sendText: 'function'
+2025-10-10T19:56:23:   }
+2025-10-10T19:56:23: }
+2025-10-10T19:56:23: [2025-10-10T17:56:23.755Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T19:56:23:   content: 'Send 0.0003 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T19:56:23: }
+2025-10-10T19:56:23: [2025-10-10T17:56:23.758Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T19:56:23:   content: 'Send 0.0003 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T19:56:23: }
+2025-10-10T19:56:27: [2025-10-10T17:56:27.548Z] [INFO]: AI requested 1 tool calls.
+2025-10-10T19:56:27: [2025-10-10T17:56:27.549Z] [INFO]: Executing send_eth {
+2025-10-10T19:56:27:   args: {
+2025-10-10T19:56:27:     toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T19:56:27:     amount: '0.0003',
+2025-10-10T19:56:27:     chain: 'base'
+2025-10-10T19:56:27:   }
+2025-10-10T19:56:27: }
+2025-10-10T19:56:27: [2025-10-10T17:56:27.549Z] [INFO]: --- SEND ETH START --- To: 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D, Amount: 0.0003 ETH, Chain: base
+2025-10-10T19:56:27: [2025-10-10T17:56:27.552Z] [INFO]: --- TRANSACTION TRAY CREATED --- {
+2025-10-10T19:56:27:   transactionData: { version: '1.0', chainId: 8453, calls: [ [Object] ] }
+2025-10-10T19:56:27: }
+2025-10-10T19:56:27: [2025-10-10T17:56:27.553Z] [INFO]: --- RAW RESPONSE FROM send_eth --- {
+2025-10-10T19:56:27:   response: {
+2025-10-10T19:56:27:     userMessage: '💸 Ready to send 0.0003 ETH on Base?\n' +
+2025-10-10T19:56:27:       '\n' +
+2025-10-10T19:56:27:       'Check your transaction tray above to approve this transfer.',
+2025-10-10T19:56:27:     transactionData: { version: '1.0', chainId: 8453, calls: [Array] },
+2025-10-10T19:56:27:     isTransaction: true,
+2025-10-10T19:56:27:     functionArgs: {
+2025-10-10T19:56:27:       toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T19:56:27:       amount: '0.0003',
+2025-10-10T19:56:27:       chain: 'base'
+2025-10-10T19:56:27:     }
+2025-10-10T19:56:27:   }
+2025-10-10T19:56:27: }
+2025-10-10T19:56:27: [2025-10-10T17:56:27.554Z] [INFO]: === TRANSACTION TRAY SENDING START === {
+2025-10-10T19:56:27:   contentType: 'xmtp.org/walletSendCalls:1.0',
+2025-10-10T19:56:27:   transactionData: '{\n' +
+2025-10-10T19:56:27:     '  "version": "1.0",\n' +
+2025-10-10T19:56:27:     '  "chainId": 8453,\n' +
+2025-10-10T19:56:27:     '  "calls": [\n' +
+2025-10-10T19:56:27:     '    {\n' +
+2025-10-10T19:56:27:     '      "to": "0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D",\n' +
+2025-10-10T19:56:27:     '      "value": "300000000000000",\n' +
+2025-10-10T19:56:27:     '      "data": "0x",\n' +
+2025-10-10T19:56:27:     '      "metadata": {\n' +
+2025-10-10T19:56:27:     '        "description": "Send 0.0003 ETH on Base",\n' +
+2025-10-10T19:56:27:     '        "hostname": "dragman-agent.base.org",\n' +
+2025-10-10T19:56:27:     '        "faviconUrl": "https://docs.base.org/favicon.ico",\n' +
+2025-10-10T19:56:27:     '        "title": "Dragman Agent"\n' +
+2025-10-10T19:56:27:     '      }\n' +
+2025-10-10T19:56:27:     '    }\n' +
+2025-10-10T19:56:27:     '  ]\n' +
+2025-10-10T19:56:27:     '}'
+2025-10-10T19:56:27: }
+2025-10-10T19:56:27: [2025-10-10T17:56:27.563Z] [ERROR]: ❌ Primary transaction method failed {
+2025-10-10T19:56:27:   error: 'ctx.reply is not a function',
+2025-10-10T19:56:27:   stack: 'TypeError: ctx.reply is not a function\n' +
+2025-10-10T19:56:27:     '    at sendTransaction (file:///var/www/Baseapp/index.js:228:15)\n' +
+2025-10-10T19:56:27:     '    at Agent.<anonymous> (file:///var/www/Baseapp/index.js:2285:42)\n' +
+2025-10-10T19:56:27:     '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)'
+2025-10-10T19:56:27: }
+2025-10-10T19:56:28: [2025-10-10T17:56:28.048Z] [INFO]: ✅ Fallback deeplink sent {
+2025-10-10T19:56:28:   deeplink: 'https://base.app/send?to=0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D&amount=0.0003&chain=base'
+2025-10-10T19:56:28: }
+2025-10-10T19:58:25: [2025-10-10T17:58:25.215Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T19:58:25: [2025-10-10T17:58:25.281Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T19:58:43: [2025-10-10T17:58:43.886Z] [INFO]: Context object properties {
+2025-10-10T19:58:43:   properties: [],
+2025-10-10T19:58:43:   hasInboxId: false,
+2025-10-10T19:58:43:   hasSenderAddress: false,
+2025-10-10T19:58:43:   hasSendContent: false,
+2025-10-10T19:58:43:   hasSendWalletSendCalls: false,
+2025-10-10T19:58:43:   hasSendTransaction: false,
+2025-10-10T19:58:43:   hasSendGeneric: false,
+2025-10-10T19:58:43:   hasSendText: true,
+2025-10-10T19:58:43:   types: {
+2025-10-10T19:58:43:     sendContent: 'undefined',
+2025-10-10T19:58:43:     sendWalletSendCalls: 'undefined',
+2025-10-10T19:58:43:     sendTransaction: 'undefined',
+2025-10-10T19:58:43:     send: 'undefined',
+2025-10-10T19:58:43:     sendText: 'function'
+2025-10-10T19:58:43:   }
+2025-10-10T19:58:43: }
+2025-10-10T19:58:43: [2025-10-10T17:58:43.887Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Who are you' }
+2025-10-10T19:58:43: [2025-10-10T17:58:43.888Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Who are you' }
+2025-10-10T19:58:59: [2025-10-10T17:58:59.430Z] [INFO]: Context object properties {
+2025-10-10T19:58:59:   properties: [],
+2025-10-10T19:58:59:   hasInboxId: false,
+2025-10-10T19:58:59:   hasSenderAddress: false,
+2025-10-10T19:58:59:   hasSendContent: false,
+2025-10-10T19:58:59:   hasSendWalletSendCalls: false,
+2025-10-10T19:58:59:   hasSendTransaction: false,
+2025-10-10T19:58:59:   hasSendGeneric: false,
+2025-10-10T19:58:59:   hasSendText: true,
+2025-10-10T19:58:59:   types: {
+2025-10-10T19:58:59:     sendContent: 'undefined',
+2025-10-10T19:58:59:     sendWalletSendCalls: 'undefined',
+2025-10-10T19:58:59:     sendTransaction: 'undefined',
+2025-10-10T19:58:59:     send: 'undefined',
+2025-10-10T19:58:59:     sendText: 'function'
+2025-10-10T19:58:59:   }
+2025-10-10T19:58:59: }
+2025-10-10T19:58:59: [2025-10-10T17:58:59.431Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T19:58:59:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T19:58:59: }
+2025-10-10T19:58:59: [2025-10-10T17:58:59.432Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T19:58:59:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T19:58:59: }
+2025-10-10T19:59:01: [2025-10-10T17:59:01.955Z] [INFO]: AI requested 1 tool calls.
+2025-10-10T19:59:01: [2025-10-10T17:59:01.957Z] [INFO]: Executing send_eth {
+2025-10-10T19:59:01:   args: {
+2025-10-10T19:59:01:     toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T19:59:01:     amount: '0.00023',
+2025-10-10T19:59:01:     chain: 'base'
+2025-10-10T19:59:01:   }
+2025-10-10T19:59:01: }
+2025-10-10T19:59:01: [2025-10-10T17:59:01.958Z] [INFO]: --- SEND ETH START --- To: 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D, Amount: 0.00023 ETH, Chain: base
+2025-10-10T19:59:01: [2025-10-10T17:59:01.965Z] [INFO]: --- TRANSACTION TRAY CREATED --- {
+2025-10-10T19:59:01:   transactionData: { version: '1.0', chainId: 8453, calls: [ [Object] ] }
+2025-10-10T19:59:01: }
+2025-10-10T19:59:01: [2025-10-10T17:59:01.968Z] [INFO]: --- RAW RESPONSE FROM send_eth --- {
+2025-10-10T19:59:01:   response: {
+2025-10-10T19:59:01:     userMessage: '💸 Ready to send 0.00023 ETH on Base?\n' +
+2025-10-10T19:59:01:       '\n' +
+2025-10-10T19:59:01:       'Check your transaction tray above to approve this transfer.',
+2025-10-10T19:59:01:     transactionData: { version: '1.0', chainId: 8453, calls: [Array] },
+2025-10-10T19:59:01:     isTransaction: true,
+2025-10-10T19:59:01:     functionArgs: {
+2025-10-10T19:59:01:       toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T19:59:01:       amount: '0.00023',
+2025-10-10T19:59:01:       chain: 'base'
+2025-10-10T19:59:01:     }
+2025-10-10T19:59:01:   }
+2025-10-10T19:59:01: }
+2025-10-10T19:59:01: [2025-10-10T17:59:01.970Z] [INFO]: === TRANSACTION TRAY SENDING START === {
+2025-10-10T19:59:01:   contentType: 'xmtp.org/walletSendCalls:1.0',
+2025-10-10T19:59:01:   transactionData: '{\n' +
+2025-10-10T19:59:01:     '  "version": "1.0",\n' +
+2025-10-10T19:59:01:     '  "chainId": 8453,\n' +
+2025-10-10T19:59:01:     '  "calls": [\n' +
+2025-10-10T19:59:01:     '    {\n' +
+2025-10-10T19:59:01:     '      "to": "0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D",\n' +
+2025-10-10T19:59:01:     '      "value": "230000000000000",\n' +
+2025-10-10T19:59:01:     '      "data": "0x",\n' +
+2025-10-10T19:59:01:     '      "metadata": {\n' +
+2025-10-10T19:59:01:     '        "description": "Send 0.00023 ETH on Base",\n' +
+2025-10-10T19:59:01:     '        "hostname": "dragman-agent.base.org",\n' +
+2025-10-10T19:59:01:     '        "faviconUrl": "https://docs.base.org/favicon.ico",\n' +
+2025-10-10T19:59:01:     '        "title": "Dragman Agent"\n' +
+2025-10-10T19:59:01:     '      }\n' +
+2025-10-10T19:59:01:     '    }\n' +
+2025-10-10T19:59:01:     '  ]\n' +
+2025-10-10T19:59:01:     '}'
+2025-10-10T19:59:01: }
+2025-10-10T19:59:01: [2025-10-10T17:59:01.971Z] [ERROR]: ❌ Primary transaction method failed {
+2025-10-10T19:59:01:   error: 'ctx.send is not a function',
+2025-10-10T19:59:01:   stack: 'TypeError: ctx.send is not a function\n' +
+2025-10-10T19:59:01:     '    at sendTransaction (file:///var/www/Baseapp/index.js:228:15)\n' +
+2025-10-10T19:59:01:     '    at Agent.<anonymous> (file:///var/www/Baseapp/index.js:2286:42)\n' +
+2025-10-10T19:59:01:     '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)'
+2025-10-10T19:59:01: }
+2025-10-10T19:59:02: [2025-10-10T17:59:02.440Z] [INFO]: ✅ Fallback deeplink sent {
+2025-10-10T19:59:02:   deeplink: 'https://base.app/send?to=0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D&amount=0.00023&chain=base'
+2025-10-10T19:59:02: }
+2025-10-10T20:08:39: [2025-10-10T18:08:39.855Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T20:08:39: [2025-10-10T18:08:39.878Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T20:08:54: [2025-10-10T18:08:54.428Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T20:08:54: [2025-10-10T18:08:54.438Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T20:09:43: [2025-10-10T18:09:43.529Z] [INFO]: Context object properties {
+2025-10-10T20:09:43:   properties: [],
+2025-10-10T20:09:43:   hasInboxId: false,
+2025-10-10T20:09:43:   hasSenderAddress: false,
+2025-10-10T20:09:43:   hasSendContent: false,
+2025-10-10T20:09:43:   hasSendWalletSendCalls: false,
+2025-10-10T20:09:43:   hasSendTransaction: false,
+2025-10-10T20:09:43:   hasSendGeneric: false,
+2025-10-10T20:09:43:   hasSendText: true,
+2025-10-10T20:09:43:   types: {
+2025-10-10T20:09:43:     sendContent: 'undefined',
+2025-10-10T20:09:43:     sendWalletSendCalls: 'undefined',
+2025-10-10T20:09:43:     sendTransaction: 'undefined',
+2025-10-10T20:09:43:     send: 'undefined',
+2025-10-10T20:09:43:     sendText: 'function'
+2025-10-10T20:09:43:   }
+2025-10-10T20:09:43: }
+2025-10-10T20:09:43: [2025-10-10T18:09:43.533Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello' }
+2025-10-10T20:09:43: [2025-10-10T18:09:43.535Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello' }
+2025-10-10T20:09:49: [2025-10-10T18:09:49.076Z] [INFO]: Context object properties {
+2025-10-10T20:09:49:   properties: [],
+2025-10-10T20:09:49:   hasInboxId: false,
+2025-10-10T20:09:49:   hasSenderAddress: false,
+2025-10-10T20:09:49:   hasSendContent: false,
+2025-10-10T20:09:49:   hasSendWalletSendCalls: false,
+2025-10-10T20:09:49:   hasSendTransaction: false,
+2025-10-10T20:09:49:   hasSendGeneric: false,
+2025-10-10T20:09:49:   hasSendText: true,
+2025-10-10T20:09:49:   types: {
+2025-10-10T20:09:49:     sendContent: 'undefined',
+2025-10-10T20:09:49:     sendWalletSendCalls: 'undefined',
+2025-10-10T20:09:49:     sendTransaction: 'undefined',
+2025-10-10T20:09:49:     send: 'undefined',
+2025-10-10T20:09:49:     sendText: 'function'
+2025-10-10T20:09:49:   }
+2025-10-10T20:09:49: }
+2025-10-10T20:09:49: [2025-10-10T18:09:49.077Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T20:09:49:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T20:09:49: }
+2025-10-10T20:09:49: [2025-10-10T18:09:49.078Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T20:09:49:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T20:09:49: }
+2025-10-10T20:09:51: [2025-10-10T18:09:51.635Z] [INFO]: AI requested 1 tool calls.
+2025-10-10T20:09:51: [2025-10-10T18:09:51.636Z] [INFO]: Executing send_eth {
+2025-10-10T20:09:51:   args: {
+2025-10-10T20:09:51:     toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T20:09:51:     amount: '0.00023',
+2025-10-10T20:09:51:     chain: 'base'
+2025-10-10T20:09:51:   }
+2025-10-10T20:09:51: }
+2025-10-10T20:09:51: [2025-10-10T18:09:51.636Z] [INFO]: --- SEND ETH START --- To: 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D, Amount: 0.00023 ETH, Chain: base
+2025-10-10T20:09:51: [2025-10-10T18:09:51.639Z] [INFO]: --- TRANSACTION TRAY CREATED --- {
+2025-10-10T20:09:51:   transactionData: { version: '1.0', chainId: 8453, calls: [ [Object] ] }
+2025-10-10T20:09:51: }
+2025-10-10T20:09:51: [2025-10-10T18:09:51.640Z] [INFO]: --- RAW RESPONSE FROM send_eth --- {
+2025-10-10T20:09:51:   response: {
+2025-10-10T20:09:51:     userMessage: '💸 Ready to send 0.00023 ETH on Base?\n' +
+2025-10-10T20:09:51:       '\n' +
+2025-10-10T20:09:51:       'Check your transaction tray above to approve this transfer.',
+2025-10-10T20:09:51:     transactionData: { version: '1.0', chainId: 8453, calls: [Array] },
+2025-10-10T20:09:51:     isTransaction: true,
+2025-10-10T20:09:51:     functionArgs: {
+2025-10-10T20:09:51:       toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T20:09:51:       amount: '0.00023',
+2025-10-10T20:09:51:       chain: 'base'
+2025-10-10T20:09:51:     }
+2025-10-10T20:09:51:   }
+2025-10-10T20:09:51: }
+2025-10-10T20:14:46: [2025-10-10T18:14:46.689Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T20:14:46: [2025-10-10T18:14:46.698Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T20:15:04: [2025-10-10T18:15:04.802Z] [INFO]: Context object properties {
+2025-10-10T20:15:04:   properties: [],
+2025-10-10T20:15:04:   hasInboxId: false,
+2025-10-10T20:15:04:   hasSenderAddress: false,
+2025-10-10T20:15:04:   hasSendContent: false,
+2025-10-10T20:15:04:   hasSendWalletSendCalls: false,
+2025-10-10T20:15:04:   hasSendTransaction: false,
+2025-10-10T20:15:04:   hasSendGeneric: false,
+2025-10-10T20:15:04:   hasSendText: true,
+2025-10-10T20:15:04:   types: {
+2025-10-10T20:15:04:     sendContent: 'undefined',
+2025-10-10T20:15:04:     sendWalletSendCalls: 'undefined',
+2025-10-10T20:15:04:     sendTransaction: 'undefined',
+2025-10-10T20:15:04:     send: 'undefined',
+2025-10-10T20:15:04:     sendText: 'function'
+2025-10-10T20:15:04:   }
+2025-10-10T20:15:04: }
+2025-10-10T20:15:04: [2025-10-10T18:15:04.803Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello' }
+2025-10-10T20:15:04: [2025-10-10T18:15:04.804Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello' }
+2025-10-10T20:15:12: [2025-10-10T18:15:12.308Z] [INFO]: Context object properties {
+2025-10-10T20:15:12:   properties: [],
+2025-10-10T20:15:12:   hasInboxId: false,
+2025-10-10T20:15:12:   hasSenderAddress: false,
+2025-10-10T20:15:12:   hasSendContent: false,
+2025-10-10T20:15:12:   hasSendWalletSendCalls: false,
+2025-10-10T20:15:12:   hasSendTransaction: false,
+2025-10-10T20:15:12:   hasSendGeneric: false,
+2025-10-10T20:15:12:   hasSendText: true,
+2025-10-10T20:15:12:   types: {
+2025-10-10T20:15:12:     sendContent: 'undefined',
+2025-10-10T20:15:12:     sendWalletSendCalls: 'undefined',
+2025-10-10T20:15:12:     sendTransaction: 'undefined',
+2025-10-10T20:15:12:     send: 'undefined',
+2025-10-10T20:15:12:     sendText: 'function'
+2025-10-10T20:15:12:   }
+2025-10-10T20:15:12: }
+2025-10-10T20:15:12: [2025-10-10T18:15:12.309Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: '/help' }
+2025-10-10T20:15:12: [2025-10-10T18:15:12.313Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: '/help' }
+2025-10-10T20:15:21: [2025-10-10T18:15:21.157Z] [INFO]: Context object properties {
+2025-10-10T20:15:21:   properties: [],
+2025-10-10T20:15:21:   hasInboxId: false,
+2025-10-10T20:15:21:   hasSenderAddress: false,
+2025-10-10T20:15:21:   hasSendContent: false,
+2025-10-10T20:15:21:   hasSendWalletSendCalls: false,
+2025-10-10T20:15:21:   hasSendTransaction: false,
+2025-10-10T20:15:21:   hasSendGeneric: false,
+2025-10-10T20:15:21:   hasSendText: true,
+2025-10-10T20:15:21:   types: {
+2025-10-10T20:15:21:     sendContent: 'undefined',
+2025-10-10T20:15:21:     sendWalletSendCalls: 'undefined',
+2025-10-10T20:15:21:     sendTransaction: 'undefined',
+2025-10-10T20:15:21:     send: 'undefined',
+2025-10-10T20:15:21:     sendText: 'function'
+2025-10-10T20:15:21:   }
+2025-10-10T20:15:21: }
+2025-10-10T20:15:21: [2025-10-10T18:15:21.161Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T20:15:21:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T20:15:21: }
+2025-10-10T20:15:21: [2025-10-10T18:15:21.161Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T20:15:21:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T20:15:21: }
+2025-10-10T20:15:23: [2025-10-10T18:15:23.606Z] [INFO]: AI requested 1 tool calls.
+2025-10-10T20:15:23: [2025-10-10T18:15:23.608Z] [INFO]: Executing send_eth {
+2025-10-10T20:15:23:   args: {
+2025-10-10T20:15:23:     toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T20:15:23:     amount: '0.00023',
+2025-10-10T20:15:23:     chain: 'base'
+2025-10-10T20:15:23:   }
+2025-10-10T20:15:23: }
+2025-10-10T20:15:23: [2025-10-10T18:15:23.610Z] [INFO]: --- SEND ETH START --- To: 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D, Amount: 0.00023 ETH, Chain: base
+2025-10-10T20:15:23: [2025-10-10T18:15:23.628Z] [INFO]: --- TRANSACTION TRAY CREATED --- {
+2025-10-10T20:15:23:   transactionData: { version: '1.0', chainId: 8453, calls: [ [Object] ] }
+2025-10-10T20:15:23: }
+2025-10-10T20:15:23: [2025-10-10T18:15:23.630Z] [INFO]: --- RAW RESPONSE FROM send_eth --- {
+2025-10-10T20:15:23:   response: {
+2025-10-10T20:15:23:     userMessage: '💸 Ready to send 0.00023 ETH on Base?\n' +
+2025-10-10T20:15:23:       '\n' +
+2025-10-10T20:15:23:       'Check your transaction tray above to approve this transfer.',
+2025-10-10T20:15:23:     transactionData: { version: '1.0', chainId: 8453, calls: [Array] },
+2025-10-10T20:15:23:     isTransaction: true,
+2025-10-10T20:15:23:     functionArgs: {
+2025-10-10T20:15:23:       toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T20:15:23:       amount: '0.00023',
+2025-10-10T20:15:23:       chain: 'base'
+2025-10-10T20:15:23:     }
+2025-10-10T20:15:23:   }
+2025-10-10T20:15:23: }
+2025-10-10T20:18:58: [2025-10-10T18:18:58.199Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T20:18:58: [2025-10-10T18:18:58.210Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T20:19:25: [2025-10-10T18:19:25.326Z] [INFO]: Context object properties {
+2025-10-10T20:19:25:   properties: [],
+2025-10-10T20:19:25:   hasInboxId: false,
+2025-10-10T20:19:25:   hasSenderAddress: false,
+2025-10-10T20:19:25:   hasSendContent: false,
+2025-10-10T20:19:25:   hasSendWalletSendCalls: false,
+2025-10-10T20:19:25:   hasSendTransaction: false,
+2025-10-10T20:19:25:   hasSendGeneric: false,
+2025-10-10T20:19:25:   hasSendText: true,
+2025-10-10T20:19:25:   types: {
+2025-10-10T20:19:25:     sendContent: 'undefined',
+2025-10-10T20:19:25:     sendWalletSendCalls: 'undefined',
+2025-10-10T20:19:25:     sendTransaction: 'undefined',
+2025-10-10T20:19:25:     send: 'undefined',
+2025-10-10T20:19:25:     sendText: 'function'
+2025-10-10T20:19:25:   }
+2025-10-10T20:19:25: }
+2025-10-10T20:19:25: [2025-10-10T18:19:25.327Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello' }
+2025-10-10T20:19:25: [2025-10-10T18:19:25.328Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello' }
+2025-10-10T20:19:32: [2025-10-10T18:19:32.249Z] [INFO]: Context object properties {
+2025-10-10T20:19:32:   properties: [],
+2025-10-10T20:19:32:   hasInboxId: false,
+2025-10-10T20:19:32:   hasSenderAddress: false,
+2025-10-10T20:19:32:   hasSendContent: false,
+2025-10-10T20:19:32:   hasSendWalletSendCalls: false,
+2025-10-10T20:19:32:   hasSendTransaction: false,
+2025-10-10T20:19:32:   hasSendGeneric: false,
+2025-10-10T20:19:32:   hasSendText: true,
+2025-10-10T20:19:32:   types: {
+2025-10-10T20:19:32:     sendContent: 'undefined',
+2025-10-10T20:19:32:     sendWalletSendCalls: 'undefined',
+2025-10-10T20:19:32:     sendTransaction: 'undefined',
+2025-10-10T20:19:32:     send: 'undefined',
+2025-10-10T20:19:32:     sendText: 'function'
+2025-10-10T20:19:32:   }
+2025-10-10T20:19:32: }
+2025-10-10T20:19:32: [2025-10-10T18:19:32.250Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T20:19:32:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T20:19:32: }
+2025-10-10T20:19:32: [2025-10-10T18:19:32.250Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T20:19:32:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T20:19:32: }
+2025-10-10T20:19:35: [2025-10-10T18:19:35.185Z] [INFO]: AI requested 1 tool calls.
+2025-10-10T20:19:35: [2025-10-10T18:19:35.185Z] [INFO]: Executing send_eth {
+2025-10-10T20:19:35:   args: {
+2025-10-10T20:19:35:     toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T20:19:35:     amount: '0.00023',
+2025-10-10T20:19:35:     chain: 'base'
+2025-10-10T20:19:35:   }
+2025-10-10T20:19:35: }
+2025-10-10T20:19:35: [2025-10-10T18:19:35.186Z] [INFO]: --- SEND ETH START --- To: 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D, Amount: 0.00023 ETH, Chain: base
+2025-10-10T20:19:35: [2025-10-10T18:19:35.189Z] [INFO]: --- TRANSACTION TRAY CREATED --- {
+2025-10-10T20:19:35:   transactionData: { version: '1.0', chainId: 8453, calls: [ [Object] ] }
+2025-10-10T20:19:35: }
+2025-10-10T20:19:35: [2025-10-10T18:19:35.191Z] [INFO]: --- RAW RESPONSE FROM send_eth --- {
+2025-10-10T20:19:35:   response: {
+2025-10-10T20:19:35:     userMessage: '💸 Ready to send 0.00023 ETH on Base?\n' +
+2025-10-10T20:19:35:       '\n' +
+2025-10-10T20:19:35:       'Check your transaction tray above to approve this transfer.',
+2025-10-10T20:19:35:     transactionData: { version: '1.0', chainId: 8453, calls: [Array] },
+2025-10-10T20:19:35:     isTransaction: true,
+2025-10-10T20:19:35:     functionArgs: {
+2025-10-10T20:19:35:       toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T20:19:35:       amount: '0.00023',
+2025-10-10T20:19:35:       chain: 'base'
+2025-10-10T20:19:35:     }
+2025-10-10T20:19:35:   }
+2025-10-10T20:19:35: }
+2025-10-10T20:45:52: [2025-10-10T18:45:52.529Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T20:45:52: [2025-10-10T18:45:52.537Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T21:44:52: [2025-10-10T19:44:52.706Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T21:44:52: [2025-10-10T19:44:52.712Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T21:45:53: [2025-10-10T19:45:53.491Z] [INFO]: Context object properties {
+2025-10-10T21:45:53:   properties: [],
+2025-10-10T21:45:53:   hasInboxId: false,
+2025-10-10T21:45:53:   hasSenderAddress: false,
+2025-10-10T21:45:53:   hasSendContent: false,
+2025-10-10T21:45:53:   hasSendWalletSendCalls: false,
+2025-10-10T21:45:53:   hasSendTransaction: false,
+2025-10-10T21:45:53:   hasSendGeneric: false,
+2025-10-10T21:45:53:   hasSendText: true,
+2025-10-10T21:45:53:   types: {
+2025-10-10T21:45:53:     sendContent: 'undefined',
+2025-10-10T21:45:53:     sendWalletSendCalls: 'undefined',
+2025-10-10T21:45:53:     sendTransaction: 'undefined',
+2025-10-10T21:45:53:     send: 'undefined',
+2025-10-10T21:45:53:     sendText: 'function'
+2025-10-10T21:45:53:   }
+2025-10-10T21:45:53: }
+2025-10-10T21:45:53: [2025-10-10T19:45:53.496Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello' }
+2025-10-10T21:45:53: [2025-10-10T19:45:53.504Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello' }
+2025-10-10T21:46:41: [2025-10-10T19:46:41.733Z] [INFO]: Context object properties {
+2025-10-10T21:46:41:   properties: [],
+2025-10-10T21:46:41:   hasInboxId: false,
+2025-10-10T21:46:41:   hasSenderAddress: false,
+2025-10-10T21:46:41:   hasSendContent: false,
+2025-10-10T21:46:41:   hasSendWalletSendCalls: false,
+2025-10-10T21:46:41:   hasSendTransaction: false,
+2025-10-10T21:46:41:   hasSendGeneric: false,
+2025-10-10T21:46:41:   hasSendText: true,
+2025-10-10T21:46:41:   types: {
+2025-10-10T21:46:41:     sendContent: 'undefined',
+2025-10-10T21:46:41:     sendWalletSendCalls: 'undefined',
+2025-10-10T21:46:41:     sendTransaction: 'undefined',
+2025-10-10T21:46:41:     send: 'undefined',
+2025-10-10T21:46:41:     sendText: 'function'
+2025-10-10T21:46:41:   }
+2025-10-10T21:46:41: }
+2025-10-10T21:46:41: [2025-10-10T19:46:41.735Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T21:46:41:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T21:46:41: }
+2025-10-10T21:46:41: [2025-10-10T19:46:41.736Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T21:46:41:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T21:46:41: }
+2025-10-10T21:46:47: [2025-10-10T19:46:47.300Z] [INFO]: AI requested 1 tool calls.
+2025-10-10T21:46:47: [2025-10-10T19:46:47.300Z] [INFO]: Executing send_eth {
+2025-10-10T21:46:47:   args: {
+2025-10-10T21:46:47:     toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T21:46:47:     amount: '0.00023',
+2025-10-10T21:46:47:     chain: 'base'
+2025-10-10T21:46:47:   }
+2025-10-10T21:46:47: }
+2025-10-10T21:46:47: [2025-10-10T19:46:47.301Z] [INFO]: --- SEND ETH START --- To: 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D, Amount: 0.00023 ETH, Chain: base
+2025-10-10T21:46:47: [2025-10-10T19:46:47.304Z] [INFO]: --- TRANSACTION TRAY CREATED --- {
+2025-10-10T21:46:47:   transactionData: { version: '1.0', chainId: 8453, calls: [ [Object] ] }
+2025-10-10T21:46:47: }
+2025-10-10T21:46:47: [2025-10-10T19:46:47.305Z] [INFO]: --- RAW RESPONSE FROM send_eth --- {
+2025-10-10T21:46:47:   response: {
+2025-10-10T21:46:47:     userMessage: '💸 Ready to send 0.00023 ETH on Base?\n' +
+2025-10-10T21:46:47:       '\n' +
+2025-10-10T21:46:47:       'Check your transaction tray above to approve this transfer.',
+2025-10-10T21:46:47:     transactionData: { version: '1.0', chainId: 8453, calls: [Array] },
+2025-10-10T21:46:47:     isTransaction: true,
+2025-10-10T21:46:47:     functionArgs: {
+2025-10-10T21:46:47:       toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T21:46:47:       amount: '0.00023',
+2025-10-10T21:46:47:       chain: 'base'
+2025-10-10T21:46:47:     }
+2025-10-10T21:46:47:   }
+2025-10-10T21:46:47: }
+2025-10-10T21:51:43: [2025-10-10T19:51:43.056Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T21:51:43: [2025-10-10T19:51:43.064Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T21:51:55: [2025-10-10T19:51:55.112Z] [INFO]: Context object properties {
+2025-10-10T21:51:55:   properties: [],
+2025-10-10T21:51:55:   hasInboxId: false,
+2025-10-10T21:51:55:   hasSenderAddress: false,
+2025-10-10T21:51:55:   hasSendContent: false,
+2025-10-10T21:51:55:   hasSendWalletSendCalls: false,
+2025-10-10T21:51:55:   hasSendTransaction: false,
+2025-10-10T21:51:55:   hasSendGeneric: false,
+2025-10-10T21:51:55:   hasSendText: true,
+2025-10-10T21:51:55:   types: {
+2025-10-10T21:51:55:     sendContent: 'undefined',
+2025-10-10T21:51:55:     sendWalletSendCalls: 'undefined',
+2025-10-10T21:51:55:     sendTransaction: 'undefined',
+2025-10-10T21:51:55:     send: 'undefined',
+2025-10-10T21:51:55:     sendText: 'function'
+2025-10-10T21:51:55:   }
+2025-10-10T21:51:55: }
+2025-10-10T21:51:55: [2025-10-10T19:51:55.121Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: '/test' }
+2025-10-10T21:51:55: [2025-10-10T19:51:55.122Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: '/test' }
+2025-10-10T21:52:02: [2025-10-10T19:52:02.793Z] [INFO]: Context object properties {
+2025-10-10T21:52:02:   properties: [],
+2025-10-10T21:52:02:   hasInboxId: false,
+2025-10-10T21:52:02:   hasSenderAddress: false,
+2025-10-10T21:52:02:   hasSendContent: false,
+2025-10-10T21:52:02:   hasSendWalletSendCalls: false,
+2025-10-10T21:52:02:   hasSendTransaction: false,
+2025-10-10T21:52:02:   hasSendGeneric: false,
+2025-10-10T21:52:02:   hasSendText: true,
+2025-10-10T21:52:02:   types: {
+2025-10-10T21:52:02:     sendContent: 'undefined',
+2025-10-10T21:52:02:     sendWalletSendCalls: 'undefined',
+2025-10-10T21:52:02:     sendTransaction: 'undefined',
+2025-10-10T21:52:02:     send: 'undefined',
+2025-10-10T21:52:02:     sendText: 'function'
+2025-10-10T21:52:02:   }
+2025-10-10T21:52:02: }
+2025-10-10T21:52:02: [2025-10-10T19:52:02.794Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: '/help' }
+2025-10-10T21:52:02: [2025-10-10T19:52:02.795Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: '/help' }
+2025-10-10T21:52:09: [2025-10-10T19:52:09.756Z] [INFO]: Context object properties {
+2025-10-10T21:52:09:   properties: [],
+2025-10-10T21:52:09:   hasInboxId: false,
+2025-10-10T21:52:09:   hasSenderAddress: false,
+2025-10-10T21:52:09:   hasSendContent: false,
+2025-10-10T21:52:09:   hasSendWalletSendCalls: false,
+2025-10-10T21:52:09:   hasSendTransaction: false,
+2025-10-10T21:52:09:   hasSendGeneric: false,
+2025-10-10T21:52:09:   hasSendText: true,
+2025-10-10T21:52:09:   types: {
+2025-10-10T21:52:09:     sendContent: 'undefined',
+2025-10-10T21:52:09:     sendWalletSendCalls: 'undefined',
+2025-10-10T21:52:09:     sendTransaction: 'undefined',
+2025-10-10T21:52:09:     send: 'undefined',
+2025-10-10T21:52:09:     sendText: 'function'
+2025-10-10T21:52:09:   }
+2025-10-10T21:52:09: }
+2025-10-10T21:52:09: [2025-10-10T19:52:09.759Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T21:52:09:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T21:52:09: }
+2025-10-10T21:52:09: [2025-10-10T19:52:09.761Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T21:52:09:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T21:52:09: }
+2025-10-10T21:52:16: [2025-10-10T19:52:16.135Z] [INFO]: AI requested 1 tool calls.
+2025-10-10T21:52:16: [2025-10-10T19:52:16.135Z] [INFO]: Executing send_eth {
+2025-10-10T21:52:16:   args: {
+2025-10-10T21:52:16:     toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T21:52:16:     amount: '0.00023',
+2025-10-10T21:52:16:     chain: 'base'
+2025-10-10T21:52:16:   }
+2025-10-10T21:52:16: }
+2025-10-10T21:52:16: [2025-10-10T19:52:16.136Z] [INFO]: --- SEND ETH START --- To: 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D, Amount: 0.00023 ETH, Chain: base
+2025-10-10T21:52:16: [2025-10-10T19:52:16.139Z] [INFO]: --- TRANSACTION TRAY CREATED --- {
+2025-10-10T21:52:16:   transactionData: { version: '1.0', chainId: 8453, calls: [ [Object] ] }
+2025-10-10T21:52:16: }
+2025-10-10T21:52:16: [2025-10-10T19:52:16.139Z] [INFO]: --- RAW RESPONSE FROM send_eth --- {
+2025-10-10T21:52:16:   response: {
+2025-10-10T21:52:16:     userMessage: '💸 Ready to send 0.00023 ETH on Base?\n' +
+2025-10-10T21:52:16:       '\n' +
+2025-10-10T21:52:16:       'Check your transaction tray above to approve this transfer.',
+2025-10-10T21:52:16:     transactionData: { version: '1.0', chainId: 8453, calls: [Array] },
+2025-10-10T21:52:16:     isTransaction: true,
+2025-10-10T21:52:16:     functionArgs: {
+2025-10-10T21:52:16:       toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T21:52:16:       amount: '0.00023',
+2025-10-10T21:52:16:       chain: 'base'
+2025-10-10T21:52:16:     }
+2025-10-10T21:52:16:   }
+2025-10-10T21:52:16: }
+2025-10-10T21:55:45: [2025-10-10T19:55:45.293Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T21:55:45: [2025-10-10T19:55:45.297Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T21:56:14: [2025-10-10T19:56:14.108Z] [INFO]: Context object properties {
+2025-10-10T21:56:14:   properties: [],
+2025-10-10T21:56:14:   hasInboxId: false,
+2025-10-10T21:56:14:   hasSenderAddress: false,
+2025-10-10T21:56:14:   hasSendContent: false,
+2025-10-10T21:56:14:   hasSendWalletSendCalls: false,
+2025-10-10T21:56:14:   hasSendTransaction: false,
+2025-10-10T21:56:14:   hasSendGeneric: false,
+2025-10-10T21:56:14:   hasSendText: true,
+2025-10-10T21:56:14:   types: {
+2025-10-10T21:56:14:     sendContent: 'undefined',
+2025-10-10T21:56:14:     sendWalletSendCalls: 'undefined',
+2025-10-10T21:56:14:     sendTransaction: 'undefined',
+2025-10-10T21:56:14:     send: 'undefined',
+2025-10-10T21:56:14:     sendText: 'function'
+2025-10-10T21:56:14:   }
+2025-10-10T21:56:14: }
+2025-10-10T21:56:14: [2025-10-10T19:56:14.109Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Gm' }
+2025-10-10T21:56:14: [2025-10-10T19:56:14.112Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Gm' }
+2025-10-10T21:56:23: [2025-10-10T19:56:23.978Z] [INFO]: Context object properties {
+2025-10-10T21:56:23:   properties: [],
+2025-10-10T21:56:23:   hasInboxId: false,
+2025-10-10T21:56:23:   hasSenderAddress: false,
+2025-10-10T21:56:23:   hasSendContent: false,
+2025-10-10T21:56:23:   hasSendWalletSendCalls: false,
+2025-10-10T21:56:23:   hasSendTransaction: false,
+2025-10-10T21:56:23:   hasSendGeneric: false,
+2025-10-10T21:56:23:   hasSendText: true,
+2025-10-10T21:56:23:   types: {
+2025-10-10T21:56:23:     sendContent: 'undefined',
+2025-10-10T21:56:23:     sendWalletSendCalls: 'undefined',
+2025-10-10T21:56:23:     sendTransaction: 'undefined',
+2025-10-10T21:56:23:     send: 'undefined',
+2025-10-10T21:56:23:     sendText: 'function'
+2025-10-10T21:56:23:   }
+2025-10-10T21:56:23: }
+2025-10-10T21:56:23: [2025-10-10T19:56:23.980Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Find rpc' }
+2025-10-10T21:56:23: [2025-10-10T19:56:23.980Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Find rpc' }
+2025-10-10T21:56:37: [2025-10-10T19:56:37.770Z] [INFO]: Context object properties {
+2025-10-10T21:56:37:   properties: [],
+2025-10-10T21:56:37:   hasInboxId: false,
+2025-10-10T21:56:37:   hasSenderAddress: false,
+2025-10-10T21:56:37:   hasSendContent: false,
+2025-10-10T21:56:37:   hasSendWalletSendCalls: false,
+2025-10-10T21:56:37:   hasSendTransaction: false,
+2025-10-10T21:56:37:   hasSendGeneric: false,
+2025-10-10T21:56:37:   hasSendText: true,
+2025-10-10T21:56:37:   types: {
+2025-10-10T21:56:37:     sendContent: 'undefined',
+2025-10-10T21:56:37:     sendWalletSendCalls: 'undefined',
+2025-10-10T21:56:37:     sendTransaction: 'undefined',
+2025-10-10T21:56:37:     send: 'undefined',
+2025-10-10T21:56:37:     sendText: 'function'
+2025-10-10T21:56:37:   }
+2025-10-10T21:56:37: }
+2025-10-10T21:56:37: [2025-10-10T19:56:37.771Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Rpc base' }
+2025-10-10T21:56:37: [2025-10-10T19:56:37.771Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Rpc base' }
+2025-10-10T21:56:39: [2025-10-10T19:56:39.176Z] [INFO]: AI requested 1 tool calls.
+2025-10-10T21:56:39: [2025-10-10T19:56:39.176Z] [INFO]: Executing get_technical_info { args: { topic: 'Base RPC endpoints' } }
+2025-10-10T21:56:39: [2025-10-10T19:56:39.178Z] [INFO]: --- GET TECHNICAL INFO START --- Topic: Base RPC endpoints
+2025-10-10T21:56:59: [2025-10-10T19:56:59.159Z] [INFO]: --- GET TECHNICAL INFO END --- Information provided
+2025-10-10T21:56:59: [2025-10-10T19:56:59.159Z] [INFO]: --- RAW RESPONSE FROM get_technical_info --- {
+2025-10-10T21:56:59:   response: {
+2025-10-10T21:56:59:     userMessage: '🔬 **Technical Information**\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       "Certainly! Let's delve into the topic of Base RPC endpoints within the context of blockchain technology.\n" +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '### 1. Explanation of Base RPC Endpoints\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '**Remote Procedure Call (RPC) endpoints** are integral to blockchain networks as they enable interaction with the blockchain system remotely. In essence, an RPC allows a program to execute code on another server or network node as though it were local. \n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       'In the blockchain ecosystem, RPC endpoints are used to query network state, send transactions, and interact with smart contracts. They provide a bridge between off-chain applications and on-chain data, enabling developers to build decentralized applications (dApps) and services that interact with blockchain platforms.\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       'For example, Ethereum has a JSON-RPC interface that allows developers to execute functions using different methods.\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '### 2. Specific Details and Code Examples\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       "A typical RPC endpoint for a blockchain network uses HTTP, WebSocket, or IPC for communication. Below are some basic examples for Ethereum's JSON-RPC methods:\n" +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '- **`eth_blockNumber`**: Returns the number of the most recent block.\n' +
+2025-10-10T21:56:59:       '  \n' +
+2025-10-10T21:56:59:       '  ```json\n' +
+2025-10-10T21:56:59:       '  {\n' +
+2025-10-10T21:56:59:       '    "jsonrpc":"2.0",\n' +
+2025-10-10T21:56:59:       '    "method":"eth_blockNumber",\n' +
+2025-10-10T21:56:59:       '    "params":[],\n' +
+2025-10-10T21:56:59:       '    "id":1\n' +
+2025-10-10T21:56:59:       '  }\n' +
+2025-10-10T21:56:59:       '  ```\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '- **`eth_getBalance`**: Returns the balance of the account at a specific block.\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '  ```json\n' +
+2025-10-10T21:56:59:       '  {\n' +
+2025-10-10T21:56:59:       '    "jsonrpc":"2.0",\n' +
+2025-10-10T21:56:59:       '    "method":"eth_getBalance",\n' +
+2025-10-10T21:56:59:       '    "params":["0xYourAddress", "latest"],\n' +
+2025-10-10T21:56:59:       '    "id":1\n' +
+2025-10-10T21:56:59:       '  }\n' +
+2025-10-10T21:56:59:       '  ```\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '- **`eth_sendTransaction`**: Creates a new transaction and sends it to the network.\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '  ```json\n' +
+2025-10-10T21:56:59:       '  {\n' +
+2025-10-10T21:56:59:       '    "jsonrpc":"2.0",\n' +
+2025-10-10T21:56:59:       '    "method":"eth_sendTransaction",\n' +
+2025-10-10T21:56:59:       '    "params":[{\n' +
+2025-10-10T21:56:59:       '      "from": "0xYourAddress",\n' +
+2025-10-10T21:56:59:       '      "to": "0xRecipientAddress",\n' +
+2025-10-10T21:56:59:       '      "gas": "0x76c0",\n' +
+2025-10-10T21:56:59:       '      "gasPrice": "0x9184e72a000",\n' +
+2025-10-10T21:56:59:       '      "value": "0x9184e72a",\n' +
+2025-10-10T21:56:59:       '      "data": "0x..."\n' +
+2025-10-10T21:56:59:       '    }],\n' +
+2025-10-10T21:56:59:       '    "id":1\n' +
+2025-10-10T21:56:59:       '  }\n' +
+2025-10-10T21:56:59:       '  ```\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       'A typical endpoint URL may look like: `https://mainnet.infura.io/v3/YOUR-PROJECT-ID`\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '### 3. Best Practices\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '- **Authentication and Security**: Use secure, authenticated connections. Providers like Infura require API keys, and TLS should be used to encrypt traffic.\n' +
+2025-10-10T21:56:59:       '  \n' +
+2025-10-10T21:56:59:       '- **Rate Limiting and Throttling**: Be aware of and plan for rate limits imposed by RPC providers to prevent service interruptions.\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '- **Error Handling and Retries**: Implement robust error handling. Non-critical failures like transient network issues can be addressed with retry strategies.\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '- **Efficient Queries**: Limit the frequency and scope of queries to reduce load. Batched requests can help minimize overhead.\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '### 4. Common Issues or Troubleshooting Tips\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '- **Network Latency**: High latency can impact response times. Using geographically closer nodes might help.\n' +
+2025-10-10T21:56:59:       '  \n' +
+2025-10-10T21:56:59:       '- **Rate Limit Errors**: Review service provider documentation for rate limits and optimize your request frequency or upgrade your plan.\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '- **Incorrect Parameters**: Common JSON-RPC errors arise from incorrectly formed calls. Verify that the parameters and methods are correctly typed.\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '- **Invalid API Key**: Ensure your API key is active and has the necessary permissions.\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '- **Version Compatibility**: Check compatibility with the network; some methods may have changed or been deprecated across different client versions.\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '### 5. Additional Resources\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '- **Ethereum JSON-RPC API Documentation**: [Ethereum official documentation](https://eth.wiki/json-rpc/API)\n' +
+2025-10-10T21:56:59:       '  \n' +
+2025-10-10T21:56:59:       '- **Web3.js Library**: An Ethereum JavaScript API. Use this to interact with the Ethereum blockchain easily in JavaScript. [GitHub Repository](https://github.com/ethereum/web3.js/)\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '- **Infura**: A popular blockchain infrastructure provider offering high availability and scalable Ethereum and IPFS Nodes. [Infura Documentation](https://infura.io/docs)\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '- **Alchemy**: Another powerful blockchain infrastructure provider. [Alchemy Documentation](https://docs.alchemy.com)\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       '- **Consensys Blog**: Continuous updates on best practices and educational materials. [Consensys Blog](https://consensys.net/blog/)\n' +
+2025-10-10T21:56:59:       '\n' +
+2025-10-10T21:56:59:       'By understanding and utilizing RPC endpoints effectively, developers can ensure robust interactions with blockchain networks, contributing to the seamless operation of decentralized applications.',
+2025-10-10T21:56:59:     techData: {
+2025-10-10T21:56:59:       topic: 'Base RPC endpoints',
+2025-10-10T21:56:59:       info: "Certainly! Let's delve into the topic of Base RPC endpoints within the context of blockchain technology.\n" +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '### 1. Explanation of Base RPC Endpoints\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '**Remote Procedure Call (RPC) endpoints** are integral to blockchain networks as they enable interaction with the blockchain system remotely. In essence, an RPC allows a program to execute code on another server or network node as though it were local. \n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         'In the blockchain ecosystem, RPC endpoints are used to query network state, send transactions, and interact with smart contracts. They provide a bridge between off-chain applications and on-chain data, enabling developers to build decentralized applications (dApps) and services that interact with blockchain platforms.\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         'For example, Ethereum has a JSON-RPC interface that allows developers to execute functions using different methods.\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '### 2. Specific Details and Code Examples\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         "A typical RPC endpoint for a blockchain network uses HTTP, WebSocket, or IPC for communication. Below are some basic examples for Ethereum's JSON-RPC methods:\n" +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '- **`eth_blockNumber`**: Returns the number of the most recent block.\n' +
+2025-10-10T21:56:59:         '  \n' +
+2025-10-10T21:56:59:         '  ```json\n' +
+2025-10-10T21:56:59:         '  {\n' +
+2025-10-10T21:56:59:         '    "jsonrpc":"2.0",\n' +
+2025-10-10T21:56:59:         '    "method":"eth_blockNumber",\n' +
+2025-10-10T21:56:59:         '    "params":[],\n' +
+2025-10-10T21:56:59:         '    "id":1\n' +
+2025-10-10T21:56:59:         '  }\n' +
+2025-10-10T21:56:59:         '  ```\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '- **`eth_getBalance`**: Returns the balance of the account at a specific block.\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '  ```json\n' +
+2025-10-10T21:56:59:         '  {\n' +
+2025-10-10T21:56:59:         '    "jsonrpc":"2.0",\n' +
+2025-10-10T21:56:59:         '    "method":"eth_getBalance",\n' +
+2025-10-10T21:56:59:         '    "params":["0xYourAddress", "latest"],\n' +
+2025-10-10T21:56:59:         '    "id":1\n' +
+2025-10-10T21:56:59:         '  }\n' +
+2025-10-10T21:56:59:         '  ```\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '- **`eth_sendTransaction`**: Creates a new transaction and sends it to the network.\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '  ```json\n' +
+2025-10-10T21:56:59:         '  {\n' +
+2025-10-10T21:56:59:         '    "jsonrpc":"2.0",\n' +
+2025-10-10T21:56:59:         '    "method":"eth_sendTransaction",\n' +
+2025-10-10T21:56:59:         '    "params":[{\n' +
+2025-10-10T21:56:59:         '      "from": "0xYourAddress",\n' +
+2025-10-10T21:56:59:         '      "to": "0xRecipientAddress",\n' +
+2025-10-10T21:56:59:         '      "gas": "0x76c0",\n' +
+2025-10-10T21:56:59:         '      "gasPrice": "0x9184e72a000",\n' +
+2025-10-10T21:56:59:         '      "value": "0x9184e72a",\n' +
+2025-10-10T21:56:59:         '      "data": "0x..."\n' +
+2025-10-10T21:56:59:         '    }],\n' +
+2025-10-10T21:56:59:         '    "id":1\n' +
+2025-10-10T21:56:59:         '  }\n' +
+2025-10-10T21:56:59:         '  ```\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         'A typical endpoint URL may look like: `https://mainnet.infura.io/v3/YOUR-PROJECT-ID`\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '### 3. Best Practices\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '- **Authentication and Security**: Use secure, authenticated connections. Providers like Infura require API keys, and TLS should be used to encrypt traffic.\n' +
+2025-10-10T21:56:59:         '  \n' +
+2025-10-10T21:56:59:         '- **Rate Limiting and Throttling**: Be aware of and plan for rate limits imposed by RPC providers to prevent service interruptions.\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '- **Error Handling and Retries**: Implement robust error handling. Non-critical failures like transient network issues can be addressed with retry strategies.\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '- **Efficient Queries**: Limit the frequency and scope of queries to reduce load. Batched requests can help minimize overhead.\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '### 4. Common Issues or Troubleshooting Tips\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '- **Network Latency**: High latency can impact response times. Using geographically closer nodes might help.\n' +
+2025-10-10T21:56:59:         '  \n' +
+2025-10-10T21:56:59:         '- **Rate Limit Errors**: Review service provider documentation for rate limits and optimize your request frequency or upgrade your plan.\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '- **Incorrect Parameters**: Common JSON-RPC errors arise from incorrectly formed calls. Verify that the parameters and methods are correctly typed.\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '- **Invalid API Key**: Ensure your API key is active and has the necessary permissions.\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '- **Version Compatibility**: Check compatibility with the network; some methods may have changed or been deprecated across different client versions.\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '### 5. Additional Resources\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '- **Ethereum JSON-RPC API Documentation**: [Ethereum official documentation](https://eth.wiki/json-rpc/API)\n' +
+2025-10-10T21:56:59:         '  \n' +
+2025-10-10T21:56:59:         '- **Web3.js Library**: An Ethereum JavaScript API. Use this to interact with the Ethereum blockchain easily in JavaScript. [GitHub Repository](https://github.com/ethereum/web3.js/)\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '- **Infura**: A popular blockchain infrastructure provider offering high availability and scalable Ethereum and IPFS Nodes. [Infura Documentation](https://infura.io/docs)\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '- **Alchemy**: Another powerful blockchain infrastructure provider. [Alchemy Documentation](https://docs.alchemy.com)\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         '- **Consensys Blog**: Continuous updates on best practices and educational materials. [Consensys Blog](https://consensys.net/blog/)\n' +
+2025-10-10T21:56:59:         '\n' +
+2025-10-10T21:56:59:         'By understanding and utilizing RPC endpoints effectively, developers can ensure robust interactions with blockchain networks, contributing to the seamless operation of decentralized applications.'
+2025-10-10T21:56:59:     }
+2025-10-10T21:56:59:   }
+2025-10-10T21:56:59: }
+2025-10-10T21:57:08: [2025-10-10T19:57:08.831Z] [INFO]: Context object properties {
+2025-10-10T21:57:08:   properties: [],
+2025-10-10T21:57:08:   hasInboxId: false,
+2025-10-10T21:57:08:   hasSenderAddress: false,
+2025-10-10T21:57:08:   hasSendContent: false,
+2025-10-10T21:57:08:   hasSendWalletSendCalls: false,
+2025-10-10T21:57:08:   hasSendTransaction: false,
+2025-10-10T21:57:08:   hasSendGeneric: false,
+2025-10-10T21:57:08:   hasSendText: true,
+2025-10-10T21:57:08:   types: {
+2025-10-10T21:57:08:     sendContent: 'undefined',
+2025-10-10T21:57:08:     sendWalletSendCalls: 'undefined',
+2025-10-10T21:57:08:     sendTransaction: 'undefined',
+2025-10-10T21:57:08:     send: 'undefined',
+2025-10-10T21:57:08:     sendText: 'function'
+2025-10-10T21:57:08:   }
+2025-10-10T21:57:08: }
+2025-10-10T21:57:08: [2025-10-10T19:57:08.832Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T21:57:08:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T21:57:08: }
+2025-10-10T21:57:08: [2025-10-10T19:57:08.833Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T21:57:08:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T21:57:08: }
+2025-10-10T21:57:12: [2025-10-10T19:57:12.128Z] [INFO]: AI requested 1 tool calls.
+2025-10-10T21:57:12: [2025-10-10T19:57:12.128Z] [INFO]: Executing send_eth {
+2025-10-10T21:57:12:   args: {
+2025-10-10T21:57:12:     toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T21:57:12:     amount: '0.00023',
+2025-10-10T21:57:12:     chain: 'base'
+2025-10-10T21:57:12:   }
+2025-10-10T21:57:12: }
+2025-10-10T21:57:12: [2025-10-10T19:57:12.130Z] [INFO]: --- SEND ETH START --- To: 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D, Amount: 0.00023 ETH, Chain: base
+2025-10-10T21:57:12: [2025-10-10T19:57:12.132Z] [INFO]: --- TRANSACTION TRAY CREATED --- {
+2025-10-10T21:57:12:   transactionData: { version: '1.0', chainId: 8453, calls: [ [Object] ] }
+2025-10-10T21:57:12: }
+2025-10-10T21:57:12: [2025-10-10T19:57:12.133Z] [INFO]: --- RAW RESPONSE FROM send_eth --- {
+2025-10-10T21:57:12:   response: {
+2025-10-10T21:57:12:     userMessage: '💸 Ready to send 0.00023 ETH on Base?\n' +
+2025-10-10T21:57:12:       '\n' +
+2025-10-10T21:57:12:       'Check your transaction tray above to approve this transfer.',
+2025-10-10T21:57:12:     transactionData: { version: '1.0', chainId: 8453, calls: [Array] },
+2025-10-10T21:57:12:     isTransaction: true,
+2025-10-10T21:57:12:     functionArgs: {
+2025-10-10T21:57:12:       toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T21:57:12:       amount: '0.00023',
+2025-10-10T21:57:12:       chain: 'base'
+2025-10-10T21:57:12:     }
+2025-10-10T21:57:12:   }
+2025-10-10T21:57:12: }
+2025-10-10T22:01:35: [2025-10-10T20:01:35.809Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T22:01:35: [2025-10-10T20:01:35.815Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T22:05:34: [2025-10-10T20:05:34.571Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T22:05:34: [2025-10-10T20:05:34.579Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T22:14:12: [2025-10-10T20:14:12.548Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T22:14:12: [2025-10-10T20:14:12.554Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T22:20:46: [2025-10-10T20:20:46.171Z] [INFO]: Context object properties {
+2025-10-10T22:20:46:   properties: [],
+2025-10-10T22:20:46:   hasInboxId: false,
+2025-10-10T22:20:46:   hasSenderAddress: false,
+2025-10-10T22:20:46:   hasSendContent: false,
+2025-10-10T22:20:46:   hasSendWalletSendCalls: false,
+2025-10-10T22:20:46:   hasSendTransaction: false,
+2025-10-10T22:20:46:   hasSendGeneric: false,
+2025-10-10T22:20:46:   hasSendText: true,
+2025-10-10T22:20:46:   types: {
+2025-10-10T22:20:46:     sendContent: 'undefined',
+2025-10-10T22:20:46:     sendWalletSendCalls: 'undefined',
+2025-10-10T22:20:46:     sendTransaction: 'undefined',
+2025-10-10T22:20:46:     send: 'undefined',
+2025-10-10T22:20:46:     sendText: 'function'
+2025-10-10T22:20:46:   }
+2025-10-10T22:20:46: }
+2025-10-10T22:20:46: [2025-10-10T20:20:46.172Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello mate' }
+2025-10-10T22:20:46: [2025-10-10T20:20:46.173Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello mate' }
+2025-10-10T22:20:46: [2025-10-10T20:20:46.173Z] [INFO]: Ignoring group message - not tagged or replied to {
+2025-10-10T22:20:46:   senderInboxId: 'bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471',
+2025-10-10T22:20:46:   isGroupChat: true,
+2025-10-10T22:20:46:   isTagged: false,
+2025-10-10T22:20:46:   isReplyToAgent: undefined
+2025-10-10T22:20:46: }
+2025-10-10T22:21:03: [2025-10-10T20:21:03.822Z] [INFO]: Context object properties {
+2025-10-10T22:21:03:   properties: [],
+2025-10-10T22:21:03:   hasInboxId: false,
+2025-10-10T22:21:03:   hasSenderAddress: false,
+2025-10-10T22:21:03:   hasSendContent: false,
+2025-10-10T22:21:03:   hasSendWalletSendCalls: false,
+2025-10-10T22:21:03:   hasSendTransaction: false,
+2025-10-10T22:21:03:   hasSendGeneric: false,
+2025-10-10T22:21:03:   hasSendText: true,
+2025-10-10T22:21:03:   types: {
+2025-10-10T22:21:03:     sendContent: 'undefined',
+2025-10-10T22:21:03:     sendWalletSendCalls: 'undefined',
+2025-10-10T22:21:03:     sendTransaction: 'undefined',
+2025-10-10T22:21:03:     send: 'undefined',
+2025-10-10T22:21:03:     sendText: 'function'
+2025-10-10T22:21:03:   }
+2025-10-10T22:21:03: }
+2025-10-10T22:21:03: [2025-10-10T20:21:03.823Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Gm' }
+2025-10-10T22:21:03: [2025-10-10T20:21:03.823Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Gm' }
+2025-10-10T22:21:03: [2025-10-10T20:21:03.824Z] [INFO]: Ignoring group message - not tagged or replied to {
+2025-10-10T22:21:03:   senderInboxId: 'bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471',
+2025-10-10T22:21:03:   isGroupChat: true,
+2025-10-10T22:21:03:   isTagged: false,
+2025-10-10T22:21:03:   isReplyToAgent: undefined
+2025-10-10T22:21:03: }
+2025-10-10T22:23:30: [2025-10-10T20:23:30.046Z] [INFO]: Context object properties {
+2025-10-10T22:23:30:   properties: [],
+2025-10-10T22:23:30:   hasInboxId: false,
+2025-10-10T22:23:30:   hasSenderAddress: false,
+2025-10-10T22:23:30:   hasSendContent: false,
+2025-10-10T22:23:30:   hasSendWalletSendCalls: false,
+2025-10-10T22:23:30:   hasSendTransaction: false,
+2025-10-10T22:23:30:   hasSendGeneric: false,
+2025-10-10T22:23:30:   hasSendText: true,
+2025-10-10T22:23:30:   types: {
+2025-10-10T22:23:30:     sendContent: 'undefined',
+2025-10-10T22:23:30:     sendWalletSendCalls: 'undefined',
+2025-10-10T22:23:30:     sendTransaction: 'undefined',
+2025-10-10T22:23:30:     send: 'undefined',
+2025-10-10T22:23:30:     sendText: 'function'
+2025-10-10T22:23:30:   }
+2025-10-10T22:23:30: }
+2025-10-10T22:23:30: [2025-10-10T20:23:30.047Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Help' }
+2025-10-10T22:23:30: [2025-10-10T20:23:30.047Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Help' }
+2025-10-10T22:23:30: [2025-10-10T20:23:30.047Z] [INFO]: Ignoring group message - not tagged or replied to {
+2025-10-10T22:23:30:   senderInboxId: 'bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471',
+2025-10-10T22:23:30:   isGroupChat: true,
+2025-10-10T22:23:30:   isTagged: false,
+2025-10-10T22:23:30:   isReplyToAgent: undefined
+2025-10-10T22:23:30: }
+2025-10-10T22:25:04: [2025-10-10T20:25:04.237Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T22:25:04: [2025-10-10T20:25:04.242Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T22:25:13: [2025-10-10T20:25:13.585Z] [INFO]: Context object properties {
+2025-10-10T22:25:13:   properties: [],
+2025-10-10T22:25:13:   hasInboxId: false,
+2025-10-10T22:25:13:   hasSenderAddress: false,
+2025-10-10T22:25:13:   hasSendContent: false,
+2025-10-10T22:25:13:   hasSendWalletSendCalls: false,
+2025-10-10T22:25:13:   hasSendTransaction: false,
+2025-10-10T22:25:13:   hasSendGeneric: false,
+2025-10-10T22:25:13:   hasSendText: true,
+2025-10-10T22:25:13:   types: {
+2025-10-10T22:25:13:     sendContent: 'undefined',
+2025-10-10T22:25:13:     sendWalletSendCalls: 'undefined',
+2025-10-10T22:25:13:     sendTransaction: 'undefined',
+2025-10-10T22:25:13:     send: 'undefined',
+2025-10-10T22:25:13:     sendText: 'function'
+2025-10-10T22:25:13:   }
+2025-10-10T22:25:13: }
+2025-10-10T22:25:13: [2025-10-10T20:25:13.586Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello' }
+2025-10-10T22:25:13: [2025-10-10T20:25:13.587Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Hello' }
+2025-10-10T22:25:13: [2025-10-10T20:25:13.588Z] [INFO]: Processing message {
+2025-10-10T22:25:13:   senderInboxId: 'bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471',
+2025-10-10T22:25:13:   isTagged: false,
+2025-10-10T22:25:13:   isReplyToAgent: undefined
+2025-10-10T22:25:13: }
+2025-10-10T22:25:24: [2025-10-10T20:25:24.995Z] [INFO]: Context object properties {
+2025-10-10T22:25:25:   properties: [],
+2025-10-10T22:25:25:   hasInboxId: false,
+2025-10-10T22:25:25:   hasSenderAddress: false,
+2025-10-10T22:25:25:   hasSendContent: false,
+2025-10-10T22:25:25:   hasSendWalletSendCalls: false,
+2025-10-10T22:25:25:   hasSendTransaction: false,
+2025-10-10T22:25:25:   hasSendGeneric: false,
+2025-10-10T22:25:25:   hasSendText: true,
+2025-10-10T22:25:25:   types: {
+2025-10-10T22:25:25:     sendContent: 'undefined',
+2025-10-10T22:25:25:     sendWalletSendCalls: 'undefined',
+2025-10-10T22:25:25:     sendTransaction: 'undefined',
+2025-10-10T22:25:25:     send: 'undefined',
+2025-10-10T22:25:25:     sendText: 'function'
+2025-10-10T22:25:25:   }
+2025-10-10T22:25:25: }
+2025-10-10T22:25:25: [2025-10-10T20:25:24.997Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Send transaction' }
+2025-10-10T22:25:25: [2025-10-10T20:25:24.997Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Send transaction' }
+2025-10-10T22:25:25: [2025-10-10T20:25:24.998Z] [INFO]: Processing message {
+2025-10-10T22:25:25:   senderInboxId: 'bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471',
+2025-10-10T22:25:25:   isTagged: false,
+2025-10-10T22:25:25:   isReplyToAgent: undefined
+2025-10-10T22:25:25: }
+2025-10-10T22:25:39: [2025-10-10T20:25:39.050Z] [INFO]: Context object properties {
+2025-10-10T22:25:39:   properties: [],
+2025-10-10T22:25:39:   hasInboxId: false,
+2025-10-10T22:25:39:   hasSenderAddress: false,
+2025-10-10T22:25:39:   hasSendContent: false,
+2025-10-10T22:25:39:   hasSendWalletSendCalls: false,
+2025-10-10T22:25:39:   hasSendTransaction: false,
+2025-10-10T22:25:39:   hasSendGeneric: false,
+2025-10-10T22:25:39:   hasSendText: true,
+2025-10-10T22:25:39:   types: {
+2025-10-10T22:25:39:     sendContent: 'undefined',
+2025-10-10T22:25:39:     sendWalletSendCalls: 'undefined',
+2025-10-10T22:25:39:     sendTransaction: 'undefined',
+2025-10-10T22:25:39:     send: 'undefined',
+2025-10-10T22:25:39:     sendText: 'function'
+2025-10-10T22:25:39:   }
+2025-10-10T22:25:39: }
+2025-10-10T22:25:39: [2025-10-10T20:25:39.052Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T22:25:39:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T22:25:39: }
+2025-10-10T22:25:39: [2025-10-10T20:25:39.052Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 {
+2025-10-10T22:25:39:   content: 'Send 0.00023 eth to 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D on base'
+2025-10-10T22:25:39: }
+2025-10-10T22:25:39: [2025-10-10T20:25:39.053Z] [INFO]: Processing message {
+2025-10-10T22:25:39:   senderInboxId: 'bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471',
+2025-10-10T22:25:39:   isTagged: false,
+2025-10-10T22:25:39:   isReplyToAgent: undefined
+2025-10-10T22:25:39: }
+2025-10-10T22:25:41: [2025-10-10T20:25:41.838Z] [INFO]: AI requested 1 tool calls.
+2025-10-10T22:25:41: [2025-10-10T20:25:41.839Z] [INFO]: Executing send_eth {
+2025-10-10T22:25:41:   args: {
+2025-10-10T22:25:41:     toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T22:25:41:     amount: '0.00023',
+2025-10-10T22:25:41:     chain: 'base'
+2025-10-10T22:25:41:   }
+2025-10-10T22:25:41: }
+2025-10-10T22:25:41: [2025-10-10T20:25:41.842Z] [INFO]: --- SEND ETH START --- To: 0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D, Amount: 0.00023 ETH, Chain: base
+2025-10-10T22:25:41: [2025-10-10T20:25:41.845Z] [INFO]: --- TRANSACTION TRAY CREATED --- {
+2025-10-10T22:25:41:   transactionData: { version: '1.0', chainId: 8453, calls: [ [Object] ] }
+2025-10-10T22:25:41: }
+2025-10-10T22:25:41: [2025-10-10T20:25:41.847Z] [INFO]: --- RAW RESPONSE FROM send_eth --- {
+2025-10-10T22:25:41:   response: {
+2025-10-10T22:25:41:     userMessage: '💸 Ready to send 0.00023 ETH on Base?\n' +
+2025-10-10T22:25:41:       '\n' +
+2025-10-10T22:25:41:       'Check your transaction tray above to approve this transfer.',
+2025-10-10T22:25:41:     transactionData: { version: '1.0', chainId: 8453, calls: [Array] },
+2025-10-10T22:25:41:     isTransaction: true,
+2025-10-10T22:25:41:     functionArgs: {
+2025-10-10T22:25:41:       toAddress: '0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D',
+2025-10-10T22:25:41:       amount: '0.00023',
+2025-10-10T22:25:41:       chain: 'base'
+2025-10-10T22:25:41:     }
+2025-10-10T22:25:41:   }
+2025-10-10T22:25:41: }
+2025-10-10T22:29:15: [2025-10-10T20:29:15.175Z] [INFO]: Context object properties {
+2025-10-10T22:29:15:   properties: [],
+2025-10-10T22:29:15:   hasInboxId: false,
+2025-10-10T22:29:15:   hasSenderAddress: false,
+2025-10-10T22:29:15:   hasSendContent: false,
+2025-10-10T22:29:15:   hasSendWalletSendCalls: false,
+2025-10-10T22:29:15:   hasSendTransaction: false,
+2025-10-10T22:29:15:   hasSendGeneric: false,
+2025-10-10T22:29:15:   hasSendText: true,
+2025-10-10T22:29:15:   types: {
+2025-10-10T22:29:15:     sendContent: 'undefined',
+2025-10-10T22:29:15:     sendWalletSendCalls: 'undefined',
+2025-10-10T22:29:15:     sendTransaction: 'undefined',
+2025-10-10T22:29:15:     send: 'undefined',
+2025-10-10T22:29:15:     sendText: 'function'
+2025-10-10T22:29:15:   }
+2025-10-10T22:29:15: }
+2025-10-10T22:29:15: [2025-10-10T20:29:15.177Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Give me Twitter link ceo coinbase' }
+2025-10-10T22:29:15: [2025-10-10T20:29:15.177Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Give me Twitter link ceo coinbase' }
+2025-10-10T22:29:15: [2025-10-10T20:29:15.177Z] [INFO]: Processing message {
+2025-10-10T22:29:15:   senderInboxId: 'bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471',
+2025-10-10T22:29:15:   isTagged: false,
+2025-10-10T22:29:15:   isReplyToAgent: undefined
+2025-10-10T22:29:15: }
+2025-10-10T22:29:34: [2025-10-10T20:29:34.599Z] [INFO]: Context object properties {
+2025-10-10T22:29:34:   properties: [],
+2025-10-10T22:29:34:   hasInboxId: false,
+2025-10-10T22:29:34:   hasSenderAddress: false,
+2025-10-10T22:29:34:   hasSendContent: false,
+2025-10-10T22:29:34:   hasSendWalletSendCalls: false,
+2025-10-10T22:29:34:   hasSendTransaction: false,
+2025-10-10T22:29:34:   hasSendGeneric: false,
+2025-10-10T22:29:34:   hasSendText: true,
+2025-10-10T22:29:34:   types: {
+2025-10-10T22:29:34:     sendContent: 'undefined',
+2025-10-10T22:29:34:     sendWalletSendCalls: 'undefined',
+2025-10-10T22:29:34:     sendTransaction: 'undefined',
+2025-10-10T22:29:34:     send: 'undefined',
+2025-10-10T22:29:34:     sendText: 'function'
+2025-10-10T22:29:34:   }
+2025-10-10T22:29:34: }
+2025-10-10T22:29:34: [2025-10-10T20:29:34.600Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Give me x link coinbase ceo' }
+2025-10-10T22:29:34: [2025-10-10T20:29:34.600Z] [INFO]: Message received from bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471 { content: 'Give me x link coinbase ceo' }
+2025-10-10T22:29:34: [2025-10-10T20:29:34.600Z] [INFO]: Processing message {
+2025-10-10T22:29:34:   senderInboxId: 'bb78588834dfd2ee8e85eb1d404ec0d221770b313a3054d9f4991ff4fda66471',
+2025-10-10T22:29:34:   isTagged: false,
+2025-10-10T22:29:34:   isReplyToAgent: undefined
+2025-10-10T22:29:34: }
+2025-10-10T22:29:36: [2025-10-10T20:29:36.902Z] [INFO]: AI requested 1 tool calls.
+2025-10-10T22:29:36: [2025-10-10T20:29:36.903Z] [INFO]: Executing search_web { args: { query: 'Coinbase CEO X account' } }
+2025-10-10T22:29:36: [2025-10-10T20:29:36.904Z] [INFO]: --- WEB SEARCH START --- Query: Coinbase CEO X account
+2025-10-10T22:29:38: [2025-10-10T20:29:38.358Z] [INFO]: --- WEB SEARCH END --- Success.
+2025-10-10T22:29:38: [2025-10-10T20:29:38.359Z] [INFO]: --- RAW RESPONSE FROM search_web --- {
+2025-10-10T22:29:38:   response: '🔍 **Web Search Results:**\n' +
+2025-10-10T22:29:38:     '\n' +
+2025-10-10T22:29:38:     '**Coinbase to Host X Spaces With Co-Founder and CEO Brian ...**\n' +
+2025-10-10T22:29:38:     'Coinbase - Coinbase to Host X Spaces With Co-Founder and CEO Brian Armstrong and CFO Alesia Haas  ### Coinbase to Host X Spaces With Co-Founder and CEO Brian Armstrong and CFO Alesia Haas For more information, visit the Company’s Investor Relations website at investor.coinbase.com. In addition to filings with the Securities and Exchange Commission, the Company uses its Investor Relations website (investor.coinbase.com), its blog (blog.coinbase.com), press releases, public conference calls and webcasts, its X feed (@coinbase), Brian Armstrong’s X feed (@brian_armstrong), its LinkedIn page, and its YouTube channel as means of disclosing material non-public information and for complying with its disclosure obligations under Regulation FD. **About Coinbase** press@coinbase.com investor@coinbase.com *   What is crypto? *   Supported crypto\n' +
+2025-10-10T22:29:38:     '\n' +
+2025-10-10T22:29:38:     'Copy this URL: https://investor.coinbase.com/news/news-details/2025/Coinbase-to-Host-X-Spaces-With-Co-Founder-and-CEO-Brian-Armstrong-and-CFO-Alesia-Haas/default.aspx\n' +
+2025-10-10T22:29:38:     '\n' +
+2025-10-10T22:29:38:     '**Watcher.Guru on X: "JUST IN: Coinbase CEO Brian Armstrong says ...**\n' +
+2025-10-10T22:29:38:     'JUST IN: Coinbase CEO Brian Armstrong says "crypto will give everyone free access to money and fairer financial systems."\n' +
+2025-10-10T22:29:38:     '\n' +
+2025-10-10T22:29:38:     'Copy this URL: https://x.com/WatcherGuru/status/1976355053050138732\n' +
+2025-10-10T22:29:38:     '\n' +
+2025-10-10T22:29:38:     '**Coinbase to Launch New Self-Custody Wallet Base App Later This ...**\n' +
+2025-10-10T22:29:38:     'According to Odaily, Coinbase CEO Brian Armstrong announced on X that the exchange will launch a new self-custody wallet called Base App\n' +
+2025-10-10T22:29:38:     '\n' +
+2025-10-10T22:29:38:     'Copy this URL: https://www.kucoin.com/news/flash/coinbase-to-launch-new-self-custody-wallet-base-app-later-this-year\n' +
+2025-10-10T22:29:38:     '\n' +
+2025-10-10T22:29:38:     '**Coinbase CEO Very Bullish on US Crypto Regulation as Game ...**\n' +
+2025-10-10T22:29:38:     'Surging optimism around U.S. crypto rules is igniting industry momentum, as Coinbase CEO Brian Armstrong signals 2025 could deliver\n' +
+2025-10-10T22:29:38:     '\n' +
+2025-10-10T22:29:38:     'Copy this URL: https://news.bitcoin.com/coinbase-ceo-very-bullish-on-us-crypto-regulation-as-game-changing-clarity-nears/\n' +
+2025-10-10T22:29:38:     '\n' +
+2025-10-10T22:29:38:     '**Coinbase CEO "Strongly Opposes DeFi Regulation Draft"…Urges ...**\n' +
+2025-10-10T22:29:38:     "Coinbase CEO Brian Armstrong strongly opposes the Democratic Party's DeFi regulatory draft, expressing concern that it would hinder innovation\n" +
+2025-10-10T22:29:38:     '\n' +
+2025-10-10T22:29:38:     'Copy this URL: https://bloomingbit.io/en/feed/news/98557'
+2025-10-10T22:29:38: }
+2025-10-10T22:33:52: [2025-10-10T20:33:52.729Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T22:33:52: [2025-10-10T20:33:52.735Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T22:37:33: [2025-10-10T20:37:33.735Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T22:37:33: [2025-10-10T20:37:33.741Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T22:40:31: [2025-10-10T20:40:31.977Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T22:40:31: [2025-10-10T20:40:31.984Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-10T22:43:55: [2025-10-10T20:43:55.535Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-10T22:43:55: [2025-10-10T20:43:55.540Z] [INFO]: 🛡️ Dragman Agent is online!

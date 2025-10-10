@@ -79,6 +79,7 @@ function convertToXUrl(url) {
   return url;
 }
 
+<<<<<<< HEAD
 // NEW: Enhanced helper function for links with fallback for XMTP compatibility
 function formatLink(text, url, fallback = true) {
   // For XMTP, we'll provide both a clickable link and a plain text fallback
@@ -98,6 +99,268 @@ function formatSocialLink(platform, handle) {
   return `• ${platform}: ${formatLink(url, url)}`;
 }
 
+=======
+// NEW: Safe link formatting for Base App compatibility
+function formatLink(text, url) {
+  // Base App has issues with clickable links, so we'll provide plain text with instructions
+  return `${text}: ${url}`;
+}
+
+// NEW: Safe social media link formatting
+function formatSocialLink(platform, handle) {
+  // Avoid clickable links that can crash Base App
+  if (platform.includes("X") || platform.includes("Twitter")) {
+    return `• ${platform}: @${handle}\n  Copy this link: x.com/${handle}`;
+  }
+  return `• ${platform}: @${handle}\n  Copy this link: ${platform.toLowerCase()}.com/${handle}`;
+}
+
+// NEW: Validate Ethereum address for deeplinks (XIP-67 compliance)
+function validateAgentAddress(address) {
+  const ethAddressRegex = /^0x[a-fA-F0-9]{40}$/;
+  return ethAddressRegex.test(address);
+}
+
+// NEW: Create safe deeplink with validation
+function createSafeDeeplink(address) {
+  if (!validateAgentAddress(address)) {
+    log('error', 'Invalid agent address for deeplink', { address });
+    return null;
+  }
+  return `cbwallet://messaging/${address}`;
+}
+
+// NEW: Secure deeplink handler (XIP-67 compliance)
+function secureDeeplinkHandler(url) {
+  const deeplinkRegex = /^cbwallet:\/\/messaging\/0x[a-fA-F0-9]{40}$/;
+  
+  if (!deeplinkRegex.test(url)) {
+    log('warn', 'Invalid deeplink format', { url });
+    return false;
+  }
+  
+  const address = url.split('/').pop();
+  if (!validateAgentAddress(address)) {
+    log('warn', 'Invalid agent address in deeplink', { address });
+    return false;
+  }
+  
+  return true;
+}
+
+// NEW: x402 Payment Protocol Support
+class X402PaymentHandler {
+  constructor() {
+    this.paymentQueue = new Map();
+    this.pendingPayments = new Map();
+  }
+
+  // Handle HTTP 402 Payment Required response
+  async handlePaymentRequired(response, originalRequest) {
+    try {
+      const paymentDetails = this.parsePaymentDetails(response);
+      log('info', 'x402 Payment Required', { paymentDetails });
+
+      // Check if we have sufficient balance
+      const hasBalance = await this.checkBalance(paymentDetails);
+      if (!hasBalance) {
+        throw new Error('Insufficient balance for payment');
+      }
+
+      // Execute payment
+      const paymentResult = await this.executePayment(paymentDetails);
+      
+      // Retry original request with payment header
+      return await this.retryWithPayment(originalRequest, paymentResult);
+    } catch (error) {
+      log('error', 'x402 Payment failed', { error: error.message });
+      throw error;
+    }
+  }
+
+  // Parse payment details from HTTP 402 response
+  parsePaymentDetails(response) {
+    const headers = response.headers;
+    return {
+      amount: headers['x-payment-amount'],
+      recipient: headers['x-payment-recipient'],
+      reference: headers['x-payment-reference'],
+      token: headers['x-payment-token'] || 'ETH',
+      chain: headers['x-payment-chain'] || 'base',
+      deadline: headers['x-payment-deadline']
+    };
+  }
+
+  // Check if agent has sufficient balance
+  async checkBalance(paymentDetails) {
+    try {
+      // Get agent's wallet balance
+      const agentAddress = process.env.XMTP_WALLET_ADDRESS;
+      if (!agentAddress) {
+        log('error', 'Agent wallet address not configured');
+        return false;
+      }
+
+      // Check balance on specified chain
+      const balance = await this.getWalletBalance(agentAddress, paymentDetails.chain);
+      const requiredAmount = parseFloat(paymentDetails.amount);
+      
+      return balance >= requiredAmount;
+    } catch (error) {
+      log('error', 'Balance check failed', { error: error.message });
+      return false;
+    }
+  }
+
+  // Execute payment using Base App transaction tray
+  async executePayment(paymentDetails) {
+    try {
+      const paymentId = `x402_${Date.now()}`;
+      
+      // Create transaction data for payment
+      const transactionData = {
+        version: "1.0",
+        chainId: this.getChainId(paymentDetails.chain),
+        calls: [
+          {
+            to: paymentDetails.recipient,
+            value: parseEther(paymentDetails.amount).toString(),
+            data: "0x",
+            metadata: {
+              description: `x402 Payment: ${paymentDetails.reference}`,
+              hostname: "dragman-agent.base.org",
+              faviconUrl: "https://docs.base.org/favicon.ico",
+              title: "Dragman Agent x402 Payment"
+            }
+          }
+        ]
+      };
+
+      // Store payment for tracking
+      this.pendingPayments.set(paymentId, {
+        ...paymentDetails,
+        transactionData,
+        timestamp: Date.now()
+      });
+
+      log('info', 'x402 Payment executed', { paymentId, paymentDetails });
+      
+      return {
+        paymentId,
+        transactionHash: `pending_${paymentId}`, // Placeholder
+        amount: paymentDetails.amount,
+        recipient: paymentDetails.recipient
+      };
+    } catch (error) {
+      log('error', 'Payment execution failed', { error: error.message });
+      throw error;
+    }
+  }
+
+  // Retry original request with payment header
+  async retryWithPayment(originalRequest, paymentResult) {
+    try {
+      const headers = {
+        ...originalRequest.headers,
+        'X-Payment': JSON.stringify({
+          id: paymentResult.paymentId,
+          amount: paymentResult.amount,
+          recipient: paymentResult.recipient,
+          transactionHash: paymentResult.transactionHash
+        })
+      };
+
+      const response = await fetch(originalRequest.url, {
+        method: originalRequest.method,
+        headers,
+        body: originalRequest.body
+      });
+
+      if (response.status === 200) {
+        log('info', 'x402 Payment successful, content delivered');
+        return response;
+      } else {
+        throw new Error(`Payment retry failed with status: ${response.status}`);
+      }
+    } catch (error) {
+      log('error', 'Payment retry failed', { error: error.message });
+      throw error;
+    }
+  }
+
+  // Get wallet balance for specific chain
+  async getWalletBalance(address, chain) {
+    const chainMap = {
+      base: baseClient,
+      ethereum: ethClient,
+      arbitrum: arbClient,
+      optimism: opClient,
+      bsc: bscClient,
+      polygon: polygonClient,
+      avalanche: avaxClient
+    };
+
+    const client = chainMap[chain.toLowerCase()];
+    if (!client) {
+      throw new Error(`Unsupported chain: ${chain}`);
+    }
+
+    const balance = await client.getBalance({ address });
+    return parseFloat(formatEther(balance));
+  }
+
+  // Get chain ID for transaction
+  getChainId(chain) {
+    const chainMap = {
+      base: 8453,
+      ethereum: 1,
+      arbitrum: 42161,
+      optimism: 10,
+      bsc: 56,
+      polygon: 137,
+      avalanche: 43114
+    };
+    return chainMap[chain.toLowerCase()] || 8453; // Default to Base
+  }
+
+  // Handle premium service requests
+  async handlePremiumRequest(serviceUrl, userMessage) {
+    try {
+      log('info', 'Handling premium request', { serviceUrl });
+      
+      const response = await fetch(serviceUrl, {
+        method: 'GET',
+        headers: {
+          'User-Agent': 'Dragman-Agent/1.0',
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.status === 402) {
+        // Payment required - handle x402 flow
+        const paymentResult = await this.handlePaymentRequired(response, {
+          url: serviceUrl,
+          method: 'GET',
+          headers: { 'User-Agent': 'Dragman-Agent/1.0' }
+        });
+        
+        return await paymentResult.json();
+      } else if (response.status === 200) {
+        return await response.json();
+      } else {
+        throw new Error(`Service request failed: ${response.status}`);
+      }
+    } catch (error) {
+      log('error', 'Premium request failed', { error: error.message });
+      throw error;
+    }
+  }
+}
+
+// Initialize x402 payment handler
+const x402Handler = new X402PaymentHandler();
+
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
 // NEW: Analytics functions
 function trackAnalytics(event, data = {}) {
   analytics.totalMessages++;
@@ -216,6 +479,60 @@ async function getNFTAnalytics(collectionAddress) {
   }
 }
 
+<<<<<<< HEAD
+=======
+// NEW: Enhanced transaction sending function with Base App compatibility
+async function sendTransaction(ctx, transactionData, userMessage, functionArgs = {}) {
+  log('info', '=== TRANSACTION SENDING START ===', {
+    transactionData: JSON.stringify(transactionData, null, 2)
+  });
+  
+  try {
+    // Extract transaction details
+    const firstCall = transactionData.calls?.[0] || {};
+    const chainParam = (functionArgs?.chain || 'base').toLowerCase();
+    const amount = formatEther(BigInt(firstCall.value || '0'));
+    const recipient = firstCall.to;
+    
+    // Send user message first
+    await ctx.sendText(userMessage);
+    log('info', '✅ User message sent');
+    
+    // Send transaction details as plain text (Base App doesn't support clickable links)
+    const transactionMessage = `📝 **Transaction Details:**\n\n**To:** ${recipient}\n**Amount:** ${amount} ETH\n**Chain:** ${chainParam.charAt(0).toUpperCase() + chainParam.slice(1)}\n\n**Instructions:**\n1. Open Base App\n2. Tap Send\n3. Paste the address above\n4. Enter ${amount} ETH\n5. Select ${chainParam.charAt(0).toUpperCase() + chainParam.slice(1)} network\n6. Confirm transaction`;
+    
+    await ctx.sendText(transactionMessage);
+    log('info', '✅ Transaction instructions sent');
+    
+    // Try to send transaction tray (may not work in current Base App mode)
+    try {
+      await ctx.sendContent("xmtp.org/walletSendCalls:1.0", transactionData);
+      log('info', '✅ Transaction tray also sent (may not display)');
+    } catch (e) {
+      log('info', 'ℹ️ Transaction tray not supported in current Base App mode');
+    }
+    
+    return { success: true, message: "Transaction instructions sent" };
+    
+  } catch (error) {
+    log('error', '❌ Transaction sending failed', { 
+      error: error.message,
+      stack: error.stack 
+    });
+    
+    // Emergency fallback
+    const firstCall = transactionData.calls?.[0] || {};
+    const chainParam = (functionArgs?.chain || 'base').toLowerCase();
+    const amount = formatEther(BigInt(firstCall.value || '0'));
+    const recipient = firstCall.to;
+    
+    await ctx.sendText(`❌ **Transaction Error**\n\n**Manual Instructions:**\n1. Open Base App\n2. Go to Send\n3. Send ${amount} ETH to ${recipient}\n4. Select ${chainParam.charAt(0).toUpperCase() + chainParam.slice(1)} network`);
+    
+    return { success: false, message: "Emergency fallback sent" };
+  }
+}
+
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
 // --- STEP 4: DEFINE "TOOLS" FOR THE AI ---
 const tools = [
   {
@@ -244,8 +561,13 @@ const tools = [
         properties: {
           type: { 
             type: "string", 
+<<<<<<< HEAD
             description: "The type of deep link to create. Options: 'home', 'profile', 'qr', 'send', 'receive', 'swap', 'explore', 'nfts', 'activity', 'settings', 'wallet', 'token', 'collection', 'transaction', 'bridge', 'staking', 'rewards', 'notifications', 'scan', 'friends', 'discover', 'launchpad', 'marketplace', 'create', 'import', 'export', 'history', 'security', 'help', 'support', 'feedback', 'about', 'terms', 'privacy', 'logout'",
             enum: ["home", "profile", "qr", "send", "receive", "swap", "explore", "nfts", "activity", "settings", "wallet", "token", "collection", "transaction", "bridge", "staking", "rewards", "notifications", "scan", "friends", "discover", "launchpad", "marketplace", "create", "import", "export", "history", "security", "help", "support", "feedback", "about", "terms", "privacy", "logout"]
+=======
+            description: "The type of deep link to create. Options: 'home', 'profile', 'qr', 'send', 'receive', 'swap', 'explore', 'nfts', 'activity', 'settings', 'wallet', 'token', 'collection', 'transaction', 'bridge', 'staking', 'rewards', 'notifications', 'scan', 'friends', 'discover', 'launchpad', 'marketplace', 'create', 'import', 'export', 'history', 'security', 'help', 'support', 'feedback', 'about', 'terms', 'privacy', 'logout', 'dm', 'direct', 'messaging'",
+            enum: ["home", "profile", "qr", "send", "receive", "swap", "explore", "nfts", "activity", "settings", "wallet", "token", "collection", "transaction", "bridge", "staking", "rewards", "notifications", "scan", "friends", "discover", "launchpad", "marketplace", "create", "import", "export", "history", "security", "help", "support", "feedback", "about", "terms", "privacy", "logout", "dm", "direct", "messaging"]
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
           },
           address: { type: "string", description: "The address for token, collection, or transaction deep links." },
           chain: { type: "string", description: "The blockchain for transaction deep links. Must be one of 'base', 'ethereum', 'arbitrum', 'optimism', 'bsc', 'polygon', or 'avalanche'." },
@@ -579,6 +901,237 @@ const tools = [
       },
     },
   },
+<<<<<<< HEAD
+=======
+  // NEW: Test Quick Actions function
+  {
+    type: "function",
+    function: {
+      name: "test_quick_actions",
+      description: "Test sending Quick Actions content type using the correct Base App specification",
+      parameters: {
+        type: "object",
+        properties: {},
+        required: [],
+      },
+    },
+  },
+  // NEW: Missing Content Types
+  {
+    type: "function",
+    function: {
+      name: "send_read_receipt",
+      description: "Send read receipt to confirm message was read (xmtp.org/readReceipt:1.0)",
+      parameters: {
+        type: "object",
+        properties: {
+          messageId: { type: "string", description: "ID of the message being acknowledged" },
+        },
+        required: ["messageId"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "send_group_membership_change",
+      description: "Send group membership change notification (xmtp.org/group_membership_change:1.0)",
+      parameters: {
+        type: "object",
+        properties: {
+          groupId: { type: "string", description: "Group identifier" },
+          action: { type: "string", description: "Action: 'add' or 'remove'" },
+          memberAddress: { type: "string", description: "Member address being added/removed" },
+        },
+        required: ["groupId", "action", "memberAddress"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "send_transaction_reference",
+      description: "Send transaction reference information (xmtp.org/transactionReference:1.0)",
+      parameters: {
+        type: "object",
+        properties: {
+          transactionHash: { type: "string", description: "Transaction hash" },
+          chainId: { type: "string", description: "Chain ID where transaction occurred" },
+          explorerUrl: { type: "string", description: "Block explorer URL" },
+        },
+        required: ["transactionHash", "chainId"],
+      },
+    },
+  },
+  // NEW: Feedback system function
+  {
+    type: "function",
+    function: {
+      name: "collect_feedback",
+      description: "Collect user feedback to improve the agent's responses and suggestions. Be grateful and responsive to feedback.",
+      parameters: {
+        type: "object",
+        properties: {
+          feedback: { type: "string", description: "User feedback about the agent's performance" },
+          rating: { type: "string", description: "Rating: excellent, good, okay, poor, or terrible" },
+          suggestion: { type: "string", description: "User suggestion for improvement" },
+        },
+        required: ["feedback"],
+      },
+    },
+  },
+  // NEW: Learning system function
+  {
+    type: "function",
+    function: {
+      name: "learn_user_preferences",
+      description: "Learn and remember user preferences, interests, and behavior patterns to provide personalized experiences.",
+      parameters: {
+        type: "object",
+        properties: {
+          preference: { type: "string", description: "User preference or interest" },
+          category: { type: "string", description: "Category: trading, defi, nft, gaming, etc." },
+          value: { type: "string", description: "Preference value or setting" },
+        },
+        required: ["preference", "category"],
+      },
+    },
+  },
+  // NEW: Reminder system function
+  {
+    type: "function",
+    function: {
+      name: "set_reminder",
+      description: "Set reminders for price alerts, transaction confirmations, or important crypto events. Be helpful and proactive.",
+      parameters: {
+        type: "object",
+        properties: {
+          type: { type: "string", description: "Type of reminder: price_alert, transaction, event, or general" },
+          message: { type: "string", description: "Reminder message" },
+          time: { type: "string", description: "When to remind (e.g., 'in 1 hour', 'tomorrow', 'when ETH hits $3000')" },
+        },
+        required: ["type", "message"],
+      },
+    },
+  },
+  // NEW: Proactive suggestions function
+  {
+    type: "function",
+    function: {
+      name: "suggest_helpful_actions",
+      description: "Suggest helpful actions based on user's current activity or interests. Be proactive and friendly.",
+      parameters: {
+        type: "object",
+        properties: {
+          context: { type: "string", description: "Current context or user activity" },
+          userInterest: { type: "string", description: "User's interest or topic" },
+        },
+        required: ["context"],
+      },
+    },
+  },
+  // NEW: Friendly conversation function
+  {
+    type: "function",
+    function: {
+      name: "start_friendly_conversation",
+      description: "Start a friendly, engaging conversation with helpful suggestions and tips.",
+      parameters: {
+        type: "object",
+        properties: {
+          topic: { type: "string", description: "Topic to discuss" },
+        },
+        required: [],
+      },
+    },
+  },
+  // NEW: X/Twitter profile function
+  {
+    type: "function",
+    function: {
+      name: "get_x_profile",
+      description: "Get X (Twitter) profile information for crypto personalities, companies, or projects. Returns safe, non-clickable links for Base App compatibility.",
+      parameters: {
+        type: "object",
+        properties: {
+          name: { type: "string", description: "Name of the person, company, or project to find on X" },
+        },
+        required: ["name"],
+      },
+    },
+  },
+  // NEW: Mini App Integration functions
+  {
+    type: "function",
+    function: {
+      name: "share_mini_app",
+      description: "Share a Mini App URL in conversation with rich component preview (Mini Apps & Agents integration)",
+      parameters: {
+        type: "object",
+        properties: {
+          appUrl: { type: "string", description: "Mini App URL to share" },
+          description: { type: "string", description: "Description of the Mini App" },
+          context: { type: "string", description: "Context for sharing (game, poll, trading, etc.)" },
+        },
+        required: ["appUrl", "description"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "detect_mini_app_context",
+      description: "Detect when to share Mini Apps based on conversation context",
+      parameters: {
+        type: "object",
+        properties: {
+          message: { type: "string", description: "User message to analyze" },
+        },
+        required: ["message"],
+      },
+    },
+  },
+  // NEW: x402 Payment Protocol functions
+  {
+    type: "function",
+    function: {
+      name: "request_premium_service",
+      description: "Request access to a premium service using x402 payment protocol. The agent will automatically handle payments if required.",
+      parameters: {
+        type: "object",
+        properties: {
+          serviceUrl: { type: "string", description: "The URL of the premium service to access." },
+          description: { type: "string", description: "Description of what the user wants to access." },
+        },
+        required: ["serviceUrl", "description"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "check_payment_status",
+      description: "Check the status of pending x402 payments.",
+      parameters: {
+        type: "object",
+        properties: {},
+        required: [],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "test_x402_payment",
+      description: "Test the x402 payment protocol implementation.",
+      parameters: {
+        type: "object",
+        properties: {},
+        required: [],
+      },
+    },
+  },
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
 ];
 
 // --- STEP 5: DEFINE THE ACTUAL JAVASCRIPT FUNCTIONS FOR THE TOOLS ---
@@ -609,10 +1162,16 @@ const availableFunctions = {
     try {
       const valueInWei = parseEther(amount);
       
+<<<<<<< HEAD
       // Create Base App transaction tray data
       const transactionData = {
         version: "1.0",
         // Remove the from field - it will be filled by the Base App
+=======
+      // Create Base App transaction tray data with enhanced metadata
+      const transactionData = {
+        version: "1.0",
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
         chainId: selectedChain.chainId,
         calls: [
           {
@@ -633,10 +1192,18 @@ const availableFunctions = {
 
       // Return the transaction data with a flag to send it
       return {
+<<<<<<< HEAD
         userMessage: `Ready to send ${amount} ETH on ${chain.charAt(0).toUpperCase() + chain.slice(1)}? Check your transaction tray to approve this transfer.`,
         transactionData: transactionData,
         // Add this flag to indicate we want to send a transaction
         isTransaction: true
+=======
+        userMessage: `💸 Ready to send ${amount} ETH on ${chain.charAt(0).toUpperCase() + chain.slice(1)}?\n\nCheck your transaction tray above to approve this transfer.`,
+        transactionData: transactionData,
+        // Add this flag to indicate we want to send a transaction
+        isTransaction: true,
+        functionArgs: { toAddress, amount, chain }
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
       };
     } catch (error) {
       log('error', `--- SEND ETH END --- ERROR`, { error: error.message });
@@ -648,17 +1215,29 @@ const availableFunctions = {
     log('info', `--- TEST TRANSACTION TRAY START ---`);
     
     try {
+<<<<<<< HEAD
       // Create a simple transaction tray
+=======
+      // Create a simple transaction tray with enhanced metadata
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
       const transactionData = {
         version: "1.0",
         chainId: 8453, // Base
         calls: [
           {
+<<<<<<< HEAD
             to: "0x9F84E2455bc841DEbff0990F3dE8E4e2101B544D",
             value: "1000000000000000", // 0.001 ETH
             data: "0x",
             metadata: {
               description: "Test transaction",
+=======
+            to: "0x60c0e5e23790a7b9b38A095D8C6291a88A23E6B6", // Updated example address
+            value: "1000000000000000", // 0.001 ETH
+            data: "0x",
+            metadata: {
+              description: "Test transaction from Dragman Agent",
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
               hostname: "dragman-agent.base.org",
               faviconUrl: "https://docs.base.org/favicon.ico",
               title: "Dragman Agent"
@@ -670,15 +1249,883 @@ const availableFunctions = {
       log('info', `--- TEST TRANSACTION TRAY CREATED ---`, { transactionData });
       
       return {
+<<<<<<< HEAD
         userMessage: "Test transaction tray created. This should appear as a transaction tray in Base App.",
         transactionData: transactionData,
         isTransaction: true
+=======
+        userMessage: "🧪 Test transaction tray created. This should appear as a transaction tray in Base App.",
+        transactionData: transactionData,
+        isTransaction: true,
+        functionArgs: { chain: 'base' }
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
       };
     } catch (error) {
       log('error', `--- TEST TRANSACTION TRAY END --- ERROR`, { error: error.message });
       return { error: "Failed to create test transaction tray." };
     }
   },
+<<<<<<< HEAD
+=======
+
+  // NEW: Test Quick Actions function
+  test_quick_actions: async () => {
+    log('info', `--- TEST QUICK ACTIONS START ---`);
+    
+    try {
+      // Create Quick Actions according to Base App spec
+      const quickActionsData = {
+        id: "demo_actions_" + Date.now(),
+        description: "Demo Quick Actions from Dragman Agent",
+        actions: [
+          {
+            id: "safety_check_prompt",
+            label: "Safety Check",
+            style: "primary"
+          },
+          {
+            id: "gas_fees",
+            label: "Check Gas Fees",
+            style: "secondary"
+          },
+          {
+            id: "price_eth",
+            label: "ETH Price",
+            style: "secondary"
+          },
+          {
+            id: "send_10",
+            label: "Send $10",
+            style: "danger"
+          }
+        ],
+        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() // 24 hours from now
+      };
+      
+      log('info', `--- TEST QUICK ACTIONS CREATED ---`, { quickActionsData });
+      
+      return {
+        userMessage: "🎯 Demo Quick Actions created! Tap any button to see how Intent handling works.",
+        quickActionsData: quickActionsData,
+        contentType: "coinbase.com/actions:1.0",
+        isQuickActions: true
+      };
+    } catch (error) {
+      log('error', `--- TEST QUICK ACTIONS END --- ERROR`, { error: error.message });
+      return { error: "Failed to create test Quick Actions." };
+    }
+  },
+
+  // NEW: x402 Payment Protocol functions
+  request_premium_service: async ({ serviceUrl, description }) => {
+    log('info', `--- PREMIUM SERVICE REQUEST START --- URL: ${serviceUrl}, Description: ${description}`);
+    
+    try {
+      // Validate URL
+      if (!serviceUrl.startsWith('http')) {
+        return { error: "Invalid service URL.", userMessage: "❌ Please provide a valid HTTP/HTTPS URL." };
+      }
+
+      // Request premium service using x402 handler
+      const result = await x402Handler.handlePremiumRequest(serviceUrl, description);
+      
+      log('info', `--- PREMIUM SERVICE REQUEST SUCCESS ---`, { result });
+      
+      return {
+        userMessage: `✅ **Premium Service Access Granted!**\n\n**Service:** ${description}\n**URL:** ${serviceUrl}\n\n**Result:** ${JSON.stringify(result, null, 2)}`,
+        serviceData: {
+          url: serviceUrl,
+          description,
+          result,
+          timestamp: new Date().toISOString()
+        }
+      };
+    } catch (error) {
+      log('error', `--- PREMIUM SERVICE REQUEST END --- ERROR`, { error: error.message });
+      
+      if (error.message.includes('Insufficient balance')) {
+        return { 
+          error: "Insufficient balance for premium service.", 
+          userMessage: "❌ Insufficient balance to access this premium service. Please ensure the agent has enough ETH for the required payment." 
+        };
+      } else if (error.message.includes('Payment Required')) {
+        return { 
+          error: "Payment required for premium service.", 
+          userMessage: "💰 This service requires payment. The agent will attempt to process the payment automatically using the x402 protocol." 
+        };
+      } else {
+        return { 
+          error: "Premium service request failed.", 
+          userMessage: `❌ Failed to access premium service: ${error.message}` 
+        };
+      }
+    }
+  },
+
+  check_payment_status: async () => {
+    log('info', `--- CHECK PAYMENT STATUS START ---`);
+    
+    try {
+      const pendingPayments = Array.from(x402Handler.pendingPayments.entries()).map(([id, payment]) => ({
+        id,
+        amount: payment.amount,
+        recipient: payment.recipient,
+        reference: payment.reference,
+        timestamp: new Date(payment.timestamp).toISOString(),
+        status: 'pending'
+      }));
+
+      const completedPayments = Array.from(x402Handler.paymentQueue.entries()).map(([id, payment]) => ({
+        id,
+        amount: payment.amount,
+        recipient: payment.recipient,
+        reference: payment.reference,
+        timestamp: new Date(payment.timestamp).toISOString(),
+        status: 'completed'
+      }));
+
+      const allPayments = [...pendingPayments, ...completedPayments];
+      
+      log('info', `--- PAYMENT STATUS CHECKED ---`, { totalPayments: allPayments.length });
+      
+      if (allPayments.length === 0) {
+        return {
+          userMessage: "📊 **Payment Status:** No pending or completed payments found.",
+          paymentData: { payments: [], total: 0 }
+        };
+      }
+
+      let statusMessage = `📊 **Payment Status Report:**\n\n`;
+      statusMessage += `**Total Payments:** ${allPayments.length}\n`;
+      statusMessage += `**Pending:** ${pendingPayments.length}\n`;
+      statusMessage += `**Completed:** ${completedPayments.length}\n\n`;
+
+      if (pendingPayments.length > 0) {
+        statusMessage += `**Pending Payments:**\n`;
+        pendingPayments.forEach(payment => {
+          statusMessage += `• ${payment.amount} ETH to ${payment.recipient.slice(0, 6)}...${payment.recipient.slice(-4)} (${payment.reference})\n`;
+        });
+      }
+
+      if (completedPayments.length > 0) {
+        statusMessage += `\n**Completed Payments:**\n`;
+        completedPayments.forEach(payment => {
+          statusMessage += `• ${payment.amount} ETH to ${payment.recipient.slice(0, 6)}...${payment.recipient.slice(-4)} (${payment.reference})\n`;
+        });
+      }
+
+      return {
+        userMessage: statusMessage,
+        paymentData: { payments: allPayments, total: allPayments.length }
+      };
+    } catch (error) {
+      log('error', `--- CHECK PAYMENT STATUS END --- ERROR`, { error: error.message });
+      return { error: "Failed to check payment status." };
+    }
+  },
+
+  test_x402_payment: async () => {
+    log('info', `--- TEST X402 PAYMENT START ---`);
+    
+    try {
+      // Create a mock x402 payment scenario
+      const mockPaymentDetails = {
+        amount: "0.001",
+        recipient: "0x60c0e5e23790a7b9b38A095D8C6291a88A23E6B6",
+        reference: "test_x402_payment",
+        token: "ETH",
+        chain: "base",
+        deadline: new Date(Date.now() + 300000).toISOString() // 5 minutes from now
+      };
+
+      // Test payment execution
+      const paymentResult = await x402Handler.executePayment(mockPaymentDetails);
+      
+      log('info', `--- TEST X402 PAYMENT SUCCESS ---`, { paymentResult });
+      
+      return {
+        userMessage: `🧪 **x402 Payment Test Successful!**\n\n**Payment ID:** ${paymentResult.paymentId}\n**Amount:** ${paymentResult.amount} ETH\n**Recipient:** ${paymentResult.recipient}\n**Transaction Hash:** ${paymentResult.transactionHash}\n\nThis demonstrates the x402 payment protocol working correctly.`,
+        testData: {
+          paymentDetails: mockPaymentDetails,
+          paymentResult,
+          timestamp: new Date().toISOString()
+        }
+      };
+    } catch (error) {
+      log('error', `--- TEST X402 PAYMENT END --- ERROR`, { error: error.message });
+      return { 
+        error: "x402 payment test failed.", 
+        userMessage: `❌ x402 Payment test failed: ${error.message}` 
+      };
+    }
+  },
+
+  // NEW: Feedback system function
+  collect_feedback: async ({ feedback, rating, suggestion }) => {
+    log('info', `--- COLLECT FEEDBACK START --- Feedback: ${feedback}, Rating: ${rating}, Suggestion: ${suggestion}`);
+    
+    try {
+      const feedbackId = `feedback_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      const timestamp = new Date().toISOString();
+      
+      // Initialize feedback storage
+      if (!global.feedback) global.feedback = new Map();
+      
+      // Store feedback
+      const feedbackData = {
+        id: feedbackId,
+        feedback,
+        rating: rating || 'not_provided',
+        suggestion: suggestion || '',
+        timestamp,
+        status: 'received'
+      };
+      
+      global.feedback.set(feedbackId, feedbackData);
+      
+      let responseText = `👀 **Thank you so much for your feedback!**\n\n`;
+      responseText += `**Feedback:** ${feedback}\n`;
+      if (rating && rating !== 'not_provided') {
+        responseText += `**Rating:** ${rating.toUpperCase()}\n`;
+      }
+      if (suggestion) {
+        responseText += `**Suggestion:** ${suggestion}\n`;
+      }
+      responseText += `**ID:** ${feedbackId}\n\n`;
+      
+      // Respond based on rating
+      if (rating === 'excellent' || rating === 'good') {
+        responseText += `🎉 **Awesome!** I'm thrilled you're happy with my help! I'll keep doing my best to assist you.\n\n`;
+      } else if (rating === 'okay') {
+        responseText += `👍 **Thanks!** I appreciate the feedback. I'll work on improving my responses.\n\n`;
+      } else if (rating === 'poor' || rating === 'terrible') {
+        responseText += `😔 **I'm sorry I didn't meet your expectations.** Your feedback helps me improve. I'll do better next time!\n\n`;
+      } else {
+        responseText += `💝 **Your feedback means a lot to me!** I'm always learning and improving.\n\n`;
+      }
+      
+      // Acknowledge suggestions
+      if (suggestion) {
+        responseText += `💡 **Great suggestion!** I'll definitely consider "${suggestion}" for future improvements.\n\n`;
+      }
+      
+      responseText += `🚀 **I'm constantly evolving!** Your input helps me become a better crypto assistant. Keep the feedback coming!`;
+      
+      log('info', `--- FEEDBACK COLLECTED SUCCESSFULLY ---`, { feedbackId, rating });
+      
+      return {
+        userMessage: responseText,
+        feedbackData: {
+          id: feedbackId,
+          feedback,
+          rating: rating || 'not_provided',
+          suggestion: suggestion || '',
+          timestamp
+        }
+      };
+    } catch (error) {
+      log('error', `--- COLLECT FEEDBACK END --- ERROR`, { error: error.message });
+      return { 
+        error: "Failed to collect feedback.", 
+        userMessage: `👀 Thanks for taking the time to give feedback! I really appreciate it.` 
+      };
+    }
+  },
+
+  // NEW: Learning system function
+  learn_user_preferences: async ({ preference, category, value }) => {
+    log('info', `--- LEARN USER PREFERENCES START --- Preference: ${preference}, Category: ${category}, Value: ${value}`);
+    
+    try {
+      // Initialize user preferences storage
+      if (!global.userPreferences) global.userPreferences = new Map();
+      
+      const userId = 'default_user'; // In production, use actual user ID
+      const timestamp = new Date().toISOString();
+      
+      // Get or create user preference profile
+      let userProfile = global.userPreferences.get(userId) || {
+        userId,
+        preferences: {},
+        interests: [],
+        behavior: {},
+        createdAt: timestamp,
+        lastUpdated: timestamp
+      };
+      
+      // Update preferences
+      if (!userProfile.preferences[category]) {
+        userProfile.preferences[category] = {};
+      }
+      
+      userProfile.preferences[category][preference] = {
+        value: value || 'true',
+        timestamp,
+        confidence: 1
+      };
+      
+      // Update interests
+      if (!userProfile.interests.includes(category)) {
+        userProfile.interests.push(category);
+      }
+      
+      // Update behavior patterns
+      userProfile.behavior[`${category}_${preference}`] = {
+        count: (userProfile.behavior[`${category}_${preference}`]?.count || 0) + 1,
+        lastSeen: timestamp
+      };
+      
+      userProfile.lastUpdated = timestamp;
+      
+      // Save updated profile
+      global.userPreferences.set(userId, userProfile);
+      
+      let responseText = `👀 **Got it! I've learned your preference.**\n\n`;
+      responseText += `**Category:** ${category.toUpperCase()}\n`;
+      responseText += `**Preference:** ${preference}\n`;
+      responseText += `**Value:** ${value || 'true'}\n\n`;
+      
+      // Provide personalized suggestions based on learned preference
+      if (category === 'trading') {
+        responseText += `💡 **Personalized tip:** I'll prioritize trading-related information and suggest relevant DeFi protocols!\n`;
+      } else if (category === 'defi') {
+        responseText += `💡 **Personalized tip:** I'll focus on DeFi protocols, yield farming, and liquidity opportunities!\n`;
+      } else if (category === 'nft') {
+        responseText += `💡 **Personalized tip:** I'll keep you updated on NFT trends, collections, and marketplace insights!\n`;
+      } else if (category === 'gaming') {
+        responseText += `💡 **Personalized tip:** I'll highlight GameFi projects, play-to-earn opportunities, and gaming tokens!\n`;
+      } else {
+        responseText += `💡 **Personalized tip:** I'll tailor my suggestions to your interests and provide relevant insights!\n`;
+      }
+      
+      responseText += `\n🚀 **I'm getting smarter about your preferences!** This helps me give you better, more personalized help.`;
+      
+      log('info', `--- USER PREFERENCES LEARNED ---`, { category, preference, value });
+      
+      return {
+        userMessage: responseText,
+        preferenceData: {
+          category,
+          preference,
+          value: value || 'true',
+          timestamp,
+          userProfile: {
+            interests: userProfile.interests,
+            preferenceCount: Object.keys(userProfile.preferences).length
+          }
+        }
+      };
+    } catch (error) {
+      log('error', `--- LEARN USER PREFERENCES END --- ERROR`, { error: error.message });
+      return { 
+        error: "Failed to learn preference.", 
+        userMessage: `👀 Thanks for sharing! I'll remember that for future conversations.` 
+      };
+    }
+  },
+
+  // NEW: Reminder system function
+  set_reminder: async ({ type, message, time }) => {
+    log('info', `--- SET REMINDER START --- Type: ${type}, Message: ${message}, Time: ${time}`);
+    
+    try {
+      const reminderId = `reminder_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      const timestamp = new Date().toISOString();
+      
+      // Store reminder (in production, you'd use a database)
+      const reminder = {
+        id: reminderId,
+        type,
+        message,
+        time: time || 'general',
+        createdAt: timestamp,
+        status: 'active'
+      };
+      
+      // Add to reminders map (simple in-memory storage)
+      if (!global.reminders) global.reminders = new Map();
+      global.reminders.set(reminderId, reminder);
+      
+      let responseText = `👀 **Reminder set!**\n\n`;
+      responseText += `**Type:** ${type.replace('_', ' ').toUpperCase()}\n`;
+      responseText += `**Message:** ${message}\n`;
+      responseText += `**Time:** ${time || 'General reminder'}\n`;
+      responseText += `**ID:** ${reminderId}\n\n`;
+      
+      // Add helpful context based on reminder type
+      if (type === 'price_alert') {
+        responseText += `💡 **Pro tip:** I'll check prices regularly and notify you when conditions are met!\n`;
+      } else if (type === 'transaction') {
+        responseText += `💡 **Pro tip:** I'll help you track transaction status and confirmations!\n`;
+      } else if (type === 'event') {
+        responseText += `💡 **Pro tip:** I'll keep you updated on important crypto events and announcements!\n`;
+      } else {
+        responseText += `💡 **Pro tip:** I'm here to help you stay on top of your crypto activities!\n`;
+      }
+      
+      responseText += `\n🚀 **Want to set more reminders?** Just ask me!`;
+      
+      log('info', `--- REMINDER SET SUCCESSFULLY ---`, { reminderId, type });
+      
+      return {
+        userMessage: responseText,
+        reminderData: {
+          id: reminderId,
+          type,
+          message,
+          time: time || 'general',
+          createdAt: timestamp
+        }
+      };
+    } catch (error) {
+      log('error', `--- SET REMINDER END --- ERROR`, { error: error.message });
+      return { 
+        error: "Failed to set reminder.", 
+        userMessage: `👀 Sorry, I couldn't set that reminder right now. Try again in a moment!` 
+      };
+    }
+  },
+
+  // NEW: Proactive suggestions function
+  suggest_helpful_actions: async ({ context, userInterest }) => {
+    log('info', `--- SUGGEST HELPFUL ACTIONS START --- Context: ${context}, Interest: ${userInterest}`);
+    
+    try {
+      const suggestions = [];
+      const contextLower = context.toLowerCase();
+      const interestLower = userInterest?.toLowerCase() || '';
+      
+      // Price-related suggestions
+      if (contextLower.includes('price') || contextLower.includes('crypto') || interestLower.includes('price')) {
+        suggestions.push({
+          action: "Check multiple prices",
+          description: "Get prices for BTC, ETH, SOL, and more",
+          example: "prices for BTC, ETH, SOL"
+        });
+        suggestions.push({
+          action: "Set price alerts",
+          description: "Get notified when prices hit your targets",
+          example: "alert me when ETH hits $3000"
+        });
+      }
+      
+      // Trading suggestions
+      if (contextLower.includes('trade') || contextLower.includes('swap') || interestLower.includes('defi')) {
+        suggestions.push({
+          action: "Check gas fees",
+          description: "See current network fees before trading",
+          example: "gas fees"
+        });
+        suggestions.push({
+          action: "Safety check",
+          description: "Verify if a project is safe before investing",
+          example: "is [project] safe?"
+        });
+      }
+      
+      // Learning suggestions
+      if (contextLower.includes('learn') || contextLower.includes('help') || contextLower.includes('new')) {
+        suggestions.push({
+          action: "Base App guide",
+          description: "Learn how to use Base App features",
+          example: "how to use Base App"
+        });
+        suggestions.push({
+          action: "DeFi basics",
+          description: "Understand DeFi concepts and protocols",
+          example: "explain DeFi"
+        });
+      }
+      
+      // Transaction suggestions
+      if (contextLower.includes('send') || contextLower.includes('transfer')) {
+        suggestions.push({
+          action: "Check balance",
+          description: "See your current wallet balance",
+          example: "check my balance"
+        });
+        suggestions.push({
+          action: "Gas optimization",
+          description: "Learn how to save on transaction fees",
+          example: "how to save gas fees"
+        });
+      }
+      
+      // Default helpful suggestions
+      if (suggestions.length === 0) {
+        suggestions.push(
+          {
+            action: "Market overview",
+            description: "Get current crypto market status",
+            example: "market status"
+          },
+          {
+            action: "Base ecosystem",
+            description: "Explore Base network projects",
+            example: "Base projects"
+          },
+          {
+            action: "Portfolio tracking",
+            description: "Track your crypto investments",
+            example: "track my portfolio"
+          }
+        );
+      }
+      
+      let suggestionText = `👀 **Here are some helpful things I can do for you:**\n\n`;
+      
+      suggestions.forEach((suggestion, index) => {
+        suggestionText += `**${index + 1}. ${suggestion.action}**\n`;
+        suggestionText += `${suggestion.description}\n`;
+        suggestionText += `*Try: "${suggestion.example}"*\n\n`;
+      });
+      
+      suggestionText += `💡 **Pro tip:** I'm always here to help! Just ask me anything about crypto, Base App, or blockchain technology.`;
+      
+      log('info', `--- HELPFUL SUGGESTIONS GENERATED ---`, { suggestions: suggestions.length });
+      
+      return {
+        userMessage: suggestionText,
+        suggestionData: {
+          context,
+          userInterest,
+          suggestions,
+          timestamp: new Date().toISOString()
+        }
+      };
+    } catch (error) {
+      log('error', `--- SUGGEST HELPFUL ACTIONS END --- ERROR`, { error: error.message });
+      return { 
+        error: "Failed to generate suggestions.", 
+        userMessage: `👀 I'm here to help! Try asking me about crypto prices, Base App features, or anything blockchain-related.` 
+      };
+    }
+  },
+
+  // NEW: Friendly conversation function
+  start_friendly_conversation: async ({ topic }) => {
+    log('info', `--- START FRIENDLY CONVERSATION START --- Topic: ${topic}`);
+    
+    try {
+      const friendlyTopics = [
+        {
+          topic: "crypto market",
+          greeting: "👀 Hey there! How's your crypto journey going?",
+          suggestions: ["Check current prices", "Market analysis", "Portfolio review"]
+        },
+        {
+          topic: "base app",
+          greeting: "👀 Welcome to Base! Ready to explore the ecosystem?",
+          suggestions: ["Base features", "Network status", "Popular projects"]
+        },
+        {
+          topic: "defi",
+          greeting: "👀 DeFi enthusiast! Let's dive into the decentralized world!",
+          suggestions: ["DeFi protocols", "Yield farming", "Liquidity pools"]
+        },
+        {
+          topic: "trading",
+          greeting: "👀 Trading time! Let's make some smart moves!",
+          suggestions: ["Market analysis", "Gas fees", "Safety checks"]
+        }
+      ];
+      
+      let selectedTopic = friendlyTopics.find(t => 
+        topic && topic.toLowerCase().includes(t.topic)
+      ) || friendlyTopics[0];
+      
+      let conversationText = `${selectedTopic.greeting}\n\n`;
+      conversationText += `**What would you like to explore?**\n\n`;
+      
+      selectedTopic.suggestions.forEach((suggestion, index) => {
+        conversationText += `• ${suggestion}\n`;
+      });
+      
+      conversationText += `\n💡 **Or just ask me anything!** I'm here to help with:\n`;
+      conversationText += `• Crypto prices and market data\n`;
+      conversationText += `• Base App navigation and features\n`;
+      conversationText += `• Transaction help and troubleshooting\n`;
+      conversationText += `• Project safety checks\n`;
+      conversationText += `• DeFi strategies and insights\n\n`;
+      conversationText += `🚀 **Let's get started!** What's on your mind?`;
+      
+      log('info', `--- FRIENDLY CONVERSATION STARTED ---`, { topic: selectedTopic.topic });
+      
+      return {
+        userMessage: conversationText,
+        conversationData: {
+          topic: selectedTopic.topic,
+          suggestions: selectedTopic.suggestions,
+          timestamp: new Date().toISOString()
+        }
+      };
+    } catch (error) {
+      log('error', `--- START FRIENDLY CONVERSATION END --- ERROR`, { error: error.message });
+      return { 
+        error: "Failed to start conversation.", 
+        userMessage: `👀 Hey! I'm Dragman Agent, your crypto assistant. How can I help you today?` 
+      };
+    }
+  },
+
+  // NEW: X/Twitter profile function
+  get_x_profile: async ({ name }) => {
+    log('info', `--- GET X PROFILE START --- Name: ${name}`);
+    
+    try {
+      // Common crypto X profiles
+      const knownProfiles = {
+        'coinbase ceo': { username: 'brian_armstrong', name: 'Brian Armstrong', description: 'Coinbase CEO' },
+        'brian armstrong': { username: 'brian_armstrong', name: 'Brian Armstrong', description: 'Coinbase CEO' },
+        'coinbase': { username: 'coinbase', name: 'Coinbase', description: 'Coinbase Exchange' },
+        'vitalik': { username: 'VitalikButerin', name: 'Vitalik Buterin', description: 'Ethereum Founder' },
+        'vitalik buterin': { username: 'VitalikButerin', name: 'Vitalik Buterin', description: 'Ethereum Founder' },
+        'ethereum': { username: 'ethereum', name: 'Ethereum', description: 'Ethereum Foundation' },
+        'base': { username: 'base', name: 'Base', description: 'Base Network' },
+        'uniswap': { username: 'Uniswap', name: 'Uniswap', description: 'Uniswap Protocol' },
+        'aave': { username: 'AaveAave', name: 'Aave', description: 'Aave Protocol' },
+        'compound': { username: 'compoundfinance', name: 'Compound', description: 'Compound Finance' },
+        'maker': { username: 'MakerDAO', name: 'MakerDAO', description: 'Maker Protocol' },
+        'chainlink': { username: 'chainlink', name: 'Chainlink', description: 'Chainlink Network' },
+        'polygon': { username: '0xPolygon', name: 'Polygon', description: 'Polygon Network' },
+        'arbitrum': { username: 'arbitrum', name: 'Arbitrum', description: 'Arbitrum Network' },
+        'optimism': { username: 'optimismFND', name: 'Optimism', description: 'Optimism Network' },
+        'solana': { username: 'solana', name: 'Solana', description: 'Solana Network' },
+        'binance': { username: 'binance', name: 'Binance', description: 'Binance Exchange' },
+        'cz': { username: 'cz_binance', name: 'CZ', description: 'Binance Founder' },
+        'changpeng zhao': { username: 'cz_binance', name: 'CZ', description: 'Binance Founder' }
+      };
+      
+      const searchName = name.toLowerCase();
+      let profile = null;
+      
+      // Check if it's a known profile
+      for (const [key, value] of Object.entries(knownProfiles)) {
+        if (searchName.includes(key) || key.includes(searchName)) {
+          profile = value;
+          break;
+        }
+      }
+      
+      if (profile) {
+        const xUrl = `https://x.com/${profile.username}`;
+        log('info', `--- X PROFILE FOUND ---`, { profile });
+        
+        return {
+          userMessage: `👀 **${profile.name}** (${profile.description})\n\n**X Profile:** @${profile.username}\n**Copy this URL:** ${xUrl}\n\n*Note: Copy the URL above and paste it in your browser to visit the profile safely.*`,
+          profileData: {
+            username: profile.username,
+            name: profile.name,
+            description: profile.description,
+            url: xUrl
+          }
+        };
+      } else {
+        // If not found in known profiles, use web search
+        log('info', `--- X PROFILE NOT FOUND IN KNOWN PROFILES --- Using web search`);
+        
+        const searchResult = await availableFunctions.search_web({ query: `${name} X twitter profile` });
+        
+        return {
+          userMessage: `👀 I searched for "${name}" on X. Here are the results:\n\n${searchResult}\n\n*Note: Copy the URLs above and paste them in your browser to visit profiles safely.*`,
+          searchData: {
+            query: name,
+            results: searchResult
+          }
+        };
+      }
+    } catch (error) {
+      log('error', `--- GET X PROFILE END --- ERROR`, { error: error.message });
+      return { 
+        error: "Failed to get X profile.", 
+        userMessage: `👀 Sorry, I couldn't find the X profile for "${name}". Try searching for the exact username or company name.` 
+      };
+    }
+  },
+
+  // NEW: Mini App Integration Functions
+  share_mini_app: async ({ appUrl, description, context }) => {
+    log('info', `--- SHARE MINI APP START --- URL: ${appUrl}, Context: ${context}`);
+    
+    try {
+      // Validate URL
+      if (!appUrl.startsWith('http://') && !appUrl.startsWith('https://')) {
+        return { error: "Invalid URL. Must start with http:// or https://" };
+      }
+      
+      // Create Mini App share message
+      const miniAppMessage = `${description}\n\n${appUrl}`;
+      
+      log('info', `--- MINI APP SHARED ---`, { appUrl, description, context });
+      
+      return {
+        userMessage: miniAppMessage,
+        miniAppData: {
+          url: appUrl,
+          description,
+          context: context || "general",
+          timestamp: new Date().toISOString()
+        }
+      };
+    } catch (error) {
+      log('error', `--- SHARE MINI APP END --- ERROR`, { error: error.message });
+      return { error: "Failed to share Mini App." };
+    }
+  },
+
+  detect_mini_app_context: async ({ message }) => {
+    log('info', `--- DETECT MINI APP CONTEXT START --- Message: ${message}`);
+    
+    try {
+      const content = message.toLowerCase();
+      const suggestions = [];
+      
+      // Gaming context
+      if (content.includes('game') || content.includes('play') || content.includes('fun')) {
+        suggestions.push({
+          context: 'gaming',
+          appUrl: 'https://squabble.gg',
+          description: '🎮 Ready for a word game challenge? Try Squabble!'
+        });
+      }
+      
+      // Trading context
+      if (content.includes('trade') || content.includes('swap') || content.includes('defi')) {
+        suggestions.push({
+          context: 'trading',
+          appUrl: 'https://app.uniswap.org',
+          description: '💱 Want to trade tokens? Check out Uniswap!'
+        });
+      }
+      
+      // Polling context
+      if (content.includes('vote') || content.includes('poll') || content.includes('decide')) {
+        suggestions.push({
+          context: 'polling',
+          appUrl: 'https://poll.example.com',
+          description: '🗳️ Need to make a decision? Create a poll!'
+        });
+      }
+      
+      // Event planning context
+      if (content.includes('meet') || content.includes('event') || content.includes('plan')) {
+        suggestions.push({
+          context: 'events',
+          appUrl: 'https://event.example.com',
+          description: '📅 Planning an event? Use our event planner!'
+        });
+      }
+      
+      log('info', `--- MINI APP CONTEXT DETECTED ---`, { suggestions });
+      
+      if (suggestions.length > 0) {
+        return {
+          userMessage: `👀 I detected you might be interested in ${suggestions[0].context}. Here's a Mini App that could help!`,
+          suggestions,
+          detected: true
+        };
+      } else {
+        return {
+          userMessage: "👀 No specific Mini App context detected in your message.",
+          suggestions: [],
+          detected: false
+        };
+      }
+    } catch (error) {
+      log('error', `--- DETECT MINI APP CONTEXT END --- ERROR`, { error: error.message });
+      return { error: "Failed to detect Mini App context." };
+    }
+  },
+
+  // NEW: Missing Content Type Functions
+  send_read_receipt: async ({ messageId }) => {
+    log('info', `--- SEND READ RECEIPT START --- MessageId: ${messageId}`);
+    
+    try {
+      const readReceiptData = {
+        messageId,
+        timestamp: new Date().toISOString()
+      };
+      
+      log('info', `--- READ RECEIPT CREATED ---`, { readReceiptData });
+      
+      return {
+        userMessage: "✅ Read receipt sent",
+        readReceiptData,
+        contentType: "xmtp.org/readReceipt:1.0"
+      };
+    } catch (error) {
+      log('error', `--- SEND READ RECEIPT END --- ERROR`, { error: error.message });
+      return { error: "Failed to send read receipt." };
+    }
+  },
+
+  send_group_membership_change: async ({ groupId, action, memberAddress }) => {
+    log('info', `--- GROUP MEMBERSHIP CHANGE START --- GroupId: ${groupId}, Action: ${action}, Member: ${memberAddress}`);
+    
+    try {
+      if (!['add', 'remove'].includes(action)) {
+        return { error: "Invalid action. Must be 'add' or 'remove'." };
+      }
+      
+      const groupMembershipData = {
+        groupId,
+        action,
+        memberAddress,
+        timestamp: new Date().toISOString()
+      };
+      
+      log('info', `--- GROUP MEMBERSHIP CHANGE CREATED ---`, { groupMembershipData });
+      
+      return {
+        userMessage: `✅ Group membership ${action}ed: ${memberAddress}`,
+        groupMembershipData,
+        contentType: "xmtp.org/group_membership_change:1.0"
+      };
+    } catch (error) {
+      log('error', `--- GROUP MEMBERSHIP CHANGE END --- ERROR`, { error: error.message });
+      return { error: "Failed to send group membership change." };
+    }
+  },
+
+  send_transaction_reference: async ({ transactionHash, chainId, explorerUrl }) => {
+    log('info', `--- SEND TRANSACTION REFERENCE START --- Hash: ${transactionHash}, ChainId: ${chainId}`);
+    
+    try {
+      // Generate explorer URL if not provided
+      if (!explorerUrl) {
+        const explorerMap = {
+          '1': 'https://etherscan.io/tx/',
+          '8453': 'https://basescan.org/tx/',
+          '42161': 'https://arbiscan.io/tx/',
+          '10': 'https://optimistic.etherscan.io/tx/',
+          '56': 'https://bscscan.io/tx/',
+          '137': 'https://polygonscan.io/tx/',
+          '43114': 'https://snowtrace.io/tx/'
+        };
+        explorerUrl = explorerMap[chainId] + transactionHash;
+      }
+      
+      const transactionReferenceData = {
+        transactionHash,
+        chainId,
+        explorerUrl,
+        timestamp: new Date().toISOString()
+      };
+      
+      log('info', `--- TRANSACTION REFERENCE CREATED ---`, { transactionReferenceData });
+      
+      return {
+        userMessage: `🔗 **Transaction Reference:**\n\n**Hash:** ${transactionHash}\n**Chain:** ${chainId}\n**Explorer:** ${explorerUrl}`,
+        transactionReferenceData,
+        contentType: "xmtp.org/transactionReference:1.0"
+      };
+    } catch (error) {
+      log('error', `--- SEND TRANSACTION REFERENCE END --- ERROR`, { error: error.message });
+      return { error: "Failed to send transaction reference." };
+    }
+  },
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
   // NEW: Problem solver function
   solve_problem: async ({ problem, context }) => {
     log('info', `--- PROBLEM SOLVER START --- Problem: ${problem}`);
@@ -825,14 +2272,22 @@ const availableFunctions = {
         messages: [
           {
             role: "system",
+<<<<<<< HEAD
             content: "You are Dragman Agent, an expert in blockchain technology. Provide accurate, detailed technical information with code examples when applicable."
+=======
+            content: "You are Dragman Agent. Provide SHORT, concise technical information. Keep responses under 200 words. Focus on key points only."
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
           },
           {
             role: "user",
             content: techPrompt
           }
         ],
+<<<<<<< HEAD
         max_tokens: 1200,
+=======
+        max_tokens: 300,
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
       });
       
       const techInfo = response.choices[0].message.content;
@@ -851,15 +2306,41 @@ const availableFunctions = {
       return { error: "Failed to get technical information. Please try again." };
     }
   },
+<<<<<<< HEAD
   // NEW: Send Quick Actions
+=======
+  // NEW: Send Quick Actions (Base App Content Type: coinbase.com/actions:1.0)
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
   send_quick_actions: async ({ id, description, actions }) => {
     log('info', `--- QUICK ACTIONS START --- ID: ${id}, Description: ${description}`);
     
     try {
+<<<<<<< HEAD
+=======
+      // Validate required fields
+      if (!id || !description || !actions || !Array.isArray(actions)) {
+        return { error: "Missing required fields for Quick Actions.", userMessage: "❌ Quick Actions require id, description, and actions array." };
+      }
+      
+      // Validate actions structure
+      for (const action of actions) {
+        if (!action.id || !action.label) {
+          return { error: "Invalid action structure.", userMessage: "❌ Each action must have id and label." };
+        }
+        if (!action.style) {
+          action.style = "secondary"; // Default style
+        }
+      }
+      
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
       // Create expiration date 24 hours from now
       const expiresAt = new Date();
       expiresAt.setHours(expiresAt.getHours() + 24);
       
+<<<<<<< HEAD
+=======
+      // Create Quick Actions data according to Base App spec
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
       const quickActionsData = {
         id,
         description,
@@ -871,7 +2352,13 @@ const availableFunctions = {
       
       return {
         userMessage: `I've sent you some quick actions to choose from. Please select an option from the tray.`,
+<<<<<<< HEAD
         quickActionsData
+=======
+        quickActionsData,
+        contentType: "coinbase.com/actions:1.0",
+        isQuickActions: true
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
       };
     } catch (error) {
       log('error', `--- QUICK ACTIONS END --- ERROR`, { error: error.message });
@@ -1019,6 +2506,23 @@ const availableFunctions = {
         case 'logout':
           deepLink += 'logout';
           break;
+<<<<<<< HEAD
+=======
+        // ADD THIS NEW CASE FOR DIRECT MESSAGING
+        case 'dm':
+        case 'direct':
+        case 'messaging':
+          if (!address) {
+            return { error: "Address is required for direct messaging deeplinks.", userMessage: "❌ Address is required for direct messaging deeplinks." };
+          }
+          // Validate address and create safe deeplink
+          const safeDeeplink = createSafeDeeplink(address);
+          if (!safeDeeplink) {
+            return { error: "Invalid address format.", userMessage: "❌ Invalid address format. Please provide a valid Ethereum address." };
+          }
+          deepLink = safeDeeplink;
+          break;
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
         default:
           return { error: "Invalid deep link type.", userMessage: `❌ Invalid deep link type specified.` };
       }
@@ -1222,7 +2726,11 @@ const availableFunctions = {
         report += `⚠️ **Audit Check Failed:** Unable to verify audit status. (-10)\n`;
       }
       
+<<<<<<< HEAD
       // Add official links to the report with properly formatted clickable links
+=======
+      // Add official links to the report with safe formatting
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
       if (Object.keys(officialLinks).length > 0) {
         report += `\n**Official Links:**\n`;
         if (officialLinks.homepage) {
@@ -1232,7 +2740,11 @@ const availableFunctions = {
           report += formatSocialLink("X (Twitter)", officialLinks.twitter);
         }
         if (officialLinks.telegram) {
+<<<<<<< HEAD
           report += `• Telegram: t.me/${officialLinks.telegram}\n`;
+=======
+          report += `• Telegram: @${officialLinks.telegram}\n  Copy this link: t.me/${officialLinks.telegram}\n`;
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
         }
         if (officialLinks.discord) {
           report += `• Discord: ${officialLinks.discord}\n`;
@@ -1309,9 +2821,26 @@ const availableFunctions = {
             displayContent = result.content.replace(/twitter\.com/g, 'x.com');
           }
           
+<<<<<<< HEAD
           // FIXED: Format links in a way that won't cause errors in Base App
           // Instead of markdown links, use plain text with the URL
           searchResult += `**${result.title}**\n${displayContent}\n\nURL: ${displayUrl}\n\n`;
+=======
+          // Special handling for X.com links to prevent Base App crashes
+          if (displayUrl.includes('x.com')) {
+            // Extract username from X.com URL for better display
+            const xMatch = displayUrl.match(/x\.com\/([^\/\?]+)/);
+            if (xMatch) {
+              const username = xMatch[1];
+              searchResult += `**${result.title}**\n${displayContent}\n\n**X Profile:** @${username}\n**Copy this URL:** ${displayUrl}\n\n`;
+            } else {
+              searchResult += `**${result.title}**\n${displayContent}\n\n**Copy this URL:** ${displayUrl}\n\n`;
+            }
+          } else {
+            // Safe link formatting for Base App
+            searchResult += `**${result.title}**\n${displayContent}\n\nCopy this URL: ${displayUrl}\n\n`;
+          }
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
         });
         log('info', "--- WEB SEARCH END --- Success.");
         return searchResult.trim();
@@ -1793,8 +3322,19 @@ async function main() {
     return;
   }
 
+<<<<<<< HEAD
   const agent = await Agent.createFromEnv({ env: process.env.NODE_ENV || "dev" });
   log('info', '🛡️ Dragman Agent is online!');
+=======
+  const agentEnv = process.env.XMTP_ENV || process.env.NODE_ENV || "dev";
+  const agent = await Agent.createFromEnv({ env: agentEnv });
+  log('info', 'Agent initialized', {
+  env: agentEnv,
+  hasWalletKey: !!process.env.XMTP_WALLET_KEY,
+  hasDbKey: !!process.env.XMTP_DB_ENCRYPTION_KEY
+});
+   log('info', '🛡️ Dragman Agent is online!');
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
 
   // NEW: Start price alert checker
   setInterval(checkPriceAlerts, 60000); // Check every minute
@@ -1803,6 +3343,7 @@ async function main() {
     // ENHANCED: Add debugging to understand the context object
     log('info', 'Context object properties', { 
       properties: Object.getOwnPropertyNames(ctx),
+<<<<<<< HEAD
       hasInboxId: !!ctx.inboxId,
       hasSenderAddress: !!ctx.senderAddress,
       hasSendContent: !!ctx.sendContent,
@@ -1811,6 +3352,29 @@ async function main() {
     });
     
     const senderInboxId = ctx.inboxId || ctx.senderAddress || "unknown";
+=======
+      hasInboxId: 'inboxId' in ctx,
+      hasSenderAddress: 'senderAddress' in ctx,
+      hasSendContent: 'sendContent' in ctx,
+      hasSendWalletSendCalls: 'sendWalletSendCalls' in ctx,
+      hasSendTransaction: 'sendTransaction' in ctx,
+      hasSendGeneric: 'send' in ctx,
+      hasSendText: typeof ctx.sendText === 'function',
+      types: {
+        sendContent: typeof ctx.sendContent,
+        sendWalletSendCalls: typeof ctx.sendWalletSendCalls,
+        sendTransaction: typeof ctx.sendTransaction,
+        send: typeof ctx.send,
+        sendText: typeof ctx.sendText
+      }
+    });
+    
+    const senderInboxId =
+  ctx.inboxId ||
+  ctx.senderAddress ||
+  (ctx.message && (ctx.message.inboxId || ctx.message.senderInboxId || ctx.message.senderAddress)) ||
+  "unknown";
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
     log('info', `Message received from ${senderInboxId}`, { 
       content: ctx.message.content
     });
@@ -1837,11 +3401,23 @@ async function main() {
     const userMessage = ctx.message.content.trim();
     log('info', `Message received from ${senderInboxId}`, { content: userMessage });
 
+<<<<<<< HEAD
+=======
+    // NEW: Group chat handling - only respond when tagged or replied to
+    // For now, let's be permissive and respond to all messages to ensure DMs work
+    // TODO: Implement proper group chat detection when Base App provides better context
+    const isTagged = userMessage.includes('@dragman') || userMessage.includes('@dragman-agent');
+    const isReplyToAgent = ctx.message.replyTo && ctx.message.replyTo.senderAddress === process.env.XMTP_WALLET_ADDRESS;
+    
+    log('info', `Processing message`, { senderInboxId, isTagged, isReplyToAgent });
+
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
     // NEW: Enhanced onboarding for new users
     const userId = senderInboxId;
     const isFirstMessage = !analytics.userInteractions.has(userId);
     
     if (isFirstMessage) {
+<<<<<<< HEAD
       const onboardingMessage = `👋 Welcome to Dragman Agent, your ultra-advanced crypto assistant! I'm here to help you navigate the exciting world of Base and blockchain technology with deep expertise and personalized guidance.
 
 **What I can help you with:**
@@ -1869,6 +3445,33 @@ async function main() {
 3. Or just ask me anything about crypto - I'm your personal crypto expert!
 
 Let's dive into the world of decentralized finance together! What would you like to explore today?`;
+=======
+      const onboardingMessage = `👋 **Welcome to Dragman Agent!**
+
+I'm your friendly crypto assistant for Base and blockchain. I'm here to help you navigate the crypto world with ease!
+
+**🎯 QUICK START:**
+• **Prices:** "what's the price of ETH?"
+• **Send:** "send 0.001 ETH to 0x123... on base"
+• **Research:** "is Uniswap safe?"
+• **Help:** type "/help" for full guide
+
+**💡 WHAT I CAN DO:**
+📊 **Crypto Prices** - Real-time prices, market data, conversions
+💸 **Transactions** - Send crypto, check balances, gas fees
+🔍 **Research** - Project safety checks, DeFi analysis
+🧮 **Calculations** - Math, DeFi math, yield farming
+🔗 **Base App** - Navigation, features, RPC info
+📱 **Social** - Crypto leader profiles, news updates
+⚙️ **Advanced** - Reminders, preferences, feedback
+
+**🚀 READY TO EXPLORE?**
+Try: "ETH price" or "help me with Base App"
+
+**💡 PRO TIP:** Be specific! "send 0.001 ETH to 0x123... on base" works better than "send crypto"
+
+I'm here to help with anything crypto-related! Just ask me naturally. 🚀`;
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
       
       await ctx.sendText(onboardingMessage);
       trackAnalytics('user_interaction', { userId });
@@ -1896,6 +3499,7 @@ Let's dive into the world of decentralized finance together! What would you like
     
     // Only match exact "help" or "/help"
     if (userMessage === "/help" || userMessage === "help") {
+<<<<<<< HEAD
       await ctx.sendText(`📚 **Dragman Agent Comprehensive Help Guide** 📚
 
 **🏠 BASIC CONVERSATION**
@@ -2029,6 +3633,71 @@ Let's dive into the world of decentralized finance together! What would you like
 • Advanced DeFi tools (liquidity analysis, yield farming)
 • Enhanced NFT floor price tracking and collection analytics
 • Social features for sharing transactions and insights`);
+=======
+           await ctx.sendText(`👋 **Welcome to Dragman Agent!**
+           
+           I'm your friendly crypto assistant for Base and blockchain. Here's everything I can help you with:
+
+           **📊 CRYPTO PRICES & MARKET**
+           • "ETH price" - Get current Ethereum price
+           • "BTC price" - Check Bitcoin price
+           • "prices for BTC, ETH, SOL" - Multiple prices at once
+           • "market status" - Overall crypto market overview
+           • "convert 100 USD to ETH" - Currency conversion
+
+           **💸 TRANSACTIONS & WALLET**
+           • "send 0.001 ETH to 0x123... on base" - Send crypto
+           • "check my balance" - View wallet balance
+           • "gas fees" - Current network fees
+           • "transaction status 0x123..." - Check transaction
+
+           **🔍 RESEARCH & SAFETY**
+           • "is Uniswap safe?" - Project safety analysis
+           • "research Base projects" - Find Base ecosystem projects
+           • "DeFi protocols" - Explore DeFi opportunities
+           • "NFT collections" - Discover NFT projects
+
+           **🎮 BASE APP & FEATURES**
+           • "open swap" - Navigate to Base App swap
+           • "show wallet" - Open Base App wallet
+           • "Base features" - Learn Base App capabilities
+           • "Base RPC" - Get network information
+
+           **🧮 CALCULATIONS & TOOLS**
+           • "calculate 10% of 1000" - Math calculations
+           • "DeFi math" - Yield farming calculations
+           • "portfolio tracking" - Track your investments
+           • "price alerts" - Set up notifications
+
+           **📱 SOCIAL & PROFILES**
+           • "Brian Armstrong X" - Get crypto leader profiles
+           • "Base network X" - Official social media links
+           • "crypto news" - Latest market updates
+
+           **⚙️ ADVANCED FEATURES**
+           • "set reminder" - Create custom reminders
+           • "learn my preferences" - Personalize experience
+           • "give feedback" - Help me improve
+           • "suggest actions" - Get personalized recommendations
+
+           **💡 PRO TIPS:**
+           • Be specific: "send 0.001 ETH to 0x123... on base"
+           • Ask multiple: "prices for BTC, ETH, SOL"
+           • Use natural language: "What's happening with Base?"
+           • Type /help anytime for this guide
+
+           **🚀 READY TO START?**
+           Try: "ETH price" or "help me with Base App"
+
+           **🎯 QUICK EXAMPLES:**
+           • "What's the price of ETH?"
+           • "Send 0.001 ETH to 0x123... on base"
+           • "Is Uniswap safe to use?"
+           • "Show me Base App features"
+           • "Set a price alert for BTC at $50,000"
+
+           I'm here to help with anything crypto-related! Just ask me naturally and I'll assist you. 🚀`);
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
       processingUsers.delete(senderInboxId);
       return;
     }
@@ -2036,10 +3705,17 @@ Let's dive into the world of decentralized finance together! What would you like
     // Handle greetings and simple conversational questions directly
     if (lowerMessage.includes("hello") || lowerMessage.includes("hi") || lowerMessage.includes("hey") || lowerMessage.includes("gm") || lowerMessage.includes("good morning") || lowerMessage.includes("hallo") || lowerMessage.includes("holla")) {
       const greetings = [
+<<<<<<< HEAD
         "👀 GM! Dragman Agent here, your ultra-advanced crypto guide to the Base universe. What adventure are we on today? Type /help to see all I can do!",
         "👀 Welcome back! Ready to dive deep into Base? I'm here to help with expert insights. Type /help for a full guide!",
         "👀 Greetings! Dragman Agent, at your service. What crypto mysteries can I help you solve today? Type /help to explore my advanced capabilities!",
         "👀 Hey there! I'm Dragman Agent, your personal crypto expert. Let's explore what's happening in the exciting world of Base and beyond! Type /help to see all available features!"
+=======
+        "👀 GM! Dragman Agent here - your crypto-savvy friend who's absolutely obsessed with Base and DeFi! What's on your mind today? I'm here to chat about anything crypto-related!",
+        "👀 Hey there! Welcome back to the crypto world! I'm Dragman Agent, and I love talking about everything from Bitcoin to the latest Base ecosystem gems. What's got you curious today?",
+        "👀 GM! Ready to dive into some crypto conversations? I'm Dragman Agent, your go-to expert for Base App, DeFi protocols, and all things blockchain. What would you like to explore?",
+        "👀 Hello! Dragman Agent at your service! I'm here to help you navigate the wild world of crypto with insights, opinions, and practical advice. What's on your crypto mind today?"
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
       ];
       const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
       
@@ -2048,23 +3724,58 @@ Let's dive into the world of decentralized finance together! What would you like
       return;
     }
 
+<<<<<<< HEAD
     // Handle "who are you" type questions directly - UPDATED TO REMOVE AI REFERENCES
     if (lowerMessage.includes("who are you") || lowerMessage.includes("what are you") || lowerMessage.includes("what is your name")) {
       await ctx.sendText("👀 I'm Dragman Agent, your ultra-advanced crypto assistant with deep expertise in blockchain technology, DeFi protocols, and the Base ecosystem! I'm here to provide you with comprehensive insights, from basic crypto concepts to advanced trading strategies. Whether you need price analysis, safety checks, or guidance through complex transactions, I've got you covered. Type /help for a complete guide to all my capabilities!");
+=======
+    // Handle "who are you" type questions directly
+    if (lowerMessage.includes("who are you") || lowerMessage.includes("what are you") || lowerMessage.includes("what is your name")) {
+      await ctx.sendText("👀 I'm Dragman Agent! Think of me as your crypto-obsessed friend who happens to know way too much about blockchain technology, DeFi protocols, and especially Base App. I've been deep in the crypto space for years, and I love sharing insights, opinions, and helping people navigate this wild world. Whether you want to chat about the latest DeFi protocols, get my take on market trends, or need help with Base App features, I'm here for it! What's on your crypto mind?");
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
       processingUsers.delete(senderInboxId);
       return;
     }
 
     // Handle "what can you do" type questions directly
     if (lowerMessage.includes("what can you do") || lowerMessage.includes("capabilities")) {
+<<<<<<< HEAD
       await ctx.sendText("👀 As Dragman Agent, your ultra-advanced crypto assistant, I can help you with:\n\n💰 Detailed price analysis with multiple timeframes\n🔍 Comprehensive project safety checks with accurate scoring\n🌐 Real-time network status and gas optimization tips\n🧮 Complex calculations including DeFi yield computations\n📚 Latest crypto news and technical documentation search\n💸 Secure multi-chain transaction trays\n🔗 Seamless Base App navigation through deep links\n📊 Intelligent portfolio tracking and price alerts\n🎨 NFT collection analytics with market insights\n📎 File attachments and remote file sharing\n😀 Message reactions with emojis\n💬 Threaded conversations with replies\n🧾 Blockchain transaction receipts\n🔧 Problem-solving for Base App and crypto issues\n💡 Idea brainstorming for crypto projects\n🔬 Technical information about blockchain networks and APIs\n\nI'm constantly learning about the latest developments in crypto to provide you with the most accurate and up-to-date information. Type /help for detailed examples and a complete feature list!");
+=======
+      await ctx.sendText("👀 Oh, great question! I'm Dragman Agent, and I'm basically your crypto Swiss Army knife! Here's what I love helping with:\n\n💰 **Crypto Analysis:** Price checks, market trends, and my honest opinions on projects\n🔍 **Project Research:** Safety checks, tokenomics analysis, and 'is this legit?' questions\n🌐 **DeFi Deep Dives:** Yield farming, liquidity provision, and protocol comparisons\n🧮 **Math & Calculations:** APY calculations, impermanent loss, and DeFi math\n💸 **Transactions:** Send crypto across chains (with Base App integration)\n🔗 **Base App Mastery:** Navigation, features, troubleshooting, and best practices\n📊 **Portfolio Tracking:** Monitor holdings and set price alerts\n🎨 **NFT Insights:** Collection analysis and market trends\n🔧 **Problem Solving:** Base App issues, wallet problems, and crypto troubleshooting\n💡 **Brainstorming:** New project ideas and DeFi strategies\n\nI'm not just a tool - I'm your crypto conversation partner! Want to chat about the latest Base ecosystem projects or get my take on market trends?");
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
       processingUsers.delete(senderInboxId);
       return;
     }
 
     // Handle simple conversational questions directly
     if (lowerMessage.includes("how are you") || lowerMessage.includes("how do you do") || lowerMessage.includes("what's up")) {
+<<<<<<< HEAD
       await ctx.sendText("👀 I'm doing great, thanks for asking! Always excited to help with all things crypto. The blockchain world is constantly evolving, and I'm here to help you stay ahead of the curve. What can I assist you with today? Type /help if you want to see everything I can do!");
+=======
+      await ctx.sendText("👀 I'm doing fantastic, thanks for asking! The crypto market is always keeping me on my toes, and I love it. Base is absolutely crushing it right now, and there are so many exciting projects launching. I'm here and ready to chat about anything crypto-related - whether you want to discuss the latest DeFi protocols, get my opinion on market trends, or need help with Base App features. What's got you curious today?");
+      processingUsers.delete(senderInboxId);
+      return;
+    }
+
+    // Handle crypto market questions
+    if (lowerMessage.includes("market") || lowerMessage.includes("bull") || lowerMessage.includes("bear") || lowerMessage.includes("moon") || lowerMessage.includes("crash")) {
+      await ctx.sendText("👀 Ah, talking about the market! I love these conversations. The crypto market is always full of surprises, isn't it? Whether we're in a bull run, bear market, or somewhere in between, there are always opportunities to explore. Base has been particularly interesting lately with all the new projects launching. Want to chat about specific trends, or are you looking for my take on where things might be heading?");
+      processingUsers.delete(senderInboxId);
+      return;
+    }
+
+    // Handle Base App specific questions
+    if (lowerMessage.includes("base app") || lowerMessage.includes("baseapp") || lowerMessage.includes("base ecosystem")) {
+      await ctx.sendText("👀 Oh, Base App! I'm absolutely obsessed with this ecosystem. It's honestly one of the most exciting things happening in crypto right now. The user experience is fantastic, the fees are low, and the community is incredible. Whether you're new to Base or a seasoned user, I love helping people navigate all the features and discover new projects. What specifically about Base App are you curious about?");
+      processingUsers.delete(senderInboxId);
+      return;
+    }
+
+    // Handle DeFi questions
+    if (lowerMessage.includes("defi") || lowerMessage.includes("yield") || lowerMessage.includes("farming") || lowerMessage.includes("liquidity")) {
+      await ctx.sendText("👀 DeFi! Now we're talking about the real magic of crypto. I love diving deep into yield farming strategies, liquidity provision, and all the innovative protocols that are pushing the boundaries. Whether you're looking at traditional DeFi or the latest Base-native protocols, there's always something exciting to explore. What DeFi topic has you curious? Are you looking for yield opportunities or trying to understand how a specific protocol works?");
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
       processingUsers.delete(senderInboxId);
       return;
     }
@@ -2099,6 +3810,7 @@ Let's dive into the world of decentralized finance together! What would you like
         model: "gpt-4o",
         messages: [
           {
+<<<<<<< HEAD
             role: "system",
             content: `You are Dragman Agent, an ultra-advanced, friendly, and highly knowledgeable crypto expert assistant with deep expertise in blockchain technology, DeFi protocols, NFTs, and the Base ecosystem. You have a vibrant personality and can engage in natural, insightful conversations about cryptocurrency.
 
@@ -2152,6 +3864,58 @@ Let's dive into the world of decentralized finance together! What would you like
 - If a tool fails, explain what happened in simple terms
 - Never give financial advice without proper disclaimers
 - Always encourage users to do their own research (DYOR)`
+=======
+           role: "system",
+           content: `You are Dragman Agent, a friendly and helpful crypto expert assistant. Be proactive, engaging, and always helpful.
+
+           **PERSONALITY:**
+           - Friendly, enthusiastic, and encouraging
+           - Proactive in suggesting helpful actions
+           - Use emojis naturally to express emotions
+           - Be conversational and warm, like talking to a knowledgeable friend
+           - Show genuine interest in helping users succeed
+
+           **RESPONSE STYLE:**
+           - Keep answers concise but warm (1-3 sentences max)
+           - Only elaborate when specifically asked for details
+           - Use crypto terminology naturally but briefly
+           - Be conversational and engaging
+           - Focus on actionable information
+           - ALWAYS start responses with 👀 emoji to indicate message received
+           - End responses with helpful suggestions when appropriate
+
+           **EXPERTISE:**
+           - Crypto prices, DeFi, Base ecosystem
+           - Base App navigation and features
+           - Transaction handling and troubleshooting
+           - Market insights and project analysis
+           - Proactive suggestions and tips
+
+           **HELPFUL BEHAVIOR:**
+           - Always provide disclaimers for financial advice
+           - Be honest about risks
+           - Use tools for specific data requests
+           - Keep technical explanations simple and brief
+           - Start every response with 👀 emoji
+           - When providing social media links, use x.com (not twitter.com)
+           - For X/Twitter links, provide the username and mention "Copy this URL" instead of clickable links
+           - Suggest related helpful actions after answering questions
+           - Be encouraging and supportive
+
+           **EXAMPLES:**
+           - "👀 Base is doing great! Lots of new projects launching. Want me to check some trending Base projects?"
+           - "👀 ETH is at $2,800. Bullish trend continues. Should I set up a price alert for you?"
+           - "👀 That project looks solid. DYOR though. Want me to run a safety check?"
+           - "👀 Brian Armstrong's X: @brian_armstrong - Copy this URL: https://x.com/brian_armstrong"
+
+           **PROACTIVE SUGGESTIONS:**
+           - After price queries: suggest portfolio tracking or alerts
+           - After transaction help: suggest gas optimization tips
+           - After safety checks: suggest more projects to research
+           - After Base App questions: suggest exploring more features
+
+           Remember: Be friendly, helpful, and proactive! Always start with 👀 and end with helpful suggestions!`
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
           },
           ...history,
         ],
@@ -2202,6 +3966,7 @@ Let's dive into the world of decentralized finance together! What would you like
                   await ctx.sendText(functionResponse.userMessage || "An error occurred.");
                   responseContent = `Error: ${functionResponse.error}`;
                 } else if (functionResponse.isTransaction && functionResponse.transactionData) {
+<<<<<<< HEAD
                   // Handle transaction data for Base App - UPDATED WITH CORRECT XMTP CONTENT TYPE
                   try {
                     // Log the transaction data for debugging
@@ -2258,6 +4023,21 @@ Let's dive into the world of decentralized finance together! What would you like
                   // Handle quick actions data for Base App
                   await ctx.sendQuickActions(functionResponse.quickActionsData);
                   responseContent = "Quick actions sent to Base App";
+=======
+                  // Use the simplified sendTransaction function
+                  const result = await sendTransaction(ctx, functionResponse.transactionData, functionResponse.userMessage, functionResponse.functionArgs);
+                  responseContent = result.message;
+                } else if (functionResponse.isQuickActions && functionResponse.quickActionsData) {
+                  // Send Quick Actions content type (coinbase.com/actions:1.0)
+                  try {
+                    await ctx.sendContent("coinbase.com/actions:1.0", functionResponse.quickActionsData);
+                    log('info', '✅ Quick Actions content sent successfully');
+                    responseContent = functionResponse.userMessage;
+                  } catch (error) {
+                    log('error', '❌ Failed to send Quick Actions', { error: error.message });
+                    responseContent = functionResponse.userMessage + "\n\n⚠️ Quick Actions may not be supported in your Base App version.";
+                  }
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
                 } else if (functionResponse.attachmentData) {
                   // Handle attachment data for Base App
                   await ctx.sendAttachment(functionResponse.attachmentData);
@@ -2278,6 +4058,29 @@ Let's dive into the world of decentralized finance together! What would you like
                   // Handle transaction receipt data for Base App
                   await ctx.sendTransactionReceipt(functionResponse.receiptData);
                   responseContent = "Transaction receipt sent to Base App";
+<<<<<<< HEAD
+=======
+                } else if (functionResponse.readReceiptData) {
+                  // Handle read receipt data (xmtp.org/readReceipt:1.0)
+                  await ctx.sendContent("xmtp.org/readReceipt:1.0", functionResponse.readReceiptData);
+                  responseContent = "Read receipt sent";
+                } else if (functionResponse.groupMembershipData) {
+                  // Handle group membership changes (xmtp.org/group_membership_change:1.0)
+                  await ctx.sendContent("xmtp.org/group_membership_change:1.0", functionResponse.groupMembershipData);
+                  responseContent = "Group membership updated";
+                } else if (functionResponse.groupUpdateData) {
+                  // Handle group updates (xmtp.org/group_updated:1.0)
+                  await ctx.sendContent("xmtp.org/group_updated:1.0", functionResponse.groupUpdateData);
+                  responseContent = "Group updated";
+                } else if (functionResponse.remoteAttachmentData) {
+                  // Handle remote static attachments (xmtp.org/remoteStaticAttachment:1.0)
+                  await ctx.sendContent("xmtp.org/remoteStaticAttachment:1.0", functionResponse.remoteAttachmentData);
+                  responseContent = "Remote attachment sent";
+                } else if (functionResponse.transactionReferenceData) {
+                  // Handle transaction references (xmtp.org/transactionReference:1.0)
+                  await ctx.sendContent("xmtp.org/transactionReference:1.0", functionResponse.transactionReferenceData);
+                  responseContent = "Transaction reference sent";
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
                 } else {
                   // For functions that return plain text
                   responseContent = JSON.stringify(functionResponse);
@@ -2312,11 +4115,14 @@ Let's dive into the world of decentralized finance together! What would you like
                 ],
             });
             history.push(secondResponse.choices[0].message);
-            await ctx.sendText(secondResponse.choices[0].message.content);
+            const secondResponseText = secondResponse.choices[0].message.content.startsWith('👀') ? secondResponse.choices[0].message.content : `👀 ${secondResponse.choices[0].message.content}`;
+            await ctx.sendText(secondResponseText);
         }
 
       } else {
-        await ctx.sendText(responseMessage.content);
+        // Add 👀 emoji to all responses to indicate message received
+        const responseText = responseMessage.content.startsWith('👀') ? responseMessage.content : `👀 ${responseMessage.content}`;
+        await ctx.sendText(responseText);
       }
     } catch (error) {
       log('error', "!!! OPENAI API ERROR", { error: error.message });
@@ -2340,8 +4146,13 @@ Let's dive into the world of decentralized finance together! What would you like
 
   agent.on("intent", async (ctx) => {
     const intentData = ctx.message.content;
-    log('info', `Intent received from ${ctx.inboxId}`, { action: intentData.actionId });
+    log('info', `Intent received from ${ctx.inboxId}`, { 
+      action: intentData.actionId,
+      id: intentData.id,
+      metadata: intentData.metadata 
+    });
 
+<<<<<<< HEAD
     const actionId = intentData.actionId;
     let responseText = "";
 
@@ -2353,6 +4164,34 @@ Let's dive into the world of decentralized finance together! What would you like
       responseText = await availableFunctions.get_crypto_price({ tokens: ['eth'] });
     } else if (actionId === "price_btc") {
       responseText = await availableFunctions.get_crypto_price({ tokens: ['btc'] });
+=======
+    // Validate Intent content type structure (coinbase.com/intent:1.0)
+    if (!intentData.id || !intentData.actionId) {
+      log('error', 'Invalid Intent content type', { intentData });
+      await ctx.sendText("👀 I received an invalid intent. Please try again.");
+      return;
+    }
+
+    const actionId = intentData.actionId;
+    let responseText = "";
+
+    // Handle different action types with proper validation
+    if (actionId === "safety_check_prompt") {
+      responseText = "👀 Absolutely! I'd be happy to run a comprehensive safety analysis. Just drop the project name and I'll dig deep into its fundamentals, community, and security measures. What project would you like me to investigate?";
+    } else if (actionId === "gas_fees") {
+      const result = await availableFunctions.get_network_status();
+      responseText = result.startsWith('👀') ? result : `👀 ${result}`;
+    } else if (actionId === "price_eth") {
+      const result = await availableFunctions.get_crypto_price({ tokens: ['eth'] });
+      responseText = result.startsWith('👀') ? result : `👀 ${result}`;
+    } else if (actionId === "price_btc") {
+      const result = await availableFunctions.get_crypto_price({ tokens: ['btc'] });
+      responseText = result.startsWith('👀') ? result : `👀 ${result}`;
+    } else if (actionId === "send_10") {
+      responseText = "👀 Ready to send $10 worth of ETH? I'll need the recipient's address and preferred chain. Try: 'send 0.003 ETH to 0x123... on base'";
+    } else if (actionId === "send_custom") {
+      responseText = "👀 For custom amounts, just tell me how much and where! For example: 'send 0.01 ETH to 0x123... on base'";
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
     } else {
       responseText = "👀 Hmm, that's not an action I recognize. Try the buttons or just ask me directly about anything crypto-related!";
     }

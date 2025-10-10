@@ -1,34 +1,32 @@
 {
-  "name": "xmtp-agent-examples",
-  "version": "0.0.0",
+  "name": "base-agent",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
-  "workspaces": [
-    "examples/*"
-  ],
   "scripts": {
-    "build": "tsc",
-    "build:examples": "yarn workspaces foreach --all --include \"examples/*\" run build",
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "build": "echo 'No build step required'",
     "clean": "rimraf node_modules && yarn clean:dbs",
     "clean:dbs": "rimraf *.db3* ||:",
-    "dev": "cd examples/xmtp-gm && tsx --watch index.ts",
     "format": "prettier -w .",
     "format:check": "prettier -c .",
     "gen:keys": "tsx scripts/generateKeys.ts",
     "lint": "eslint .",
-    "revoke": "tsx scripts/revokeInstallations.ts",
-    "start": "node index.js",
-    "typecheck": "tsc"
-  },
-  "resolutions": {
-    "@xmtp/agent-sdk": "1.1.6"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@xmtp/agent-sdk": "^1.1.7",
     "dotenv": "^17.2.3",
+<<<<<<< HEAD
     "openai": "^4.71.1",
     "uint8arrays": "^5.1.0",
     "viem": "^2.21.57"
+=======
+    "openai": "^6.3.0",
+    "uint8arrays": "^5.1.0",
+    "viem": "^2.38.0"
+>>>>>>> 079cf02 (Initial commit: Dragman Agent Base App crypto assistant)
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.6",
@@ -44,7 +42,6 @@
     "prettier": "^3.4.2",
     "prettier-plugin-packagejson": "^2.5.8",
     "rimraf": "^6.0.1",
-    "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.22.0"
   },
