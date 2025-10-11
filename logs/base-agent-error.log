@@ -133,3 +133,409 @@
 2025-10-10T22:40:31: [WARNING] You have "3" installations. Installation ID "7b62d4a58f8261fe4012b9dec0d15639ccaae5724a72e4c56a92b9fc8b87d8b9" is the most recent. Make sure to persist and reload your installation data. If you exceed the installation limit, your Agent will stop working. Read more: https://docs.xmtp.org/agents/build-agents/local-database#installation-limits-and-revocation-rules
 2025-10-10T22:43:54: 2025-10-10 22:43:54.541: WARN CORE sqlcipherCodecAttach: no codec attached to db
 2025-10-10T22:43:55: [WARNING] You have "3" installations. Installation ID "7b62d4a58f8261fe4012b9dec0d15639ccaae5724a72e4c56a92b9fc8b87d8b9" is the most recent. Make sure to persist and reload your installation data. If you exceed the installation limit, your Agent will stop working. Read more: https://docs.xmtp.org/agents/build-agents/local-database#installation-limits-and-revocation-rules
+2025-10-10T23:20:56: SyntaxError: Error parsing /var/www/Baseapp/package.json: Expected double-quoted property name in JSON at position 560
+2025-10-10T23:20:56:     at parse (<anonymous>)
+2025-10-10T23:20:56:     at read (node:internal/modules/package_json_reader:80:16)
+2025-10-10T23:20:56:     at readPackage (node:internal/modules/package_json_reader:141:10)
+2025-10-10T23:20:56:     at Object.readPackageScope (node:internal/modules/package_json_reader:164:19)
+2025-10-10T23:20:56:     at Module._extensions..js (node:internal/modules/cjs/loader:1611:29)
+2025-10-10T23:20:56:     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2025-10-10T23:20:56:     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2025-10-10T23:20:56:     at Object.<anonymous> (/root/.nvm/versions/node/v20.19.5/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-10-10T23:20:56:     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2025-10-10T23:20:56:     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10) {
+2025-10-10T23:20:56:   path: '/var/www/Baseapp/package.json'
+2025-10-10T23:20:56: }
+2025-10-10T23:20:56: SyntaxError: Error parsing /var/www/Baseapp/package.json: Expected double-quoted property name in JSON at position 560
+2025-10-10T23:20:56:     at parse (<anonymous>)
+2025-10-10T23:20:56:     at read (node:internal/modules/package_json_reader:80:16)
+2025-10-10T23:20:56:     at readPackage (node:internal/modules/package_json_reader:141:10)
+2025-10-10T23:20:56:     at Object.readPackageScope (node:internal/modules/package_json_reader:164:19)
+2025-10-10T23:20:56:     at Module._extensions..js (node:internal/modules/cjs/loader:1611:29)
+2025-10-10T23:20:56:     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2025-10-10T23:20:56:     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2025-10-10T23:20:56:     at Object.<anonymous> (/root/.nvm/versions/node/v20.19.5/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-10-10T23:20:56:     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2025-10-10T23:20:56:     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10) {
+2025-10-10T23:20:56:   path: '/var/www/Baseapp/package.json'
+2025-10-10T23:20:56: }
+2025-10-10T23:20:56: SyntaxError: Error parsing /var/www/Baseapp/package.json: Expected double-quoted property name in JSON at position 560
+2025-10-10T23:20:56:     at parse (<anonymous>)
+2025-10-10T23:20:56:     at read (node:internal/modules/package_json_reader:80:16)
+2025-10-10T23:20:56:     at readPackage (node:internal/modules/package_json_reader:141:10)
+2025-10-10T23:20:56:     at Object.readPackageScope (node:internal/modules/package_json_reader:164:19)
+2025-10-10T23:20:56:     at Module._extensions..js (node:internal/modules/cjs/loader:1611:29)
+2025-10-10T23:20:56:     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2025-10-10T23:20:56:     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2025-10-10T23:20:56:     at Object.<anonymous> (/root/.nvm/versions/node/v20.19.5/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-10-10T23:20:56:     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2025-10-10T23:20:56:     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10) {
+2025-10-10T23:20:56:   path: '/var/www/Baseapp/package.json'
+2025-10-10T23:20:56: }
+2025-10-10T23:20:56: SyntaxError: Error parsing /var/www/Baseapp/package.json: Expected double-quoted property name in JSON at position 560
+2025-10-10T23:20:56:     at parse (<anonymous>)
+2025-10-10T23:20:56:     at read (node:internal/modules/package_json_reader:80:16)
+2025-10-10T23:20:56:     at readPackage (node:internal/modules/package_json_reader:141:10)
+2025-10-10T23:20:56:     at Object.readPackageScope (node:internal/modules/package_json_reader:164:19)
+2025-10-10T23:20:56:     at Module._extensions..js (node:internal/modules/cjs/loader:1611:29)
+2025-10-10T23:20:56:     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2025-10-10T23:20:56:     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2025-10-10T23:20:56:     at Object.<anonymous> (/root/.nvm/versions/node/v20.19.5/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-10-10T23:20:56:     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2025-10-10T23:20:56:     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10) {
+2025-10-10T23:20:56:   path: '/var/www/Baseapp/package.json'
+2025-10-10T23:20:56: }
+2025-10-10T23:20:57: SyntaxError: Error parsing /var/www/Baseapp/package.json: Expected double-quoted property name in JSON at position 560
+2025-10-10T23:20:57:     at parse (<anonymous>)
+2025-10-10T23:20:57:     at read (node:internal/modules/package_json_reader:80:16)
+2025-10-10T23:20:57:     at readPackage (node:internal/modules/package_json_reader:141:10)
+2025-10-10T23:20:57:     at Object.readPackageScope (node:internal/modules/package_json_reader:164:19)
+2025-10-10T23:20:57:     at Module._extensions..js (node:internal/modules/cjs/loader:1611:29)
+2025-10-10T23:20:57:     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2025-10-10T23:20:57:     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2025-10-10T23:20:57:     at Object.<anonymous> (/root/.nvm/versions/node/v20.19.5/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-10-10T23:20:57:     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2025-10-10T23:20:57:     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10) {
+2025-10-10T23:20:57:   path: '/var/www/Baseapp/package.json'
+2025-10-10T23:20:57: }
+2025-10-10T23:20:57: SyntaxError: Error parsing /var/www/Baseapp/package.json: Expected double-quoted property name in JSON at position 560
+2025-10-10T23:20:57:     at parse (<anonymous>)
+2025-10-10T23:20:57:     at read (node:internal/modules/package_json_reader:80:16)
+2025-10-10T23:20:57:     at readPackage (node:internal/modules/package_json_reader:141:10)
+2025-10-10T23:20:57:     at Object.readPackageScope (node:internal/modules/package_json_reader:164:19)
+2025-10-10T23:20:57:     at Module._extensions..js (node:internal/modules/cjs/loader:1611:29)
+2025-10-10T23:20:57:     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2025-10-10T23:20:57:     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2025-10-10T23:20:57:     at Object.<anonymous> (/root/.nvm/versions/node/v20.19.5/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-10-10T23:20:57:     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2025-10-10T23:20:57:     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10) {
+2025-10-10T23:20:57:   path: '/var/www/Baseapp/package.json'
+2025-10-10T23:20:57: }
+2025-10-10T23:20:57: SyntaxError: Error parsing /var/www/Baseapp/package.json: Expected double-quoted property name in JSON at position 560
+2025-10-10T23:20:57:     at parse (<anonymous>)
+2025-10-10T23:20:57:     at read (node:internal/modules/package_json_reader:80:16)
+2025-10-10T23:20:57:     at readPackage (node:internal/modules/package_json_reader:141:10)
+2025-10-10T23:20:57:     at Object.readPackageScope (node:internal/modules/package_json_reader:164:19)
+2025-10-10T23:20:57:     at Module._extensions..js (node:internal/modules/cjs/loader:1611:29)
+2025-10-10T23:20:57:     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2025-10-10T23:20:57:     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2025-10-10T23:20:57:     at Object.<anonymous> (/root/.nvm/versions/node/v20.19.5/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-10-10T23:20:57:     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2025-10-10T23:20:57:     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10) {
+2025-10-10T23:20:57:   path: '/var/www/Baseapp/package.json'
+2025-10-10T23:20:57: }
+2025-10-10T23:20:58: SyntaxError: Error parsing /var/www/Baseapp/package.json: Expected double-quoted property name in JSON at position 560
+2025-10-10T23:20:58:     at parse (<anonymous>)
+2025-10-10T23:20:58:     at read (node:internal/modules/package_json_reader:80:16)
+2025-10-10T23:20:58:     at readPackage (node:internal/modules/package_json_reader:141:10)
+2025-10-10T23:20:58:     at Object.readPackageScope (node:internal/modules/package_json_reader:164:19)
+2025-10-10T23:20:58:     at Module._extensions..js (node:internal/modules/cjs/loader:1611:29)
+2025-10-10T23:20:58:     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2025-10-10T23:20:58:     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2025-10-10T23:20:58:     at Object.<anonymous> (/root/.nvm/versions/node/v20.19.5/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-10-10T23:20:58:     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2025-10-10T23:20:58:     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10) {
+2025-10-10T23:20:58:   path: '/var/www/Baseapp/package.json'
+2025-10-10T23:20:58: }
+2025-10-10T23:20:58: SyntaxError: Error parsing /var/www/Baseapp/package.json: Expected double-quoted property name in JSON at position 560
+2025-10-10T23:20:58:     at parse (<anonymous>)
+2025-10-10T23:20:58:     at read (node:internal/modules/package_json_reader:80:16)
+2025-10-10T23:20:58:     at readPackage (node:internal/modules/package_json_reader:141:10)
+2025-10-10T23:20:58:     at Object.readPackageScope (node:internal/modules/package_json_reader:164:19)
+2025-10-10T23:20:58:     at Module._extensions..js (node:internal/modules/cjs/loader:1611:29)
+2025-10-10T23:20:58:     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2025-10-10T23:20:58:     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2025-10-10T23:20:58:     at Object.<anonymous> (/root/.nvm/versions/node/v20.19.5/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-10-10T23:20:58:     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2025-10-10T23:20:58:     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10) {
+2025-10-10T23:20:58:   path: '/var/www/Baseapp/package.json'
+2025-10-10T23:20:58: }
+2025-10-10T23:20:58: SyntaxError: Error parsing /var/www/Baseapp/package.json: Expected double-quoted property name in JSON at position 560
+2025-10-10T23:20:58:     at parse (<anonymous>)
+2025-10-10T23:20:58:     at read (node:internal/modules/package_json_reader:80:16)
+2025-10-10T23:20:58:     at readPackage (node:internal/modules/package_json_reader:141:10)
+2025-10-10T23:20:58:     at Object.readPackageScope (node:internal/modules/package_json_reader:164:19)
+2025-10-10T23:20:58:     at Module._extensions..js (node:internal/modules/cjs/loader:1611:29)
+2025-10-10T23:20:58:     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2025-10-10T23:20:58:     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2025-10-10T23:20:58:     at Object.<anonymous> (/root/.nvm/versions/node/v20.19.5/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-10-10T23:20:58:     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2025-10-10T23:20:58:     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10) {
+2025-10-10T23:20:58:   path: '/var/www/Baseapp/package.json'
+2025-10-10T23:20:58: }
+2025-10-10T23:20:59: SyntaxError: Error parsing /var/www/Baseapp/package.json: Expected double-quoted property name in JSON at position 560
+2025-10-10T23:20:59:     at parse (<anonymous>)
+2025-10-10T23:20:59:     at read (node:internal/modules/package_json_reader:80:16)
+2025-10-10T23:20:59:     at readPackage (node:internal/modules/package_json_reader:141:10)
+2025-10-10T23:20:59:     at Object.readPackageScope (node:internal/modules/package_json_reader:164:19)
+2025-10-10T23:20:59:     at Module._extensions..js (node:internal/modules/cjs/loader:1611:29)
+2025-10-10T23:20:59:     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2025-10-10T23:20:59:     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2025-10-10T23:20:59:     at Object.<anonymous> (/root/.nvm/versions/node/v20.19.5/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-10-10T23:20:59:     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2025-10-10T23:20:59:     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10) {
+2025-10-10T23:20:59:   path: '/var/www/Baseapp/package.json'
+2025-10-10T23:20:59: }
+2025-10-10T23:20:59: SyntaxError: Error parsing /var/www/Baseapp/package.json: Expected double-quoted property name in JSON at position 560
+2025-10-10T23:20:59:     at parse (<anonymous>)
+2025-10-10T23:20:59:     at read (node:internal/modules/package_json_reader:80:16)
+2025-10-10T23:20:59:     at readPackage (node:internal/modules/package_json_reader:141:10)
+2025-10-10T23:20:59:     at Object.readPackageScope (node:internal/modules/package_json_reader:164:19)
+2025-10-10T23:20:59:     at Module._extensions..js (node:internal/modules/cjs/loader:1611:29)
+2025-10-10T23:20:59:     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2025-10-10T23:20:59:     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2025-10-10T23:20:59:     at Object.<anonymous> (/root/.nvm/versions/node/v20.19.5/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-10-10T23:20:59:     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2025-10-10T23:20:59:     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10) {
+2025-10-10T23:20:59:   path: '/var/www/Baseapp/package.json'
+2025-10-10T23:20:59: }
+2025-10-10T23:20:59: SyntaxError: Error parsing /var/www/Baseapp/package.json: Expected double-quoted property name in JSON at position 560
+2025-10-10T23:20:59:     at parse (<anonymous>)
+2025-10-10T23:20:59:     at read (node:internal/modules/package_json_reader:80:16)
+2025-10-10T23:20:59:     at readPackage (node:internal/modules/package_json_reader:141:10)
+2025-10-10T23:20:59:     at Object.readPackageScope (node:internal/modules/package_json_reader:164:19)
+2025-10-10T23:20:59:     at Module._extensions..js (node:internal/modules/cjs/loader:1611:29)
+2025-10-10T23:20:59:     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2025-10-10T23:20:59:     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2025-10-10T23:20:59:     at Object.<anonymous> (/root/.nvm/versions/node/v20.19.5/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-10-10T23:20:59:     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2025-10-10T23:20:59:     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10) {
+2025-10-10T23:20:59:   path: '/var/www/Baseapp/package.json'
+2025-10-10T23:20:59: }
+2025-10-10T23:21:00: SyntaxError: Error parsing /var/www/Baseapp/package.json: Expected double-quoted property name in JSON at position 560
+2025-10-10T23:21:00:     at parse (<anonymous>)
+2025-10-10T23:21:00:     at read (node:internal/modules/package_json_reader:80:16)
+2025-10-10T23:21:00:     at readPackage (node:internal/modules/package_json_reader:141:10)
+2025-10-10T23:21:00:     at Object.readPackageScope (node:internal/modules/package_json_reader:164:19)
+2025-10-10T23:21:00:     at Module._extensions..js (node:internal/modules/cjs/loader:1611:29)
+2025-10-10T23:21:00:     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2025-10-10T23:21:00:     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2025-10-10T23:21:00:     at Object.<anonymous> (/root/.nvm/versions/node/v20.19.5/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-10-10T23:21:00:     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2025-10-10T23:21:00:     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10) {
+2025-10-10T23:21:00:   path: '/var/www/Baseapp/package.json'
+2025-10-10T23:21:00: }
+2025-10-10T23:21:00: SyntaxError: Error parsing /var/www/Baseapp/package.json: Expected double-quoted property name in JSON at position 560
+2025-10-10T23:21:00:     at parse (<anonymous>)
+2025-10-10T23:21:00:     at read (node:internal/modules/package_json_reader:80:16)
+2025-10-10T23:21:00:     at readPackage (node:internal/modules/package_json_reader:141:10)
+2025-10-10T23:21:00:     at Object.readPackageScope (node:internal/modules/package_json_reader:164:19)
+2025-10-10T23:21:00:     at Module._extensions..js (node:internal/modules/cjs/loader:1611:29)
+2025-10-10T23:21:00:     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2025-10-10T23:21:00:     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2025-10-10T23:21:00:     at Object.<anonymous> (/root/.nvm/versions/node/v20.19.5/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-10-10T23:21:00:     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2025-10-10T23:21:00:     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10) {
+2025-10-10T23:21:00:   path: '/var/www/Baseapp/package.json'
+2025-10-10T23:21:00: }
+2025-10-10T23:21:00: SyntaxError: Error parsing /var/www/Baseapp/package.json: Expected double-quoted property name in JSON at position 560
+2025-10-10T23:21:00:     at parse (<anonymous>)
+2025-10-10T23:21:00:     at read (node:internal/modules/package_json_reader:80:16)
+2025-10-10T23:21:00:     at readPackage (node:internal/modules/package_json_reader:141:10)
+2025-10-10T23:21:00:     at Object.readPackageScope (node:internal/modules/package_json_reader:164:19)
+2025-10-10T23:21:00:     at Module._extensions..js (node:internal/modules/cjs/loader:1611:29)
+2025-10-10T23:21:00:     at Module.load (node:internal/modules/cjs/loader:1266:32)
+2025-10-10T23:21:00:     at Module._load (node:internal/modules/cjs/loader:1091:12)
+2025-10-10T23:21:00:     at Object.<anonymous> (/root/.nvm/versions/node/v20.19.5/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-10-10T23:21:00:     at Module._compile (node:internal/modules/cjs/loader:1521:14)
+2025-10-10T23:21:00:     at Module._extensions..js (node:internal/modules/cjs/loader:1623:10) {
+2025-10-10T23:21:00:   path: '/var/www/Baseapp/package.json'
+2025-10-10T23:21:00: }
+2025-10-10T23:22:12: SyntaxError: Unexpected token '<<'
+2025-10-10T23:22:12:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-10-10T23:22:12:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-10-10T23:22:12:     at #translate (node:internal/modules/esm/loader:497:12)
+2025-10-10T23:22:12:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:544:27)
+2025-10-10T23:22:12:     at async ModuleJob._link (node:internal/modules/esm/module_job:148:19)
+2025-10-10T23:37:59: SyntaxError: Unexpected token '<<'
+2025-10-10T23:37:59:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-10-10T23:37:59:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-10-10T23:37:59:     at #translate (node:internal/modules/esm/loader:497:12)
+2025-10-10T23:37:59:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:544:27)
+2025-10-10T23:37:59:     at async ModuleJob._link (node:internal/modules/esm/module_job:148:19)
+2025-10-10T23:38:14: SyntaxError: Unexpected token '<<'
+2025-10-10T23:38:14:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-10-10T23:38:14:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-10-10T23:38:14:     at #translate (node:internal/modules/esm/loader:497:12)
+2025-10-10T23:38:14:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:544:27)
+2025-10-10T23:38:14:     at async ModuleJob._link (node:internal/modules/esm/module_job:148:19)
+2025-10-10T23:42:54: Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/www/Baseapp/node_modules/@xmtp/agent-sdk/dist/core' imported from /var/www/Baseapp/node_modules/@xmtp/agent-sdk/dist/index.js
+2025-10-10T23:42:54:     at finalizeResolution (node:internal/modules/esm/resolve:283:11)
+2025-10-10T23:42:54:     at moduleResolve (node:internal/modules/esm/resolve:952:10)
+2025-10-10T23:42:54:     at defaultResolve (node:internal/modules/esm/resolve:1188:11)
+2025-10-10T23:42:54:     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:708:12)
+2025-10-10T23:42:54:     at #cachedDefaultResolve (node:internal/modules/esm/loader:657:25)
+2025-10-10T23:42:54:     at ModuleLoader.resolve (node:internal/modules/esm/loader:640:38)
+2025-10-10T23:42:54:     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:264:38)
+2025-10-10T23:42:54:     at ModuleJob._link (node:internal/modules/esm/module_job:168:49) {
+2025-10-10T23:42:54:   code: 'ERR_MODULE_NOT_FOUND',
+2025-10-10T23:42:54:   url: 'file:///var/www/Baseapp/node_modules/@xmtp/agent-sdk/dist/core'
+2025-10-10T23:42:54: }
+2025-10-10T23:45:25: Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/www/Baseapp/node_modules/@xmtp/agent-sdk/dist/core' imported from /var/www/Baseapp/node_modules/@xmtp/agent-sdk/dist/index.js
+2025-10-10T23:45:25:     at finalizeResolution (node:internal/modules/esm/resolve:283:11)
+2025-10-10T23:45:25:     at moduleResolve (node:internal/modules/esm/resolve:952:10)
+2025-10-10T23:45:25:     at defaultResolve (node:internal/modules/esm/resolve:1188:11)
+2025-10-10T23:45:25:     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:708:12)
+2025-10-10T23:45:25:     at #cachedDefaultResolve (node:internal/modules/esm/loader:657:25)
+2025-10-10T23:45:25:     at ModuleLoader.resolve (node:internal/modules/esm/loader:640:38)
+2025-10-10T23:45:25:     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:264:38)
+2025-10-10T23:45:25:     at ModuleJob._link (node:internal/modules/esm/module_job:168:49) {
+2025-10-10T23:45:25:   code: 'ERR_MODULE_NOT_FOUND',
+2025-10-10T23:45:25:   url: 'file:///var/www/Baseapp/node_modules/@xmtp/agent-sdk/dist/core'
+2025-10-10T23:45:25: }
+2025-10-10T23:46:18: Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/www/Baseapp/node_modules/@xmtp/agent-sdk/dist/core' imported from /var/www/Baseapp/node_modules/@xmtp/agent-sdk/dist/index.js
+2025-10-10T23:46:18:     at finalizeResolution (node:internal/modules/esm/resolve:283:11)
+2025-10-10T23:46:18:     at moduleResolve (node:internal/modules/esm/resolve:952:10)
+2025-10-10T23:46:18:     at defaultResolve (node:internal/modules/esm/resolve:1188:11)
+2025-10-10T23:46:18:     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:708:12)
+2025-10-10T23:46:18:     at #cachedDefaultResolve (node:internal/modules/esm/loader:657:25)
+2025-10-10T23:46:18:     at ModuleLoader.resolve (node:internal/modules/esm/loader:640:38)
+2025-10-10T23:46:18:     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:264:38)
+2025-10-10T23:46:18:     at ModuleJob._link (node:internal/modules/esm/module_job:168:49) {
+2025-10-10T23:46:18:   code: 'ERR_MODULE_NOT_FOUND',
+2025-10-10T23:46:18:   url: 'file:///var/www/Baseapp/node_modules/@xmtp/agent-sdk/dist/core'
+2025-10-10T23:46:18: }
+2025-10-10T23:53:06: Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/www/Baseapp/node_modules/@xmtp/agent-sdk/dist/core' imported from /var/www/Baseapp/node_modules/@xmtp/agent-sdk/dist/index.js
+2025-10-10T23:53:06:     at finalizeResolution (node:internal/modules/esm/resolve:283:11)
+2025-10-10T23:53:06:     at moduleResolve (node:internal/modules/esm/resolve:952:10)
+2025-10-10T23:53:06:     at defaultResolve (node:internal/modules/esm/resolve:1188:11)
+2025-10-10T23:53:06:     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:708:12)
+2025-10-10T23:53:06:     at #cachedDefaultResolve (node:internal/modules/esm/loader:657:25)
+2025-10-10T23:53:06:     at ModuleLoader.resolve (node:internal/modules/esm/loader:640:38)
+2025-10-10T23:53:06:     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:264:38)
+2025-10-10T23:53:06:     at ModuleJob._link (node:internal/modules/esm/module_job:168:49) {
+2025-10-10T23:53:06:   code: 'ERR_MODULE_NOT_FOUND',
+2025-10-10T23:53:06:   url: 'file:///var/www/Baseapp/node_modules/@xmtp/agent-sdk/dist/core'
+2025-10-10T23:53:06: }
+2025-10-10T23:53:13: Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/www/Baseapp/node_modules/@xmtp/agent-sdk/dist/core' imported from /var/www/Baseapp/node_modules/@xmtp/agent-sdk/dist/index.js
+2025-10-10T23:53:13:     at finalizeResolution (node:internal/modules/esm/resolve:283:11)
+2025-10-10T23:53:13:     at moduleResolve (node:internal/modules/esm/resolve:952:10)
+2025-10-10T23:53:13:     at defaultResolve (node:internal/modules/esm/resolve:1188:11)
+2025-10-10T23:53:13:     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:708:12)
+2025-10-10T23:53:13:     at #cachedDefaultResolve (node:internal/modules/esm/loader:657:25)
+2025-10-10T23:53:13:     at ModuleLoader.resolve (node:internal/modules/esm/loader:640:38)
+2025-10-10T23:53:13:     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:264:38)
+2025-10-10T23:53:13:     at ModuleJob._link (node:internal/modules/esm/module_job:168:49) {
+2025-10-10T23:53:13:   code: 'ERR_MODULE_NOT_FOUND',
+2025-10-10T23:53:13:   url: 'file:///var/www/Baseapp/node_modules/@xmtp/agent-sdk/dist/core'
+2025-10-10T23:53:13: }
+2025-10-10T23:56:23: 2025-10-10 23:56:23.627: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T00:05:57: 2025-10-11 00:05:57.730: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T00:06:04: 2025-10-11 00:06:04.858: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T00:15:46: 2025-10-11 00:15:46.236: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T00:22:29: 2025-10-11 00:22:29.471: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T00:36:29: 2025-10-11 00:36:29.262: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T00:45:52: 2025-10-11 00:45:52.019: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T00:51:04: 2025-10-11 00:51:04.429: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T01:01:43: 2025-10-11 01:01:43.637: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T01:10:59: 2025-10-11 01:10:59.908: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T08:20:29: 2025-10-11 08:20:29.153: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T08:24:22: 2025-10-11 08:24:22.594: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T08:24:33: 2025-10-11 08:24:33.946: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T08:27:51: 2025-10-11 08:27:51.080: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T08:27:55: 2025-10-11 08:27:55.637: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T08:57:54: 2025-10-11 08:57:54.853: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T09:03:57: 2025-10-11 09:03:57.840: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T09:53:09: 2025-10-11 09:53:09.937: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T10:53:10: 2025-10-11 10:53:10.228: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T10:58:56: 2025-10-11 10:58:56.168: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T11:05:37: 2025-10-11 11:05:37.607: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T11:13:59: 2025-10-11 11:13:59.303: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T11:23:40: 2025-10-11 11:23:40.176: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T11:26:56: SyntaxError: Invalid or unexpected token
+2025-10-11T11:26:56:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-10-11T11:26:56:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-10-11T11:26:56:     at #translate (node:internal/modules/esm/loader:497:12)
+2025-10-11T11:26:56:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:544:27)
+2025-10-11T11:26:56:     at async ModuleJob._link (node:internal/modules/esm/module_job:148:19)
+2025-10-11T11:30:17: 2025-10-11 11:30:17.955: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T11:33:01: 2025-10-11 11:33:01.760: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T11:38:33: 2025-10-11 11:38:33.776: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T11:42:09: 2025-10-11 11:42:09.906: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T11:42:27: 2025-10-11 11:42:27.526: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T11:44:22: SyntaxError: Illegal return statement
+2025-10-11T11:44:22:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-10-11T11:44:22:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-10-11T11:44:22:     at #translate (node:internal/modules/esm/loader:497:12)
+2025-10-11T11:44:22:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:544:27)
+2025-10-11T11:44:22:     at async ModuleJob._link (node:internal/modules/esm/module_job:148:19)
+2025-10-11T11:56:44: 2025-10-11 11:56:44.112: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T12:01:08: 2025-10-11 12:01:08.920: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T12:05:21: 2025-10-11 12:05:21.378: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T12:15:26: 2025-10-11 12:15:26.764: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T12:23:53: 2025-10-11 12:23:53.971: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T12:26:23: 2025-10-11 12:26:23.033: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T12:45:03: 2025-10-11 12:45:03.112: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T13:27:44: SyntaxError: Unexpected token ':'
+2025-10-11T13:27:44:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-10-11T13:27:44:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-10-11T13:27:44:     at #translate (node:internal/modules/esm/loader:497:12)
+2025-10-11T13:27:44:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:544:27)
+2025-10-11T13:27:44:     at async ModuleJob._link (node:internal/modules/esm/module_job:148:19)
+2025-10-11T14:13:38: SyntaxError: Unexpected token ':'
+2025-10-11T14:13:38:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-10-11T14:13:38:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-10-11T14:13:38:     at #translate (node:internal/modules/esm/loader:497:12)
+2025-10-11T14:13:38:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:544:27)
+2025-10-11T14:13:38:     at async ModuleJob._link (node:internal/modules/esm/module_job:148:19)
+2025-10-11T14:28:14: 2025-10-11 14:28:14.176: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T14:35:23: SyntaxError: Unexpected token ':'
+2025-10-11T14:35:23:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-10-11T14:35:23:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-10-11T14:35:23:     at #translate (node:internal/modules/esm/loader:497:12)
+2025-10-11T14:35:23:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:544:27)
+2025-10-11T14:35:23:     at async ModuleJob._link (node:internal/modules/esm/module_job:148:19)
+2025-10-11T14:38:38: 2025-10-11 14:38:38.353: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T14:45:56: 2025-10-11 14:45:56.681: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T14:51:28: 2025-10-11 14:51:28.756: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T15:02:22: 2025-10-11 15:02:22.218: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T15:06:53: 2025-10-11 15:06:53.093: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T15:16:10: 2025-10-11 15:16:10.142: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T15:21:41: 2025-10-11 15:21:41.367: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T15:35:24: 2025-10-11 15:35:24.188: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T15:42:33: 2025-10-11 15:42:33.929: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T16:01:38: Error: config must be of type Configuration
+2025-10-11T16:01:38: Error: Invalid configuration type. Expected Configuration object but received string.
+2025-10-11T16:01:38:     at new NeynarAPIClient (/var/www/Baseapp/node_modules/@neynar/nodejs-sdk/build/clients/NeynarAPIClient.js:112:19)
+2025-10-11T16:01:38:     at new NeynarClient (file:///var/www/Baseapp/index.js:61:19)
+2025-10-11T16:01:38:     at file:///var/www/Baseapp/index.js:203:16
+2025-10-11T16:01:38:     at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+2025-10-11T16:01:38:     at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+2025-10-11T16:03:54: 2025-10-11 16:03:54.310: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T16:16:36: 2025-10-11 16:16:36.661: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T16:28:14: Error: config must be of type Configuration
+2025-10-11T16:28:15: 2025-10-11 16:28:15.792: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T16:30:38: 2025-10-11 16:30:38.066: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T16:37:10: 2025-10-11 16:37:10.488: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T16:46:19: 2025-10-11 16:46:19.359: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T16:49:06: TypeError: facilitator is not a function
+2025-10-11T16:49:06:     at file:///var/www/Baseapp/index.js:198:28
+2025-10-11T16:49:06:     at ModuleJob.run (node:internal/modules/esm/module_job:325:25)
+2025-10-11T16:49:06:     at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+2025-10-11T16:50:55: file:///var/www/Baseapp/index.js:124
+2025-10-11T16:50:55: import facilitator from "@coinbase/x402";
+2025-10-11T16:50:55:        ^^^^^^^^^^^
+2025-10-11T16:50:55: SyntaxError: The requested module '@coinbase/x402' does not provide an export named 'default'
+2025-10-11T16:50:55:     at ModuleJob._instantiate (node:internal/modules/esm/module_job:213:21)
+2025-10-11T16:50:55:     at async ModuleJob.run (node:internal/modules/esm/module_job:320:5)
+2025-10-11T16:50:55:     at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+2025-10-11T16:52:20: 2025-10-11 16:52:20.985: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T16:57:38: 2025-10-11 16:57:38.529: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T16:59:10: 2025-10-11 16:59:10.230: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T17:05:55: 2025-10-11 17:05:55.481: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T17:09:02: 2025-10-11 17:09:02.830: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T17:14:37: 2025-10-11 17:14:37.438: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T17:17:45: 2025-10-11 17:17:45.054: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T17:20:22: file:///var/www/Baseapp/index.js:124
+2025-10-11T17:20:22: import x402 from "@coinbase/x402";
+2025-10-11T17:20:22:        ^^^^
+2025-10-11T17:20:22: SyntaxError: The requested module '@coinbase/x402' does not provide an export named 'default'
+2025-10-11T17:20:22:     at ModuleJob._instantiate (node:internal/modules/esm/module_job:213:21)
+2025-10-11T17:20:22:     at async ModuleJob.run (node:internal/modules/esm/module_job:320:5)
+2025-10-11T17:20:22:     at async ModuleLoader.import (node:internal/modules/esm/loader:606:24)
+2025-10-11T17:21:49: 2025-10-11 17:21:49.013: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T17:24:03: 2025-10-11 17:24:03.679: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T17:25:33: 2025-10-11 17:25:33.051: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T17:44:43: 2025-10-11 17:44:43.525: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T17:59:05: 2025-10-11 17:59:05.084: WARN CORE sqlcipherCodecAttach: no codec attached to db
+2025-10-11T18:23:41: 2025-10-11 18:23:41.108: WARN CORE sqlcipherCodecAttach: no codec attached to db
