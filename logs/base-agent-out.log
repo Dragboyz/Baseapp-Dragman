@@ -5345,3 +5345,20 @@
 2025-10-11T18:23:40: ✅ Neynar API initialized successfully
 2025-10-11T18:23:41: [2025-10-11T16:23:41.612Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
 2025-10-11T18:23:41: [2025-10-11T16:23:41.617Z] [INFO]: 🛡️ Dragman Agent is online!
+2025-10-11T19:36:31: 🔍 Debug - CDP_API_KEY_ID: Found
+2025-10-11T19:36:31: 🔍 Debug - CDP_API_KEY_PRIVATE_KEY: Found
+2025-10-11T19:36:31: 🔍 Debug - AGENT_PRIVATE_KEY: Found
+2025-10-11T19:36:31: 🔍 Debug - NETWORK: base
+2025-10-11T19:36:31: 🔍 Debug - x402 package keys: [
+2025-10-11T19:36:31:   'createAuthHeader',
+2025-10-11T19:36:31:   'createCdpAuthHeaders',
+2025-10-11T19:36:31:   'createCorrelationHeader',
+2025-10-11T19:36:31:   'createFacilitatorConfig',
+2025-10-11T19:36:31:   'facilitator'
+2025-10-11T19:36:31: ]
+2025-10-11T19:36:31: 🔍 Debug - x402.facilitator type: object
+2025-10-11T19:36:31: 🔍 Debug - x402.createFacilitatorConfig type: function
+2025-10-11T19:36:31: ✅ Coinbase x402 Payment Facilitator initialized successfully
+2025-10-11T19:36:31: ✅ Neynar API initialized successfully
+2025-10-11T19:36:33: [2025-10-11T17:36:33.224Z] [INFO]: Agent initialized { env: 'production', hasWalletKey: true, hasDbKey: true }
+2025-10-11T19:36:33: [2025-10-11T17:36:33.231Z] [INFO]: 🛡️ Dragman Agent is online!
