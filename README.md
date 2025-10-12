@@ -1,110 +1,129 @@
-# XMTP agent examples
+# 🤖 Dragman Agent - Base App AI Assistant
 
-These example agents serve as a starting point for building your own agents. They are built with the [`agent-sdk`](https://github.com/xmtp/xmtp-js/tree/main/sdks/agent-sdk) and run on the [XMTP](https://docs.xmtp.org/) network.
+A powerful AI agent for Base App with advanced crypto features, voice commands, NFT analysis, and gamification.
 
-- [xmtp-gm](/examples/xmtp-gm/): A simple agent that replies to all text messages with "gm"
-- [xmtp-gpt](/examples/xmtp-gpt/): An example using GPT API's to answer messages
-- [xmtp-gated-group](/examples/xmtp-gated-group/): Add members to a group based on arbitrary criteria
-- [xmtp-coinbase-agentkit](/examples/xmtp-coinbase-agentkit/): Agent that uses a CDP for gasless USDC on base
-- [xmtp-transactions](/examples/xmtp-transactions/): Allow transactions between users and agents
-- [xmtp-gaia](/examples/xmtp-gaia/): This example uses a [Gaia](https://docs.gaianet.ai) API
-- [xmtp-smart-wallet](/examples/xmtp-smart-wallet/): Agent that uses a smart wallet to send messages
-- [xmtp-attachments](/examples/xmtp-attachments/): Agent that sends and receives images
-- [xmtp-inline-actions](/examples/xmtp-inline-actions/): An example using inline actions (dynamic buttons)
-- [xmtp-thinking-reaction](/examples/xmtp-thinking-reaction/): Agent that reacts to messages with a thinking emoji
-- [xmtp-queue-dual-client](/examples/xmtp-queue-dual-client/): Agent that uses two clients to send and receive messages
-- [xmtp-welcome-message](/examples/xmtp-welcome-message/): Agent that sends a welcome message when its added and to new members
+## ✨ Features
 
-### Vibe coding
+### 🎤 Voice Commands
+- 20+ voice commands with NLP processing
+- Natural language understanding
+- Synonym matching and context awareness
 
-See these [Cursor rules](/.cursor) for vibe coding with XMTP using best practices.
+### 🎨 NFT Analysis
+- Collection analysis with floor price tracking
+- Rarity calculator with trait breakdown
+- Market cap and volume analysis
 
-```bash
-Prompt: lets create an example that gets a number and returns its 2x multiple (use claude max)
-```
+### 📱 Mobile Optimization
+- Touch gestures (swipe, long press, double tap)
+- Compact response format
+- Battery saver mode
 
-🎥 Watch [Vibe coding agents with XMTP](https://youtu.be/djRLnWUvwIA) for a quickstart guide to building with these example agents.
+### 📊 Portfolio Tracking
+- Visual ASCII charts
+- Real-time value tracking
+- Multiple timeframes (7d, 30d, 90d, 1y)
 
-### Run an example agent
+### 📈 Trading Signals
+- Automated buy/sell recommendations
+- Technical analysis (RSI, MACD, Bollinger Bands)
+- Fundamental analysis with confidence scores
 
-```bash
-# git clone repo
-git clone https://github.com/ephemeraHQ/xmtp-agent-examples.git
-# go to the folder
-cd xmtp-agent-examples
-# install packages
-yarn
-# generate random xmtp keys (optional)
-yarn gen:keys
-# run the example
-yarn dev
-```
+### 👥 Social Features
+- Friend management system
+- Social graph analysis
+- Collaboration tools
 
-### Set environment variables
+### 🎮 Gamification
+- Points, levels, and XP system
+- 10+ achievements to unlock
+- Daily rewards and streaks
+- Global leaderboard
 
-To run an example, you must create a `.env` file with the following variables:
+## 🚀 Quick Start
 
-```bash
-XMTP_WALLET_KEY= # the private key of the wallet
-XMTP_DB_ENCRYPTION_KEY= # encryption key for the local database
-XMTP_ENV=dev # local, dev, production
-```
-
-### Generate random XMTP keys
-
-Use this script to generate random XMTP keys:
-
-```bash
-yarn gen:keys
-```
-
-> [!WARNING]
-> Running the `gen:keys` command will append keys to your existing `.env` file.
-
-### Revoke installations
-
-You can revoke old installations by running:
-
-```bash
-# you can get your values from terminal logs
-yarn revoke <inbox-id> <installations-to-exclude>
-```
-
-### Enable debug mode
-
-You can enable debug mode by adding the following to your `.env` file:
-
-```bash
-XMTP_FORCE_DEBUG=true
-XMTP_FORCE_DEBUG_LEVEL=warn # debug, info, warn, error
-```
-
-> This will print additional information to the console.
-
-### Talk to your agent
-
-Try out the examples using [xmtp.chat](https://xmtp.chat), the official playground for agents.
-
-![](/examples/xmtp-gm/screenshot.png)
-
-### Run a local XMTP network (Optional)
-
-`dev` and `production` networks are hosted by XMTP, while you can run your own `local` network.
-
-1. Install Docker
-
-2. Start the XMTP service and database
-
+1. **Clone the repository**
    ```bash
-   ./dev/up
+   git clone https://github.com/Dragboyz/Baseapp-Dragman.git
+   cd Baseapp-Dragman
    ```
 
-3. Change the `.env` file to use the `local` network
-
+2. **Install dependencies**
    ```bash
-   XMTP_ENV = local
+   npm install
+   # or
+   yarn install
    ```
 
-### Deploy your own agent
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your API keys
+   ```
 
-See how to build and deploy [your own production-grade agent](https://docs.xmtp.org/agents/deploy/deploy-agent) with XMTP.
+4. **Run the agent**
+   ```bash
+   npm start
+   # or
+   yarn start
+   ```
+
+## 🔧 Configuration
+
+### Required Environment Variables
+```env
+XMTP_WALLET_KEY=your_wallet_private_key
+XMTP_DB_ENCRYPTION_KEY=your_db_encryption_key
+OPENAI_API_KEY=your_openai_api_key
+CDP_API_KEY_ID=your_coinbase_api_key_id
+CDP_API_KEY_PRIVATE_KEY=your_coinbase_api_private_key
+NEYNAR_API_KEY=your_neynar_api_key
+```
+
+## 📖 Usage
+
+### Basic Commands
+- `/help` - Show all available features
+- `/voice` - Voice command features
+- `/nft` - NFT analysis features
+- `/mobile` - Mobile optimization
+- `/portfolio` - Portfolio tracking
+- `/signals` - Trading signals
+- `/social` - Social features
+- `/gamification` - Points and achievements
+
+### Voice Commands
+- "price ETH" - Get token price
+- "analyze BTC" - Token analysis
+- "trending tokens" - Hottest tokens
+- "gas fees base" - Gas fee analysis
+
+### NFT Commands
+- "analyze nft collection [address]" - Collection analysis
+- "calculate nft rarity [tokenId] [collection]" - Rarity analysis
+
+## 🏗️ Architecture
+
+- **Base App Integration**: Full XMTP messaging support
+- **AI-Powered**: OpenAI GPT integration
+- **Payment Processing**: Coinbase x402 protocol
+- **Social Features**: Farcaster integration
+- **Cross-Chain**: Support for 15+ networks
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+## 🙏 Acknowledgments
+
+- Base App team for the amazing platform
+- XMTP for decentralized messaging
+- OpenAI for AI capabilities
+- Coinbase for payment processing
