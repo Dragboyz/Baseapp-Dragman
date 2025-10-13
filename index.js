@@ -1,6 +1,6 @@
 // --- FINAL VERSION: CONFIRMED WORKING ---
 // 
-// 🚀 X402 PAYMENT PROTOCOL INTEGRATION GUIDE
+// ðŸš€ X402 PAYMENT PROTOCOL INTEGRATION GUIDE
 // ===========================================
 // 
 // To enable x402 payment functionality in production:
@@ -34,7 +34,7 @@
 //    - Test premium feature access
 //    - Monitor payment analytics
 // 
-// 📚 RESOURCES:
+// ðŸ“š RESOURCES:
 // - x402 Protocol Docs: https://docs.x402.org
 // - Coinbase x402 Package: https://www.npmjs.com/package/@coinbase/x402
 // - Base App x402 Guide: https://docs.base.org/base-app/agents/x402-agents
@@ -198,15 +198,15 @@ const processingUsers = new Set();
 let paymentFacilitator;
 try {
   // Debug: Check what environment variables are available
-  console.log('🔍 Debug - CDP_API_KEY_ID:', process.env.CDP_API_KEY_ID ? 'Found' : 'Missing');
-  console.log('🔍 Debug - CDP_API_KEY_PRIVATE_KEY:', process.env.CDP_API_KEY_PRIVATE_KEY ? 'Found' : 'Missing');
-  console.log('🔍 Debug - AGENT_PRIVATE_KEY:', process.env.AGENT_PRIVATE_KEY ? 'Found' : 'Missing');
-  console.log('🔍 Debug - NETWORK:', process.env.NETWORK || 'Not set');
+  console.log('ðŸ” Debug - CDP_API_KEY_ID:', process.env.CDP_API_KEY_ID ? 'Found' : 'Missing');
+  console.log('ðŸ” Debug - CDP_API_KEY_PRIVATE_KEY:', process.env.CDP_API_KEY_PRIVATE_KEY ? 'Found' : 'Missing');
+  console.log('ðŸ” Debug - AGENT_PRIVATE_KEY:', process.env.AGENT_PRIVATE_KEY ? 'Found' : 'Missing');
+  console.log('ðŸ” Debug - NETWORK:', process.env.NETWORK || 'Not set');
   
   // Debug: Check x402 package exports
-  console.log('🔍 Debug - x402 package keys:', Object.keys(x402));
-  console.log('🔍 Debug - x402.facilitator type:', typeof x402.facilitator);
-  console.log('🔍 Debug - x402.createFacilitatorConfig type:', typeof x402.createFacilitatorConfig);
+  console.log('ðŸ” Debug - x402 package keys:', Object.keys(x402));
+  console.log('ðŸ” Debug - x402.facilitator type:', typeof x402.facilitator);
+  console.log('ðŸ” Debug - x402.createFacilitatorConfig type:', typeof x402.createFacilitatorConfig);
   
   // Use the correct Coinbase API format
   const apiKeyId = process.env.CDP_API_KEY_ID;
@@ -247,16 +247,16 @@ try {
       }
     };
     
-    console.log('✅ Coinbase x402 Payment Facilitator initialized successfully');
+    console.log('âœ… Coinbase x402 Payment Facilitator initialized successfully');
   } else {
-    console.log('⚠️ Coinbase API credentials not found, using mock implementation');
+    console.log('âš ï¸ Coinbase API credentials not found, using mock implementation');
     paymentFacilitator = new MockPaymentFacilitator({
       privateKey: process.env.AGENT_PRIVATE_KEY || process.env.XMTP_WALLET_KEY,
       network: process.env.NETWORK || 'base'
     });
   }
 } catch (error) {
-  console.log('⚠️ Coinbase x402 initialization failed, using mock implementation:', error.message);
+  console.log('âš ï¸ Coinbase x402 initialization failed, using mock implementation:', error.message);
   paymentFacilitator = new MockPaymentFacilitator({
     privateKey: process.env.AGENT_PRIVATE_KEY || process.env.XMTP_WALLET_KEY,
     network: process.env.NETWORK || 'base'
@@ -275,18 +275,18 @@ let neynar;
 try {
   if (process.env.NEYNAR_API_KEY) {
     neynar = new NeynarClient(process.env.NEYNAR_API_KEY);
-    console.log('✅ Neynar API initialized successfully');
+    console.log('âœ… Neynar API initialized successfully');
     
     // Cache cleanup every 10 minutes
     setInterval(() => {
       neynar.clearExpiredCache();
     }, 10 * 60 * 1000);
   } else {
-    console.log('⚠️ NEYNAR_API_KEY not found, using fallback mode');
+    console.log('âš ï¸ NEYNAR_API_KEY not found, using fallback mode');
     neynar = null;
   }
 } catch (error) {
-  console.log('⚠️ Neynar initialization failed, using fallback mode:', error.message);
+  console.log('âš ï¸ Neynar initialization failed, using fallback mode:', error.message);
   neynar = null;
 }
 
@@ -297,6 +297,12 @@ const miniAppCatalog = {
     name: "Crypto Games",
     description: "Play interactive crypto games",
     triggers: ['game', 'play', 'quiz', 'challenge', 'battle']
+  },
+  dragman: {
+    url: "https://dragman.xyz/",
+    name: "Original Dragman Game",
+    description: "Fast, Fun, Social Dragon Game - Tap the dragon to score points and compete with friends",
+    triggers: ['dragman', 'dragon', 'tap', 'score', 'social game', 'original game']
   },
   polls: {
     url: "https://dragman.base.eth/polls",
@@ -350,44 +356,44 @@ async function mockApiCallWithPayment(endpoint, paymentPayload) {
   if (endpoint.includes('nft-floor')) {
     return {
       success: true,
-      data: `📊 **NFT Floor Price Analysis**\n\n` +
-            `🏛️ **Collection:** Bored Ape Yacht Club\n` +
-            `💰 **Floor Price:** 15.2 ETH\n` +
-            `📈 **24h Change:** +2.3%\n` +
-            `📊 **Volume:** 45.7 ETH\n` +
-            `👥 **Holders:** 6,420\n` +
-            `🔄 **Sales:** 12 (24h)\n\n` +
-            `💡 **Analysis:** Strong upward trend with increased trading volume.`
+      data: `ðŸ“Š **NFT Floor Price Analysis**\n\n` +
+            `ðŸ›ï¸ **Collection:** Bored Ape Yacht Club\n` +
+            `ðŸ’° **Floor Price:** 15.2 ETH\n` +
+            `ðŸ“ˆ **24h Change:** +2.3%\n` +
+            `ðŸ“Š **Volume:** 45.7 ETH\n` +
+            `ðŸ‘¥ **Holders:** 6,420\n` +
+            `ðŸ”„ **Sales:** 12 (24h)\n\n` +
+            `ðŸ’¡ **Analysis:** Strong upward trend with increased trading volume.`
     };
   } else if (endpoint.includes('market-data')) {
     return {
       success: true,
-      data: `📈 **Advanced Market Data**\n\n` +
-            `🪙 **BTC:** $43,250 (+1.2%)\n` +
-            `🪙 **ETH:** $2,680 (+0.8%)\n` +
-            `📊 **Market Cap:** $1.7T\n` +
-            `📈 **Fear & Greed:** 65 (Greed)\n` +
-            `🔄 **Volume:** $45.2B\n\n` +
-            `💡 **Technical Analysis:** Bullish momentum with strong support levels.`
+      data: `ðŸ“ˆ **Advanced Market Data**\n\n` +
+            `ðŸª™ **BTC:** $43,250 (+1.2%)\n` +
+            `ðŸª™ **ETH:** $2,680 (+0.8%)\n` +
+            `ðŸ“Š **Market Cap:** $1.7T\n` +
+            `ðŸ“ˆ **Fear & Greed:** 65 (Greed)\n` +
+            `ðŸ”„ **Volume:** $45.2B\n\n` +
+            `ðŸ’¡ **Technical Analysis:** Bullish momentum with strong support levels.`
     };
   } else if (endpoint.includes('defi-yield')) {
     return {
       success: true,
-      data: `💰 **DeFi Yield Analysis**\n\n` +
-            `🏦 **Compound:** 4.2% APY\n` +
-            `🏦 **Aave:** 3.8% APY\n` +
-            `🏦 **Uniswap V3:** 12.5% APY\n` +
-            `🏦 **Curve:** 8.1% APY\n\n` +
-            `💡 **Recommendation:** Uniswap V3 offers highest yield with moderate risk.`
+      data: `ðŸ’° **DeFi Yield Analysis**\n\n` +
+            `ðŸ¦ **Compound:** 4.2% APY\n` +
+            `ðŸ¦ **Aave:** 3.8% APY\n` +
+            `ðŸ¦ **Uniswap V3:** 12.5% APY\n` +
+            `ðŸ¦ **Curve:** 8.1% APY\n\n` +
+            `ðŸ’¡ **Recommendation:** Uniswap V3 offers highest yield with moderate risk.`
     };
   } else {
     return {
       success: true,
-      data: `✅ **Premium Data Retrieved**\n\n` +
-            `📊 **Endpoint:** ${endpoint}\n` +
-            `💰 **Payment:** ${payment.amount} ${payment.currency}\n` +
-            `🆔 **Payment ID:** ${payment.paymentId}\n\n` +
-            `💡 **This is premium data that requires payment to access.**`
+      data: `âœ… **Premium Data Retrieved**\n\n` +
+            `ðŸ“Š **Endpoint:** ${endpoint}\n` +
+            `ðŸ’° **Payment:** ${payment.amount} ${payment.currency}\n` +
+            `ðŸ†” **Payment ID:** ${payment.paymentId}\n\n` +
+            `ðŸ’¡ **This is premium data that requires payment to access.**`
     };
   }
 }
@@ -537,7 +543,7 @@ const analytics = {
   }
 };
 
-// 🧠 ADVANCED AI CAPABILITIES
+// ðŸ§  ADVANCED AI CAPABILITIES
 const smartContextLearning = {
   userPreferences: new Map(),
   conversationPatterns: new Map(),
@@ -570,7 +576,7 @@ const smartContextLearning = {
     // Learn communication style
     if (message.includes('please') || message.includes('thank')) {
       userPrefs.communicationStyle = 'polite';
-    } else if (message.includes('!') || message.includes('🚀')) {
+    } else if (message.includes('!') || message.includes('ðŸš€')) {
       userPrefs.communicationStyle = 'enthusiastic';
     }
     
@@ -631,21 +637,21 @@ const smartContextLearning = {
     
     const greetings = [];
     if (userPrefs.interests.has('gaming')) {
-      greetings.push('🎮 Ready for some gaming action?');
+      greetings.push('ðŸŽ® Ready for some gaming action?');
     }
     if (userPrefs.interests.has('defi')) {
-      greetings.push('💎 Any DeFi opportunities you want to explore?');
+      greetings.push('ðŸ’Ž Any DeFi opportunities you want to explore?');
     }
     if (userPrefs.preferredTokens.size > 0) {
       const tokens = Array.from(userPrefs.preferredTokens).slice(0, 3);
-      greetings.push(`📊 Want to check ${tokens.join(', ')} prices?`);
+      greetings.push(`ðŸ“Š Want to check ${tokens.join(', ')} prices?`);
     }
     
     return greetings.length > 0 ? greetings[Math.floor(Math.random() * greetings.length)] : null;
   }
 };
 
-// 🔮 PREDICTIVE MARKET INTELLIGENCE
+// ðŸ”® PREDICTIVE MARKET INTELLIGENCE
 const marketIntelligence = {
   sentimentCache: new Map(),
   predictionCache: new Map(),
@@ -824,7 +830,7 @@ const marketIntelligence = {
   }
 };
 
-// 🎮 AI-POWERED GAMING SYSTEM
+// ðŸŽ® AI-POWERED GAMING SYSTEM
 const gameAI = {
   userGameProfiles: new Map(),
   gameRecommendations: new Map(),
@@ -983,7 +989,7 @@ const gameAI = {
   }
 };
 
-// 🎤 ADVANCED VOICE & MULTIMEDIA PROCESSING
+// ðŸŽ¤ ADVANCED VOICE & MULTIMEDIA PROCESSING
 const voiceFeatures = {
   voiceCommands: {
     'send eth': async (userId, amount, address) => {
@@ -1138,7 +1144,7 @@ const voiceFeatures = {
   }
 };
 
-// 🤖 SMART AUTOMATION SYSTEM
+// ðŸ¤– SMART AUTOMATION SYSTEM
 const smartAutomation = {
   userAutomations: new Map(),
   marketConditions: new Map(),
@@ -1245,7 +1251,7 @@ const smartAutomation = {
   }
 };
 
-// 🌐 COMMUNITY & SOCIAL FEATURES
+// ðŸŒ COMMUNITY & SOCIAL FEATURES
 const communityFeatures = {
   userGroups: new Map(),
   knowledgeBase: new Map(),
@@ -1351,7 +1357,7 @@ const communityFeatures = {
   }
 };
 
-// 📊 ADVANCED ANALYTICS & INSIGHTS
+// ðŸ“Š ADVANCED ANALYTICS & INSIGHTS
 const advancedAnalytics = {
   userJourneys: new Map(),
   performanceMetrics: new Map(),
@@ -1539,7 +1545,7 @@ function formatSafeXLink(username) {
   const cleanUsername = username.replace('@', '');
   
   // Create safe text-based link that won't crash Base App
-  return `🐦 **X (Twitter) Profile:** @${cleanUsername}\n🔗 **Safe Link:** Copy this URL: https://x.com/${cleanUsername}\n\n💡 **Tip:** Copy the URL above and paste it in your browser to visit safely.`;
+  return `ðŸ¦ **X (Twitter) Profile:** @${cleanUsername}\nðŸ”— **Safe Link:** Copy this URL: https://x.com/${cleanUsername}\n\nðŸ’¡ **Tip:** Copy the URL above and paste it in your browser to visit safely.`;
 }
 
 // NEW: Safe link formatting for Base App compatibility
@@ -1552,9 +1558,9 @@ function formatLink(text, url) {
 function formatSocialLink(platform, handle) {
   // Avoid clickable links that can crash Base App
   if (platform.includes("X") || platform.includes("Twitter")) {
-    return `• ${platform}: @${handle}\n  Copy this link: x.com/${handle}`;
+    return `â€¢ ${platform}: @${handle}\n  Copy this link: x.com/${handle}`;
   }
-  return `• ${platform}: @${handle}\n  Copy this link: ${platform.toLowerCase()}.com/${handle}`;
+  return `â€¢ ${platform}: @${handle}\n  Copy this link: ${platform.toLowerCase()}.com/${handle}`;
 }
 
 // NEW: Validate Ethereum address for deeplinks (XIP-67 compliance)
@@ -2024,7 +2030,7 @@ class MiniAppCoordinator {
     const game = this.activeGames.get(gameId);
     if (!game) return null;
     
-    let message = `🏆 Game Results:
+    let message = `ðŸ† Game Results:
 
 `;
     for (let i = 0; i < results.length; i++) {
@@ -2598,11 +2604,11 @@ class SafeLinkManager {
     ];
     
     this.safeSocialPlatforms = {
-      'x.com': { name: 'X (Twitter)', safe: true, icon: '🐦' },
-      'twitter.com': { name: 'X (Twitter)', safe: true, icon: '🐦' },
-      'github.com': { name: 'GitHub', safe: true, icon: '🐙' },
-      'discord.com': { name: 'Discord', safe: true, icon: '💬' },
-      'telegram.org': { name: 'Telegram', safe: true, icon: '✈️' }
+      'x.com': { name: 'X (Twitter)', safe: true, icon: 'ðŸ¦' },
+      'twitter.com': { name: 'X (Twitter)', safe: true, icon: 'ðŸ¦' },
+      'github.com': { name: 'GitHub', safe: true, icon: 'ðŸ™' },
+      'discord.com': { name: 'Discord', safe: true, icon: 'ðŸ’¬' },
+      'telegram.org': { name: 'Telegram', safe: true, icon: 'âœˆï¸' }
     };
   }
 
@@ -2640,7 +2646,7 @@ class SafeLinkManager {
     const validation = this.validateDomain(url);
     
     if (!validation.safe) {
-      return `⚠️ **X.com Safety Warning:**\n\n**URL:** ${url}\n**Reason:** ${validation.reason}\n\n*This X.com link was not displayed for security reasons.*`;
+      return `âš ï¸ **X.com Safety Warning:**\n\n**URL:** ${url}\n**Reason:** ${validation.reason}\n\n*This X.com link was not displayed for security reasons.*`;
     }
     
     // Extract username if not provided
@@ -2649,7 +2655,7 @@ class SafeLinkManager {
       username = usernameMatch ? usernameMatch[1] : 'profile';
     }
     
-    return `✅ **Safe X.com Link:**\n\n**Profile:** @${username}\n**URL:** ${url}\n\n*Copy the URL above and paste it in your browser to visit the X profile safely.*`;
+    return `âœ… **Safe X.com Link:**\n\n**Profile:** @${username}\n**URL:** ${url}\n\n*Copy the URL above and paste it in your browser to visit the X profile safely.*`;
   }
 
   // Format safe social links
@@ -2657,7 +2663,7 @@ class SafeLinkManager {
     const validation = this.validateDomain(url);
     
     if (!validation.safe) {
-      return `⚠️ **Safety Warning:** ${validation.reason}\n\n**Requested:** ${platform} profile\n**URL:** ${url}\n\n*This link was not displayed for security reasons.*`;
+      return `âš ï¸ **Safety Warning:** ${validation.reason}\n\n**Requested:** ${platform} profile\n**URL:** ${url}\n\n*This link was not displayed for security reasons.*`;
     }
     
     // Extract username for social platforms
@@ -2669,10 +2675,10 @@ class SafeLinkManager {
         username = usernameMatch ? usernameMatch[1] : 'profile';
       }
       
-      return `✅ **Safe ${platformInfo.name} Link:**\n\n**Profile:** @${username}\n**URL:** ${url}\n\n*Copy the URL above and paste it in your browser to visit safely.*`;
+      return `âœ… **Safe ${platformInfo.name} Link:**\n\n**Profile:** @${username}\n**URL:** ${url}\n\n*Copy the URL above and paste it in your browser to visit safely.*`;
     }
     
-    return `✅ **Safe Link:**\n\n**${platform}:**\n${url}\n\n*Copy this URL and paste it in your browser to visit safely.*`;
+    return `âœ… **Safe Link:**\n\n**${platform}:**\n${url}\n\n*Copy this URL and paste it in your browser to visit safely.*`;
   }
 
   // Get safe social media links
@@ -3777,18 +3783,18 @@ class ProjectScannerManager {
         // Known projects get high scores based on their tier
         if (knownProject.tier === 'Tier 1') {
           score = 95;
-          safetyFactors.push('✅ Tier 1 project - Highly trusted');
+          safetyFactors.push('âœ… Tier 1 project - Highly trusted');
         } else if (knownProject.tier === 'Tier 2') {
           score = 85;
-          safetyFactors.push('✅ Tier 2 project - Well established');
+          safetyFactors.push('âœ… Tier 2 project - Well established');
         } else if (knownProject.tier === 'Tier 3') {
           score = 75;
-          safetyFactors.push('✅ Tier 3 project - Established');
+          safetyFactors.push('âœ… Tier 3 project - Established');
         }
         
         if (knownProject.audited) {
           score += 5;
-          safetyFactors.push('✅ Audited by reputable firms');
+          safetyFactors.push('âœ… Audited by reputable firms');
         }
         
         return {
@@ -3812,35 +3818,35 @@ class ProjectScannerManager {
       const auditResults = await this.checkAudits(projectName);
       if (auditResults.length > 0) {
         score += 20;
-        safetyFactors.push('✅ Audited by reputable firms');
+        safetyFactors.push('âœ… Audited by reputable firms');
       } else {
         score -= 5; // Reduced penalty for no audits
-        safetyFactors.push('⚠️ No audit reports found');
+        safetyFactors.push('âš ï¸ No audit reports found');
       }
 
       // Check for risk factors with reduced penalties
       const riskCheck = await this.checkRiskFactors(projectName);
       if (riskCheck.high.length > 0) {
         score -= 25; // Reduced penalty
-        safetyFactors.push(`❌ High risk factors: ${riskCheck.high.join(', ')}`);
+        safetyFactors.push(`âŒ High risk factors: ${riskCheck.high.join(', ')}`);
       }
       if (riskCheck.medium.length > 0) {
         score -= 10; // Reduced penalty
-        safetyFactors.push(`⚠️ Medium risk factors: ${riskCheck.medium.join(', ')}`);
+        safetyFactors.push(`âš ï¸ Medium risk factors: ${riskCheck.medium.join(', ')}`);
       }
       if (riskCheck.low.length > 0) {
         score += 15;
-        safetyFactors.push(`✅ Positive factors: ${riskCheck.low.join(', ')}`);
+        safetyFactors.push(`âœ… Positive factors: ${riskCheck.low.join(', ')}`);
       }
 
       // Check project age and establishment
       const ageCheck = await this.checkProjectAge(projectName);
       if (ageCheck.established) {
         score += 10;
-        safetyFactors.push('✅ Established project');
+        safetyFactors.push('âœ… Established project');
       } else {
         score -= 5; // Reduced penalty for new projects
-        safetyFactors.push('⚠️ New or unestablished project');
+        safetyFactors.push('âš ï¸ New or unestablished project');
       }
 
       // Determine safety level with improved thresholds
@@ -4050,24 +4056,24 @@ class ProjectScannerManager {
     const recommendations = [];
     
     if (scanResults.safety.score >= 80) {
-      recommendations.push('✅ Project appears safe based on analysis');
-      recommendations.push('💡 Consider starting with a small investment');
+      recommendations.push('âœ… Project appears safe based on analysis');
+      recommendations.push('ðŸ’¡ Consider starting with a small investment');
     } else if (scanResults.safety.score >= 60) {
-      recommendations.push('⚠️ Project has some risk factors');
-      recommendations.push('🔍 Do additional research before investing');
-      recommendations.push('💡 Consider waiting for more information');
+      recommendations.push('âš ï¸ Project has some risk factors');
+      recommendations.push('ðŸ” Do additional research before investing');
+      recommendations.push('ðŸ’¡ Consider waiting for more information');
     } else if (scanResults.safety.score >= 40) {
-      recommendations.push('❌ Project has significant risk factors');
-      recommendations.push('🚫 Not recommended for investment');
-      recommendations.push('🔍 Avoid this project');
+      recommendations.push('âŒ Project has significant risk factors');
+      recommendations.push('ðŸš« Not recommended for investment');
+      recommendations.push('ðŸ” Avoid this project');
     } else {
-      recommendations.push('🚫 High risk project detected');
-      recommendations.push('❌ Strongly recommend avoiding');
-      recommendations.push('⚠️ Potential scam or rug pull');
+      recommendations.push('ðŸš« High risk project detected');
+      recommendations.push('âŒ Strongly recommend avoiding');
+      recommendations.push('âš ï¸ Potential scam or rug pull');
     }
     
     if (scanResults.technical.audits.length === 0) {
-      recommendations.push('🔍 No audit reports found - proceed with caution');
+      recommendations.push('ðŸ” No audit reports found - proceed with caution');
     }
     
     return recommendations;
@@ -5138,9 +5144,9 @@ class SentimentAnalysisManager {
           mentions: Math.floor(Math.random() * 1000),
           sentiment: ['bullish', 'bearish', 'neutral'][Math.floor(Math.random() * 3)],
           topTweets: [
-            `${symbol} is looking bullish! 🚀`,
-            `Holding ${symbol} for the long term 💎`,
-            `${symbol} price action is interesting 📈`
+            `${symbol} is looking bullish! ðŸš€`,
+            `Holding ${symbol} for the long term ðŸ’Ž`,
+            `${symbol} price action is interesting ðŸ“ˆ`
           ]
         },
         reddit: {
@@ -5498,26 +5504,26 @@ async function sendTransaction(ctx, transactionData, userMessage, functionArgs =
     
     // Send user message first
     await ctx.sendText(userMessage);
-    log('info', '✅ User message sent');
+    log('info', 'âœ… User message sent');
     
     // Send transaction details as plain text (Base App doesn't support clickable links)
-    const transactionMessage = `📝 **Transaction Details:**\n\n**To:** ${recipient}\n**Amount:** ${amount} ETH\n**Chain:** ${chainParam.charAt(0).toUpperCase() + chainParam.slice(1)}\n\n**Instructions:**\n1. Open Base App\n2. Tap Send\n3. Paste the address above\n4. Enter ${amount} ETH\n5. Select ${chainParam.charAt(0).toUpperCase() + chainParam.slice(1)} network\n6. Confirm transaction`;
+    const transactionMessage = `ðŸ“ **Transaction Details:**\n\n**To:** ${recipient}\n**Amount:** ${amount} ETH\n**Chain:** ${chainParam.charAt(0).toUpperCase() + chainParam.slice(1)}\n\n**Instructions:**\n1. Open Base App\n2. Tap Send\n3. Paste the address above\n4. Enter ${amount} ETH\n5. Select ${chainParam.charAt(0).toUpperCase() + chainParam.slice(1)} network\n6. Confirm transaction`;
     
     await ctx.sendText(transactionMessage);
-    log('info', '✅ Transaction instructions sent');
+    log('info', 'âœ… Transaction instructions sent');
     
     // Try to send transaction tray (may not work in current Base App mode)
     try {
       await ctx.sendContent("xmtp.org/walletSendCalls:1.0", transactionData);
-      log('info', '✅ Transaction tray also sent (may not display)');
+      log('info', 'âœ… Transaction tray also sent (may not display)');
     } catch (e) {
-      log('info', 'ℹ️ Transaction tray not supported in current Base App mode');
+      log('info', 'â„¹ï¸ Transaction tray not supported in current Base App mode');
     }
     
     return { success: true, message: "Transaction instructions sent" };
     
   } catch (error) {
-    log('error', '❌ Transaction sending failed', { 
+    log('error', 'âŒ Transaction sending failed', { 
       error: error.message,
       stack: error.stack 
     });
@@ -5528,7 +5534,7 @@ async function sendTransaction(ctx, transactionData, userMessage, functionArgs =
     const amount = formatEther(BigInt(firstCall.value || '0'));
     const recipient = firstCall.to;
     
-    await ctx.sendText(`❌ **Transaction Error**\n\n**Manual Instructions:**\n1. Open Base App\n2. Go to Send\n3. Send ${amount} ETH to ${recipient}\n4. Select ${chainParam.charAt(0).toUpperCase() + chainParam.slice(1)} network`);
+    await ctx.sendText(`âŒ **Transaction Error**\n\n**Manual Instructions:**\n1. Open Base App\n2. Go to Send\n3. Send ${amount} ETH to ${recipient}\n4. Select ${chainParam.charAt(0).toUpperCase() + chainParam.slice(1)} network`);
     
     return { success: false, message: "Emergency fallback sent" };
   }
@@ -5556,7 +5562,7 @@ const availableFunctions = {
       }
       
       if (tokenIds.length === 0) {
-        return "❌ Sorry, I couldn't find any of those tokens. Please check the ticker symbols.";
+        return "âŒ Sorry, I couldn't find any of those tokens. Please check the ticker symbols.";
       }
       
       // Get comprehensive price data with multiple timeframes
@@ -5576,9 +5582,9 @@ const availableFunctions = {
       const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${tokenIds.join(',')}&vs_currencies=usd&${timeframeParam}&include_market_cap=true&include_24hr_vol=true&include_last_updated_at=true`);
       const data = await response.json();
       
-      let result = "📊 **COMPREHENSIVE PRICE ANALYSIS** 📊\n\n";
-      result += `📊 **Source**: CoinGecko API\n`;
-      result += `⏰ **Updated**: ${new Date().toLocaleString()}\n\n`;
+      let result = "ðŸ“Š **COMPREHENSIVE PRICE ANALYSIS** ðŸ“Š\n\n";
+      result += `ðŸ“Š **Source**: CoinGecko API\n`;
+      result += `â° **Updated**: ${new Date().toLocaleString()}\n\n`;
       
       // Sort tokens by market cap (descending)
       const sortedTokens = Object.entries(data).sort((a, b) => (b[1].usd_market_cap || 0) - (a[1].usd_market_cap || 0));
@@ -5609,7 +5615,7 @@ const availableFunctions = {
           changeLabel = '24h';
         }
         
-        const changeEmoji = change >= 0 ? "🚀" : "📉";
+        const changeEmoji = change >= 0 ? "ðŸš€" : "ðŸ“‰";
         const marketCap = priceData.usd_market_cap || 0;
         const volume = priceData.usd_24h_vol || 0;
         
@@ -5618,63 +5624,63 @@ const availableFunctions = {
         let category = '';
         if (marketCap > 1000000000000) { // > $1T
           marketCapRank = 'Mega Cap';
-          category = '🏆';
+          category = 'ðŸ†';
         } else if (marketCap > 100000000000) { // > $100B
           marketCapRank = 'Large Cap';
-          category = '💎';
+          category = 'ðŸ’Ž';
         } else if (marketCap > 10000000000) { // > $10B
           marketCapRank = 'Mid Cap';
-          category = '⭐';
+          category = 'â­';
         } else if (marketCap > 1000000000) { // > $1B
           marketCapRank = 'Small Cap';
-          category = '🌟';
+          category = 'ðŸŒŸ';
         } else {
           marketCapRank = 'Micro Cap';
-          category = '🔍';
+          category = 'ðŸ”';
         }
         
         result += `${category} **${tokenSymbol.toUpperCase()}** (${marketCapRank})\n`;
-        result += `   💰 Price: $${priceData.usd.toLocaleString()}\n`;
+        result += `   ðŸ’° Price: $${priceData.usd.toLocaleString()}\n`;
         result += `   ${changeEmoji} ${changeLabel}: ${change >= 0 ? '+' : ''}${change.toFixed(2)}%\n`;
-        result += `   📊 Market Cap: $${(marketCap / 1000000).toFixed(1)}M\n`;
-        result += `   🔄 Volume: $${(volume / 1000000).toFixed(1)}M\n`;
+        result += `   ðŸ“Š Market Cap: $${(marketCap / 1000000).toFixed(1)}M\n`;
+        result += `   ðŸ”„ Volume: $${(volume / 1000000).toFixed(1)}M\n`;
         
         // Add sentiment analysis
         let sentiment = '';
         let sentimentEmoji = '';
         if (change > 10) {
           sentiment = 'Very Bullish';
-          sentimentEmoji = '🚀🚀🚀';
+          sentimentEmoji = 'ðŸš€ðŸš€ðŸš€';
         } else if (change > 5) {
           sentiment = 'Bullish';
-          sentimentEmoji = '🚀🚀';
+          sentimentEmoji = 'ðŸš€ðŸš€';
         } else if (change > 1) {
           sentiment = 'Slightly Bullish';
-          sentimentEmoji = '🚀';
+          sentimentEmoji = 'ðŸš€';
         } else if (change > -1) {
           sentiment = 'Neutral';
-          sentimentEmoji = '⚖️';
+          sentimentEmoji = 'âš–ï¸';
         } else if (change > -5) {
           sentiment = 'Slightly Bearish';
-          sentimentEmoji = '📉';
+          sentimentEmoji = 'ðŸ“‰';
         } else if (change > -10) {
           sentiment = 'Bearish';
-          sentimentEmoji = '📉📉';
+          sentimentEmoji = 'ðŸ“‰ðŸ“‰';
         } else {
           sentiment = 'Very Bearish';
-          sentimentEmoji = '📉📉📉';
+          sentimentEmoji = 'ðŸ“‰ðŸ“‰ðŸ“‰';
         }
         
-        result += `   😊 Sentiment: ${sentimentEmoji} ${sentiment}\n\n`;
+        result += `   ðŸ˜Š Sentiment: ${sentimentEmoji} ${sentiment}\n\n`;
       }
       
-      result += "💡 **Pro Tip**: Always DYOR! Market sentiment can change quickly.";
+      result += "ðŸ’¡ **Pro Tip**: Always DYOR! Market sentiment can change quickly.";
       
       log('info', `--- GET CRYPTO PRICE END --- Success`);
       return result;
     } catch (error) {
       log('error', `--- GET CRYPTO PRICE END --- ERROR`, { error: error.message });
-      return "❌ Sorry, I had trouble fetching the prices right now. Please try again in a moment.";
+      return "âŒ Sorry, I had trouble fetching the prices right now. Please try again in a moment.";
     }
   },
 
@@ -5687,7 +5693,7 @@ const availableFunctions = {
       const trendingData = await response.json();
       
       if (!trendingData.coins || trendingData.coins.length === 0) {
-        return "❌ Sorry, I couldn't fetch trending tokens right now. Please try again in a moment.";
+        return "âŒ Sorry, I couldn't fetch trending tokens right now. Please try again in a moment.";
       }
       
       // Get detailed price data for trending tokens
@@ -5695,9 +5701,9 @@ const availableFunctions = {
       const priceResponse = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinIds.join(',')}&vs_currencies=usd&include_24hr_change=true&include_market_cap=true&include_24hr_vol=true`);
       const priceData = await priceResponse.json();
       
-      let result = "🔥 **HOTTEST TOKENS RIGHT NOW** 🔥\n\n";
-      result += `📊 **Source**: CoinGecko Trending\n`;
-      result += `⏰ **Updated**: ${new Date().toLocaleString()}\n\n`;
+      let result = "ðŸ”¥ **HOTTEST TOKENS RIGHT NOW** ðŸ”¥\n\n";
+      result += `ðŸ“Š **Source**: CoinGecko Trending\n`;
+      result += `â° **Updated**: ${new Date().toLocaleString()}\n\n`;
       
       // Sort by 24h change (descending)
       const sortedTokens = trendingData.coins
@@ -5711,23 +5717,23 @@ const availableFunctions = {
       sortedTokens.forEach((coin, index) => {
         const priceInfo = coin.priceInfo;
         const change = priceInfo.usd_24h_change || 0;
-        const changeEmoji = change >= 0 ? "🚀" : "📉";
-        const rankEmoji = index < 3 ? ["🥇", "🥈", "🥉"][index] : `${index + 1}.`;
+        const changeEmoji = change >= 0 ? "ðŸš€" : "ðŸ“‰";
+        const rankEmoji = index < 3 ? ["ðŸ¥‡", "ðŸ¥ˆ", "ðŸ¥‰"][index] : `${index + 1}.`;
         
         result += `${rankEmoji} **${coin.item.name} (${coin.item.symbol.toUpperCase()})**\n`;
-        result += `   💰 Price: $${priceInfo.usd?.toLocaleString() || 'N/A'}\n`;
+        result += `   ðŸ’° Price: $${priceInfo.usd?.toLocaleString() || 'N/A'}\n`;
         result += `   ${changeEmoji} 24h: ${change >= 0 ? '+' : ''}${change.toFixed(2)}%\n`;
-        result += `   📈 Market Cap: $${(priceInfo.usd_market_cap / 1000000).toFixed(1)}M\n`;
-        result += `   📊 Volume: $${(priceInfo.usd_24h_vol / 1000000).toFixed(1)}M\n\n`;
+        result += `   ðŸ“ˆ Market Cap: $${(priceInfo.usd_market_cap / 1000000).toFixed(1)}M\n`;
+        result += `   ðŸ“Š Volume: $${(priceInfo.usd_24h_vol / 1000000).toFixed(1)}M\n\n`;
       });
       
-      result += "💡 **Pro Tip**: These are trending tokens based on search volume and social activity. Always DYOR!";
+      result += "ðŸ’¡ **Pro Tip**: These are trending tokens based on search volume and social activity. Always DYOR!";
       
       log('info', `--- GET HOTTEST TOKENS END --- Success`);
       return result;
     } catch (error) {
       log('error', `--- GET HOTTEST TOKENS END --- ERROR`, { error: error.message });
-      return "❌ Sorry, I couldn't fetch the hottest tokens right now. Please try again in a moment.";
+      return "âŒ Sorry, I couldn't fetch the hottest tokens right now. Please try again in a moment.";
     }
   },
 
@@ -5738,7 +5744,7 @@ const availableFunctions = {
       // Get token ID
       const coinId = await getCoinId(token);
       if (!coinId) {
-        return `❌ Sorry, I couldn't find "${token}". Please check the ticker symbol.`;
+        return `âŒ Sorry, I couldn't find "${token}". Please check the ticker symbol.`;
       }
       
       // Get comprehensive token data
@@ -5746,7 +5752,7 @@ const availableFunctions = {
       const data = await response.json();
       
       if (!data.market_data) {
-        return `❌ Sorry, I couldn't get data for "${token}". Please try again.`;
+        return `âŒ Sorry, I couldn't get data for "${token}". Please try again.`;
       }
       
       const marketData = data.market_data;
@@ -5764,7 +5770,7 @@ const availableFunctions = {
       
       const priceScore = Math.min(25, Math.max(0, 25 + (priceChange24h * 0.5) + (priceChange7d * 0.3) + (priceChange30d * 0.2)));
       score += priceScore;
-      scoreBreakdown.push(`📈 Price Performance: ${priceScore.toFixed(1)}/25`);
+      scoreBreakdown.push(`ðŸ“ˆ Price Performance: ${priceScore.toFixed(1)}/25`);
       
       // Market Cap & Volume (20 points)
       const marketCap = marketData.market_cap?.usd || 0;
@@ -5773,7 +5779,7 @@ const availableFunctions = {
       
       const liquidityScore = Math.min(20, Math.max(0, (Math.log10(marketCap / 1000000) * 2) + (volumeRatio * 10)));
       score += liquidityScore;
-      scoreBreakdown.push(`💧 Liquidity: ${liquidityScore.toFixed(1)}/20`);
+      scoreBreakdown.push(`ðŸ’§ Liquidity: ${liquidityScore.toFixed(1)}/20`);
       
       // Community & Social (20 points)
       const twitterFollowers = communityData?.twitter_followers || 0;
@@ -5786,7 +5792,7 @@ const availableFunctions = {
         (Math.log10(telegramUsers + 1) * 2)
       ));
       score += socialScore;
-      scoreBreakdown.push(`👥 Community: ${socialScore.toFixed(1)}/20`);
+      scoreBreakdown.push(`ðŸ‘¥ Community: ${socialScore.toFixed(1)}/20`);
       
       // Developer Activity (15 points)
       const commits = developerData?.commit_count_4_weeks || 0;
@@ -5794,65 +5800,65 @@ const availableFunctions = {
       
       const devScore = Math.min(15, Math.max(0, (commits * 0.1) + (contributors * 0.5)));
       score += devScore;
-      scoreBreakdown.push(`👨‍💻 Development: ${devScore.toFixed(1)}/15`);
+      scoreBreakdown.push(`ðŸ‘¨â€ðŸ’» Development: ${devScore.toFixed(1)}/15`);
       
       // Market Sentiment (10 points)
       const fearGreedIndex = marketData.fear_greed_index || 50; // Default to neutral
       const sentimentScore = Math.min(10, Math.max(0, (fearGreedIndex / 10)));
       score += sentimentScore;
-      scoreBreakdown.push(`😊 Sentiment: ${sentimentScore.toFixed(1)}/10`);
+      scoreBreakdown.push(`ðŸ˜Š Sentiment: ${sentimentScore.toFixed(1)}/10`);
       
       // Technical Indicators (10 points)
       const athChange = marketData.ath_change_percentage?.usd || 0;
       const atlChange = marketData.atl_change_percentage?.usd || 0;
       const technicalScore = Math.min(10, Math.max(0, 10 + (athChange * 0.1) + (atlChange * 0.1)));
       score += technicalScore;
-      scoreBreakdown.push(`📊 Technical: ${technicalScore.toFixed(1)}/10`);
+      scoreBreakdown.push(`ðŸ“Š Technical: ${technicalScore.toFixed(1)}/10`);
       
       // Determine rating
       let rating = '';
       let ratingEmoji = '';
       if (score >= 80) {
         rating = 'EXCELLENT';
-        ratingEmoji = '🌟';
+        ratingEmoji = 'ðŸŒŸ';
       } else if (score >= 60) {
         rating = 'GOOD';
-        ratingEmoji = '👍';
+        ratingEmoji = 'ðŸ‘';
       } else if (score >= 40) {
         rating = 'AVERAGE';
-        ratingEmoji = '⚖️';
+        ratingEmoji = 'âš–ï¸';
       } else if (score >= 20) {
         rating = 'POOR';
-        ratingEmoji = '⚠️';
+        ratingEmoji = 'âš ï¸';
       } else {
         rating = 'VERY POOR';
-        ratingEmoji = '❌';
+        ratingEmoji = 'âŒ';
       }
       
-      let result = `🎯 **${token.toUpperCase()} TOKEN SCORE** 🎯\n\n`;
+      let result = `ðŸŽ¯ **${token.toUpperCase()} TOKEN SCORE** ðŸŽ¯\n\n`;
       result += `${ratingEmoji} **Overall Score: ${score.toFixed(1)}/100 (${rating})**\n\n`;
-      result += `📊 **Score Breakdown:**\n`;
+      result += `ðŸ“Š **Score Breakdown:**\n`;
       scoreBreakdown.forEach(breakdown => {
-        result += `• ${breakdown}\n`;
+        result += `â€¢ ${breakdown}\n`;
       });
       
-      result += `\n📈 **Key Metrics:**\n`;
-      result += `• 💰 Price: $${marketData.current_price?.usd?.toLocaleString() || 'N/A'}\n`;
-      result += `• 📊 Market Cap: $${(marketData.market_cap?.usd / 1000000).toFixed(1)}M\n`;
-      result += `• 📈 24h Change: ${priceChange24h >= 0 ? '+' : ''}${priceChange24h.toFixed(2)}%\n`;
-      result += `• 🔄 24h Volume: $${(marketData.total_volume?.usd / 1000000).toFixed(1)}M\n`;
-      result += `• 👥 Twitter Followers: ${twitterFollowers.toLocaleString()}\n`;
-      result += `• 🐙 GitHub Commits (4w): ${commits.toLocaleString()}\n`;
+      result += `\nðŸ“ˆ **Key Metrics:**\n`;
+      result += `â€¢ ðŸ’° Price: $${marketData.current_price?.usd?.toLocaleString() || 'N/A'}\n`;
+      result += `â€¢ ðŸ“Š Market Cap: $${(marketData.market_cap?.usd / 1000000).toFixed(1)}M\n`;
+      result += `â€¢ ðŸ“ˆ 24h Change: ${priceChange24h >= 0 ? '+' : ''}${priceChange24h.toFixed(2)}%\n`;
+      result += `â€¢ ðŸ”„ 24h Volume: $${(marketData.total_volume?.usd / 1000000).toFixed(1)}M\n`;
+      result += `â€¢ ðŸ‘¥ Twitter Followers: ${twitterFollowers.toLocaleString()}\n`;
+      result += `â€¢ ðŸ™ GitHub Commits (4w): ${commits.toLocaleString()}\n`;
       
-      result += `\n📊 **Source**: CoinGecko API + Community Data\n`;
-      result += `⏰ **Updated**: ${new Date().toLocaleString()}\n\n`;
-      result += `💡 **Disclaimer**: This score is for informational purposes only. Always DYOR!`;
+      result += `\nðŸ“Š **Source**: CoinGecko API + Community Data\n`;
+      result += `â° **Updated**: ${new Date().toLocaleString()}\n\n`;
+      result += `ðŸ’¡ **Disclaimer**: This score is for informational purposes only. Always DYOR!`;
       
       log('info', `--- GET TOKEN SCORE END --- Success`);
       return result;
     } catch (error) {
       log('error', `--- GET TOKEN SCORE END --- ERROR`, { error: error.message });
-      return `❌ Sorry, I couldn't analyze "${token}" right now. Please try again in a moment.`;
+      return `âŒ Sorry, I couldn't analyze "${token}" right now. Please try again in a moment.`;
     }
   },
 
@@ -5957,28 +5963,28 @@ const availableFunctions = {
       }
       
       if (baseProject) {
-        let result = `🏗️ **${baseProject.name} (${baseProject.symbol})** 🏗️\n\n`;
-        result += `📝 **Description**: ${baseProject.description}\n`;
-        result += `🏷️ **Category**: ${baseProject.category}\n`;
-        result += `🌐 **Website**: ${baseProject.website}\n`;
+        let result = `ðŸ—ï¸ **${baseProject.name} (${baseProject.symbol})** ðŸ—ï¸\n\n`;
+        result += `ðŸ“ **Description**: ${baseProject.description}\n`;
+        result += `ðŸ·ï¸ **Category**: ${baseProject.category}\n`;
+        result += `ðŸŒ **Website**: ${baseProject.website}\n`;
         
         if (baseProject.twitter) {
           const twitterUsername = baseProject.twitter.split('/').pop();
           result += `${formatSafeXLink(twitterUsername)}\n`;
         }
         if (baseProject.telegram) {
-          result += `📱 **Telegram**: ${baseProject.telegram}\n`;
+          result += `ðŸ“± **Telegram**: ${baseProject.telegram}\n`;
         }
         if (baseProject.discord) {
-          result += `💬 **Discord**: ${baseProject.discord}\n`;
+          result += `ðŸ’¬ **Discord**: ${baseProject.discord}\n`;
         }
         if (baseProject.github) {
-          result += `🐙 **GitHub**: ${baseProject.github}\n`;
+          result += `ðŸ™ **GitHub**: ${baseProject.github}\n`;
         }
         
-        result += `\n📊 **Source**: Base Ecosystem Database\n`;
-        result += `⏰ **Updated**: ${new Date().toLocaleString()}\n\n`;
-        result += `💡 **Pro Tip**: This is a verified Base ecosystem project!`;
+        result += `\nðŸ“Š **Source**: Base Ecosystem Database\n`;
+        result += `â° **Updated**: ${new Date().toLocaleString()}\n\n`;
+        result += `ðŸ’¡ **Pro Tip**: This is a verified Base ecosystem project!`;
         
         log('info', `--- GET PROJECT INFO END --- Base Project Found`);
         return result;
@@ -5987,7 +5993,7 @@ const availableFunctions = {
       // If not found in Base ecosystem, try CoinGecko
       const coinId = await getCoinId(projectName);
       if (!coinId) {
-        return `❌ Sorry, I couldn't find "${projectName}". Please check the project name or try searching for Base ecosystem projects.`;
+        return `âŒ Sorry, I couldn't find "${projectName}". Please check the project name or try searching for Base ecosystem projects.`;
       }
       
       // Get comprehensive project data from CoinGecko
@@ -5995,54 +6001,54 @@ const availableFunctions = {
       const data = await response.json();
       
       if (!data) {
-        return `❌ Sorry, I couldn't get data for "${projectName}". Please try again.`;
+        return `âŒ Sorry, I couldn't get data for "${projectName}". Please try again.`;
       }
       
-      let result = `🏗️ **${data.name} (${data.symbol.toUpperCase()})** 🏗️\n\n`;
+      let result = `ðŸ—ï¸ **${data.name} (${data.symbol.toUpperCase()})** ðŸ—ï¸\n\n`;
       
       if (data.description && data.description.en) {
         const description = data.description.en.substring(0, 500);
-        result += `📝 **Description**: ${description}${description.length >= 500 ? '...' : ''}\n\n`;
+        result += `ðŸ“ **Description**: ${description}${description.length >= 500 ? '...' : ''}\n\n`;
       }
       
       // Add website and social links
       if (data.links) {
         if (data.links.homepage && data.links.homepage.length > 0) {
-          result += `🌐 **Website**: ${data.links.homepage[0]}\n`;
+          result += `ðŸŒ **Website**: ${data.links.homepage[0]}\n`;
         }
         if (data.links.twitter_screen_name) {
           result += `${formatSafeXLink(data.links.twitter_screen_name)}\n`;
         }
         if (data.links.telegram_channel_identifier) {
-          result += `📱 **Telegram**: https://t.me/${data.links.telegram_channel_identifier}\n`;
+          result += `ðŸ“± **Telegram**: https://t.me/${data.links.telegram_channel_identifier}\n`;
         }
         if (data.links.subreddit_url) {
-          result += `🔴 **Reddit**: ${data.links.subreddit_url}\n`;
+          result += `ðŸ”´ **Reddit**: ${data.links.subreddit_url}\n`;
         }
         if (data.links.repos_url && data.links.repos_url.github && data.links.repos_url.github.length > 0) {
-          result += `🐙 **GitHub**: ${data.links.repos_url.github[0]}\n`;
+          result += `ðŸ™ **GitHub**: ${data.links.repos_url.github[0]}\n`;
         }
       }
       
       // Add market data if available
       if (data.market_data) {
         const marketData = data.market_data;
-        result += `\n📊 **Market Data:**\n`;
-        result += `• 💰 Price: $${marketData.current_price?.usd?.toLocaleString() || 'N/A'}\n`;
-        result += `• 📈 Market Cap: $${(marketData.market_cap?.usd / 1000000).toFixed(1)}M\n`;
-        result += `• 🔄 24h Volume: $${(marketData.total_volume?.usd / 1000000).toFixed(1)}M\n`;
-        result += `• 📊 24h Change: ${marketData.price_change_percentage_24h >= 0 ? '+' : ''}${marketData.price_change_percentage_24h?.toFixed(2) || 'N/A'}%\n`;
+        result += `\nðŸ“Š **Market Data:**\n`;
+        result += `â€¢ ðŸ’° Price: $${marketData.current_price?.usd?.toLocaleString() || 'N/A'}\n`;
+        result += `â€¢ ðŸ“ˆ Market Cap: $${(marketData.market_cap?.usd / 1000000).toFixed(1)}M\n`;
+        result += `â€¢ ðŸ”„ 24h Volume: $${(marketData.total_volume?.usd / 1000000).toFixed(1)}M\n`;
+        result += `â€¢ ðŸ“Š 24h Change: ${marketData.price_change_percentage_24h >= 0 ? '+' : ''}${marketData.price_change_percentage_24h?.toFixed(2) || 'N/A'}%\n`;
       }
       
-      result += `\n📊 **Source**: CoinGecko API\n`;
-      result += `⏰ **Updated**: ${new Date().toLocaleString()}\n\n`;
-      result += `💡 **Disclaimer**: Always DYOR before investing!`;
+      result += `\nðŸ“Š **Source**: CoinGecko API\n`;
+      result += `â° **Updated**: ${new Date().toLocaleString()}\n\n`;
+      result += `ðŸ’¡ **Disclaimer**: Always DYOR before investing!`;
       
       log('info', `--- GET PROJECT INFO END --- CoinGecko Project Found`);
       return result;
     } catch (error) {
       log('error', `--- GET PROJECT INFO END --- ERROR`, { error: error.message });
-      return `❌ Sorry, I couldn't analyze "${projectName}" right now. Please try again in a moment.`;
+      return `âŒ Sorry, I couldn't analyze "${projectName}" right now. Please try again in a moment.`;
     }
   },
 
@@ -6053,7 +6059,7 @@ const availableFunctions = {
       // Get token ID
       const coinId = await getCoinId(token);
       if (!coinId) {
-        return `❌ Sorry, I couldn't find "${token}". Please check the ticker symbol.`;
+        return `âŒ Sorry, I couldn't find "${token}". Please check the ticker symbol.`;
       }
       
       // Get comprehensive token data
@@ -6061,7 +6067,7 @@ const availableFunctions = {
       const data = await response.json();
       
       if (!data.market_data) {
-        return `❌ Sorry, I couldn't get data for "${token}". Please try again.`;
+        return `âŒ Sorry, I couldn't get data for "${token}". Please try again.`;
       }
       
       const marketData = data.market_data;
@@ -6078,7 +6084,7 @@ const availableFunctions = {
       
       const priceSentiment = Math.min(30, Math.max(0, 30 + (priceChange24h * 0.8) + (priceChange7d * 0.5) + (priceChange30d * 0.3)));
       sentimentScore += priceSentiment;
-      sentimentBreakdown.push(`📈 Price Performance: ${priceSentiment.toFixed(1)}/30`);
+      sentimentBreakdown.push(`ðŸ“ˆ Price Performance: ${priceSentiment.toFixed(1)}/30`);
       
       // Volume Sentiment (20 points)
       const volume24h = marketData.total_volume?.usd || 0;
@@ -6087,7 +6093,7 @@ const availableFunctions = {
       
       const volumeSentiment = Math.min(20, Math.max(0, volumeRatio * 100));
       sentimentScore += volumeSentiment;
-      sentimentBreakdown.push(`🔄 Volume Activity: ${volumeSentiment.toFixed(1)}/20`);
+      sentimentBreakdown.push(`ðŸ”„ Volume Activity: ${volumeSentiment.toFixed(1)}/20`);
       
       // Community Sentiment (25 points)
       const twitterFollowers = communityData?.twitter_followers || 0;
@@ -6100,20 +6106,20 @@ const availableFunctions = {
         (Math.log10(telegramUsers + 1) * 3)
       ));
       sentimentScore += communitySentiment;
-      sentimentBreakdown.push(`👥 Community Engagement: ${communitySentiment.toFixed(1)}/25`);
+      sentimentBreakdown.push(`ðŸ‘¥ Community Engagement: ${communitySentiment.toFixed(1)}/25`);
       
       // Market Sentiment (15 points)
       const fearGreedIndex = marketData.fear_greed_index || 50;
       const marketSentiment = Math.min(15, Math.max(0, (fearGreedIndex / 100) * 15));
       sentimentScore += marketSentiment;
-      sentimentBreakdown.push(`😊 Market Sentiment: ${marketSentiment.toFixed(1)}/15`);
+      sentimentBreakdown.push(`ðŸ˜Š Market Sentiment: ${marketSentiment.toFixed(1)}/15`);
       
       // Technical Sentiment (10 points)
       const athChange = marketData.ath_change_percentage?.usd || 0;
       const atlChange = marketData.atl_change_percentage?.usd || 0;
       const technicalSentiment = Math.min(10, Math.max(0, 10 + (athChange * 0.2) + (atlChange * 0.2)));
       sentimentScore += technicalSentiment;
-      sentimentBreakdown.push(`📊 Technical Indicators: ${technicalSentiment.toFixed(1)}/10`);
+      sentimentBreakdown.push(`ðŸ“Š Technical Indicators: ${technicalSentiment.toFixed(1)}/10`);
       
       // Determine overall sentiment
       let overallSentiment = '';
@@ -6122,54 +6128,54 @@ const availableFunctions = {
       
       if (sentimentScore >= 80) {
         overallSentiment = 'EXTREMELY BULLISH';
-        sentimentEmoji = '🚀🚀🚀';
-        sentimentColor = '🟢';
+        sentimentEmoji = 'ðŸš€ðŸš€ðŸš€';
+        sentimentColor = 'ðŸŸ¢';
       } else if (sentimentScore >= 65) {
         overallSentiment = 'VERY BULLISH';
-        sentimentEmoji = '🚀🚀';
-        sentimentColor = '🟢';
+        sentimentEmoji = 'ðŸš€ðŸš€';
+        sentimentColor = 'ðŸŸ¢';
       } else if (sentimentScore >= 50) {
         overallSentiment = 'BULLISH';
-        sentimentEmoji = '🚀';
-        sentimentColor = '🟡';
+        sentimentEmoji = 'ðŸš€';
+        sentimentColor = 'ðŸŸ¡';
       } else if (sentimentScore >= 35) {
         overallSentiment = 'NEUTRAL';
-        sentimentEmoji = '⚖️';
-        sentimentColor = '🟡';
+        sentimentEmoji = 'âš–ï¸';
+        sentimentColor = 'ðŸŸ¡';
       } else if (sentimentScore >= 20) {
         overallSentiment = 'BEARISH';
-        sentimentEmoji = '📉';
-        sentimentColor = '🔴';
+        sentimentEmoji = 'ðŸ“‰';
+        sentimentColor = 'ðŸ”´';
       } else {
         overallSentiment = 'VERY BEARISH';
-        sentimentEmoji = '📉📉📉';
-        sentimentColor = '🔴';
+        sentimentEmoji = 'ðŸ“‰ðŸ“‰ðŸ“‰';
+        sentimentColor = 'ðŸ”´';
       }
       
-      let result = `😊 **${token.toUpperCase()} SENTIMENT ANALYSIS** 😊\n\n`;
+      let result = `ðŸ˜Š **${token.toUpperCase()} SENTIMENT ANALYSIS** ðŸ˜Š\n\n`;
       result += `${sentimentColor} **Overall Sentiment: ${sentimentScore.toFixed(1)}/100 (${overallSentiment})** ${sentimentEmoji}\n\n`;
-      result += `📊 **Sentiment Breakdown:**\n`;
+      result += `ðŸ“Š **Sentiment Breakdown:**\n`;
       sentimentBreakdown.forEach(breakdown => {
-        result += `• ${breakdown}\n`;
+        result += `â€¢ ${breakdown}\n`;
       });
       
-      result += `\n📈 **Key Metrics:**\n`;
-      result += `• 💰 Current Price: $${marketData.current_price?.usd?.toLocaleString() || 'N/A'}\n`;
-      result += `• 📊 24h Change: ${priceChange24h >= 0 ? '+' : ''}${priceChange24h.toFixed(2)}%\n`;
-      result += `• 🔄 24h Volume: $${(volume24h / 1000000).toFixed(1)}M\n`;
-      result += `• 👥 Twitter Followers: ${twitterFollowers.toLocaleString()}\n`;
-      result += `• 🔴 Reddit Subscribers: ${redditSubscribers.toLocaleString()}\n`;
-      result += `• 📱 Telegram Users: ${telegramUsers.toLocaleString()}\n`;
+      result += `\nðŸ“ˆ **Key Metrics:**\n`;
+      result += `â€¢ ðŸ’° Current Price: $${marketData.current_price?.usd?.toLocaleString() || 'N/A'}\n`;
+      result += `â€¢ ðŸ“Š 24h Change: ${priceChange24h >= 0 ? '+' : ''}${priceChange24h.toFixed(2)}%\n`;
+      result += `â€¢ ðŸ”„ 24h Volume: $${(volume24h / 1000000).toFixed(1)}M\n`;
+      result += `â€¢ ðŸ‘¥ Twitter Followers: ${twitterFollowers.toLocaleString()}\n`;
+      result += `â€¢ ðŸ”´ Reddit Subscribers: ${redditSubscribers.toLocaleString()}\n`;
+      result += `â€¢ ðŸ“± Telegram Users: ${telegramUsers.toLocaleString()}\n`;
       
-      result += `\n📊 **Source**: CoinGecko API + Community Data\n`;
-      result += `⏰ **Updated**: ${new Date().toLocaleString()}\n\n`;
-      result += `💡 **Disclaimer**: Sentiment analysis is for informational purposes only. Always DYOR!`;
+      result += `\nðŸ“Š **Source**: CoinGecko API + Community Data\n`;
+      result += `â° **Updated**: ${new Date().toLocaleString()}\n\n`;
+      result += `ðŸ’¡ **Disclaimer**: Sentiment analysis is for informational purposes only. Always DYOR!`;
       
       log('info', `--- GET SENTIMENT ANALYSIS END --- Success`);
       return result;
     } catch (error) {
       log('error', `--- GET SENTIMENT ANALYSIS END --- ERROR`, { error: error.message });
-      return `❌ Sorry, I couldn't analyze sentiment for "${token}" right now. Please try again in a moment.`;
+      return `âŒ Sorry, I couldn't analyze sentiment for "${token}" right now. Please try again in a moment.`;
     }
   },
 
@@ -6184,11 +6190,11 @@ const availableFunctions = {
           type: 'Smart Wallet',
           description: 'Passkey-secured, self-custodial onchain wallet',
           features: [
-            '✅ Easy onboarding with passkeys',
-            '✅ No browser extensions needed',
-            '✅ Better user experience',
-            '✅ Embedded in Base App',
-            '✅ Self-custodial security'
+            'âœ… Easy onboarding with passkeys',
+            'âœ… No browser extensions needed',
+            'âœ… Better user experience',
+            'âœ… Embedded in Base App',
+            'âœ… Self-custodial security'
           ],
           instructions: 'You use a passkey to sign onchain transactions'
         },
@@ -6196,10 +6202,10 @@ const availableFunctions = {
           type: 'EOA (Externally Owned Account)',
           description: 'Traditional wallet with recovery phrase',
           features: [
-            '⚠️ Uses 12-word recovery phrase',
-            '⚠️ Requires browser extension',
-            '⚠️ More complex setup',
-            '⚠️ Not supported in Base beta'
+            'âš ï¸ Uses 12-word recovery phrase',
+            'âš ï¸ Requires browser extension',
+            'âš ï¸ More complex setup',
+            'âš ï¸ Not supported in Base beta'
           ],
           instructions: 'You have a 12-word recovery phrase backed up'
         }
@@ -6209,37 +6215,37 @@ const availableFunctions = {
       const detectedType = Math.random() > 0.5 ? 'smart' : 'eoa';
       const walletInfo = walletTypes[detectedType];
 
-      let result = `🔍 **Wallet Type Detection** 🔍\n\n`;
-      result += `📱 **Detected**: ${walletInfo.type}\n`;
-      result += `📝 **Description**: ${walletInfo.description}\n\n`;
+      let result = `ðŸ” **Wallet Type Detection** ðŸ”\n\n`;
+      result += `ðŸ“± **Detected**: ${walletInfo.type}\n`;
+      result += `ðŸ“ **Description**: ${walletInfo.description}\n\n`;
       
-      result += `🎯 **Features:**\n`;
+      result += `ðŸŽ¯ **Features:**\n`;
       walletInfo.features.forEach(feature => {
         result += `${feature}\n`;
       });
       
-      result += `\n💡 **How to know:** ${walletInfo.instructions}\n\n`;
+      result += `\nðŸ’¡ **How to know:** ${walletInfo.instructions}\n\n`;
       
       if (detectedType === 'eoa') {
-        result += `⚠️ **Important**: Base beta requires a smart wallet.\n`;
-        result += `🔄 **Solution**: Create a new smart wallet during onboarding.\n`;
-        result += `🔗 **Check**: Go to wallet.coinbase.com to verify your wallet type.\n\n`;
-        result += `📊 **Source**: Base App Beta FAQ\n`;
-        result += `⏰ **Updated**: ${new Date().toLocaleString()}\n\n`;
-        result += `💡 **Tip**: Smart wallets offer better security and user experience!`;
+        result += `âš ï¸ **Important**: Base beta requires a smart wallet.\n`;
+        result += `ðŸ”„ **Solution**: Create a new smart wallet during onboarding.\n`;
+        result += `ðŸ”— **Check**: Go to wallet.coinbase.com to verify your wallet type.\n\n`;
+        result += `ðŸ“Š **Source**: Base App Beta FAQ\n`;
+        result += `â° **Updated**: ${new Date().toLocaleString()}\n\n`;
+        result += `ðŸ’¡ **Tip**: Smart wallets offer better security and user experience!`;
       } else {
-        result += `✅ **Great news**: You're ready for Base beta!\n`;
-        result += `🚀 **Next**: Explore all Base App features.\n\n`;
-        result += `📊 **Source**: Base App Beta FAQ\n`;
-        result += `⏰ **Updated**: ${new Date().toLocaleString()}\n\n`;
-        result += `💡 **Tip**: Your smart wallet is optimized for Base App!`;
+        result += `âœ… **Great news**: You're ready for Base beta!\n`;
+        result += `ðŸš€ **Next**: Explore all Base App features.\n\n`;
+        result += `ðŸ“Š **Source**: Base App Beta FAQ\n`;
+        result += `â° **Updated**: ${new Date().toLocaleString()}\n\n`;
+        result += `ðŸ’¡ **Tip**: Your smart wallet is optimized for Base App!`;
       }
 
       log('info', `--- DETECT SMART WALLET END --- Success`);
       return result;
     } catch (error) {
       log('error', `--- DETECT SMART WALLET END --- ERROR`, { error: error.message });
-      return `❌ Sorry, I couldn't detect your wallet type right now. Please try again in a moment.`;
+      return `âŒ Sorry, I couldn't detect your wallet type right now. Please try again in a moment.`;
     }
   },
 
@@ -6248,44 +6254,44 @@ const availableFunctions = {
     log('info', `--- BETA MODE MANAGEMENT START --- User: ${userId}, Action: ${action}`);
     
     try {
-      let result = `🔄 **Base App Beta Mode Management** 🔄\n\n`;
+      let result = `ðŸ”„ **Base App Beta Mode Management** ðŸ”„\n\n`;
       
       if (action === 'check') {
-        result += `📱 **Current Status**: Checking beta mode status...\n\n`;
-        result += `🔍 **How to Check**:\n`;
+        result += `ðŸ“± **Current Status**: Checking beta mode status...\n\n`;
+        result += `ðŸ” **How to Check**:\n`;
         result += `1. Open Base App\n`;
         result += `2. Go to Social tab (first icon)\n`;
         result += `3. Tap your profile photo\n`;
         result += `4. Look for "Beta Mode" toggle\n\n`;
       } else if (action === 'enable') {
-        result += `✅ **Enabling Beta Mode**:\n`;
+        result += `âœ… **Enabling Beta Mode**:\n`;
         result += `1. Go to Assets tab (last tab on the right)\n`;
         result += `2. Select settings icon (upper right)\n`;
         result += `3. Toggle "Beta Mode" ON\n`;
         result += `4. Follow onboarding prompts\n\n`;
       } else if (action === 'disable') {
-        result += `❌ **Disabling Beta Mode**:\n`;
+        result += `âŒ **Disabling Beta Mode**:\n`;
         result += `1. Go to Social tab (first icon)\n`;
         result += `2. Tap your profile photo\n`;
         result += `3. Toggle "Beta Mode" OFF\n`;
         result += `4. Return to classic Coinbase Wallet\n\n`;
       }
       
-      result += `⚠️ **Important Notes**:\n`;
-      result += `• Beta is smart wallet only\n`;
-      result += `• Your funds are safe in both modes\n`;
-      result += `• You can switch between modes anytime\n`;
-      result += `• Beta offers new features and experiences\n\n`;
+      result += `âš ï¸ **Important Notes**:\n`;
+      result += `â€¢ Beta is smart wallet only\n`;
+      result += `â€¢ Your funds are safe in both modes\n`;
+      result += `â€¢ You can switch between modes anytime\n`;
+      result += `â€¢ Beta offers new features and experiences\n\n`;
       
-      result += `📊 **Source**: Base App Beta FAQ\n`;
-      result += `⏰ **Updated**: ${new Date().toLocaleString()}\n\n`;
-      result += `💡 **Pro Tip**: Beta mode unlocks the latest Base App features!`;
+      result += `ðŸ“Š **Source**: Base App Beta FAQ\n`;
+      result += `â° **Updated**: ${new Date().toLocaleString()}\n\n`;
+      result += `ðŸ’¡ **Pro Tip**: Beta mode unlocks the latest Base App features!`;
 
       log('info', `--- BETA MODE MANAGEMENT END --- Success`);
       return result;
     } catch (error) {
       log('error', `--- BETA MODE MANAGEMENT END --- ERROR`, { error: error.message });
-      return `❌ Sorry, I couldn't help with beta mode management right now. Please try again in a moment.`;
+      return `âŒ Sorry, I couldn't help with beta mode management right now. Please try again in a moment.`;
     }
   },
 
@@ -6294,41 +6300,41 @@ const availableFunctions = {
     log('info', `--- WALLET MIGRATION START --- User: ${userId}`);
     
     try {
-      let result = `🔄 **Wallet Migration Guide** 🔄\n\n`;
+      let result = `ðŸ”„ **Wallet Migration Guide** ðŸ”„\n\n`;
       
-      result += `📱 **Migration Process**:\n`;
+      result += `ðŸ“± **Migration Process**:\n`;
       result += `1. **Backup Current Wallet**: Save your recovery phrase\n`;
       result += `2. **Create Smart Wallet**: During Base beta onboarding\n`;
       result += `3. **Transfer Funds**: Move assets to new smart wallet\n`;
       result += `4. **Update Basenames**: Transfer to new wallet\n`;
       result += `5. **Test Transactions**: Verify everything works\n\n`;
       
-      result += `💰 **Fund Transfer Steps**:\n`;
-      result += `• Send ETH for gas fees to new wallet\n`;
-      result += `• Transfer tokens and NFTs\n`;
-      result += `• Update DeFi positions if needed\n`;
-      result += `• Verify all balances match\n\n`;
+      result += `ðŸ’° **Fund Transfer Steps**:\n`;
+      result += `â€¢ Send ETH for gas fees to new wallet\n`;
+      result += `â€¢ Transfer tokens and NFTs\n`;
+      result += `â€¢ Update DeFi positions if needed\n`;
+      result += `â€¢ Verify all balances match\n\n`;
       
-      result += `🏷️ **Basename Transfer**:\n`;
-      result += `• Transfer basename between wallets\n`;
-      result += `• Set as primary name on new wallet\n`;
-      result += `• Update Farcaster connection\n\n`;
+      result += `ðŸ·ï¸ **Basename Transfer**:\n`;
+      result += `â€¢ Transfer basename between wallets\n`;
+      result += `â€¢ Set as primary name on new wallet\n`;
+      result += `â€¢ Update Farcaster connection\n\n`;
       
-      result += `⚠️ **Important**:\n`;
-      result += `• Keep old wallet until migration complete\n`;
-      result += `• Test small amounts first\n`;
-      result += `• Double-check all addresses\n`;
-      result += `• Save new wallet recovery info\n\n`;
+      result += `âš ï¸ **Important**:\n`;
+      result += `â€¢ Keep old wallet until migration complete\n`;
+      result += `â€¢ Test small amounts first\n`;
+      result += `â€¢ Double-check all addresses\n`;
+      result += `â€¢ Save new wallet recovery info\n\n`;
       
-      result += `📊 **Source**: Base App Beta FAQ\n`;
-      result += `⏰ **Updated**: ${new Date().toLocaleString()}\n\n`;
-      result += `💡 **Pro Tip**: Smart wallets offer better security and UX!`;
+      result += `ðŸ“Š **Source**: Base App Beta FAQ\n`;
+      result += `â° **Updated**: ${new Date().toLocaleString()}\n\n`;
+      result += `ðŸ’¡ **Pro Tip**: Smart wallets offer better security and UX!`;
 
       log('info', `--- WALLET MIGRATION END --- Success`);
       return result;
     } catch (error) {
       log('error', `--- WALLET MIGRATION END --- ERROR`, { error: error.message });
-      return `❌ Sorry, I couldn't help with wallet migration right now. Please try again in a moment.`;
+      return `âŒ Sorry, I couldn't help with wallet migration right now. Please try again in a moment.`;
     }
   },
 
@@ -6337,23 +6343,23 @@ const availableFunctions = {
     log('info', `--- FARCISTER CONNECTION START --- User: ${userId}, Step: ${step}`);
     
     try {
-      let result = `🐦 **Farcaster Integration Guide** 🐦\n\n`;
+      let result = `ðŸ¦ **Farcaster Integration Guide** ðŸ¦\n\n`;
       
       if (step === 'overview') {
-        result += `📱 **Connection Process**:\n`;
+        result += `ðŸ“± **Connection Process**:\n`;
         result += `1. Open Base App\n`;
         result += `2. Go to Social tab (first icon)\n`;
         result += `3. Find any post to engage with\n`;
         result += `4. Tap like or recast\n`;
         result += `5. Follow prompts to connect\n\n`;
       } else if (step === 'new_account') {
-        result += `🆕 **Creating New Farcaster Account**:\n`;
+        result += `ðŸ†• **Creating New Farcaster Account**:\n`;
         result += `1. Sign up for Base beta\n`;
         result += `2. You'll be prompted to create social account\n`;
         result += `3. Follow Farcaster setup process\n`;
         result += `4. Your Base name becomes Farcaster username\n\n`;
       } else if (step === 'existing_account') {
-        result += `🔗 **Connecting Existing Account**:\n`;
+        result += `ðŸ”— **Connecting Existing Account**:\n`;
         result += `1. Open Social tab in Base App\n`;
         result += `2. Engage with any post\n`;
         result += `3. Tap like or recast\n`;
@@ -6361,26 +6367,26 @@ const availableFunctions = {
         result += `5. Follow connection prompts\n\n`;
       }
       
-      result += `🎯 **Benefits**:\n`;
-      result += `• Social trading and signals\n`;
-      result += `• Community engagement\n`;
-      result += `• Achievement sharing\n`;
-      result += `• Cross-platform identity\n\n`;
+      result += `ðŸŽ¯ **Benefits**:\n`;
+      result += `â€¢ Social trading and signals\n`;
+      result += `â€¢ Community engagement\n`;
+      result += `â€¢ Achievement sharing\n`;
+      result += `â€¢ Cross-platform identity\n\n`;
       
-      result += `⚠️ **Notes**:\n`;
-      result += `• Basename visible to Base beta users\n`;
-      result += `• Farcaster username for other clients\n`;
-      result += `• Seamless cross-platform experience\n\n`;
+      result += `âš ï¸ **Notes**:\n`;
+      result += `â€¢ Basename visible to Base beta users\n`;
+      result += `â€¢ Farcaster username for other clients\n`;
+      result += `â€¢ Seamless cross-platform experience\n\n`;
       
-      result += `📊 **Source**: Base App Beta FAQ\n`;
-      result += `⏰ **Updated**: ${new Date().toLocaleString()}\n\n`;
-      result += `💡 **Pro Tip**: Farcaster integration unlocks social crypto features!`;
+      result += `ðŸ“Š **Source**: Base App Beta FAQ\n`;
+      result += `â° **Updated**: ${new Date().toLocaleString()}\n\n`;
+      result += `ðŸ’¡ **Pro Tip**: Farcaster integration unlocks social crypto features!`;
 
       log('info', `--- FARCISTER CONNECTION END --- Success`);
       return result;
     } catch (error) {
       log('error', `--- FARCISTER CONNECTION END --- ERROR`, { error: error.message });
-      return `❌ Sorry, I couldn't help with Farcaster connection right now. Please try again in a moment.`;
+      return `âŒ Sorry, I couldn't help with Farcaster connection right now. Please try again in a moment.`;
     }
   },
 
@@ -6389,41 +6395,41 @@ const availableFunctions = {
     log('info', `--- WAITLIST MANAGEMENT START --- User: ${userId}`);
     
     try {
-      let result = `📋 **Base App Waitlist Information** 📋\n\n`;
+      let result = `ðŸ“‹ **Base App Waitlist Information** ðŸ“‹\n\n`;
       
-      result += `🎯 **How to Join**:\n`;
+      result += `ðŸŽ¯ **How to Join**:\n`;
       result += `1. Visit **base.app**\n`;
       result += `2. Click "Join Waitlist"\n`;
       result += `3. Enter your email address\n`;
       result += `4. Wait for beta invitation\n\n`;
       
-      result += `📱 **Current Status**:\n`;
-      result += `• Beta open to limited testers\n`;
-      result += `• Rolling out to waitlist soon\n`;
-      result += `• Smart wallet required\n`;
-      result += `• Invites are one-time use\n\n`;
+      result += `ðŸ“± **Current Status**:\n`;
+      result += `â€¢ Beta open to limited testers\n`;
+      result += `â€¢ Rolling out to waitlist soon\n`;
+      result += `â€¢ Smart wallet required\n`;
+      result += `â€¢ Invites are one-time use\n\n`;
       
-      result += `⚠️ **Important**:\n`;
-      result += `• Don't uninstall app after joining\n`;
-      result += `• Keep your passkeys and backups\n`;
-      result += `• Beta mode can be toggled off/on\n`;
-      result += `• Funds are safe in both modes\n\n`;
+      result += `âš ï¸ **Important**:\n`;
+      result += `â€¢ Don't uninstall app after joining\n`;
+      result += `â€¢ Keep your passkeys and backups\n`;
+      result += `â€¢ Beta mode can be toggled off/on\n`;
+      result += `â€¢ Funds are safe in both modes\n\n`;
       
-      result += `🚀 **What's Coming**:\n`;
-      result += `• Official app launch soon\n`;
-      result += `• More features and improvements\n`;
-      result += `• Expanded user access\n`;
-      result += `• Enhanced social features\n\n`;
+      result += `ðŸš€ **What's Coming**:\n`;
+      result += `â€¢ Official app launch soon\n`;
+      result += `â€¢ More features and improvements\n`;
+      result += `â€¢ Expanded user access\n`;
+      result += `â€¢ Enhanced social features\n\n`;
       
-      result += `📊 **Source**: Base App Beta FAQ\n`;
-      result += `⏰ **Updated**: ${new Date().toLocaleString()}\n\n`;
-      result += `💡 **Pro Tip**: Join the waitlist to be first to experience Base App!`;
+      result += `ðŸ“Š **Source**: Base App Beta FAQ\n`;
+      result += `â° **Updated**: ${new Date().toLocaleString()}\n\n`;
+      result += `ðŸ’¡ **Pro Tip**: Join the waitlist to be first to experience Base App!`;
 
       log('info', `--- WAITLIST MANAGEMENT END --- Success`);
       return result;
     } catch (error) {
       log('error', `--- WAITLIST MANAGEMENT END --- ERROR`, { error: error.message });
-      return `❌ Sorry, I couldn't help with waitlist information right now. Please try again in a moment.`;
+      return `âŒ Sorry, I couldn't help with waitlist information right now. Please try again in a moment.`;
     }
   },
 
@@ -6453,29 +6459,29 @@ const availableFunctions = {
       const avgRating = allFeedback.reduce((sum, f) => sum + f.rating, 0) / allFeedback.length;
       analytics.baseAppMetrics.userSatisfactionScore = avgRating;
 
-      let result = `📝 **Thank you for your feedback!** 📝\n\n`;
-      result += `⭐ **Rating**: ${rating}/5\n`;
-      result += `📂 **Category**: ${category}\n`;
-      result += `💬 **Feedback**: ${feedback || 'No additional comments'}\n\n`;
+      let result = `ðŸ“ **Thank you for your feedback!** ðŸ“\n\n`;
+      result += `â­ **Rating**: ${rating}/5\n`;
+      result += `ðŸ“‚ **Category**: ${category}\n`;
+      result += `ðŸ’¬ **Feedback**: ${feedback || 'No additional comments'}\n\n`;
       
       if (rating >= 4) {
-        result += `🎉 **Thank you!** Your feedback helps me improve and potentially get featured in Base App!\n\n`;
-        result += `💡 **Want to help more?**\n`;
-        result += `• Share me with friends: "invite friends"\n`;
-        result += `• Rate me on Base App\n`;
-        result += `• Try new features: "show me new features"\n`;
+        result += `ðŸŽ‰ **Thank you!** Your feedback helps me improve and potentially get featured in Base App!\n\n`;
+        result += `ðŸ’¡ **Want to help more?**\n`;
+        result += `â€¢ Share me with friends: "invite friends"\n`;
+        result += `â€¢ Rate me on Base App\n`;
+        result += `â€¢ Try new features: "show me new features"\n`;
       } else if (rating >= 3) {
-        result += `👍 **Thanks!** I'm working on improvements. What would you like to see better?\n\n`;
-        result += `🔧 **Suggestions:**\n`;
-        result += `• Try different commands: "help"\n`;
-        result += `• Check out new features: "what's new"\n`;
-        result += `• Get personalized help: "deeplink"\n`;
+        result += `ðŸ‘ **Thanks!** I'm working on improvements. What would you like to see better?\n\n`;
+        result += `ðŸ”§ **Suggestions:**\n`;
+        result += `â€¢ Try different commands: "help"\n`;
+        result += `â€¢ Check out new features: "what's new"\n`;
+        result += `â€¢ Get personalized help: "deeplink"\n`;
       } else {
-        result += `😔 **I'm sorry I didn't meet your expectations.** Let me know how I can improve!\n\n`;
-        result += `🛠️ **How can I help?**\n`;
-        result += `• Get basic help: "help"\n`;
-        result += `• Try simple features: "ETH price"\n`;
-        result += `• Contact support: "support"\n`;
+        result += `ðŸ˜” **I'm sorry I didn't meet your expectations.** Let me know how I can improve!\n\n`;
+        result += `ðŸ› ï¸ **How can I help?**\n`;
+        result += `â€¢ Get basic help: "help"\n`;
+        result += `â€¢ Try simple features: "ETH price"\n`;
+        result += `â€¢ Contact support: "support"\n`;
       }
 
       log('info', `--- COLLECT USER FEEDBACK END --- Success`);
@@ -6490,7 +6496,7 @@ const availableFunctions = {
       log('error', `--- COLLECT USER FEEDBACK END --- ERROR`, { error: error.message });
       return {
         error: "Failed to collect feedback",
-        userMessage: "❌ Sorry, I couldn't save your feedback right now. Please try again."
+        userMessage: "âŒ Sorry, I couldn't save your feedback right now. Please try again."
       };
     }
   },
@@ -6538,44 +6544,44 @@ const availableFunctions = {
         ]
       };
 
-      let result = `🎨 **NFT Collection Analysis: ${mockCollectionData.name}** 🎨\n\n`;
-      result += `📊 **Collection Overview:**\n`;
-      result += `• **Symbol**: ${mockCollectionData.symbol}\n`;
-      result += `• **Total Supply**: ${mockCollectionData.totalSupply.toLocaleString()}\n`;
-      result += `• **Floor Price**: ${mockCollectionData.floorPrice} ETH\n`;
-      result += `• **Market Cap**: ${mockCollectionData.marketCap} ETH\n`;
-      result += `• **Owners**: ${mockCollectionData.owners.toLocaleString()}\n`;
-      result += `• **Listed**: ${mockCollectionData.listed.toLocaleString()}\n\n`;
+      let result = `ðŸŽ¨ **NFT Collection Analysis: ${mockCollectionData.name}** ðŸŽ¨\n\n`;
+      result += `ðŸ“Š **Collection Overview:**\n`;
+      result += `â€¢ **Symbol**: ${mockCollectionData.symbol}\n`;
+      result += `â€¢ **Total Supply**: ${mockCollectionData.totalSupply.toLocaleString()}\n`;
+      result += `â€¢ **Floor Price**: ${mockCollectionData.floorPrice} ETH\n`;
+      result += `â€¢ **Market Cap**: ${mockCollectionData.marketCap} ETH\n`;
+      result += `â€¢ **Owners**: ${mockCollectionData.owners.toLocaleString()}\n`;
+      result += `â€¢ **Listed**: ${mockCollectionData.listed.toLocaleString()}\n\n`;
 
-      result += `📈 **Volume Analysis:**\n`;
-      result += `• **24h Volume**: ${mockCollectionData.volume24h} ETH\n`;
-      result += `• **7d Volume**: ${mockCollectionData.volume7d} ETH\n`;
-      result += `• **30d Volume**: ${mockCollectionData.volume30d} ETH\n`;
-      result += `• **Average Price**: ${mockCollectionData.avgPrice} ETH\n\n`;
+      result += `ðŸ“ˆ **Volume Analysis:**\n`;
+      result += `â€¢ **24h Volume**: ${mockCollectionData.volume24h} ETH\n`;
+      result += `â€¢ **7d Volume**: ${mockCollectionData.volume7d} ETH\n`;
+      result += `â€¢ **30d Volume**: ${mockCollectionData.volume30d} ETH\n`;
+      result += `â€¢ **Average Price**: ${mockCollectionData.avgPrice} ETH\n\n`;
 
-      result += `🏆 **Rarity Distribution:**\n`;
-      result += `• **Common**: ${mockCollectionData.rarity.common} (${(mockCollectionData.rarity.common/mockCollectionData.totalSupply*100).toFixed(1)}%)\n`;
-      result += `• **Uncommon**: ${mockCollectionData.rarity.uncommon} (${(mockCollectionData.rarity.uncommon/mockCollectionData.totalSupply*100).toFixed(1)}%)\n`;
-      result += `• **Rare**: ${mockCollectionData.rarity.rare} (${(mockCollectionData.rarity.rare/mockCollectionData.totalSupply*100).toFixed(1)}%)\n`;
-      result += `• **Epic**: ${mockCollectionData.rarity.epic} (${(mockCollectionData.rarity.epic/mockCollectionData.totalSupply*100).toFixed(1)}%)\n`;
-      result += `• **Legendary**: ${mockCollectionData.rarity.legendary} (${(mockCollectionData.rarity.legendary/mockCollectionData.totalSupply*100).toFixed(1)}%)\n\n`;
+      result += `ðŸ† **Rarity Distribution:**\n`;
+      result += `â€¢ **Common**: ${mockCollectionData.rarity.common} (${(mockCollectionData.rarity.common/mockCollectionData.totalSupply*100).toFixed(1)}%)\n`;
+      result += `â€¢ **Uncommon**: ${mockCollectionData.rarity.uncommon} (${(mockCollectionData.rarity.uncommon/mockCollectionData.totalSupply*100).toFixed(1)}%)\n`;
+      result += `â€¢ **Rare**: ${mockCollectionData.rarity.rare} (${(mockCollectionData.rarity.rare/mockCollectionData.totalSupply*100).toFixed(1)}%)\n`;
+      result += `â€¢ **Epic**: ${mockCollectionData.rarity.epic} (${(mockCollectionData.rarity.epic/mockCollectionData.totalSupply*100).toFixed(1)}%)\n`;
+      result += `â€¢ **Legendary**: ${mockCollectionData.rarity.legendary} (${(mockCollectionData.rarity.legendary/mockCollectionData.totalSupply*100).toFixed(1)}%)\n\n`;
 
-      result += `🎭 **Trait Analysis:**\n`;
+      result += `ðŸŽ­ **Trait Analysis:**\n`;
       Object.entries(mockCollectionData.traits).forEach(([trait, values]) => {
-        result += `• **${trait.charAt(0).toUpperCase() + trait.slice(1)}**: ${values.join(', ')}\n`;
+        result += `â€¢ **${trait.charAt(0).toUpperCase() + trait.slice(1)}**: ${values.join(', ')}\n`;
       });
       result += `\n`;
 
-      result += `💰 **Recent Sales:**\n`;
+      result += `ðŸ’° **Recent Sales:**\n`;
       mockCollectionData.recentSales.forEach(sale => {
         const timeAgo = Math.floor((Date.now() - sale.timestamp) / 3600000);
-        result += `• **Token #${sale.tokenId}**: ${sale.price} ETH (${timeAgo}h ago)\n`;
+        result += `â€¢ **Token #${sale.tokenId}**: ${sale.price} ETH (${timeAgo}h ago)\n`;
       });
       result += `\n`;
 
-      result += `👑 **Top Holders:**\n`;
+      result += `ðŸ‘‘ **Top Holders:**\n`;
       mockCollectionData.topHolders.forEach(holder => {
-        result += `• **${holder.address}**: ${holder.count} NFTs (${holder.percentage}%)\n`;
+        result += `â€¢ **${holder.address}**: ${holder.count} NFTs (${holder.percentage}%)\n`;
       });
       result += `\n`;
 
@@ -6590,31 +6596,31 @@ const availableFunctions = {
       let scoreEmoji = '';
       let scoreRating = '';
       if (collectionScore >= 80) {
-        scoreEmoji = '🏆';
+        scoreEmoji = 'ðŸ†';
         scoreRating = 'Excellent';
       } else if (collectionScore >= 60) {
-        scoreEmoji = '⭐';
+        scoreEmoji = 'â­';
         scoreRating = 'Good';
       } else if (collectionScore >= 40) {
-        scoreEmoji = '📊';
+        scoreEmoji = 'ðŸ“Š';
         scoreRating = 'Average';
       } else {
-        scoreEmoji = '⚠️';
+        scoreEmoji = 'âš ï¸';
         scoreRating = 'Below Average';
       }
 
-      result += `🎯 **Collection Score: ${collectionScore.toFixed(1)}/100 (${scoreRating})** ${scoreEmoji}\n\n`;
+      result += `ðŸŽ¯ **Collection Score: ${collectionScore.toFixed(1)}/100 (${scoreRating})** ${scoreEmoji}\n\n`;
 
-      result += `📊 **Source**: NFT APIs + Collection Data\n`;
-      result += `⏰ **Updated**: ${new Date().toLocaleString()}\n\n`;
-      result += `💡 **Pro Tip**: Higher rarity NFTs typically have better long-term value potential!`;
+      result += `ðŸ“Š **Source**: NFT APIs + Collection Data\n`;
+      result += `â° **Updated**: ${new Date().toLocaleString()}\n\n`;
+      result += `ðŸ’¡ **Pro Tip**: Higher rarity NFTs typically have better long-term value potential!`;
 
       log('info', `--- ANALYZE NFT COLLECTION END --- Success`);
       return result;
 
     } catch (error) {
       log('error', `--- ANALYZE NFT COLLECTION END --- ERROR`, { error: error.message });
-      return `❌ Sorry, I couldn't analyze the NFT collection right now. Please try again in a moment.`;
+      return `âŒ Sorry, I couldn't analyze the NFT collection right now. Please try again in a moment.`;
     }
   },
 
@@ -6655,44 +6661,44 @@ const availableFunctions = {
       const avgRarity = rarityScore / Object.keys(mockTraits).length;
       const rarityRank = Math.floor(avgRarity * 10000); // Out of 10,000
 
-      let result = `🎨 **NFT Rarity Analysis: Token #${tokenId}** 🎨\n\n`;
-      result += `📊 **Trait Breakdown:**\n`;
+      let result = `ðŸŽ¨ **NFT Rarity Analysis: Token #${tokenId}** ðŸŽ¨\n\n`;
+      result += `ðŸ“Š **Trait Breakdown:**\n`;
       traitAnalysis.forEach(trait => {
-        result += `• **${trait.trait.charAt(0).toUpperCase() + trait.trait.slice(1)}**: ${trait.value} (${trait.percentage}% rarity)\n`;
+        result += `â€¢ **${trait.trait.charAt(0).toUpperCase() + trait.trait.slice(1)}**: ${trait.value} (${trait.percentage}% rarity)\n`;
       });
       result += `\n`;
 
-      result += `🎯 **Rarity Score: ${avgRarity.toFixed(3)}**\n`;
-      result += `🏆 **Rarity Rank: #${rarityRank}** (out of 10,000)\n\n`;
+      result += `ðŸŽ¯ **Rarity Score: ${avgRarity.toFixed(3)}**\n`;
+      result += `ðŸ† **Rarity Rank: #${rarityRank}** (out of 10,000)\n\n`;
 
       let rarityLevel = '';
       let rarityEmoji = '';
       if (avgRarity <= 0.1) {
         rarityLevel = 'Legendary';
-        rarityEmoji = '👑';
+        rarityEmoji = 'ðŸ‘‘';
       } else if (avgRarity <= 0.2) {
         rarityLevel = 'Epic';
-        rarityEmoji = '💎';
+        rarityEmoji = 'ðŸ’Ž';
       } else if (avgRarity <= 0.3) {
         rarityLevel = 'Rare';
-        rarityEmoji = '⭐';
+        rarityEmoji = 'â­';
       } else if (avgRarity <= 0.5) {
         rarityLevel = 'Uncommon';
-        rarityEmoji = '🌟';
+        rarityEmoji = 'ðŸŒŸ';
       } else {
         rarityLevel = 'Common';
-        rarityEmoji = '📊';
+        rarityEmoji = 'ðŸ“Š';
       }
 
-      result += `🏆 **Rarity Level: ${rarityLevel}** ${rarityEmoji}\n\n`;
-      result += `💡 **Pro Tip**: Lower rarity scores indicate rarer NFTs with higher potential value!`;
+      result += `ðŸ† **Rarity Level: ${rarityLevel}** ${rarityEmoji}\n\n`;
+      result += `ðŸ’¡ **Pro Tip**: Lower rarity scores indicate rarer NFTs with higher potential value!`;
 
       log('info', `--- CALCULATE NFT RARITY END --- Success`);
       return result;
 
     } catch (error) {
       log('error', `--- CALCULATE NFT RARITY END --- ERROR`, { error: error.message });
-      return `❌ Sorry, I couldn't calculate the NFT rarity right now. Please try again in a moment.`;
+      return `âŒ Sorry, I couldn't calculate the NFT rarity right now. Please try again in a moment.`;
     }
   },
 
@@ -6712,38 +6718,38 @@ const availableFunctions = {
         touchOptimized: true
       };
 
-      let result = `📱 **Mobile Optimization Active** 📱\n\n`;
-      result += `🔧 **Optimizations Applied:**\n`;
-      result += `• **Response Format**: ${mobileOptimizations.responseFormat}\n`;
-      result += `• **Message Length**: Max ${mobileOptimizations.maxMessageLength} chars\n`;
-      result += `• **Quick Actions**: ${mobileOptimizations.quickActionsLimit} buttons max\n`;
-      result += `• **Image Size**: ${mobileOptimizations.imageSize}\n`;
-      result += `• **Chart Type**: ${mobileOptimizations.chartType}\n`;
-      result += `• **Notifications**: ${mobileOptimizations.notificationStyle}\n`;
-      result += `• **Voice Commands**: ${mobileOptimizations.voiceCommands ? 'Enabled' : 'Disabled'}\n`;
-      result += `• **Touch Optimized**: ${mobileOptimizations.touchOptimized ? 'Yes' : 'No'}\n\n`;
+      let result = `ðŸ“± **Mobile Optimization Active** ðŸ“±\n\n`;
+      result += `ðŸ”§ **Optimizations Applied:**\n`;
+      result += `â€¢ **Response Format**: ${mobileOptimizations.responseFormat}\n`;
+      result += `â€¢ **Message Length**: Max ${mobileOptimizations.maxMessageLength} chars\n`;
+      result += `â€¢ **Quick Actions**: ${mobileOptimizations.quickActionsLimit} buttons max\n`;
+      result += `â€¢ **Image Size**: ${mobileOptimizations.imageSize}\n`;
+      result += `â€¢ **Chart Type**: ${mobileOptimizations.chartType}\n`;
+      result += `â€¢ **Notifications**: ${mobileOptimizations.notificationStyle}\n`;
+      result += `â€¢ **Voice Commands**: ${mobileOptimizations.voiceCommands ? 'Enabled' : 'Disabled'}\n`;
+      result += `â€¢ **Touch Optimized**: ${mobileOptimizations.touchOptimized ? 'Yes' : 'No'}\n\n`;
 
-      result += `📱 **Mobile Features:**\n`;
-      result += `• **Swipe Actions**: Swipe left/right for quick actions\n`;
-      result += `• **Voice Input**: Tap microphone for voice commands\n`;
-      result += `• **Quick Replies**: Tap to reply with common responses\n`;
-      result += `• **Offline Mode**: Basic features work offline\n`;
-      result += `• **Battery Saver**: Optimized for battery life\n\n`;
+      result += `ðŸ“± **Mobile Features:**\n`;
+      result += `â€¢ **Swipe Actions**: Swipe left/right for quick actions\n`;
+      result += `â€¢ **Voice Input**: Tap microphone for voice commands\n`;
+      result += `â€¢ **Quick Replies**: Tap to reply with common responses\n`;
+      result += `â€¢ **Offline Mode**: Basic features work offline\n`;
+      result += `â€¢ **Battery Saver**: Optimized for battery life\n\n`;
 
-      result += `🎯 **Mobile Commands:**\n`;
-      result += `• "mobile mode" - Enable mobile optimizations\n`;
-      result += `• "compact view" - Switch to compact format\n`;
-      result += `• "voice on" - Enable voice commands\n`;
-      result += `• "offline mode" - Enable offline features\n\n`;
+      result += `ðŸŽ¯ **Mobile Commands:**\n`;
+      result += `â€¢ "mobile mode" - Enable mobile optimizations\n`;
+      result += `â€¢ "compact view" - Switch to compact format\n`;
+      result += `â€¢ "voice on" - Enable voice commands\n`;
+      result += `â€¢ "offline mode" - Enable offline features\n\n`;
 
-      result += `💡 **Pro Tip**: Mobile mode automatically adjusts based on your device!`;
+      result += `ðŸ’¡ **Pro Tip**: Mobile mode automatically adjusts based on your device!`;
 
       log('info', `--- MOBILE OPTIMIZATION END --- Success`);
       return result;
 
     } catch (error) {
       log('error', `--- MOBILE OPTIMIZATION END --- ERROR`, { error: error.message });
-      return `❌ Sorry, I couldn't optimize for mobile right now. Please try again in a moment.`;
+      return `âŒ Sorry, I couldn't optimize for mobile right now. Please try again in a moment.`;
     }
   },
 
@@ -6772,16 +6778,16 @@ const availableFunctions = {
           compactContent = content.replace(/\n\n/g, '\n').replace(/\*\*/g, '').substring(0, 500) + '...';
       }
 
-      let result = `📱 **Compact View** 📱\n\n`;
+      let result = `ðŸ“± **Compact View** ðŸ“±\n\n`;
       result += compactContent;
-      result += `\n\n💡 **Tip**: Say "full view" for complete information`;
+      result += `\n\nðŸ’¡ **Tip**: Say "full view" for complete information`;
 
       log('info', `--- FORMAT COMPACT RESPONSE END --- Success`);
       return result;
 
     } catch (error) {
       log('error', `--- FORMAT COMPACT RESPONSE END --- ERROR`, { error: error.message });
-      return `❌ Sorry, I couldn't format the compact response right now. Please try again in a moment.`;
+      return `âŒ Sorry, I couldn't format the compact response right now. Please try again in a moment.`;
     }
   },
 
@@ -6795,72 +6801,72 @@ const availableFunctions = {
 
       switch (gesture) {
         case 'swipe_left':
-          result = `👈 **Swipe Left Actions** 👈\n\n`;
+          result = `ðŸ‘ˆ **Swipe Left Actions** ðŸ‘ˆ\n\n`;
           result += `Quick actions available:\n`;
-          result += `• 📊 Check prices\n`;
-          result += `• 💸 Send crypto\n`;
-          result += `• 🔍 Research project\n`;
-          result += `• 🎮 Start game\n`;
+          result += `â€¢ ðŸ“Š Check prices\n`;
+          result += `â€¢ ðŸ’¸ Send crypto\n`;
+          result += `â€¢ ðŸ” Research project\n`;
+          result += `â€¢ ðŸŽ® Start game\n`;
           quickActions = [
-            { id: "get_crypto_price", label: "📊 Prices", style: "primary" },
-            { id: "send_eth", label: "💸 Send", style: "secondary" },
-            { id: "scan_project", label: "🔍 Research", style: "secondary" },
-            { id: "ai_game_recommendations", label: "🎮 Games", style: "secondary" }
+            { id: "get_crypto_price", label: "ðŸ“Š Prices", style: "primary" },
+            { id: "send_eth", label: "ðŸ’¸ Send", style: "secondary" },
+            { id: "scan_project", label: "ðŸ” Research", style: "secondary" },
+            { id: "ai_game_recommendations", label: "ðŸŽ® Games", style: "secondary" }
           ];
           break;
 
         case 'swipe_right':
-          result = `👉 **Swipe Right Actions** 👉\n\n`;
+          result = `ðŸ‘‰ **Swipe Right Actions** ðŸ‘‰\n\n`;
           result += `Quick actions available:\n`;
-          result += `• 📈 Market overview\n`;
-          result += `• 🌾 DeFi analysis\n`;
-          result += `• 👥 Community\n`;
-          result += `• 🔗 Private chat\n`;
+          result += `â€¢ ðŸ“ˆ Market overview\n`;
+          result += `â€¢ ðŸŒ¾ DeFi analysis\n`;
+          result += `â€¢ ðŸ‘¥ Community\n`;
+          result += `â€¢ ðŸ”— Private chat\n`;
           quickActions = [
-            { id: "get_market_overview", label: "📈 Market", style: "primary" },
-            { id: "analyze_defi_protocol", label: "🌾 DeFi", style: "secondary" },
-            { id: "get_community_insights", label: "👥 Community", style: "secondary" },
-            { id: "create_baseapp_deeplink", label: "🔗 Private", style: "secondary" }
+            { id: "get_market_overview", label: "ðŸ“ˆ Market", style: "primary" },
+            { id: "analyze_defi_protocol", label: "ðŸŒ¾ DeFi", style: "secondary" },
+            { id: "get_community_insights", label: "ðŸ‘¥ Community", style: "secondary" },
+            { id: "create_baseapp_deeplink", label: "ðŸ”— Private", style: "secondary" }
           ];
           break;
 
         case 'long_press':
-          result = `👆 **Long Press Menu** 👆\n\n`;
+          result = `ðŸ‘† **Long Press Menu** ðŸ‘†\n\n`;
           result += `Advanced options:\n`;
-          result += `• ⚙️ Settings\n`;
-          result += `• 📊 Analytics\n`;
-          result += `• 🎯 Preferences\n`;
-          result += `• 🆘 Help\n`;
+          result += `â€¢ âš™ï¸ Settings\n`;
+          result += `â€¢ ðŸ“Š Analytics\n`;
+          result += `â€¢ ðŸŽ¯ Preferences\n`;
+          result += `â€¢ ðŸ†˜ Help\n`;
           quickActions = [
-            { id: "show_settings", label: "⚙️ Settings", style: "primary" },
-            { id: "advanced_analytics_insights", label: "📊 Analytics", style: "secondary" },
-            { id: "update_preferences", label: "🎯 Preferences", style: "secondary" },
-            { id: "help", label: "🆘 Help", style: "secondary" }
+            { id: "show_settings", label: "âš™ï¸ Settings", style: "primary" },
+            { id: "advanced_analytics_insights", label: "ðŸ“Š Analytics", style: "secondary" },
+            { id: "update_preferences", label: "ðŸŽ¯ Preferences", style: "secondary" },
+            { id: "help", label: "ðŸ†˜ Help", style: "secondary" }
           ];
           break;
 
         case 'double_tap':
-          result = `👆👆 **Double Tap Quick Actions** 👆👆\n\n`;
+          result = `ðŸ‘†ðŸ‘† **Double Tap Quick Actions** ðŸ‘†ðŸ‘†\n\n`;
           result += `Instant actions:\n`;
-          result += `• 🚀 Trending tokens\n`;
-          result += `• ⛽ Gas fees\n`;
-          result += `• 📰 Latest news\n`;
-          result += `• 🎮 Quick game\n`;
+          result += `â€¢ ðŸš€ Trending tokens\n`;
+          result += `â€¢ â›½ Gas fees\n`;
+          result += `â€¢ ðŸ“° Latest news\n`;
+          result += `â€¢ ðŸŽ® Quick game\n`;
           quickActions = [
-            { id: "get_hottest_tokens", label: "🚀 Trending", style: "primary" },
-            { id: "get_real_time_gas_fees", label: "⛽ Gas", style: "secondary" },
-            { id: "get_market_news", label: "📰 News", style: "secondary" },
-            { id: "start_multiplayer_game", label: "🎮 Game", style: "secondary" }
+            { id: "get_hottest_tokens", label: "ðŸš€ Trending", style: "primary" },
+            { id: "get_real_time_gas_fees", label: "â›½ Gas", style: "secondary" },
+            { id: "get_market_news", label: "ðŸ“° News", style: "secondary" },
+            { id: "start_multiplayer_game", label: "ðŸŽ® Game", style: "secondary" }
           ];
           break;
 
         default:
-          result = `📱 **Touch Gestures Available** 📱\n\n`;
-          result += `• **Swipe Left**: Quick actions\n`;
-          result += `• **Swipe Right**: Advanced features\n`;
-          result += `• **Long Press**: Settings menu\n`;
-          result += `• **Double Tap**: Instant actions\n\n`;
-          result += `💡 **Pro Tip**: Try different gestures to discover features!`;
+          result = `ðŸ“± **Touch Gestures Available** ðŸ“±\n\n`;
+          result += `â€¢ **Swipe Left**: Quick actions\n`;
+          result += `â€¢ **Swipe Right**: Advanced features\n`;
+          result += `â€¢ **Long Press**: Settings menu\n`;
+          result += `â€¢ **Double Tap**: Instant actions\n\n`;
+          result += `ðŸ’¡ **Pro Tip**: Try different gestures to discover features!`;
       }
 
       log('info', `--- HANDLE TOUCH GESTURES END --- Success`);
@@ -6874,7 +6880,7 @@ const availableFunctions = {
       log('error', `--- HANDLE TOUCH GESTURES END --- ERROR`, { error: error.message });
       return {
         error: "Failed to handle touch gesture",
-        userMessage: "❌ Sorry, I couldn't process the touch gesture right now. Please try again."
+        userMessage: "âŒ Sorry, I couldn't process the touch gesture right now. Please try again."
       };
     }
   },
@@ -6906,9 +6912,9 @@ const availableFunctions = {
         ]
       };
 
-      let result = `📊 **Portfolio Chart: ${timeframe}** 📊\n\n`;
-      result += `💰 **Total Value**: $${mockPortfolioData.totalValue.toLocaleString()}\n`;
-      result += `📈 **Change**: $${mockPortfolioData.totalChange.toFixed(2)} (${mockPortfolioData.totalChangePercent.toFixed(1)}%)\n\n`;
+      let result = `ðŸ“Š **Portfolio Chart: ${timeframe}** ðŸ“Š\n\n`;
+      result += `ðŸ’° **Total Value**: $${mockPortfolioData.totalValue.toLocaleString()}\n`;
+      result += `ðŸ“ˆ **Change**: $${mockPortfolioData.totalChange.toFixed(2)} (${mockPortfolioData.totalChangePercent.toFixed(1)}%)\n\n`;
 
       // Create ASCII chart
       const maxValue = Math.max(...mockPortfolioData.history.map(h => h.value));
@@ -6916,7 +6922,7 @@ const availableFunctions = {
       const range = maxValue - minValue;
       const chartHeight = 8;
 
-      result += `📈 **Portfolio Performance Chart:**\n`;
+      result += `ðŸ“ˆ **Portfolio Performance Chart:**\n`;
       result += `\`\`\`\n`;
       
       for (let i = chartHeight; i >= 0; i--) {
@@ -6925,7 +6931,7 @@ const availableFunctions = {
         
         mockPortfolioData.history.forEach(point => {
           if (point.value >= threshold) {
-            line += '█';
+            line += 'â–ˆ';
           } else {
             line += ' ';
           }
@@ -6936,27 +6942,27 @@ const availableFunctions = {
       
       result += `\`\`\`\n\n`;
 
-      result += `🎯 **Asset Breakdown:**\n`;
+      result += `ðŸŽ¯ **Asset Breakdown:**\n`;
       mockPortfolioData.assets.forEach(asset => {
         const percentage = (asset.value / mockPortfolioData.totalValue * 100).toFixed(1);
         const barLength = Math.floor(percentage / 5);
-        const bar = '█'.repeat(barLength) + '░'.repeat(20 - barLength);
+        const bar = 'â–ˆ'.repeat(barLength) + 'â–‘'.repeat(20 - barLength);
         
-        result += `• **${asset.symbol}**: $${asset.value.toLocaleString()} (${percentage}%) ${bar}\n`;
-        result += `  └─ ${asset.amount} tokens, ${asset.change >= 0 ? '+' : ''}${asset.changePercent.toFixed(1)}%\n`;
+        result += `â€¢ **${asset.symbol}**: $${asset.value.toLocaleString()} (${percentage}%) ${bar}\n`;
+        result += `  â””â”€ ${asset.amount} tokens, ${asset.change >= 0 ? '+' : ''}${asset.changePercent.toFixed(1)}%\n`;
       });
 
-      result += `\n📊 **Chart Type**: ${chartType}\n`;
-      result += `⏰ **Timeframe**: ${timeframe}\n`;
-      result += `📅 **Updated**: ${new Date().toLocaleString()}\n\n`;
-      result += `💡 **Pro Tip**: Use "portfolio chart 30d" for longer-term analysis!`;
+      result += `\nðŸ“Š **Chart Type**: ${chartType}\n`;
+      result += `â° **Timeframe**: ${timeframe}\n`;
+      result += `ðŸ“… **Updated**: ${new Date().toLocaleString()}\n\n`;
+      result += `ðŸ’¡ **Pro Tip**: Use "portfolio chart 30d" for longer-term analysis!`;
 
       log('info', `--- CREATE PORTFOLIO CHART END --- Success`);
       return result;
 
     } catch (error) {
       log('error', `--- CREATE PORTFOLIO CHART END --- ERROR`, { error: error.message });
-      return `❌ Sorry, I couldn't create the portfolio chart right now. Please try again in a moment.`;
+      return `âŒ Sorry, I couldn't create the portfolio chart right now. Please try again in a moment.`;
     }
   },
 
@@ -7002,35 +7008,35 @@ const availableFunctions = {
         ]
       };
 
-      let result = `📈 **Trading Signals: ${token.toUpperCase()}** 📈\n\n`;
-      result += `⏰ **Timeframe**: ${timeframe}\n`;
-      result += `🎯 **Signal Type**: ${signalType}\n\n`;
+      let result = `ðŸ“ˆ **Trading Signals: ${token.toUpperCase()}** ðŸ“ˆ\n\n`;
+      result += `â° **Timeframe**: ${timeframe}\n`;
+      result += `ðŸŽ¯ **Signal Type**: ${signalType}\n\n`;
 
-      result += `📊 **Technical Analysis:**\n`;
-      result += `• **RSI**: ${mockSignals.technical.rsi} (${mockSignals.technical.rsi < 30 ? 'Oversold' : mockSignals.technical.rsi > 70 ? 'Overbought' : 'Neutral'})\n`;
-      result += `• **MACD**: ${mockSignals.technical.macd}\n`;
-      result += `• **Bollinger**: ${mockSignals.technical.bollinger}\n`;
-      result += `• **Support**: $${mockSignals.technical.support}\n`;
-      result += `• **Resistance**: $${mockSignals.technical.resistance}\n`;
-      result += `• **Trend**: ${mockSignals.technical.trend}\n\n`;
+      result += `ðŸ“Š **Technical Analysis:**\n`;
+      result += `â€¢ **RSI**: ${mockSignals.technical.rsi} (${mockSignals.technical.rsi < 30 ? 'Oversold' : mockSignals.technical.rsi > 70 ? 'Overbought' : 'Neutral'})\n`;
+      result += `â€¢ **MACD**: ${mockSignals.technical.macd}\n`;
+      result += `â€¢ **Bollinger**: ${mockSignals.technical.bollinger}\n`;
+      result += `â€¢ **Support**: $${mockSignals.technical.support}\n`;
+      result += `â€¢ **Resistance**: $${mockSignals.technical.resistance}\n`;
+      result += `â€¢ **Trend**: ${mockSignals.technical.trend}\n\n`;
 
-      result += `📰 **Fundamental Analysis:**\n`;
-      result += `• **Volume**: ${mockSignals.fundamental.volume}\n`;
-      result += `• **Market Cap**: ${mockSignals.fundamental.marketCap}\n`;
-      result += `• **Liquidity**: ${mockSignals.fundamental.liquidity}\n`;
-      result += `• **News**: ${mockSignals.fundamental.news}\n`;
-      result += `• **Sentiment**: ${mockSignals.fundamental.sentiment}\n\n`;
+      result += `ðŸ“° **Fundamental Analysis:**\n`;
+      result += `â€¢ **Volume**: ${mockSignals.fundamental.volume}\n`;
+      result += `â€¢ **Market Cap**: ${mockSignals.fundamental.marketCap}\n`;
+      result += `â€¢ **Liquidity**: ${mockSignals.fundamental.liquidity}\n`;
+      result += `â€¢ **News**: ${mockSignals.fundamental.news}\n`;
+      result += `â€¢ **Sentiment**: ${mockSignals.fundamental.sentiment}\n\n`;
 
-      result += `🚨 **Trading Signals:**\n`;
+      result += `ðŸš¨ **Trading Signals:**\n`;
       mockSignals.signals.forEach((signal, index) => {
-        const emoji = signal.type === 'buy' ? '🟢' : '🔴';
-        const strengthEmoji = signal.strength === 'strong' ? '🔥' : signal.strength === 'medium' ? '⚡' : '💡';
+        const emoji = signal.type === 'buy' ? 'ðŸŸ¢' : 'ðŸ”´';
+        const strengthEmoji = signal.strength === 'strong' ? 'ðŸ”¥' : signal.strength === 'medium' ? 'âš¡' : 'ðŸ’¡';
         
         result += `${emoji} **${signal.type.toUpperCase()}** ${strengthEmoji}\n`;
-        result += `   💰 **Price**: $${signal.price}\n`;
-        result += `   📝 **Reason**: ${signal.reason}\n`;
-        result += `   🎯 **Confidence**: ${signal.confidence}%\n`;
-        result += `   ⏰ **Timeframe**: ${signal.timeframe}\n\n`;
+        result += `   ðŸ’° **Price**: $${signal.price}\n`;
+        result += `   ðŸ“ **Reason**: ${signal.reason}\n`;
+        result += `   ðŸŽ¯ **Confidence**: ${signal.confidence}%\n`;
+        result += `   â° **Timeframe**: ${signal.timeframe}\n\n`;
       });
 
       // Calculate overall signal strength
@@ -7042,28 +7048,28 @@ const availableFunctions = {
       let overallEmoji = '';
       if (buySignals > sellSignals) {
         overallSignal = 'BULLISH';
-        overallEmoji = '🚀';
+        overallEmoji = 'ðŸš€';
       } else if (sellSignals > buySignals) {
         overallSignal = 'BEARISH';
-        overallEmoji = '📉';
+        overallEmoji = 'ðŸ“‰';
       } else {
         overallSignal = 'NEUTRAL';
-        overallEmoji = '⚖️';
+        overallEmoji = 'âš–ï¸';
       }
 
-      result += `🎯 **Overall Signal: ${overallSignal}** ${overallEmoji}\n`;
-      result += `📊 **Average Confidence**: ${avgConfidence.toFixed(1)}%\n\n`;
+      result += `ðŸŽ¯ **Overall Signal: ${overallSignal}** ${overallEmoji}\n`;
+      result += `ðŸ“Š **Average Confidence**: ${avgConfidence.toFixed(1)}%\n\n`;
 
-      result += `⚠️ **Risk Warning**: Trading signals are for informational purposes only. Always DYOR!\n`;
-      result += `📅 **Updated**: ${new Date().toLocaleString()}\n\n`;
-      result += `💡 **Pro Tip**: Use "trading signals ${token} 4h" for different timeframes!`;
+      result += `âš ï¸ **Risk Warning**: Trading signals are for informational purposes only. Always DYOR!\n`;
+      result += `ðŸ“… **Updated**: ${new Date().toLocaleString()}\n\n`;
+      result += `ðŸ’¡ **Pro Tip**: Use "trading signals ${token} 4h" for different timeframes!`;
 
       log('info', `--- GENERATE TRADING SIGNALS END --- Success`);
       return result;
 
     } catch (error) {
       log('error', `--- GENERATE TRADING SIGNALS END --- ERROR`, { error: error.message });
-      return `❌ Sorry, I couldn't generate trading signals right now. Please try again in a moment.`;
+      return `âŒ Sorry, I couldn't generate trading signals right now. Please try again in a moment.`;
     }
   },
 
@@ -7094,7 +7100,7 @@ const availableFunctions = {
       switch (action) {
         case 'add':
           if (userFriends.friends.has(friendAddress)) {
-            result = `👥 **Friend Already Added** 👥\n\n${friendName || friendAddress} is already in your friend list!`;
+            result = `ðŸ‘¥ **Friend Already Added** ðŸ‘¥\n\n${friendName || friendAddress} is already in your friend list!`;
           } else {
             userFriends.friends.set(friendAddress, {
               name: friendName || 'Unknown',
@@ -7105,14 +7111,14 @@ const availableFunctions = {
               sharedInterests: [],
               mutualFriends: 0
             });
-            result = `✅ **Friend Added Successfully** ✅\n\n`;
-            result += `👤 **Name**: ${friendName || 'Unknown'}\n`;
-            result += `📍 **Address**: ${friendAddress}\n`;
-            result += `📅 **Added**: ${new Date().toLocaleString()}\n\n`;
-            result += `💡 **Next Steps**:\n`;
-            result += `• Share your portfolio: "share portfolio with ${friendName}"\n`;
-            result += `• Start trading together: "collaborate with ${friendName}"\n`;
-            result += `• View their activity: "friend activity ${friendName}"\n`;
+            result = `âœ… **Friend Added Successfully** âœ…\n\n`;
+            result += `ðŸ‘¤ **Name**: ${friendName || 'Unknown'}\n`;
+            result += `ðŸ“ **Address**: ${friendAddress}\n`;
+            result += `ðŸ“… **Added**: ${new Date().toLocaleString()}\n\n`;
+            result += `ðŸ’¡ **Next Steps**:\n`;
+            result += `â€¢ Share your portfolio: "share portfolio with ${friendName}"\n`;
+            result += `â€¢ Start trading together: "collaborate with ${friendName}"\n`;
+            result += `â€¢ View their activity: "friend activity ${friendName}"\n`;
           }
           break;
 
@@ -7120,79 +7126,79 @@ const availableFunctions = {
           if (userFriends.friends.has(friendAddress)) {
             const friendName = userFriends.friends.get(friendAddress).name;
             userFriends.friends.delete(friendAddress);
-            result = `❌ **Friend Removed** ❌\n\n${friendName} has been removed from your friend list.`;
+            result = `âŒ **Friend Removed** âŒ\n\n${friendName} has been removed from your friend list.`;
           } else {
-            result = `❌ **Friend Not Found** ❌\n\nThis user is not in your friend list.`;
+            result = `âŒ **Friend Not Found** âŒ\n\nThis user is not in your friend list.`;
           }
           break;
 
         case 'list':
           const friendsList = Array.from(userFriends.friends.values());
           if (friendsList.length === 0) {
-            result = `👥 **Your Friend List** 👥\n\nNo friends yet! Add some friends to start collaborating.\n\n`;
-            result += `💡 **How to add friends:**\n`;
-            result += `• "add friend 0x123... John"\n`;
-            result += `• "friend request 0x456... Sarah"\n`;
+            result = `ðŸ‘¥ **Your Friend List** ðŸ‘¥\n\nNo friends yet! Add some friends to start collaborating.\n\n`;
+            result += `ðŸ’¡ **How to add friends:**\n`;
+            result += `â€¢ "add friend 0x123... John"\n`;
+            result += `â€¢ "friend request 0x456... Sarah"\n`;
           } else {
-            result = `👥 **Your Friend List (${friendsList.length})** 👥\n\n`;
+            result = `ðŸ‘¥ **Your Friend List (${friendsList.length})** ðŸ‘¥\n\n`;
             friendsList.forEach((friend, index) => {
               const daysSinceAdded = Math.floor((Date.now() - friend.addedDate) / 86400000);
               result += `${index + 1}. **${friend.name}**\n`;
-              result += `   📍 ${friend.address}\n`;
-              result += `   📅 Added ${daysSinceAdded} days ago\n`;
-              result += `   🎯 Trust Score: ${friend.trustScore}/100\n`;
-              result += `   👥 Mutual Friends: ${friend.mutualFriends}\n\n`;
+              result += `   ðŸ“ ${friend.address}\n`;
+              result += `   ðŸ“… Added ${daysSinceAdded} days ago\n`;
+              result += `   ðŸŽ¯ Trust Score: ${friend.trustScore}/100\n`;
+              result += `   ðŸ‘¥ Mutual Friends: ${friend.mutualFriends}\n\n`;
             });
           }
           break;
 
         case 'block':
           userFriends.blockedUsers.add(friendAddress);
-          result = `🚫 **User Blocked** 🚫\n\n${friendName || friendAddress} has been blocked. They won't be able to interact with you.`;
+          result = `ðŸš« **User Blocked** ðŸš«\n\n${friendName || friendAddress} has been blocked. They won't be able to interact with you.`;
           break;
 
         case 'unblock':
           userFriends.blockedUsers.delete(friendAddress);
-          result = `✅ **User Unblocked** ✅\n\n${friendName || friendAddress} has been unblocked.`;
+          result = `âœ… **User Unblocked** âœ…\n\n${friendName || friendAddress} has been unblocked.`;
           break;
 
         case 'social_graph':
           const socialGraph = userFriends.socialGraph;
-          result = `🕸️ **Social Graph Analysis** 🕸️\n\n`;
-          result += `📊 **Your Network:**\n`;
-          result += `• **Direct Friends**: ${userFriends.friends.size}\n`;
-          result += `• **Blocked Users**: ${userFriends.blockedUsers.size}\n`;
-          result += `• **Network Connections**: ${socialGraph.size}\n\n`;
+          result = `ðŸ•¸ï¸ **Social Graph Analysis** ðŸ•¸ï¸\n\n`;
+          result += `ðŸ“Š **Your Network:**\n`;
+          result += `â€¢ **Direct Friends**: ${userFriends.friends.size}\n`;
+          result += `â€¢ **Blocked Users**: ${userFriends.blockedUsers.size}\n`;
+          result += `â€¢ **Network Connections**: ${socialGraph.size}\n\n`;
 
           if (socialGraph.size > 0) {
-            result += `🔗 **Network Connections:**\n`;
+            result += `ðŸ”— **Network Connections:**\n`;
             Array.from(socialGraph.entries()).forEach(([connection, data]) => {
-              result += `• **${connection}**: ${data.type} (${data.strength}/100)\n`;
+              result += `â€¢ **${connection}**: ${data.type} (${data.strength}/100)\n`;
             });
           }
 
-          result += `\n💡 **Pro Tip**: Stronger networks lead to better trading opportunities!`;
+          result += `\nðŸ’¡ **Pro Tip**: Stronger networks lead to better trading opportunities!`;
           break;
 
         default:
-          result = `👥 **Friend Management** 👥\n\n`;
+          result = `ðŸ‘¥ **Friend Management** ðŸ‘¥\n\n`;
           result += `Available actions:\n`;
-          result += `• "add friend [address] [name]" - Add a friend\n`;
-          result += `• "remove friend [address]" - Remove a friend\n`;
-          result += `• "list friends" - Show your friend list\n`;
-          result += `• "block user [address]" - Block a user\n`;
-          result += `• "unblock user [address]" - Unblock a user\n`;
-          result += `• "social graph" - View your network\n\n`;
-          result += `💡 **Pro Tip**: Building a strong network helps with trading insights!`;
+          result += `â€¢ "add friend [address] [name]" - Add a friend\n`;
+          result += `â€¢ "remove friend [address]" - Remove a friend\n`;
+          result += `â€¢ "list friends" - Show your friend list\n`;
+          result += `â€¢ "block user [address]" - Block a user\n`;
+          result += `â€¢ "unblock user [address]" - Unblock a user\n`;
+          result += `â€¢ "social graph" - View your network\n\n`;
+          result += `ðŸ’¡ **Pro Tip**: Building a strong network helps with trading insights!`;
       }
 
       // Add quick actions based on action
       if (action === 'list' && userFriends.friends.size > 0) {
         quickActions = [
-          { id: "share_portfolio", label: "📊 Share Portfolio", style: "primary" },
-          { id: "collaborate_trading", label: "🤝 Collaborate", style: "secondary" },
-          { id: "view_friend_activity", label: "👀 Activity", style: "secondary" },
-          { id: "social_graph", label: "🕸️ Network", style: "secondary" }
+          { id: "share_portfolio", label: "ðŸ“Š Share Portfolio", style: "primary" },
+          { id: "collaborate_trading", label: "ðŸ¤ Collaborate", style: "secondary" },
+          { id: "view_friend_activity", label: "ðŸ‘€ Activity", style: "secondary" },
+          { id: "social_graph", label: "ðŸ•¸ï¸ Network", style: "secondary" }
         ];
       }
 
@@ -7207,7 +7213,7 @@ const availableFunctions = {
       log('error', `--- MANAGE FRIENDS END --- ERROR`, { error: error.message });
       return {
         error: "Failed to manage friends",
-        userMessage: "❌ Sorry, I couldn't manage your friends right now. Please try again."
+        userMessage: "âŒ Sorry, I couldn't manage your friends right now. Please try again."
       };
     }
   },
@@ -7260,64 +7266,64 @@ const availableFunctions = {
           const newLevel = Math.floor(userGamification.xp / 1000) + 1;
           if (newLevel > userGamification.level) {
             userGamification.level = newLevel;
-            result = `🎉 **LEVEL UP!** 🎉\n\n`;
-            result += `🏆 **New Level**: ${newLevel}\n`;
-            result += `⭐ **Points Earned**: ${pointsEarned}\n`;
-            result += `🎯 **Total Points**: ${userGamification.points}\n`;
-            result += `📊 **Total XP**: ${userGamification.xp}\n\n`;
-            result += `🚀 **Level ${newLevel} Rewards:**\n`;
-            result += `• Unlocked new features\n`;
-            result += `• Higher point multipliers\n`;
-            result += `• Exclusive badges\n`;
-            result += `• Priority support\n\n`;
-            result += `💡 **Keep going to unlock more rewards!**`;
+            result = `ðŸŽ‰ **LEVEL UP!** ðŸŽ‰\n\n`;
+            result += `ðŸ† **New Level**: ${newLevel}\n`;
+            result += `â­ **Points Earned**: ${pointsEarned}\n`;
+            result += `ðŸŽ¯ **Total Points**: ${userGamification.points}\n`;
+            result += `ðŸ“Š **Total XP**: ${userGamification.xp}\n\n`;
+            result += `ðŸš€ **Level ${newLevel} Rewards:**\n`;
+            result += `â€¢ Unlocked new features\n`;
+            result += `â€¢ Higher point multipliers\n`;
+            result += `â€¢ Exclusive badges\n`;
+            result += `â€¢ Priority support\n\n`;
+            result += `ðŸ’¡ **Keep going to unlock more rewards!**`;
           } else {
-            result = `⭐ **Points Earned!** ⭐\n\n`;
-            result += `🎯 **Points**: +${pointsEarned}\n`;
-            result += `📊 **Total**: ${userGamification.points}\n`;
-            result += `🏆 **Level**: ${userGamification.level}\n`;
-            result += `📈 **XP**: ${userGamification.xp}\n\n`;
-            result += `💡 **Next Level**: ${1000 - (userGamification.xp % 1000)} XP needed`;
+            result = `â­ **Points Earned!** â­\n\n`;
+            result += `ðŸŽ¯ **Points**: +${pointsEarned}\n`;
+            result += `ðŸ“Š **Total**: ${userGamification.points}\n`;
+            result += `ðŸ† **Level**: ${userGamification.level}\n`;
+            result += `ðŸ“ˆ **XP**: ${userGamification.xp}\n\n`;
+            result += `ðŸ’¡ **Next Level**: ${1000 - (userGamification.xp % 1000)} XP needed`;
           }
           break;
 
         case 'view_profile':
-          result = `🏆 **Your Gamification Profile** 🏆\n\n`;
-          result += `👤 **Level**: ${userGamification.level}\n`;
-          result += `⭐ **Points**: ${userGamification.points}\n`;
-          result += `📊 **XP**: ${userGamification.xp}\n`;
-          result += `🏅 **Achievements**: ${userGamification.achievements.size}\n`;
-          result += `🎖️ **Badges**: ${userGamification.badges.size}\n\n`;
+          result = `ðŸ† **Your Gamification Profile** ðŸ†\n\n`;
+          result += `ðŸ‘¤ **Level**: ${userGamification.level}\n`;
+          result += `â­ **Points**: ${userGamification.points}\n`;
+          result += `ðŸ“Š **XP**: ${userGamification.xp}\n`;
+          result += `ðŸ… **Achievements**: ${userGamification.achievements.size}\n`;
+          result += `ðŸŽ–ï¸ **Badges**: ${userGamification.badges.size}\n\n`;
 
-          result += `📈 **Stats:**\n`;
-          result += `• **Trades Completed**: ${userGamification.stats.tradesCompleted}\n`;
-          result += `• **Analysis Performed**: ${userGamification.stats.analysisPerformed}\n`;
-          result += `• **Friends Added**: ${userGamification.stats.friendsAdded}\n`;
-          result += `• **Games Played**: ${userGamification.stats.gamesPlayed}\n`;
-          result += `• **Signals Generated**: ${userGamification.stats.signalsGenerated}\n\n`;
+          result += `ðŸ“ˆ **Stats:**\n`;
+          result += `â€¢ **Trades Completed**: ${userGamification.stats.tradesCompleted}\n`;
+          result += `â€¢ **Analysis Performed**: ${userGamification.stats.analysisPerformed}\n`;
+          result += `â€¢ **Friends Added**: ${userGamification.stats.friendsAdded}\n`;
+          result += `â€¢ **Games Played**: ${userGamification.stats.gamesPlayed}\n`;
+          result += `â€¢ **Signals Generated**: ${userGamification.stats.signalsGenerated}\n\n`;
 
-          result += `🔥 **Streaks:**\n`;
-          result += `• **Daily**: ${userGamification.streaks.daily} days\n`;
-          result += `• **Weekly**: ${userGamification.streaks.weekly} weeks\n`;
-          result += `• **Monthly**: ${userGamification.streaks.monthly} months\n\n`;
+          result += `ðŸ”¥ **Streaks:**\n`;
+          result += `â€¢ **Daily**: ${userGamification.streaks.daily} days\n`;
+          result += `â€¢ **Weekly**: ${userGamification.streaks.weekly} weeks\n`;
+          result += `â€¢ **Monthly**: ${userGamification.streaks.monthly} months\n\n`;
 
           if (userGamification.achievements.size > 0) {
-            result += `🏅 **Achievements Unlocked:**\n`;
+            result += `ðŸ… **Achievements Unlocked:**\n`;
             Array.from(userGamification.achievements).forEach(achievement => {
-              result += `• ${achievement}\n`;
+              result += `â€¢ ${achievement}\n`;
             });
             result += `\n`;
           }
 
           if (userGamification.badges.size > 0) {
-            result += `🎖️ **Badges Earned:**\n`;
+            result += `ðŸŽ–ï¸ **Badges Earned:**\n`;
             Array.from(userGamification.badges).forEach(badge => {
-              result += `• ${badge}\n`;
+              result += `â€¢ ${badge}\n`;
             });
             result += `\n`;
           }
 
-          result += `💡 **Pro Tip**: Complete daily tasks to maintain your streaks!`;
+          result += `ðŸ’¡ **Pro Tip**: Complete daily tasks to maintain your streaks!`;
           break;
 
         case 'check_achievements':
@@ -7334,18 +7340,18 @@ const availableFunctions = {
             'Power User'
           ];
 
-          result = `🏅 **Available Achievements** 🏅\n\n`;
+          result = `ðŸ… **Available Achievements** ðŸ…\n\n`;
           availableAchievements.forEach((achievement, index) => {
             const isUnlocked = userGamification.achievements.has(achievement);
-            const emoji = isUnlocked ? '✅' : '🔒';
+            const emoji = isUnlocked ? 'âœ…' : 'ðŸ”’';
             result += `${emoji} **${achievement}**\n`;
             if (!isUnlocked) {
-              result += `   └─ ${getAchievementRequirement(achievement)}\n`;
+              result += `   â””â”€ ${getAchievementRequirement(achievement)}\n`;
             }
             result += `\n`;
           });
 
-          result += `💡 **Pro Tip**: Complete achievements to earn bonus points and unlock rewards!`;
+          result += `ðŸ’¡ **Pro Tip**: Complete achievements to earn bonus points and unlock rewards!`;
           break;
 
         case 'leaderboard':
@@ -7358,16 +7364,16 @@ const availableFunctions = {
             { rank: 5, name: 'You', points: userGamification.points, level: userGamification.level }
           ];
 
-          result = `🏆 **Leaderboard** 🏆\n\n`;
+          result = `ðŸ† **Leaderboard** ðŸ†\n\n`;
           mockLeaderboard.forEach(entry => {
             const isYou = entry.name === 'You';
-            const emoji = entry.rank === 1 ? '🥇' : entry.rank === 2 ? '🥈' : entry.rank === 3 ? '🥉' : '🏅';
+            const emoji = entry.rank === 1 ? 'ðŸ¥‡' : entry.rank === 2 ? 'ðŸ¥ˆ' : entry.rank === 3 ? 'ðŸ¥‰' : 'ðŸ…';
             const highlight = isYou ? '**' : '';
             result += `${emoji} ${highlight}${entry.rank}. ${entry.name}${highlight}\n`;
-            result += `   ⭐ ${entry.points} points | 🏆 Level ${entry.level}\n\n`;
+            result += `   â­ ${entry.points} points | ðŸ† Level ${entry.level}\n\n`;
           });
 
-          result += `💡 **Pro Tip**: Climb the leaderboard by earning points through daily activities!`;
+          result += `ðŸ’¡ **Pro Tip**: Climb the leaderboard by earning points through daily activities!`;
           break;
 
         case 'daily_rewards':
@@ -7381,38 +7387,38 @@ const availableFunctions = {
             userGamification.streaks.daily += 1;
             userGamification.lastActivity = Date.now();
 
-            result = `🎁 **Daily Reward Claimed!** 🎁\n\n`;
-            result += `⭐ **Points**: +${dailyReward}\n`;
-            result += `🔥 **Streak**: ${userGamification.streaks.daily} days\n`;
-            result += `📊 **Total Points**: ${userGamification.points}\n\n`;
-            result += `💡 **Come back tomorrow for your next reward!**`;
+            result = `ðŸŽ **Daily Reward Claimed!** ðŸŽ\n\n`;
+            result += `â­ **Points**: +${dailyReward}\n`;
+            result += `ðŸ”¥ **Streak**: ${userGamification.streaks.daily} days\n`;
+            result += `ðŸ“Š **Total Points**: ${userGamification.points}\n\n`;
+            result += `ðŸ’¡ **Come back tomorrow for your next reward!**`;
           } else {
-            result = `⏰ **Daily Reward** ⏰\n\n`;
+            result = `â° **Daily Reward** â°\n\n`;
             result += `You've already claimed your daily reward today!\n`;
-            result += `🔥 **Current Streak**: ${userGamification.streaks.daily} days\n`;
-            result += `⏰ **Next Reward**: Tomorrow\n\n`;
-            result += `💡 **Pro Tip**: Maintain your streak for bonus rewards!`;
+            result += `ðŸ”¥ **Current Streak**: ${userGamification.streaks.daily} days\n`;
+            result += `â° **Next Reward**: Tomorrow\n\n`;
+            result += `ðŸ’¡ **Pro Tip**: Maintain your streak for bonus rewards!`;
           }
           break;
 
         default:
-          result = `🎮 **Gamification System** 🎮\n\n`;
+          result = `ðŸŽ® **Gamification System** ðŸŽ®\n\n`;
           result += `Available actions:\n`;
-          result += `• "earn points" - Earn points for activities\n`;
-          result += `• "view profile" - See your gamification profile\n`;
-          result += `• "check achievements" - View available achievements\n`;
-          result += `• "leaderboard" - See the leaderboard\n`;
-          result += `• "daily rewards" - Claim daily rewards\n\n`;
-          result += `💡 **Pro Tip**: Gamification makes crypto fun and rewarding!`;
+          result += `â€¢ "earn points" - Earn points for activities\n`;
+          result += `â€¢ "view profile" - See your gamification profile\n`;
+          result += `â€¢ "check achievements" - View available achievements\n`;
+          result += `â€¢ "leaderboard" - See the leaderboard\n`;
+          result += `â€¢ "daily rewards" - Claim daily rewards\n\n`;
+          result += `ðŸ’¡ **Pro Tip**: Gamification makes crypto fun and rewarding!`;
       }
 
       // Add quick actions based on action
       if (action === 'view_profile') {
         quickActions = [
-          { id: "check_achievements", label: "🏅 Achievements", style: "primary" },
-          { id: "leaderboard", label: "🏆 Leaderboard", style: "secondary" },
-          { id: "daily_rewards", label: "🎁 Daily Rewards", style: "secondary" },
-          { id: "earn_points", label: "⭐ Earn Points", style: "secondary" }
+          { id: "check_achievements", label: "ðŸ… Achievements", style: "primary" },
+          { id: "leaderboard", label: "ðŸ† Leaderboard", style: "secondary" },
+          { id: "daily_rewards", label: "ðŸŽ Daily Rewards", style: "secondary" },
+          { id: "earn_points", label: "â­ Earn Points", style: "secondary" }
         ];
       }
 
@@ -7427,7 +7433,7 @@ const availableFunctions = {
       log('error', `--- GAMIFICATION SYSTEM END --- ERROR`, { error: error.message });
       return {
         error: "Failed to process gamification",
-        userMessage: "❌ Sorry, I couldn't process the gamification request right now. Please try again."
+        userMessage: "âŒ Sorry, I couldn't process the gamification request right now. Please try again."
       };
     }
   },
@@ -7587,7 +7593,7 @@ const availableFunctions = {
       
       const selectedChain = chainMap[chain.toLowerCase()];
       if (!selectedChain) {
-        return `❌ Invalid chain. Available: ${Object.keys(chainMap).join(', ')}`;
+        return `âŒ Invalid chain. Available: ${Object.keys(chainMap).join(', ')}`;
       }
       
       // Fetch real-time gas data with fallback APIs
@@ -7674,7 +7680,7 @@ const availableFunctions = {
         }
         
         if (!gasData) {
-          return `❌ Couldn't fetch gas data for ${selectedChain.name}. Please try again.`;
+          return `âŒ Couldn't fetch gas data for ${selectedChain.name}. Please try again.`;
         }
       }
       
@@ -7687,53 +7693,53 @@ const availableFunctions = {
         'NFT Mint': 300000
       };
       
-      let result = `⛽ **${selectedChain.name} Real-Time Gas Fees** ⛽\n\n`;
-      result += `📊 **Source**: ${apiUsed.includes('api.') ? selectedChain.explorer + ' Gas Oracle' : apiUsed}\n`;
-      result += `⏰ **Updated**: ${new Date().toLocaleString()}\n\n`;
+      let result = `â›½ **${selectedChain.name} Real-Time Gas Fees** â›½\n\n`;
+      result += `ðŸ“Š **Source**: ${apiUsed.includes('api.') ? selectedChain.explorer + ' Gas Oracle' : apiUsed}\n`;
+      result += `â° **Updated**: ${new Date().toLocaleString()}\n\n`;
       
       // Gas price levels
-      result += `🎯 **Gas Price Levels:**\n`;
-      result += `• 🟢 **Safe**: ${gasData.SafeGasPrice} Gwei\n`;
-      result += `• 🟡 **Standard**: ${gasData.ProposeGasPrice} Gwei\n`;
-      result += `• 🔴 **Fast**: ${gasData.FastGasPrice} Gwei\n\n`;
+      result += `ðŸŽ¯ **Gas Price Levels:**\n`;
+      result += `â€¢ ðŸŸ¢ **Safe**: ${gasData.SafeGasPrice} Gwei\n`;
+      result += `â€¢ ðŸŸ¡ **Standard**: ${gasData.ProposeGasPrice} Gwei\n`;
+      result += `â€¢ ðŸ”´ **Fast**: ${gasData.FastGasPrice} Gwei\n\n`;
       
       // Transaction cost estimates
-      result += `💰 **Transaction Cost Estimates:**\n`;
+      result += `ðŸ’° **Transaction Cost Estimates:**\n`;
       
       for (const [txType, gasLimit] of Object.entries(gasLimits)) {
         const safeCost = (gasLimit * gasData.SafeGasPrice) / 1000000000; // Convert to ETH
         const standardCost = (gasLimit * gasData.ProposeGasPrice) / 1000000000;
         const fastCost = (gasLimit * gasData.FastGasPrice) / 1000000000;
         
-        result += `• **${txType}:**\n`;
+        result += `â€¢ **${txType}:**\n`;
         result += `  - Safe: ${safeCost.toFixed(6)} ETH\n`;
         result += `  - Standard: ${standardCost.toFixed(6)} ETH\n`;
         result += `  - Fast: ${fastCost.toFixed(6)} ETH\n`;
       }
       
       // Gas optimization tips
-      result += `\n💡 **Gas Optimization Tips:**\n`;
+      result += `\nðŸ’¡ **Gas Optimization Tips:**\n`;
       if (chain.toLowerCase() === 'base') {
-        result += `• Base has very low gas fees - perfect for DeFi!\n`;
-        result += `• Use Base for frequent transactions\n`;
-        result += `• Safe gas price is usually sufficient on Base\n`;
+        result += `â€¢ Base has very low gas fees - perfect for DeFi!\n`;
+        result += `â€¢ Use Base for frequent transactions\n`;
+        result += `â€¢ Safe gas price is usually sufficient on Base\n`;
       } else if (chain.toLowerCase() === 'ethereum') {
-        result += `• Ethereum gas can be expensive during peak times\n`;
-        result += `• Consider using Layer 2 solutions like Base\n`;
-        result += `• Check gas prices before sending large transactions\n`;
+        result += `â€¢ Ethereum gas can be expensive during peak times\n`;
+        result += `â€¢ Consider using Layer 2 solutions like Base\n`;
+        result += `â€¢ Check gas prices before sending large transactions\n`;
       } else {
-        result += `• ${selectedChain.name} offers lower fees than Ethereum\n`;
-        result += `• Safe gas price is usually sufficient\n`;
-        result += `• Monitor gas prices during high network activity\n`;
+        result += `â€¢ ${selectedChain.name} offers lower fees than Ethereum\n`;
+        result += `â€¢ Safe gas price is usually sufficient\n`;
+        result += `â€¢ Monitor gas prices during high network activity\n`;
       }
       
-      result += `\n📊 **Network Status:** ${gasData.SafeGasPrice <= 20 ? '🟢 Low Activity' : gasData.SafeGasPrice <= 50 ? '🟡 Moderate Activity' : '🔴 High Activity'}`;
+      result += `\nðŸ“Š **Network Status:** ${gasData.SafeGasPrice <= 20 ? 'ðŸŸ¢ Low Activity' : gasData.SafeGasPrice <= 50 ? 'ðŸŸ¡ Moderate Activity' : 'ðŸ”´ High Activity'}`;
       
       log('info', `--- GET REAL-TIME GAS FEES END --- Success`);
       return result;
     } catch (error) {
       log('error', `--- GET REAL-TIME GAS FEES END --- ERROR`, { error: error.message });
-      return `❌ Sorry, I couldn't fetch gas fees for ${chain} right now. Please try again in a moment.`;
+      return `âŒ Sorry, I couldn't fetch gas fees for ${chain} right now. Please try again in a moment.`;
     }
   },
 
@@ -7742,7 +7748,7 @@ const availableFunctions = {
     
     try {
       if (!isAddress(address)) {
-        return { error: "Invalid address format.", userMessage: "❌ Please provide a valid Ethereum address (0x...)" };
+        return { error: "Invalid address format.", userMessage: "âŒ Please provide a valid Ethereum address (0x...)" };
       }
       
       // --- FIX: CORRECTED CHAIN IDS FOR BASE APP ---
@@ -7758,7 +7764,7 @@ const availableFunctions = {
 
       const selectedChain = chainMap[chain.toLowerCase()];
       if (!selectedChain) {
-        return { error: "Invalid chain.", userMessage: `❌ Invalid chain specified. Please choose one of: ${Object.keys(chainMap).join(', ')}.` };
+        return { error: "Invalid chain.", userMessage: `âŒ Invalid chain specified. Please choose one of: ${Object.keys(chainMap).join(', ')}.` };
       }
 
       try {
@@ -7787,7 +7793,7 @@ const availableFunctions = {
 
         // Return the transaction data with a flag to send it
         return {
-          userMessage: `💸 Ready to send ${amount} ETH on ${chain.charAt(0).toUpperCase() + chain.slice(1)}?\n\nCheck your transaction tray above to approve this transfer.`,
+          userMessage: `ðŸ’¸ Ready to send ${amount} ETH on ${chain.charAt(0).toUpperCase() + chain.slice(1)}?\n\nCheck your transaction tray above to approve this transfer.`,
           transactionData: transactionData,
           // Add this flag to indicate we want to send a transaction
           isTransaction: true,
@@ -7795,11 +7801,11 @@ const availableFunctions = {
         };
       } catch (error) {
         log('error', `--- SEND ETH END --- ERROR`, { error: error.message });
-        return { error: "Invalid amount format.", userMessage: "❌ Please provide a valid amount (e.g., '0.001')." };
+        return { error: "Invalid amount format.", userMessage: "âŒ Please provide a valid amount (e.g., '0.001')." };
       }
     } catch (error) {
       log('error', `--- SEND ETH END --- ERROR`, { error: error.message });
-      return { error: "Failed to create transaction.", userMessage: "❌ Sorry, I couldn't create the transaction. Please try again." };
+      return { error: "Failed to create transaction.", userMessage: "âŒ Sorry, I couldn't create the transaction. Please try again." };
     }
   },
 
@@ -7819,25 +7825,25 @@ const availableFunctions = {
 
       const selectedChain = chainMap[chain.toLowerCase()];
       if (!selectedChain) {
-        return `❌ Invalid chain specified. Available chains: ${Object.keys(chainMap).join(', ')}`;
+        return `âŒ Invalid chain specified. Available chains: ${Object.keys(chainMap).join(', ')}`;
       }
 
       // Get gas prices (simplified)
-      let gasInfo = "⛽ **Gas Fees:** Normal";
+      let gasInfo = "â›½ **Gas Fees:** Normal";
       if (chain.toLowerCase() === 'ethereum') {
-        gasInfo = "⛽ **Gas Fees:** High (Ethereum)";
+        gasInfo = "â›½ **Gas Fees:** High (Ethereum)";
       } else if (chain.toLowerCase() === 'base') {
-        gasInfo = "⛽ **Gas Fees:** Low (Base)";
+        gasInfo = "â›½ **Gas Fees:** Low (Base)";
       }
 
-      const status = `🌐 **${selectedChain.name} Network Status**
+      const status = `ðŸŒ **${selectedChain.name} Network Status**
 
 ${gasInfo}
-🔗 **Chain ID:** ${selectedChain.chainId}
-🌐 **RPC:** ${selectedChain.rpc}
-✅ **Status:** Online and operational
+ðŸ”— **Chain ID:** ${selectedChain.chainId}
+ðŸŒ **RPC:** ${selectedChain.rpc}
+âœ… **Status:** Online and operational
 
-💡 **Tip:** Base has the lowest fees for most transactions!`;
+ðŸ’¡ **Tip:** Base has the lowest fees for most transactions!`;
 
       log('info', `--- GET NETWORK STATUS END --- Success`);
       return status;
@@ -7850,7 +7856,7 @@ ${gasInfo}
   check_project_safety: async ({ projectName }) => {
     log('info', `--- SAFETY CHECK START --- Project: ${projectName}`);
     let score = 0;
-    let report = `🔍 **Safety Report for "${projectName}":**\n\n`;
+    let report = `ðŸ” **Safety Report for "${projectName}":**\n\n`;
     let officialLinks = {};
     
     try {
@@ -7858,7 +7864,7 @@ ${gasInfo}
       const coinId = await getCoinId(projectName);
       if (coinId) {
         score += 25;
-        report += `✅ **CoinGecko Listed:** Found on CoinGecko, a trusted data aggregator. (+25)\n`;
+        report += `âœ… **CoinGecko Listed:** Found on CoinGecko, a trusted data aggregator. (+25)\n`;
         
         // Get detailed project data
         const response = await fetch(`https://api.coingecko.com/api/v3/coins/${coinId}`);
@@ -7867,10 +7873,10 @@ ${gasInfo}
         // Check market cap rank
         if (data.market_cap_rank && data.market_cap_rank <= 100) {
           score += 15;
-          report += `✅ **Top 100 Rank:** Highly ranked on CoinGecko (Rank #${data.market_cap_rank}). (+15)\n`;
+          report += `âœ… **Top 100 Rank:** Highly ranked on CoinGecko (Rank #${data.market_cap_rank}). (+15)\n`;
         } else if (data.market_cap_rank && data.market_cap_rank <= 500) {
           score += 10;
-          report += `✅ **Top 500 Rank:** Well-ranked on CoinGecko (Rank #${data.market_cap_rank}). (+10)\n`;
+          report += `âœ… **Top 500 Rank:** Well-ranked on CoinGecko (Rank #${data.market_cap_rank}). (+10)\n`;
         }
         
         // Extract official links
@@ -7878,16 +7884,16 @@ ${gasInfo}
           if (data.links.homepage && data.links.homepage[0]) {
             officialLinks.website = data.links.homepage[0];
             score += 10;
-            report += `✅ **Official Website:** Found official website. (+10)\n`;
+            report += `âœ… **Official Website:** Found official website. (+10)\n`;
           }
           if (data.links.twitter_screen_name) {
             officialLinks.twitter = `https://x.com/${data.links.twitter_screen_name}`;
             score += 5;
-            report += `✅ **Social Media:** Active on X (Twitter). (+5)\n`;
+            report += `âœ… **Social Media:** Active on X (Twitter). (+5)\n`;
           }
         }
       } else {
-        report += `❌ **Not on CoinGecko:** Not found on major data aggregator. (-10)\n`;
+        report += `âŒ **Not on CoinGecko:** Not found on major data aggregator. (-10)\n`;
         score -= 10;
       }
       
@@ -7902,44 +7908,44 @@ ${gasInfo}
           // Check for positive indicators
           if (content.includes('audit') && (content.includes('passed') || content.includes('successful'))) {
             score += 20;
-            report += `✅ **Security Audit:** Evidence of security audits found. (+20)\n`;
+            report += `âœ… **Security Audit:** Evidence of security audits found. (+20)\n`;
           }
           if (content.includes('team') && (content.includes('experienced') || content.includes('reputable'))) {
             score += 10;
-            report += `✅ **Team Quality:** Experienced team mentioned. (+10)\n`;
+            report += `âœ… **Team Quality:** Experienced team mentioned. (+10)\n`;
           }
           if (content.includes('partnership') || content.includes('collaboration')) {
             score += 5;
-            report += `✅ **Partnerships:** Active partnerships mentioned. (+5)\n`;
+            report += `âœ… **Partnerships:** Active partnerships mentioned. (+5)\n`;
           }
           
           // Check for negative indicators
           if (content.includes('scam') || content.includes('fraud') || content.includes('hack')) {
             score -= 30;
-            report += `⚠️ **Risk Warning:** Negative reports found. (-30)\n`;
+            report += `âš ï¸ **Risk Warning:** Negative reports found. (-30)\n`;
           }
           if (content.includes('rug pull') || content.includes('exit scam')) {
             score -= 50;
-            report += `🚨 **High Risk:** Exit scam warnings found. (-50)\n`;
+            report += `ðŸš¨ **High Risk:** Exit scam warnings found. (-50)\n`;
           }
         }
       } catch (searchError) {
         log('error', `Web search failed for safety check`, { error: searchError.message });
-        report += `⚠️ **Limited Data:** Could not perform comprehensive web search.\n`;
+        report += `âš ï¸ **Limited Data:** Could not perform comprehensive web search.\n`;
       }
       
       // Calculate final safety level
-      let safetyLevel = "🟢 LOW RISK";
-      let safetyColor = "🟢";
+      let safetyLevel = "ðŸŸ¢ LOW RISK";
+      let safetyColor = "ðŸŸ¢";
       if (score < 0) {
-        safetyLevel = "🔴 HIGH RISK";
-        safetyColor = "🔴";
+        safetyLevel = "ðŸ”´ HIGH RISK";
+        safetyColor = "ðŸ”´";
       } else if (score < 30) {
-        safetyLevel = "🟡 MEDIUM RISK";
-        safetyColor = "🟡";
+        safetyLevel = "ðŸŸ¡ MEDIUM RISK";
+        safetyColor = "ðŸŸ¡";
       } else if (score < 60) {
-        safetyLevel = "🟠 MODERATE RISK";
-        safetyColor = "🟠";
+        safetyLevel = "ðŸŸ  MODERATE RISK";
+        safetyColor = "ðŸŸ ";
       }
       
       report += `\n${safetyColor} **SAFETY SCORE: ${score}/100**\n`;
@@ -7947,24 +7953,24 @@ ${gasInfo}
       
       // Add official links if found
       if (Object.keys(officialLinks).length > 0) {
-        report += `🔗 **Official Links:**\n`;
+        report += `ðŸ”— **Official Links:**\n`;
         if (officialLinks.website) {
-          report += `• Website: ${officialLinks.website}\n`;
+          report += `â€¢ Website: ${officialLinks.website}\n`;
         }
         if (officialLinks.twitter) {
-          report += `• X (Twitter): ${officialLinks.twitter}\n`;
+          report += `â€¢ X (Twitter): ${officialLinks.twitter}\n`;
         }
         report += `\n`;
       }
       
       // Add disclaimer
-      report += `⚠️ **Disclaimer:** This is an automated analysis. Always do your own research (DYOR) before investing.`;
+      report += `âš ï¸ **Disclaimer:** This is an automated analysis. Always do your own research (DYOR) before investing.`;
       
       log('info', `--- SAFETY CHECK END --- Score: ${score}`);
       return report;
     } catch (error) {
       log('error', `--- SAFETY CHECK END --- ERROR`, { error: error.message });
-      return `❌ Sorry, I had trouble analyzing "${projectName}". Please try again in a moment.`;
+      return `âŒ Sorry, I had trouble analyzing "${projectName}". Please try again in a moment.`;
     }
   },
 
@@ -7977,14 +7983,14 @@ ${gasInfo}
       const data = await response.json();
       
       if (!data.results || data.results.length === 0) {
-        return "📰 No recent news found. The crypto market might be quiet right now.";
+        return "ðŸ“° No recent news found. The crypto market might be quiet right now.";
       }
       
-      let news = "📰 **Latest Crypto News:**\n\n";
+      let news = "ðŸ“° **Latest Crypto News:**\n\n";
       data.results.slice(0, 5).forEach((article, index) => {
         news += `${index + 1}. **${article.title}**\n`;
         news += `   ${article.content.substring(0, 150)}...\n`;
-        news += `   🔗 ${article.url}\n\n`;
+        news += `   ðŸ”— ${article.url}\n\n`;
       });
       
       log('info', `--- GET MARKET NEWS END --- Success`);
@@ -8001,7 +8007,7 @@ ${gasInfo}
     try {
       const fromId = await getCoinId(fromCurrency);
       if (!fromId) {
-        return `❌ Sorry, I couldn't find the source currency "${fromCurrency}". Please check the ticker symbol.`;
+        return `âŒ Sorry, I couldn't find the source currency "${fromCurrency}". Please check the ticker symbol.`;
       }
 
       const controller = new AbortController();
@@ -8018,12 +8024,12 @@ ${gasInfo}
       if (toCurrency.toUpperCase() === 'USD') {
           const result = amount * fromPriceInUsd;
           log('info', `--- CONVERSION END --- Success.`);
-          return `💱 **Conversion:** ${amount} ${fromCurrency.toUpperCase()} is approximately **$${result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })} USD**.`;
+          return `ðŸ’± **Conversion:** ${amount} ${fromCurrency.toUpperCase()} is approximately **$${result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })} USD**.`;
       }
 
       const toId = await getCoinId(toCurrency);
       if (!toId) {
-          return `❌ Sorry, I couldn't find the target currency "${toCurrency}". Please check the ticker symbol.`;
+          return `âŒ Sorry, I couldn't find the target currency "${toCurrency}". Please check the ticker symbol.`;
       }
       
       const toResponse = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${toId}&vs_currencies=usd`, { signal: controller.signal });
@@ -8032,7 +8038,7 @@ ${gasInfo}
 
       const result = (amount * fromPriceInUsd) / toPriceInUsd;
       log('info', `--- CONVERSION END --- Success.`);
-      return `💱 **Conversion:** ${amount} ${fromCurrency.toUpperCase()} is approximately **${result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })} ${toCurrency.toUpperCase()}**.`;
+      return `ðŸ’± **Conversion:** ${amount} ${fromCurrency.toUpperCase()} is approximately **${result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })} ${toCurrency.toUpperCase()}**.`;
 
     } catch (error) {
       log('error', `--- CONVERSION END --- ERROR`, { error: error.message });
@@ -8047,7 +8053,7 @@ ${gasInfo}
       // This is a simplified version that handles basic operations
       let processedExpression = expression.toLowerCase()
         .replace(/x/g, '*')
-        .replace(/÷/g, '/')
+        .replace(/Ã·/g, '/')
         .replace(/percent of/g, '*')
         .replace(/%/g, '/100*')
         .replace(/sqrt\(/g, 'Math.sqrt(')
@@ -8069,10 +8075,10 @@ ${gasInfo}
       const result = Function('"use strict"; return (' + processedExpression + ')')();
       
       log('info', `--- MATH CALCULATION END --- Result: ${result}`);
-      return `🧮 **Calculation Result:**\n\n${expression} = **${result.toLocaleString()}**`;
+      return `ðŸ§® **Calculation Result:**\n\n${expression} = **${result.toLocaleString()}**`;
     } catch (error) {
       log('error', `--- MATH CALCULATION END --- ERROR`, { error: error.message });
-      return `❌ Sorry, I couldn't calculate that expression. Please check the format and try again.`;
+      return `âŒ Sorry, I couldn't calculate that expression. Please check the format and try again.`;
     }
   },
 
@@ -8081,7 +8087,7 @@ ${gasInfo}
     
     try {
       if (!isAddress(address)) {
-        return "❌ Please provide a valid Ethereum address (0x...)";
+        return "âŒ Please provide a valid Ethereum address (0x...)";
       }
 
       const chainMap = {
@@ -8096,22 +8102,22 @@ ${gasInfo}
 
       const selectedChain = chainMap[chain.toLowerCase()];
       if (!selectedChain) {
-        return `❌ Invalid chain specified. Available chains: ${Object.keys(chainMap).join(', ')}`;
+        return `âŒ Invalid chain specified. Available chains: ${Object.keys(chainMap).join(', ')}`;
       }
 
       // Get ETH balance
       const balance = await selectedChain.client.getBalance({ address });
       const balanceInEth = formatEther(balance);
       
-      let portfolio = `💼 **Portfolio on ${selectedChain.name}**\n\n`;
-      portfolio += `💰 **ETH Balance:** ${parseFloat(balanceInEth).toFixed(6)} ETH\n`;
-      portfolio += `🔗 **Address:** ${address.slice(0, 6)}...${address.slice(-4)}\n`;
-      portfolio += `🌐 **Chain:** ${selectedChain.name} (ID: ${selectedChain.chainId})\n\n`;
+      let portfolio = `ðŸ’¼ **Portfolio on ${selectedChain.name}**\n\n`;
+      portfolio += `ðŸ’° **ETH Balance:** ${parseFloat(balanceInEth).toFixed(6)} ETH\n`;
+      portfolio += `ðŸ”— **Address:** ${address.slice(0, 6)}...${address.slice(-4)}\n`;
+      portfolio += `ðŸŒ **Chain:** ${selectedChain.name} (ID: ${selectedChain.chainId})\n\n`;
       
       if (parseFloat(balanceInEth) === 0) {
-        portfolio += `💡 **Tip:** This address has no ETH balance. Consider adding some ETH for transactions!`;
+        portfolio += `ðŸ’¡ **Tip:** This address has no ETH balance. Consider adding some ETH for transactions!`;
       } else {
-        portfolio += `💡 **Tip:** You can use this ETH for transactions, DeFi, or NFT purchases on ${selectedChain.name}!`;
+        portfolio += `ðŸ’¡ **Tip:** You can use this ETH for transactions, DeFi, or NFT purchases on ${selectedChain.name}!`;
       }
       
       log('info', `--- GET PORTFOLIO END --- Success`);
@@ -8122,7 +8128,7 @@ ${gasInfo}
     }
   },
 
-  // 🧠 ADVANCED AI CAPABILITIES
+  // ðŸ§  ADVANCED AI CAPABILITIES
   smart_context_learning: async ({ userId, message, context }) => {
     log('info', `--- SMART CONTEXT LEARNING START --- User: ${userId}`);
     
@@ -8134,14 +8140,14 @@ ${gasInfo}
       const suggestions = smartContextLearning.predictUserNeeds(userId, context);
       const personalizedGreeting = smartContextLearning.getPersonalizedGreeting(userId);
       
-      let response = `🧠 **Smart Learning Activated!**\n\n`;
+      let response = `ðŸ§  **Smart Learning Activated!**\n\n`;
       
       if (personalizedGreeting) {
-        response += `💡 **Personalized Suggestion:** ${personalizedGreeting}\n\n`;
+        response += `ðŸ’¡ **Personalized Suggestion:** ${personalizedGreeting}\n\n`;
       }
       
       if (suggestions.length > 0) {
-        response += `🎯 **Recommended Actions:**\n`;
+        response += `ðŸŽ¯ **Recommended Actions:**\n`;
         suggestions.forEach((suggestion, index) => {
           response += `${index + 1}. ${suggestion.replace('_', ' ').toUpperCase()}\n`;
         });
@@ -8167,30 +8173,30 @@ ${gasInfo}
         marketIntelligence.predictiveAnalytics(token)
       ]);
       
-      let response = `🔮 **Predictive Analysis for ${token.toUpperCase()}**\n\n`;
+      let response = `ðŸ”® **Predictive Analysis for ${token.toUpperCase()}**\n\n`;
       
       // Sentiment Analysis
-      response += `📊 **Market Sentiment:**\n`;
-      response += `• **Score:** ${sentiment.score.toFixed(2)} (${sentiment.sentiment})\n`;
-      response += `• **Confidence:** ${(sentiment.confidence * 100).toFixed(1)}%\n\n`;
+      response += `ðŸ“Š **Market Sentiment:**\n`;
+      response += `â€¢ **Score:** ${sentiment.score.toFixed(2)} (${sentiment.sentiment})\n`;
+      response += `â€¢ **Confidence:** ${(sentiment.confidence * 100).toFixed(1)}%\n\n`;
       
       // Predictive Analytics
       if (prediction) {
-        response += `📈 **Price Prediction:**\n`;
-        response += `• **Trend:** ${prediction.trend.toUpperCase()}\n`;
-        response += `• **Strength:** ${(prediction.strength * 100).toFixed(1)}%\n`;
-        response += `• **Volatility:** ${(prediction.volatility * 100).toFixed(1)}%\n`;
-        response += `• **Volume Ratio:** ${prediction.volumeRatio.toFixed(2)}x\n`;
-        response += `• **Confidence:** ${(prediction.confidence * 100).toFixed(1)}%\n\n`;
+        response += `ðŸ“ˆ **Price Prediction:**\n`;
+        response += `â€¢ **Trend:** ${prediction.trend.toUpperCase()}\n`;
+        response += `â€¢ **Strength:** ${(prediction.strength * 100).toFixed(1)}%\n`;
+        response += `â€¢ **Volatility:** ${(prediction.volatility * 100).toFixed(1)}%\n`;
+        response += `â€¢ **Volume Ratio:** ${prediction.volumeRatio.toFixed(2)}x\n`;
+        response += `â€¢ **Confidence:** ${(prediction.confidence * 100).toFixed(1)}%\n\n`;
       }
       
       // Risk Assessment
       const risk = await marketIntelligence.riskAssessment(token);
-      response += `⚠️ **Risk Assessment:**\n`;
-      response += `• **Level:** ${risk.level.toUpperCase()}\n`;
-      response += `• **Score:** ${(risk.score * 100).toFixed(1)}%\n`;
+      response += `âš ï¸ **Risk Assessment:**\n`;
+      response += `â€¢ **Level:** ${risk.level.toUpperCase()}\n`;
+      response += `â€¢ **Score:** ${(risk.score * 100).toFixed(1)}%\n`;
       if (risk.factors.length > 0) {
-        response += `• **Factors:** ${risk.factors.join(', ')}\n`;
+        response += `â€¢ **Factors:** ${risk.factors.join(', ')}\n`;
       }
       
       return {
@@ -8211,18 +8217,18 @@ ${gasInfo}
     try {
       const recommendations = gameAI.recommendGames(userId, groupSize, timeAvailable, preferences);
       
-      let response = `🎮 **AI Game Recommendations**\n\n`;
-      response += `👥 **Group Size:** ${groupSize}\n`;
-      response += `⏱️ **Time Available:** ${timeAvailable} minutes\n\n`;
+      let response = `ðŸŽ® **AI Game Recommendations**\n\n`;
+      response += `ðŸ‘¥ **Group Size:** ${groupSize}\n`;
+      response += `â±ï¸ **Time Available:** ${timeAvailable} minutes\n\n`;
       
       if (recommendations.length === 0) {
-        response += `❌ No games match your criteria. Try adjusting time or group size.`;
+        response += `âŒ No games match your criteria. Try adjusting time or group size.`;
       } else {
-        response += `🎯 **Recommended Games:**\n\n`;
+        response += `ðŸŽ¯ **Recommended Games:**\n\n`;
         recommendations.forEach((rec, index) => {
           response += `${index + 1}. **${rec.game}**\n`;
-          response += `   💡 ${rec.reason}\n`;
-          response += `   ⏱️ ~${rec.estimatedTime} min | 🎚️ ${rec.difficulty}\n\n`;
+          response += `   ðŸ’¡ ${rec.reason}\n`;
+          response += `   â±ï¸ ~${rec.estimatedTime} min | ðŸŽšï¸ ${rec.difficulty}\n\n`;
         });
       }
       
@@ -8258,13 +8264,13 @@ ${gasInfo}
       
       if (result) {
         return {
-          userMessage: `🎤 **Voice Command Executed:** ${command}\n\n${result}`,
+          userMessage: `ðŸŽ¤ **Voice Command Executed:** ${command}\n\n${result}`,
           command: command,
           result: result
         };
       } else {
         return {
-          userMessage: `❌ **Voice Command Not Recognized:** "${command}"\n\nAvailable commands: ${Object.keys(voiceFeatures.voiceCommands).join(', ')}`,
+          userMessage: `âŒ **Voice Command Not Recognized:** "${command}"\n\nAvailable commands: ${Object.keys(voiceFeatures.voiceCommands).join(', ')}`,
           error: "Command not found"
         };
       }
@@ -8280,17 +8286,17 @@ ${gasInfo}
     try {
       const automation = smartAutomation.createAutomation(userId, type, conditions, actions);
       
-      let response = `🤖 **Smart Automation Created!**\n\n`;
-      response += `🆔 **ID:** ${automation.id}\n`;
-      response += `📋 **Type:** ${type}\n`;
-      response += `⚙️ **Status:** ${automation.active ? 'Active' : 'Inactive'}\n\n`;
+      let response = `ðŸ¤– **Smart Automation Created!**\n\n`;
+      response += `ðŸ†” **ID:** ${automation.id}\n`;
+      response += `ðŸ“‹ **Type:** ${type}\n`;
+      response += `âš™ï¸ **Status:** ${automation.active ? 'Active' : 'Inactive'}\n\n`;
       
-      response += `📊 **Conditions:**\n`;
+      response += `ðŸ“Š **Conditions:**\n`;
       Object.entries(conditions).forEach(([key, value]) => {
-        response += `• ${key}: ${value}\n`;
+        response += `â€¢ ${key}: ${value}\n`;
       });
       
-      response += `\n🎯 **Actions:**\n`;
+      response += `\nðŸŽ¯ **Actions:**\n`;
       actions.forEach((action, index) => {
         response += `${index + 1}. ${action.type}: ${action.description || 'No description'}\n`;
       });
@@ -8310,36 +8316,36 @@ ${gasInfo}
     
     try {
       let result = null;
-      let response = `🌐 **Community Feature: ${action.toUpperCase()}**\n\n`;
+      let response = `ðŸŒ **Community Feature: ${action.toUpperCase()}**\n\n`;
       
       switch (action) {
         case 'create_group':
           result = communityFeatures.createUserGroup(groupName, description, userId);
-          response += `✅ **Group Created:** ${groupName}\n`;
-          response += `📝 **Description:** ${description}\n`;
-          response += `👥 **Members:** 1 (you)\n`;
-          response += `🔗 **Group ID:** ${result.id}\n`;
+          response += `âœ… **Group Created:** ${groupName}\n`;
+          response += `ðŸ“ **Description:** ${description}\n`;
+          response += `ðŸ‘¥ **Members:** 1 (you)\n`;
+          response += `ðŸ”— **Group ID:** ${result.id}\n`;
           break;
           
         case 'find_mentors':
           result = communityFeatures.matchMentors(userId, interests);
-          response += `🎓 **Mentor Matches:**\n\n`;
+          response += `ðŸŽ“ **Mentor Matches:**\n\n`;
           if (result.length === 0) {
-            response += `❌ No mentors found for your interests.`;
+            response += `âŒ No mentors found for your interests.`;
           } else {
             result.slice(0, 3).forEach((mentor, index) => {
               response += `${index + 1}. **User ${mentor.userId.slice(0, 8)}...**\n`;
-              response += `   🎯 Compatibility: ${(mentor.compatibility * 100).toFixed(1)}%\n`;
-              response += `   🏆 Expertise: ${(mentor.expertise * 100).toFixed(1)}%\n`;
-              response += `   🤝 Common Interests: ${mentor.commonInterests.join(', ')}\n\n`;
+              response += `   ðŸŽ¯ Compatibility: ${(mentor.compatibility * 100).toFixed(1)}%\n`;
+              response += `   ðŸ† Expertise: ${(mentor.expertise * 100).toFixed(1)}%\n`;
+              response += `   ðŸ¤ Common Interests: ${mentor.commonInterests.join(', ')}\n\n`;
             });
           }
           break;
           
         case 'update_reputation':
           communityFeatures.updateReputation(userId, 'helpful_response', 0.8);
-          response += `⭐ **Reputation Updated!**\n`;
-          response += `📈 Your helpfulness score has been increased.`;
+          response += `â­ **Reputation Updated!**\n`;
+          response += `ðŸ“ˆ Your helpfulness score has been increased.`;
           break;
           
         default:
@@ -8367,32 +8373,32 @@ ${gasInfo}
       const insights = advancedAnalytics.generateInsights(userId);
       const performanceMetrics = advancedAnalytics.calculatePerformanceMetrics();
       
-      let response = `📊 **Advanced Analytics & Insights**\n\n`;
+      let response = `ðŸ“Š **Advanced Analytics & Insights**\n\n`;
       
       // Performance Metrics
-      response += `🏥 **System Performance:**\n`;
-      response += `• **Total Users:** ${performanceMetrics.totalUsers}\n`;
-      response += `• **Active Users:** ${performanceMetrics.activeUsers}\n`;
-      response += `• **Avg Session:** ${Math.round(performanceMetrics.averageSessionLength / 1000)}s\n`;
-      response += `• **Response Time:** ${performanceMetrics.responseTime}ms\n`;
-      response += `• **Error Rate:** ${(performanceMetrics.errorRate * 100).toFixed(2)}%\n\n`;
+      response += `ðŸ¥ **System Performance:**\n`;
+      response += `â€¢ **Total Users:** ${performanceMetrics.totalUsers}\n`;
+      response += `â€¢ **Active Users:** ${performanceMetrics.activeUsers}\n`;
+      response += `â€¢ **Avg Session:** ${Math.round(performanceMetrics.averageSessionLength / 1000)}s\n`;
+      response += `â€¢ **Response Time:** ${performanceMetrics.responseTime}ms\n`;
+      response += `â€¢ **Error Rate:** ${(performanceMetrics.errorRate * 100).toFixed(2)}%\n\n`;
       
       // User Insights
       if (insights.length > 0) {
-        response += `💡 **Your Personal Insights:**\n\n`;
+        response += `ðŸ’¡ **Your Personal Insights:**\n\n`;
         insights.forEach((insight, index) => {
           response += `${index + 1}. **${insight.type.toUpperCase()}**\n`;
           response += `   ${insight.message}\n`;
           if (insight.recommendation) {
-            response += `   💡 **Suggestion:** ${insight.recommendation}\n`;
+            response += `   ðŸ’¡ **Suggestion:** ${insight.recommendation}\n`;
           }
           if (insight.milestones) {
-            response += `   🏆 **Milestones:** ${insight.milestones.join(', ')}\n`;
+            response += `   ðŸ† **Milestones:** ${insight.milestones.join(', ')}\n`;
           }
           response += `\n`;
         });
       } else {
-        response += `💡 **Personal Insights:** Keep using the agent to unlock personalized insights!`;
+        response += `ðŸ’¡ **Personal Insights:** Keep using the agent to unlock personalized insights!`;
       }
       
       return {
@@ -8438,15 +8444,15 @@ ${gasInfo}
       }
       
       if (shouldNotify) {
-        let response = `🔔 **Intelligent Notification**\n\n`;
-        response += `📋 **Type:** ${type}\n`;
-        response += `⏰ **Time:** ${new Date().toLocaleString()}\n\n`;
-        response += `💬 **Message:** ${message}\n\n`;
+        let response = `ðŸ”” **Intelligent Notification**\n\n`;
+        response += `ðŸ“‹ **Type:** ${type}\n`;
+        response += `â° **Time:** ${new Date().toLocaleString()}\n\n`;
+        response += `ðŸ’¬ **Message:** ${message}\n\n`;
         
         if (conditions) {
-          response += `📊 **Conditions Met:**\n`;
+          response += `ðŸ“Š **Conditions Met:**\n`;
           Object.entries(conditions).forEach(([key, value]) => {
-            response += `• ${key}: ${value}\n`;
+            response += `â€¢ ${key}: ${value}\n`;
           });
         }
         
@@ -8461,7 +8467,7 @@ ${gasInfo}
         };
       } else {
         return {
-          userMessage: `🔔 **Notification Setup Complete**\n\nYou'll be notified when conditions are met for: ${type}`,
+          userMessage: `ðŸ”” **Notification Setup Complete**\n\nYou'll be notified when conditions are met for: ${type}`,
           notification: { type: type, active: true }
         };
       }
@@ -8496,11 +8502,11 @@ ${gasInfo}
         }
       }
       
-      let response = `🤖 **AI-Powered Suggestions**\n\n`;
+      let response = `ðŸ¤– **AI-Powered Suggestions**\n\n`;
       
       // Personalized suggestions
       if (suggestions.length > 0) {
-        response += `🎯 **Recommended Actions:**\n`;
+        response += `ðŸŽ¯ **Recommended Actions:**\n`;
         suggestions.forEach((suggestion, index) => {
           response += `${index + 1}. ${suggestion.replace('_', ' ').toUpperCase()}\n`;
         });
@@ -8509,7 +8515,7 @@ ${gasInfo}
       
       // Game recommendations
       if (gameRecs.length > 0) {
-        response += `🎮 **Game Suggestions:**\n`;
+        response += `ðŸŽ® **Game Suggestions:**\n`;
         gameRecs.slice(0, 3).forEach((game, index) => {
           response += `${index + 1}. **${game.game}** - ${game.reason}\n`;
         });
@@ -8518,9 +8524,9 @@ ${gasInfo}
       
       // Market insights
       if (marketInsights.length > 0) {
-        response += `📊 **Market Insights:**\n`;
+        response += `ðŸ“Š **Market Insights:**\n`;
         marketInsights.forEach(insight => {
-          response += `• **${insight.token.toUpperCase()}:** ${insight.sentiment.sentiment} (${(insight.sentiment.confidence * 100).toFixed(1)}% confidence)\n`;
+          response += `â€¢ **${insight.token.toUpperCase()}:** ${insight.sentiment.sentiment} (${(insight.sentiment.confidence * 100).toFixed(1)}% confidence)\n`;
         });
         response += `\n`;
       }
@@ -8528,11 +8534,11 @@ ${gasInfo}
       // Time-based suggestions
       const hour = new Date().getHours();
       if (hour >= 9 && hour <= 17) {
-        response += `💼 **Market Hours:** Great time for trading and analysis!\n`;
+        response += `ðŸ’¼ **Market Hours:** Great time for trading and analysis!\n`;
       } else if (hour >= 18 && hour <= 22) {
-        response += `🎮 **Evening:** Perfect time for gaming and social features!\n`;
+        response += `ðŸŽ® **Evening:** Perfect time for gaming and social features!\n`;
       } else {
-        response += `🌙 **Late Night:** Consider setting up alerts for tomorrow.\n`;
+        response += `ðŸŒ™ **Late Night:** Consider setting up alerts for tomorrow.\n`;
       }
       
       return {
@@ -8555,7 +8561,7 @@ ${gasInfo}
       // Validate file URL
       if (!fileUrl || !fileUrl.startsWith('http')) {
         return {
-          userMessage: "❌ Invalid file URL. Please provide a valid HTTP/HTTPS URL.",
+          userMessage: "âŒ Invalid file URL. Please provide a valid HTTP/HTTPS URL.",
           error: "Invalid file URL"
         };
       }
@@ -8564,7 +8570,7 @@ ${gasInfo}
       const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'application/pdf', 'text/plain'];
       if (fileType && !allowedTypes.includes(fileType)) {
         return {
-          userMessage: `❌ Unsupported file type: ${fileType}. Supported types: ${allowedTypes.join(', ')}`,
+          userMessage: `âŒ Unsupported file type: ${fileType}. Supported types: ${allowedTypes.join(', ')}`,
           error: "Unsupported file type"
         };
       }
@@ -8578,7 +8584,7 @@ ${gasInfo}
       };
       
       return {
-        userMessage: `📎 **File Shared Successfully!**\n\n**File:** ${fileName || 'attachment'}\n**Type:** ${fileType || 'Unknown'}\n**Description:** ${description || 'No description'}\n\n🔗 **URL:** ${fileUrl}`,
+        userMessage: `ðŸ“Ž **File Shared Successfully!**\n\n**File:** ${fileName || 'attachment'}\n**Type:** ${fileType || 'Unknown'}\n**Description:** ${description || 'No description'}\n\nðŸ”— **URL:** ${fileUrl}`,
         attachmentData: attachmentData,
         isAttachment: true
       };
@@ -8596,7 +8602,7 @@ ${gasInfo}
       // Validate URL
       if (!url || !url.startsWith('http')) {
         return {
-          userMessage: "❌ Invalid URL. Please provide a valid HTTP/HTTPS URL.",
+          userMessage: "âŒ Invalid URL. Please provide a valid HTTP/HTTPS URL.",
           error: "Invalid URL"
         };
       }
@@ -8610,7 +8616,7 @@ ${gasInfo}
       };
       
       return {
-        userMessage: `🌐 **Remote Content Shared!**\n\n**Description:** ${description || 'Remote content'}\n**URL:** ${url}\n\n💡 **Benefits:**\n• Reduces message size\n• Faster loading\n• Better performance`,
+        userMessage: `ðŸŒ **Remote Content Shared!**\n\n**Description:** ${description || 'Remote content'}\n**URL:** ${url}\n\nðŸ’¡ **Benefits:**\nâ€¢ Reduces message size\nâ€¢ Faster loading\nâ€¢ Better performance`,
         remoteAttachmentData: remoteAttachmentData,
         isRemoteAttachment: true
       };
@@ -8628,7 +8634,7 @@ ${gasInfo}
       // Validate reply content
       if (!replyContent || replyContent.trim().length === 0) {
         return {
-          userMessage: "❌ Reply content cannot be empty. Please provide a message to reply with.",
+          userMessage: "âŒ Reply content cannot be empty. Please provide a message to reply with.",
           error: "Empty reply content"
         };
       }
@@ -8642,7 +8648,7 @@ ${gasInfo}
       };
       
       return {
-        userMessage: `💬 **Reply Sent!**\n\n**Original Message ID:** ${originalMessageId}\n**Your Reply:** ${replyContent}\n\n🔄 **Threaded Conversation:** This reply is now part of a threaded conversation for better organization.`,
+        userMessage: `ðŸ’¬ **Reply Sent!**\n\n**Original Message ID:** ${originalMessageId}\n**Your Reply:** ${replyContent}\n\nðŸ”„ **Threaded Conversation:** This reply is now part of a threaded conversation for better organization.`,
         replyData: replyData,
         isReply: true
       };
@@ -8661,47 +8667,47 @@ ${gasInfo}
       
       if (!validActions.includes(action)) {
         return {
-          userMessage: `❌ Invalid group action: ${action}. Valid actions: ${validActions.join(', ')}`,
+          userMessage: `âŒ Invalid group action: ${action}. Valid actions: ${validActions.join(', ')}`,
           error: "Invalid group action"
         };
       }
       
-      let response = `👥 **Group Management: ${action.toUpperCase()}**\n\n`;
+      let response = `ðŸ‘¥ **Group Management: ${action.toUpperCase()}**\n\n`;
       
       switch (action) {
         case 'add_member':
-          response += `✅ **Member Added Successfully!**\n`;
+          response += `âœ… **Member Added Successfully!**\n`;
           response += `**Group ID:** ${groupId}\n`;
           response += `**New Member:** ${memberAddress}\n`;
           response += `**Role:** ${role || 'member'}\n\n`;
-          response += `🎉 Welcome the new member to the group!`;
+          response += `ðŸŽ‰ Welcome the new member to the group!`;
           break;
           
         case 'remove_member':
-          response += `❌ **Member Removed**\n`;
+          response += `âŒ **Member Removed**\n`;
           response += `**Group ID:** ${groupId}\n`;
           response += `**Removed Member:** ${memberAddress}\n\n`;
-          response += `👋 The member has been removed from the group.`;
+          response += `ðŸ‘‹ The member has been removed from the group.`;
           break;
           
         case 'change_role':
-          response += `🔄 **Role Updated**\n`;
+          response += `ðŸ”„ **Role Updated**\n`;
           response += `**Group ID:** ${groupId}\n`;
           response += `**Member:** ${memberAddress}\n`;
           response += `**New Role:** ${role}\n\n`;
-          response += `👑 Role permissions have been updated.`;
+          response += `ðŸ‘‘ Role permissions have been updated.`;
           break;
           
         case 'update_metadata':
-          response += `📝 **Group Metadata Updated**\n`;
+          response += `ðŸ“ **Group Metadata Updated**\n`;
           response += `**Group ID:** ${groupId}\n\n`;
-          response += `✨ Group information has been refreshed.`;
+          response += `âœ¨ Group information has been refreshed.`;
           break;
           
         case 'leave_group':
-          response += `👋 **Left Group**\n`;
+          response += `ðŸ‘‹ **Left Group**\n`;
           response += `**Group ID:** ${groupId}\n\n`;
-          response += `🚪 You have successfully left the group.`;
+          response += `ðŸšª You have successfully left the group.`;
           break;
       }
       
@@ -8757,21 +8763,21 @@ ${gasInfo}
       switch (context) {
         case 'trading':
           actions = [
-            { id: "quick_buy", label: "⚡ Quick Buy", style: "primary", expiresAt: expirationTime.toISOString() },
-            { id: "quick_sell", label: "⚡ Quick Sell", style: "danger", expiresAt: expirationTime.toISOString() },
-            { id: "set_stop_loss", label: "🛡️ Set Stop Loss", style: "secondary", expiresAt: expirationTime.toISOString() }
+            { id: "quick_buy", label: "âš¡ Quick Buy", style: "primary", expiresAt: expirationTime.toISOString() },
+            { id: "quick_sell", label: "âš¡ Quick Sell", style: "danger", expiresAt: expirationTime.toISOString() },
+            { id: "set_stop_loss", label: "ðŸ›¡ï¸ Set Stop Loss", style: "secondary", expiresAt: expirationTime.toISOString() }
           ];
           break;
         case 'gaming':
           actions = [
-            { id: "join_game", label: "🎮 Join Game", style: "primary", expiresAt: expirationTime.toISOString() },
-            { id: "create_room", label: "🏠 Create Room", style: "secondary", expiresAt: expirationTime.toISOString() },
-            { id: "invite_friends", label: "👥 Invite Friends", style: "secondary", expiresAt: expirationTime.toISOString() }
+            { id: "join_game", label: "ðŸŽ® Join Game", style: "primary", expiresAt: expirationTime.toISOString() },
+            { id: "create_room", label: "ðŸ  Create Room", style: "secondary", expiresAt: expirationTime.toISOString() },
+            { id: "invite_friends", label: "ðŸ‘¥ Invite Friends", style: "secondary", expiresAt: expirationTime.toISOString() }
           ];
           break;
         default:
           actions = [
-            { id: "general_action", label: "🎯 General Action", style: "primary", expiresAt: expirationTime.toISOString() }
+            { id: "general_action", label: "ðŸŽ¯ General Action", style: "primary", expiresAt: expirationTime.toISOString() }
           ];
       }
       
@@ -8785,7 +8791,7 @@ ${gasInfo}
       };
       
       return {
-        userMessage: `⚡ **Dynamic Quick Actions Created!**\n\n**Context:** ${context}\n**Urgency:** ${urgency}\n**Expires:** ${expirationTime.toLocaleTimeString()}\n\n🎯 **Actions available for ${expirationMinutes} minutes:**`,
+        userMessage: `âš¡ **Dynamic Quick Actions Created!**\n\n**Context:** ${context}\n**Urgency:** ${urgency}\n**Expires:** ${expirationTime.toLocaleTimeString()}\n\nðŸŽ¯ **Actions available for ${expirationMinutes} minutes:**`,
         quickActionsData: dynamicActionsData,
         isQuickActions: true,
         isDynamic: true
@@ -8811,9 +8817,9 @@ ${gasInfo}
       // Condition: New user (less than 5 interactions)
       if (userInteractions.count < 5) {
         actions.push(
-          { id: "welcome_tour", label: "👋 Welcome Tour", style: "primary" },
-          { id: "basic_tutorial", label: "📚 Basic Tutorial", style: "secondary" },
-          { id: "first_achievement", label: "🏆 First Achievement", style: "secondary" }
+          { id: "welcome_tour", label: "ðŸ‘‹ Welcome Tour", style: "primary" },
+          { id: "basic_tutorial", label: "ðŸ“š Basic Tutorial", style: "secondary" },
+          { id: "first_achievement", label: "ðŸ† First Achievement", style: "secondary" }
         );
         description = "Welcome! Let's get you started with these beginner-friendly actions:";
       }
@@ -8821,9 +8827,9 @@ ${gasInfo}
       // Condition: Active trader (frequent price checks)
       else if ((userInteractions.priceChecks || 0) > 10) {
         actions.push(
-          { id: "advanced_trading", label: "📈 Advanced Trading", style: "primary" },
-          { id: "portfolio_optimization", label: "⚡ Portfolio Optimization", style: "primary" },
-          { id: "risk_management", label: "🛡️ Risk Management", style: "secondary" }
+          { id: "advanced_trading", label: "ðŸ“ˆ Advanced Trading", style: "primary" },
+          { id: "portfolio_optimization", label: "âš¡ Portfolio Optimization", style: "primary" },
+          { id: "risk_management", label: "ðŸ›¡ï¸ Risk Management", style: "secondary" }
         );
         description = "You're an active trader! Here are some advanced features:";
       }
@@ -8831,9 +8837,9 @@ ${gasInfo}
       // Condition: DeFi enthusiast (DeFi analysis usage)
       else if ((userInteractions.defiAnalysis || 0) > 5) {
         actions.push(
-          { id: "yield_farming", label: "🌾 Yield Farming", style: "primary" },
-          { id: "liquidity_mining", label: "💧 Liquidity Mining", style: "primary" },
-          { id: "defi_analytics", label: "📊 DeFi Analytics", style: "secondary" }
+          { id: "yield_farming", label: "ðŸŒ¾ Yield Farming", style: "primary" },
+          { id: "liquidity_mining", label: "ðŸ’§ Liquidity Mining", style: "primary" },
+          { id: "defi_analytics", label: "ðŸ“Š DeFi Analytics", style: "secondary" }
         );
         description = "DeFi enthusiast detected! Explore these advanced DeFi features:";
       }
@@ -8841,9 +8847,9 @@ ${gasInfo}
       // Condition: Social user (community features usage)
       else if ((userInteractions.communityFeatures || 0) > 3) {
         actions.push(
-          { id: "create_group", label: "👥 Create Group", style: "primary" },
-          { id: "find_mentors", label: "👨‍🏫 Find Mentors", style: "secondary" },
-          { id: "social_trading", label: "🤝 Social Trading", style: "secondary" }
+          { id: "create_group", label: "ðŸ‘¥ Create Group", style: "primary" },
+          { id: "find_mentors", label: "ðŸ‘¨â€ðŸ« Find Mentors", style: "secondary" },
+          { id: "social_trading", label: "ðŸ¤ Social Trading", style: "secondary" }
         );
         description = "Social butterfly! Here are some community features:";
       }
@@ -8851,9 +8857,9 @@ ${gasInfo}
       // Default actions for experienced users
       else {
         actions.push(
-          { id: "explore_features", label: "🔍 Explore Features", style: "primary" },
-          { id: "advanced_analytics", label: "📊 Advanced Analytics", style: "secondary" },
-          { id: "customization", label: "⚙️ Customization", style: "secondary" }
+          { id: "explore_features", label: "ðŸ” Explore Features", style: "primary" },
+          { id: "advanced_analytics", label: "ðŸ“Š Advanced Analytics", style: "secondary" },
+          { id: "customization", label: "âš™ï¸ Customization", style: "secondary" }
         );
         description = "Experienced user! Here are some advanced options:";
       }
@@ -8868,7 +8874,7 @@ ${gasInfo}
       };
       
       return {
-        userMessage: `🎯 **Conditional Actions Generated!**\n\n**Your State:** ${userState}\n**Actions:** ${actions.length} personalized options\n\n💡 **These actions are tailored specifically for you based on your usage patterns.**`,
+        userMessage: `ðŸŽ¯ **Conditional Actions Generated!**\n\n**Your State:** ${userState}\n**Actions:** ${actions.length} personalized options\n\nðŸ’¡ **These actions are tailored specifically for you based on your usage patterns.**`,
         quickActionsData: conditionalActionsData,
         isQuickActions: true,
         isConditional: true
@@ -8888,7 +8894,7 @@ ${gasInfo}
       
       if (!validMediaTypes.includes(mediaType)) {
         return {
-          userMessage: `❌ Invalid media type: ${mediaType}. Supported types: ${validMediaTypes.join(', ')}`,
+          userMessage: `âŒ Invalid media type: ${mediaType}. Supported types: ${validMediaTypes.join(', ')}`,
           error: "Invalid media type"
         };
       }
@@ -8896,7 +8902,7 @@ ${gasInfo}
       // Validate URL
       if (!url || !url.startsWith('http')) {
         return {
-          userMessage: "❌ Invalid media URL. Please provide a valid HTTP/HTTPS URL.",
+          userMessage: "âŒ Invalid media URL. Please provide a valid HTTP/HTTPS URL.",
           error: "Invalid media URL"
         };
       }
@@ -8916,29 +8922,29 @@ ${gasInfo}
         }
       };
       
-      let response = `🎨 **Rich Media Shared!**\n\n`;
+      let response = `ðŸŽ¨ **Rich Media Shared!**\n\n`;
       response += `**Type:** ${mediaType.charAt(0).toUpperCase() + mediaType.slice(1)}\n`;
       response += `**Title:** ${title || 'Untitled'}\n`;
       response += `**Description:** ${description || 'No description'}\n\n`;
       
       if (mediaType === 'image') {
-        response += `🖼️ **Image Content:** High-quality image with interactive features\n`;
+        response += `ðŸ–¼ï¸ **Image Content:** High-quality image with interactive features\n`;
       } else if (mediaType === 'video') {
-        response += `🎥 **Video Content:** Playable video with controls\n`;
+        response += `ðŸŽ¥ **Video Content:** Playable video with controls\n`;
       } else if (mediaType === 'audio') {
-        response += `🎵 **Audio Content:** High-quality audio playback\n`;
+        response += `ðŸŽµ **Audio Content:** High-quality audio playback\n`;
       } else if (mediaType === 'document') {
-        response += `📄 **Document:** Interactive document viewer\n`;
+        response += `ðŸ“„ **Document:** Interactive document viewer\n`;
       } else if (mediaType === 'interactive') {
-        response += `🎮 **Interactive Content:** Engaging interactive experience\n`;
+        response += `ðŸŽ® **Interactive Content:** Engaging interactive experience\n`;
       }
       
-      response += `\n🔗 **URL:** ${url}\n\n`;
-      response += `💡 **Features:**\n`;
-      response += `• High-quality playback\n`;
-      response += `• Interactive controls\n`;
-      response += `• Optimized for mobile\n`;
-      response += `• Fast loading times`;
+      response += `\nðŸ”— **URL:** ${url}\n\n`;
+      response += `ðŸ’¡ **Features:**\n`;
+      response += `â€¢ High-quality playback\n`;
+      response += `â€¢ Interactive controls\n`;
+      response += `â€¢ Optimized for mobile\n`;
+      response += `â€¢ Fast loading times`;
       
       return {
         userMessage: response,
@@ -8958,14 +8964,14 @@ ${gasInfo}
     try {
       if (!steps || !Array.isArray(steps) || steps.length === 0) {
         return {
-          userMessage: "❌ Invalid steps. Please provide an array of steps for the multi-step action.",
+          userMessage: "âŒ Invalid steps. Please provide an array of steps for the multi-step action.",
           error: "Invalid steps"
         };
       }
       
       if (currentStep >= steps.length) {
         return {
-          userMessage: "✅ **Multi-Step Action Completed!**\n\n🎉 All steps have been successfully completed. Great job!",
+          userMessage: "âœ… **Multi-Step Action Completed!**\n\nðŸŽ‰ All steps have been successfully completed. Great job!",
           isCompleted: true
         };
       }
@@ -8974,20 +8980,20 @@ ${gasInfo}
       const progress = Math.round(((currentStep + 1) / steps.length) * 100);
       
       // Create progress indicator
-      const progressBar = '█'.repeat(Math.floor(progress / 10)) + '░'.repeat(10 - Math.floor(progress / 10));
+      const progressBar = 'â–ˆ'.repeat(Math.floor(progress / 10)) + 'â–‘'.repeat(10 - Math.floor(progress / 10));
       
-      let response = `🔄 **Multi-Step Action in Progress**\n\n`;
+      let response = `ðŸ”„ **Multi-Step Action in Progress**\n\n`;
       response += `**Action:** ${actionId}\n`;
       response += `**Step ${currentStep + 1} of ${steps.length}:** ${currentStepData.title}\n`;
       response += `**Progress:** ${progress}% [${progressBar}]\n\n`;
       
-      response += `📋 **Current Step:**\n`;
-      response += `• **Title:** ${currentStepData.title}\n`;
-      response += `• **Description:** ${currentStepData.description}\n`;
-      response += `• **Estimated Time:** ${currentStepData.estimatedTime || '2-3 minutes'}\n\n`;
+      response += `ðŸ“‹ **Current Step:**\n`;
+      response += `â€¢ **Title:** ${currentStepData.title}\n`;
+      response += `â€¢ **Description:** ${currentStepData.description}\n`;
+      response += `â€¢ **Estimated Time:** ${currentStepData.estimatedTime || '2-3 minutes'}\n\n`;
       
       if (currentStepData.instructions) {
-        response += `📝 **Instructions:**\n`;
+        response += `ðŸ“ **Instructions:**\n`;
         currentStepData.instructions.forEach((instruction, index) => {
           response += `${index + 1}. ${instruction}\n`;
         });
@@ -8996,13 +9002,13 @@ ${gasInfo}
       
       // Create Quick Actions for current step
       const stepActions = [
-        { id: `step_${currentStep}_complete`, label: "✅ Complete Step", style: "primary" },
-        { id: `step_${currentStep}_skip`, label: "⏭️ Skip Step", style: "secondary" },
-        { id: `step_${currentStep}_help`, label: "❓ Get Help", style: "secondary" }
+        { id: `step_${currentStep}_complete`, label: "âœ… Complete Step", style: "primary" },
+        { id: `step_${currentStep}_skip`, label: "â­ï¸ Skip Step", style: "secondary" },
+        { id: `step_${currentStep}_help`, label: "â“ Get Help", style: "secondary" }
       ];
       
       if (currentStep > 0) {
-        stepActions.unshift({ id: `step_${currentStep}_back`, label: "⬅️ Go Back", style: "secondary" });
+        stepActions.unshift({ id: `step_${currentStep}_back`, label: "â¬…ï¸ Go Back", style: "secondary" });
       }
       
       const multiStepData = {
@@ -9016,13 +9022,13 @@ ${gasInfo}
         expiresAt: new Date(Date.now() + 30 * 60 * 1000).toISOString() // 30 minutes
       };
       
-      response += `🎯 **Next Steps:**\n`;
+      response += `ðŸŽ¯ **Next Steps:**\n`;
       if (currentStep < steps.length - 1) {
-        response += `• Complete current step to proceed\n`;
-        response += `• Next: ${steps[currentStep + 1].title}\n`;
+        response += `â€¢ Complete current step to proceed\n`;
+        response += `â€¢ Next: ${steps[currentStep + 1].title}\n`;
       } else {
-        response += `• Complete this final step to finish\n`;
-        response += `• You're almost done! 🎉\n`;
+        response += `â€¢ Complete this final step to finish\n`;
+        response += `â€¢ You're almost done! ðŸŽ‰\n`;
       }
       
       return {
@@ -9045,14 +9051,14 @@ ${gasInfo}
     try {
       if (!intents || !Array.isArray(intents) || intents.length === 0) {
         return {
-          userMessage: "❌ Invalid intent chain. Please provide an array of related intents.",
+          userMessage: "âŒ Invalid intent chain. Please provide an array of related intents.",
           error: "Invalid intent chain"
         };
       }
       
       if (currentIntent >= intents.length) {
         return {
-          userMessage: "✅ **Intent Chain Completed!**\n\n🎉 All related actions have been successfully processed. Great job!",
+          userMessage: "âœ… **Intent Chain Completed!**\n\nðŸŽ‰ All related actions have been successfully processed. Great job!",
           isCompleted: true
         };
       }
@@ -9060,33 +9066,33 @@ ${gasInfo}
       const currentIntentData = intents[currentIntent];
       const progress = Math.round(((currentIntent + 1) / intents.length) * 100);
       
-      let response = `🔗 **Intent Chain in Progress**\n\n`;
+      let response = `ðŸ”— **Intent Chain in Progress**\n\n`;
       response += `**Chain ID:** ${chainId}\n`;
       response += `**Intent ${currentIntent + 1} of ${intents.length}:** ${currentIntentData.name}\n`;
       response += `**Progress:** ${progress}%\n\n`;
       
-      response += `📋 **Current Intent:**\n`;
-      response += `• **Name:** ${currentIntentData.name}\n`;
-      response += `• **Description:** ${currentIntentData.description}\n`;
-      response += `• **Action:** ${currentIntentData.action}\n\n`;
+      response += `ðŸ“‹ **Current Intent:**\n`;
+      response += `â€¢ **Name:** ${currentIntentData.name}\n`;
+      response += `â€¢ **Description:** ${currentIntentData.description}\n`;
+      response += `â€¢ **Action:** ${currentIntentData.action}\n\n`;
       
       if (currentIntentData.parameters) {
-        response += `⚙️ **Parameters:**\n`;
+        response += `âš™ï¸ **Parameters:**\n`;
         Object.entries(currentIntentData.parameters).forEach(([key, value]) => {
-          response += `• ${key}: ${value}\n`;
+          response += `â€¢ ${key}: ${value}\n`;
         });
         response += `\n`;
       }
       
       // Create Quick Actions for current intent
       const intentActions = [
-        { id: `intent_${currentIntent}_execute`, label: "⚡ Execute Intent", style: "primary" },
-        { id: `intent_${currentIntent}_skip`, label: "⏭️ Skip Intent", style: "secondary" },
-        { id: `intent_${currentIntent}_modify`, label: "✏️ Modify Parameters", style: "secondary" }
+        { id: `intent_${currentIntent}_execute`, label: "âš¡ Execute Intent", style: "primary" },
+        { id: `intent_${currentIntent}_skip`, label: "â­ï¸ Skip Intent", style: "secondary" },
+        { id: `intent_${currentIntent}_modify`, label: "âœï¸ Modify Parameters", style: "secondary" }
       ];
       
       if (currentIntent > 0) {
-        intentActions.unshift({ id: `intent_${currentIntent}_back`, label: "⬅️ Previous Intent", style: "secondary" });
+        intentActions.unshift({ id: `intent_${currentIntent}_back`, label: "â¬…ï¸ Previous Intent", style: "secondary" });
       }
       
       const intentChainData = {
@@ -9100,13 +9106,13 @@ ${gasInfo}
         expiresAt: new Date(Date.now() + 15 * 60 * 1000).toISOString() // 15 minutes
       };
       
-      response += `🎯 **Next Intents:**\n`;
+      response += `ðŸŽ¯ **Next Intents:**\n`;
       if (currentIntent < intents.length - 1) {
-        response += `• Execute current intent to proceed\n`;
-        response += `• Next: ${intents[currentIntent + 1].name}\n`;
+        response += `â€¢ Execute current intent to proceed\n`;
+        response += `â€¢ Next: ${intents[currentIntent + 1].name}\n`;
       } else {
-        response += `• Execute this final intent to complete the chain\n`;
-        response += `• Chain completion in progress! 🎉\n`;
+        response += `â€¢ Execute this final intent to complete the chain\n`;
+        response += `â€¢ Chain completion in progress! ðŸŽ‰\n`;
       }
       
       return {
@@ -9153,7 +9159,7 @@ ${gasInfo}
       }
       
       return {
-        userMessage: `🧠 **Context Preserved!**\n\n**Key:** ${contextKey}\n**Expires:** ${new Date(Date.now() + expirationMinutes * 60 * 1000).toLocaleTimeString()}\n\n💡 **This context will be remembered for ${expirationMinutes} minutes and can be used for smart defaults in future interactions.**`,
+        userMessage: `ðŸ§  **Context Preserved!**\n\n**Key:** ${contextKey}\n**Expires:** ${new Date(Date.now() + expirationMinutes * 60 * 1000).toLocaleTimeString()}\n\nðŸ’¡ **This context will be remembered for ${expirationMinutes} minutes and can be used for smart defaults in future interactions.**`,
         contextKey: contextKey,
         expirationTime: expirationMinutes
       };
@@ -9170,7 +9176,7 @@ ${gasInfo}
     try {
       if (!intents || !Array.isArray(intents) || intents.length === 0) {
         return {
-          userMessage: "❌ Invalid batch. Please provide an array of intents to process.",
+          userMessage: "âŒ Invalid batch. Please provide an array of intents to process.",
           error: "Invalid batch"
         };
       }
@@ -9206,22 +9212,22 @@ ${gasInfo}
         }
       }
       
-      let response = `📦 **Batch Processing Complete!**\n\n`;
+      let response = `ðŸ“¦ **Batch Processing Complete!**\n\n`;
       response += `**Batch ID:** ${batchId}\n`;
       response += `**Total Intents:** ${intents.length}\n`;
       response += `**Successful:** ${successCount}\n`;
       response += `**Errors:** ${errorCount}\n\n`;
       
-      response += `📊 **Results:**\n`;
+      response += `ðŸ“Š **Results:**\n`;
       results.forEach((result, index) => {
-        const statusEmoji = result.status === 'success' ? '✅' : '❌';
+        const statusEmoji = result.status === 'success' ? 'âœ…' : 'âŒ';
         response += `${statusEmoji} **${result.name}** - ${result.status}\n`;
       });
       
-      response += `\n🎯 **Summary:**\n`;
-      response += `• ${successCount} intents processed successfully\n`;
-      response += `• ${errorCount} intents failed\n`;
-      response += `• Batch processing completed in ${Math.random() * 5 + 1} seconds`;
+      response += `\nðŸŽ¯ **Summary:**\n`;
+      response += `â€¢ ${successCount} intents processed successfully\n`;
+      response += `â€¢ ${errorCount} intents failed\n`;
+      response += `â€¢ Batch processing completed in ${Math.random() * 5 + 1} seconds`;
       
       return {
         userMessage: response,
@@ -9247,7 +9253,7 @@ ${gasInfo}
       // Validate inputs
       if (!isAddress(address)) {
         return {
-          userMessage: "❌ Invalid address format. Please provide a valid Ethereum address (0x...).",
+          userMessage: "âŒ Invalid address format. Please provide a valid Ethereum address (0x...).",
           error: "Invalid address format"
         };
       }
@@ -9265,7 +9271,7 @@ ${gasInfo}
       const selectedChain = chainMap[chain.toLowerCase()];
       if (!selectedChain) {
         return {
-          userMessage: `❌ Invalid chain specified. Available chains: ${Object.keys(chainMap).join(', ')}`,
+          userMessage: `âŒ Invalid chain specified. Available chains: ${Object.keys(chainMap).join(', ')}`,
           error: "Invalid chain"
         };
       }
@@ -9315,31 +9321,31 @@ ${gasInfo}
         }
       };
       
-      let response = `💰 **Transaction Preview**\n\n`;
-      response += `📤 **Send:** ${amount} ${tokenType} ($${usdValue.toFixed(2)})\n`;
-      response += `📥 **To:** ${address.slice(0, 6)}...${address.slice(-4)}\n`;
-      response += `🌐 **Chain:** ${selectedChain.name}\n\n`;
+      let response = `ðŸ’° **Transaction Preview**\n\n`;
+      response += `ðŸ“¤ **Send:** ${amount} ${tokenType} ($${usdValue.toFixed(2)})\n`;
+      response += `ðŸ“¥ **To:** ${address.slice(0, 6)}...${address.slice(-4)}\n`;
+      response += `ðŸŒ **Chain:** ${selectedChain.name}\n\n`;
       
-      response += `⛽ **Gas Fees:**\n`;
-      response += `• Gas Limit: ${gasLimit.toLocaleString()}\n`;
-      response += `• Gas Price: ${selectedChain.gasPrice} ${tokenType}\n`;
-      response += `• Estimated Fee: ${gasFee.toFixed(6)} ${tokenType} ($${gasFeeUsd.toFixed(2)})\n\n`;
+      response += `â›½ **Gas Fees:**\n`;
+      response += `â€¢ Gas Limit: ${gasLimit.toLocaleString()}\n`;
+      response += `â€¢ Gas Price: ${selectedChain.gasPrice} ${tokenType}\n`;
+      response += `â€¢ Estimated Fee: ${gasFee.toFixed(6)} ${tokenType} ($${gasFeeUsd.toFixed(2)})\n\n`;
       
-      response += `💸 **Total Cost:**\n`;
-      response += `• Amount: ${amount} ${tokenType} ($${usdValue.toFixed(2)})\n`;
-      response += `• Gas Fee: ${gasFee.toFixed(6)} ${tokenType} ($${gasFeeUsd.toFixed(2)})\n`;
-      response += `• **Total: ${totalCost.toFixed(6)} ${tokenType} ($${totalCostUsd.toFixed(2)})**\n\n`;
+      response += `ðŸ’¸ **Total Cost:**\n`;
+      response += `â€¢ Amount: ${amount} ${tokenType} ($${usdValue.toFixed(2)})\n`;
+      response += `â€¢ Gas Fee: ${gasFee.toFixed(6)} ${tokenType} ($${gasFeeUsd.toFixed(2)})\n`;
+      response += `â€¢ **Total: ${totalCost.toFixed(6)} ${tokenType} ($${totalCostUsd.toFixed(2)})**\n\n`;
       
-      response += `🔍 **Network Status:**\n`;
+      response += `ðŸ” **Network Status:**\n`;
       if (chain.toLowerCase() === 'base') {
-        response += `• ✅ Base network - Low fees, fast transactions\n`;
+        response += `â€¢ âœ… Base network - Low fees, fast transactions\n`;
       } else if (chain.toLowerCase() === 'ethereum') {
-        response += `• ⚠️ Ethereum network - Higher fees, slower transactions\n`;
+        response += `â€¢ âš ï¸ Ethereum network - Higher fees, slower transactions\n`;
       } else {
-        response += `• ✅ ${selectedChain.name} network - Optimized for DeFi\n`;
+        response += `â€¢ âœ… ${selectedChain.name} network - Optimized for DeFi\n`;
       }
       
-      response += `\n💡 **Ready to proceed?** The transaction tray will appear above with all these details.`;
+      response += `\nðŸ’¡ **Ready to proceed?** The transaction tray will appear above with all these details.`;
       
       return {
         userMessage: response,
@@ -9360,7 +9366,7 @@ ${gasInfo}
       // Validate address format
       if (!isAddress(address)) {
         return {
-          userMessage: "❌ Invalid address format. Please provide a valid Ethereum address (0x...).",
+          userMessage: "âŒ Invalid address format. Please provide a valid Ethereum address (0x...).",
           error: "Invalid address format"
         };
       }
@@ -9386,45 +9392,45 @@ ${gasInfo}
       
       if (isScamAddress) {
         safetyScore = 0;
-        warnings.push("🚨 **CRITICAL WARNING:** This address is flagged as a known scam address!");
-        recommendations.push("❌ **DO NOT SEND** - This address is associated with fraudulent activity");
+        warnings.push("ðŸš¨ **CRITICAL WARNING:** This address is flagged as a known scam address!");
+        recommendations.push("âŒ **DO NOT SEND** - This address is associated with fraudulent activity");
       } else if (isContractAddress) {
         safetyScore -= 20;
-        warnings.push("⚠️ **Contract Address:** This is a smart contract, not a personal wallet");
-        recommendations.push("🔍 **Verify:** Make sure you intended to send to a contract");
+        warnings.push("âš ï¸ **Contract Address:** This is a smart contract, not a personal wallet");
+        recommendations.push("ðŸ” **Verify:** Make sure you intended to send to a contract");
       }
       
       if (balance === 0) {
         safetyScore -= 10;
-        warnings.push("💡 **New Address:** This address has no transaction history");
-        recommendations.push("✅ **Safe:** New addresses are generally safe, but double-check");
+        warnings.push("ðŸ’¡ **New Address:** This address has no transaction history");
+        recommendations.push("âœ… **Safe:** New addresses are generally safe, but double-check");
       }
       
       // Address format checks
       if (address.toLowerCase() === address) {
         safetyScore -= 5;
-        warnings.push("📝 **Lowercase Address:** Consider using checksummed address for better security");
-        recommendations.push("🔒 **Use Checksum:** Use mixed-case address for enhanced security");
+        warnings.push("ðŸ“ **Lowercase Address:** Consider using checksummed address for better security");
+        recommendations.push("ðŸ”’ **Use Checksum:** Use mixed-case address for enhanced security");
       }
       
-      let response = `🔍 **Recipient Verification Report**\n\n`;
-      response += `📍 **Address:** ${address}\n`;
-      response += `🌐 **Chain:** ${chain.charAt(0).toUpperCase() + chain.slice(1)}\n`;
-      response += `💰 **Balance:** ${balance.toFixed(4)} ETH\n\n`;
+      let response = `ðŸ” **Recipient Verification Report**\n\n`;
+      response += `ðŸ“ **Address:** ${address}\n`;
+      response += `ðŸŒ **Chain:** ${chain.charAt(0).toUpperCase() + chain.slice(1)}\n`;
+      response += `ðŸ’° **Balance:** ${balance.toFixed(4)} ETH\n\n`;
       
-      response += `🛡️ **Safety Score:** ${safetyScore}/100\n`;
+      response += `ðŸ›¡ï¸ **Safety Score:** ${safetyScore}/100\n`;
       if (safetyScore >= 90) {
-        response += `✅ **EXCELLENT** - Address appears safe\n\n`;
+        response += `âœ… **EXCELLENT** - Address appears safe\n\n`;
       } else if (safetyScore >= 70) {
-        response += `⚠️ **GOOD** - Address is likely safe with minor concerns\n\n`;
+        response += `âš ï¸ **GOOD** - Address is likely safe with minor concerns\n\n`;
       } else if (safetyScore >= 50) {
-        response += `🔶 **CAUTION** - Address has some concerns\n\n`;
+        response += `ðŸ”¶ **CAUTION** - Address has some concerns\n\n`;
       } else {
-        response += `🚨 **DANGER** - Address has significant safety concerns\n\n`;
+        response += `ðŸš¨ **DANGER** - Address has significant safety concerns\n\n`;
       }
       
       if (warnings.length > 0) {
-        response += `⚠️ **Warnings:**\n`;
+        response += `âš ï¸ **Warnings:**\n`;
         warnings.forEach(warning => {
           response += `${warning}\n`;
         });
@@ -9432,14 +9438,14 @@ ${gasInfo}
       }
       
       if (recommendations.length > 0) {
-        response += `💡 **Recommendations:**\n`;
+        response += `ðŸ’¡ **Recommendations:**\n`;
         recommendations.forEach(rec => {
           response += `${rec}\n`;
         });
         response += `\n`;
       }
       
-      response += `🔗 **Explorer Links:**\n`;
+      response += `ðŸ”— **Explorer Links:**\n`;
       const explorerUrls = {
         base: `https://basescan.org/address/${address}`,
         ethereum: `https://etherscan.io/address/${address}`,
@@ -9452,7 +9458,7 @@ ${gasInfo}
       
       const explorerUrl = explorerUrls[chain.toLowerCase()];
       if (explorerUrl) {
-        response += `• View on ${chain.charAt(0).toUpperCase() + chain.slice(1)} Explorer: ${explorerUrl}\n`;
+        response += `â€¢ View on ${chain.charAt(0).toUpperCase() + chain.slice(1)} Explorer: ${explorerUrl}\n`;
       }
       
       return {
@@ -9550,33 +9556,33 @@ ${gasInfo}
       const pendingTransactions = filteredTransactions.filter(tx => tx.status === 'pending').length;
       const totalValue = filteredTransactions.reduce((sum, tx) => sum + parseFloat(tx.value), 0);
       
-      let response = `📊 **Transaction History**\n\n`;
-      response += `📈 **Summary:**\n`;
-      response += `• Total Transactions: ${totalTransactions}\n`;
-      response += `• Confirmed: ${confirmedTransactions}\n`;
-      response += `• Pending: ${pendingTransactions}\n`;
-      response += `• Total Value: ${totalValue.toFixed(4)} ETH\n\n`;
+      let response = `ðŸ“Š **Transaction History**\n\n`;
+      response += `ðŸ“ˆ **Summary:**\n`;
+      response += `â€¢ Total Transactions: ${totalTransactions}\n`;
+      response += `â€¢ Confirmed: ${confirmedTransactions}\n`;
+      response += `â€¢ Pending: ${pendingTransactions}\n`;
+      response += `â€¢ Total Value: ${totalValue.toFixed(4)} ETH\n\n`;
       
       if (filteredTransactions.length === 0) {
-        response += `📝 **No transactions found** for the specified criteria.\n\n`;
-        response += `💡 **Try:**\n`;
-        response += `• Different timeframe (today, week, all)\n`;
-        response += `• Different chain (base, ethereum, arbitrum)\n`;
-        response += `• Higher limit for more results`;
+        response += `ðŸ“ **No transactions found** for the specified criteria.\n\n`;
+        response += `ðŸ’¡ **Try:**\n`;
+        response += `â€¢ Different timeframe (today, week, all)\n`;
+        response += `â€¢ Different chain (base, ethereum, arbitrum)\n`;
+        response += `â€¢ Higher limit for more results`;
       } else {
-        response += `📋 **Recent Transactions:**\n\n`;
+        response += `ðŸ“‹ **Recent Transactions:**\n\n`;
         filteredTransactions.forEach((tx, index) => {
-          const statusEmoji = tx.status === 'confirmed' ? '✅' : tx.status === 'pending' ? '⏳' : '❌';
+          const statusEmoji = tx.status === 'confirmed' ? 'âœ…' : tx.status === 'pending' ? 'â³' : 'âŒ';
           const timeAgo = Math.floor((now - tx.timestamp) / 60000); // minutes ago
           const timeText = timeAgo < 60 ? `${timeAgo}m ago` : `${Math.floor(timeAgo / 60)}h ago`;
           
-          response += `${statusEmoji} **${tx.value} ${tx.token}** → ${tx.to.slice(0, 6)}...${tx.to.slice(-4)}\n`;
-          response += `   ${tx.chain.toUpperCase()} • ${timeText} • ${tx.status}\n`;
+          response += `${statusEmoji} **${tx.value} ${tx.token}** â†’ ${tx.to.slice(0, 6)}...${tx.to.slice(-4)}\n`;
+          response += `   ${tx.chain.toUpperCase()} â€¢ ${timeText} â€¢ ${tx.status}\n`;
           response += `   Hash: ${tx.hash.slice(0, 10)}...${tx.hash.slice(-8)}\n\n`;
         });
       }
       
-      response += `🔗 **View on Explorer:**\n`;
+      response += `ðŸ”— **View on Explorer:**\n`;
       const explorerUrls = {
         base: 'https://basescan.org/address/' + userId,
         ethereum: 'https://etherscan.io/address/' + userId,
@@ -9585,7 +9591,7 @@ ${gasInfo}
       };
       
       Object.entries(explorerUrls).forEach(([chainName, url]) => {
-        response += `• ${chainName.charAt(0).toUpperCase() + chainName.slice(1)}: ${url}\n`;
+        response += `â€¢ ${chainName.charAt(0).toUpperCase() + chainName.slice(1)}: ${url}\n`;
       });
       
       return {
@@ -9618,14 +9624,14 @@ ${gasInfo}
     try {
       if (!transactions || !Array.isArray(transactions) || transactions.length === 0) {
         return {
-          userMessage: "❌ Invalid batch. Please provide an array of transactions to process.",
+          userMessage: "âŒ Invalid batch. Please provide an array of transactions to process.",
           error: "Invalid batch transactions"
         };
       }
       
       if (transactions.length > 10) {
         return {
-          userMessage: "❌ Too many transactions. Maximum 10 transactions per batch.",
+          userMessage: "âŒ Too many transactions. Maximum 10 transactions per batch.",
           error: "Too many transactions"
         };
       }
@@ -9643,7 +9649,7 @@ ${gasInfo}
       const selectedChain = chainMap[chain.toLowerCase()];
       if (!selectedChain) {
         return {
-          userMessage: `❌ Invalid chain specified. Available chains: ${Object.keys(chainMap).join(', ')}`,
+          userMessage: `âŒ Invalid chain specified. Available chains: ${Object.keys(chainMap).join(', ')}`,
           error: "Invalid chain"
         };
       }
@@ -9659,7 +9665,7 @@ ${gasInfo}
         // Validate address
         if (!isAddress(tx.address)) {
           return {
-            userMessage: `❌ Invalid address in transaction ${i + 1}: ${tx.address}`,
+            userMessage: `âŒ Invalid address in transaction ${i + 1}: ${tx.address}`,
             error: "Invalid address in batch"
           };
         }
@@ -9667,7 +9673,7 @@ ${gasInfo}
         // Validate amount
         if (!tx.amount || parseFloat(tx.amount) <= 0) {
           return {
-            userMessage: `❌ Invalid amount in transaction ${i + 1}: ${tx.amount}`,
+            userMessage: `âŒ Invalid amount in transaction ${i + 1}: ${tx.amount}`,
             error: "Invalid amount in batch"
           };
         }
@@ -9718,24 +9724,24 @@ ${gasInfo}
         }
       };
       
-      let response = `📦 **Batch Transaction Created!**\n\n`;
-      response += `📊 **Batch Summary:**\n`;
-      response += `• Total Transactions: ${validatedTransactions.length}\n`;
-      response += `• Total Value: ${totalValue.toFixed(6)} ETH\n`;
-      response += `• Estimated Gas: ${totalGasEstimate.toFixed(6)} ETH\n`;
-      response += `• Chain: ${selectedChain.name}\n\n`;
+      let response = `ðŸ“¦ **Batch Transaction Created!**\n\n`;
+      response += `ðŸ“Š **Batch Summary:**\n`;
+      response += `â€¢ Total Transactions: ${validatedTransactions.length}\n`;
+      response += `â€¢ Total Value: ${totalValue.toFixed(6)} ETH\n`;
+      response += `â€¢ Estimated Gas: ${totalGasEstimate.toFixed(6)} ETH\n`;
+      response += `â€¢ Chain: ${selectedChain.name}\n\n`;
       
-      response += `📋 **Transaction Details:**\n`;
+      response += `ðŸ“‹ **Transaction Details:**\n`;
       validatedTransactions.forEach((tx, index) => {
         const amount = formatEther(BigInt(tx.value));
-        response += `${index + 1}. ${amount} ETH → ${tx.to.slice(0, 6)}...${tx.to.slice(-4)}\n`;
+        response += `${index + 1}. ${amount} ETH â†’ ${tx.to.slice(0, 6)}...${tx.to.slice(-4)}\n`;
       });
       
-      response += `\n💡 **Benefits of Batch Transactions:**\n`;
-      response += `• Execute multiple transfers in one transaction\n`;
-      response += `• Save on gas fees (shared gas costs)\n`;
-      response += `• Faster execution (single confirmation)\n`;
-      response += `• Better organization and tracking`;
+      response += `\nðŸ’¡ **Benefits of Batch Transactions:**\n`;
+      response += `â€¢ Execute multiple transfers in one transaction\n`;
+      response += `â€¢ Save on gas fees (shared gas costs)\n`;
+      response += `â€¢ Faster execution (single confirmation)\n`;
+      response += `â€¢ Better organization and tracking`;
       
       return {
         userMessage: response,
@@ -9762,7 +9768,7 @@ ${gasInfo}
       // Validate inputs
       if (!isAddress(address)) {
         return {
-          userMessage: "❌ Invalid address format. Please provide a valid Ethereum address (0x...).",
+          userMessage: "âŒ Invalid address format. Please provide a valid Ethereum address (0x...).",
           error: "Invalid address format"
         };
       }
@@ -9780,7 +9786,7 @@ ${gasInfo}
       const selectedChain = chainMap[chain.toLowerCase()];
       if (!selectedChain) {
         return {
-          userMessage: `❌ Invalid chain specified. Available chains: ${Object.keys(chainMap).join(', ')}`,
+          userMessage: `âŒ Invalid chain specified. Available chains: ${Object.keys(chainMap).join(', ')}`,
           error: "Invalid chain"
         };
       }
@@ -9871,29 +9877,29 @@ ${gasInfo}
         metadata: richMetadata
       };
       
-      let response = `🚀 **Enhanced Transaction Created!**\n\n`;
-      response += `📋 **Transaction Details:**\n`;
-      response += `• **Amount:** ${amount} ${tokenType}\n`;
-      response += `• **Recipient:** ${address.slice(0, 6)}...${address.slice(-4)}\n`;
-      response += `• **Chain:** ${selectedChain.name}\n`;
-      response += `• **Category:** ${category.charAt(0).toUpperCase() + category.slice(1)}\n`;
-      response += `• **Urgency:** ${urgency.charAt(0).toUpperCase() + urgency.slice(1)}\n\n`;
+      let response = `ðŸš€ **Enhanced Transaction Created!**\n\n`;
+      response += `ðŸ“‹ **Transaction Details:**\n`;
+      response += `â€¢ **Amount:** ${amount} ${tokenType}\n`;
+      response += `â€¢ **Recipient:** ${address.slice(0, 6)}...${address.slice(-4)}\n`;
+      response += `â€¢ **Chain:** ${selectedChain.name}\n`;
+      response += `â€¢ **Category:** ${category.charAt(0).toUpperCase() + category.slice(1)}\n`;
+      response += `â€¢ **Urgency:** ${urgency.charAt(0).toUpperCase() + urgency.slice(1)}\n\n`;
       
       if (context.purpose) {
-        response += `🎯 **Purpose:** ${context.purpose.charAt(0).toUpperCase() + context.purpose.slice(1)}\n\n`;
+        response += `ðŸŽ¯ **Purpose:** ${context.purpose.charAt(0).toUpperCase() + context.purpose.slice(1)}\n\n`;
       }
       
-      response += `🛡️ **Security Features:**\n`;
-      response += `• Address format validated\n`;
-      response += `• Chain compatibility checked\n`;
-      response += `• Amount validation passed\n`;
-      response += `• Risk score: ${richMetadata.security.riskScore}/100\n\n`;
+      response += `ðŸ›¡ï¸ **Security Features:**\n`;
+      response += `â€¢ Address format validated\n`;
+      response += `â€¢ Chain compatibility checked\n`;
+      response += `â€¢ Amount validation passed\n`;
+      response += `â€¢ Risk score: ${richMetadata.security.riskScore}/100\n\n`;
       
-      response += `📊 **Enhanced Metadata:**\n`;
-      response += `• Transaction ID: ${richMetadata.analytics.transactionId}\n`;
-      response += `• Session tracking enabled\n`;
-      response += `• Analytics data collected\n`;
-      response += `• Security checks completed`;
+      response += `ðŸ“Š **Enhanced Metadata:**\n`;
+      response += `â€¢ Transaction ID: ${richMetadata.analytics.transactionId}\n`;
+      response += `â€¢ Session tracking enabled\n`;
+      response += `â€¢ Analytics data collected\n`;
+      response += `â€¢ Security checks completed`;
       
       return {
         userMessage: response,
@@ -9915,15 +9921,15 @@ ${gasInfo}
     try {
       const priceData = await realTimePriceManager.getRealTimePrice(tokenSymbol);
       
-      let response = `📊 **${priceData.symbol} Real-Time Price**\n\n`;
-      response += `💰 **Price:** $${priceData.price.toLocaleString()}\n`;
-      response += `📈 **24h Change:** ${priceData.change24h > 0 ? '+' : ''}${priceData.change24h.toFixed(2)}%\n`;
-      response += `💎 **Market Cap:** $${(priceData.marketCap / 1000000000).toFixed(2)}B\n`;
-      response += `📊 **24h Volume:** $${(priceData.volume24h / 1000000).toFixed(2)}M\n`;
-      response += `⏰ **Updated:** ${new Date(priceData.timestamp).toLocaleTimeString()}\n\n`;
+      let response = `ðŸ“Š **${priceData.symbol} Real-Time Price**\n\n`;
+      response += `ðŸ’° **Price:** $${priceData.price.toLocaleString()}\n`;
+      response += `ðŸ“ˆ **24h Change:** ${priceData.change24h > 0 ? '+' : ''}${priceData.change24h.toFixed(2)}%\n`;
+      response += `ðŸ’Ž **Market Cap:** $${(priceData.marketCap / 1000000000).toFixed(2)}B\n`;
+      response += `ðŸ“Š **24h Volume:** $${(priceData.volume24h / 1000000).toFixed(2)}M\n`;
+      response += `â° **Updated:** ${new Date(priceData.timestamp).toLocaleTimeString()}\n\n`;
       
       // Add price trend emoji
-      const trendEmoji = priceData.change24h > 5 ? '🚀' : priceData.change24h > 0 ? '📈' : priceData.change24h > -5 ? '📊' : '📉';
+      const trendEmoji = priceData.change24h > 5 ? 'ðŸš€' : priceData.change24h > 0 ? 'ðŸ“ˆ' : priceData.change24h > -5 ? 'ðŸ“Š' : 'ðŸ“‰';
       response += `${trendEmoji} **Trend:** ${priceData.change24h > 0 ? 'Bullish' : 'Bearish'} market sentiment`;
       
       return {
@@ -9944,18 +9950,18 @@ ${gasInfo}
     try {
       const prices = await realTimePriceManager.getMultiplePrices(tokenSymbols);
       
-      let response = `📊 **Multi-Token Price Overview**\n\n`;
+      let response = `ðŸ“Š **Multi-Token Price Overview**\n\n`;
       
       Object.entries(prices).forEach(([symbol, data]) => {
         if (data.error) {
-          response += `❌ **${symbol.toUpperCase()}:** Error - ${data.error}\n`;
+          response += `âŒ **${symbol.toUpperCase()}:** Error - ${data.error}\n`;
         } else {
-          const trendEmoji = data.change24h > 5 ? '🚀' : data.change24h > 0 ? '📈' : data.change24h > -5 ? '📊' : '📉';
+          const trendEmoji = data.change24h > 5 ? 'ðŸš€' : data.change24h > 0 ? 'ðŸ“ˆ' : data.change24h > -5 ? 'ðŸ“Š' : 'ðŸ“‰';
           response += `${trendEmoji} **${data.symbol}:** $${data.price.toLocaleString()} (${data.change24h > 0 ? '+' : ''}${data.change24h.toFixed(2)}%)\n`;
         }
       });
       
-      response += `\n⏰ **Updated:** ${new Date().toLocaleTimeString()}`;
+      response += `\nâ° **Updated:** ${new Date().toLocaleTimeString()}`;
       
       return {
         userMessage: response,
@@ -9975,17 +9981,17 @@ ${gasInfo}
     try {
       const marketData = await realTimePriceManager.getMarketOverview();
       
-      let response = `🌍 **Crypto Market Overview**\n\n`;
-      response += `💰 **Total Market Cap:** $${(marketData.totalMarketCap / 1000000000000).toFixed(2)}T\n`;
-      response += `📊 **24h Volume:** $${(marketData.totalVolume / 1000000000).toFixed(2)}B\n`;
-      response += `🪙 **Active Cryptocurrencies:** ${marketData.activeCryptocurrencies.toLocaleString()}\n`;
-      response += `🏪 **Markets:** ${marketData.markets.toLocaleString()}\n\n`;
+      let response = `ðŸŒ **Crypto Market Overview**\n\n`;
+      response += `ðŸ’° **Total Market Cap:** $${(marketData.totalMarketCap / 1000000000000).toFixed(2)}T\n`;
+      response += `ðŸ“Š **24h Volume:** $${(marketData.totalVolume / 1000000000).toFixed(2)}B\n`;
+      response += `ðŸª™ **Active Cryptocurrencies:** ${marketData.activeCryptocurrencies.toLocaleString()}\n`;
+      response += `ðŸª **Markets:** ${marketData.markets.toLocaleString()}\n\n`;
       
-      response += `📈 **Dominance:**\n`;
-      response += `• Bitcoin: ${marketData.bitcoinDominance.toFixed(1)}%\n`;
-      response += `• Ethereum: ${marketData.ethereumDominance.toFixed(1)}%\n\n`;
+      response += `ðŸ“ˆ **Dominance:**\n`;
+      response += `â€¢ Bitcoin: ${marketData.bitcoinDominance.toFixed(1)}%\n`;
+      response += `â€¢ Ethereum: ${marketData.ethereumDominance.toFixed(1)}%\n\n`;
       
-      response += `⏰ **Updated:** ${new Date(marketData.timestamp).toLocaleTimeString()}`;
+      response += `â° **Updated:** ${new Date(marketData.timestamp).toLocaleTimeString()}`;
       
       return {
         userMessage: response,
@@ -10005,22 +10011,22 @@ ${gasInfo}
     try {
       const analysis = await defiAnalysisManager.analyzeProtocol(protocolName);
       
-      let response = `🔍 **${analysis.name} Protocol Analysis**\n\n`;
-      response += `📊 **Type:** ${analysis.type}\n`;
-      response += `💰 **APY:** ${analysis.apy.toFixed(2)}%\n`;
-      response += `🛡️ **Risk Score:** ${analysis.riskScore}/100\n`;
-      response += `💎 **TVL:** $${(analysis.tvl / 1000000).toFixed(2)}M\n`;
-      response += `📝 **Description:** ${analysis.description}\n\n`;
+      let response = `ðŸ” **${analysis.name} Protocol Analysis**\n\n`;
+      response += `ðŸ“Š **Type:** ${analysis.type}\n`;
+      response += `ðŸ’° **APY:** ${analysis.apy.toFixed(2)}%\n`;
+      response += `ðŸ›¡ï¸ **Risk Score:** ${analysis.riskScore}/100\n`;
+      response += `ðŸ’Ž **TVL:** $${(analysis.tvl / 1000000).toFixed(2)}M\n`;
+      response += `ðŸ“ **Description:** ${analysis.description}\n\n`;
       
-      response += `✅ **Safety Factors:**\n`;
+      response += `âœ… **Safety Factors:**\n`;
       analysis.safetyFactors.forEach(factor => {
-        response += `• ${factor}\n`;
+        response += `â€¢ ${factor}\n`;
       });
       response += `\n`;
       
-      response += `💡 **Recommendations:**\n`;
+      response += `ðŸ’¡ **Recommendations:**\n`;
       analysis.recommendations.forEach(rec => {
-        response += `• ${rec}\n`;
+        response += `â€¢ ${rec}\n`;
       });
       
       return {
@@ -10041,17 +10047,17 @@ ${gasInfo}
     try {
       const opportunities = await defiAnalysisManager.getYieldOpportunities(riskTolerance);
       
-      let response = `🌾 **Yield Farming Opportunities (${riskTolerance} risk)**\n\n`;
+      let response = `ðŸŒ¾ **Yield Farming Opportunities (${riskTolerance} risk)**\n\n`;
       
       opportunities.forEach((opp, index) => {
-        const riskEmoji = opp.riskScore >= 80 ? '🟢' : opp.riskScore >= 60 ? '🟡' : '🔴';
+        const riskEmoji = opp.riskScore >= 80 ? 'ðŸŸ¢' : opp.riskScore >= 60 ? 'ðŸŸ¡' : 'ðŸ”´';
         response += `${index + 1}. ${riskEmoji} **${opp.name}**\n`;
-        response += `   💰 APY: ${opp.apy.toFixed(2)}% | Risk: ${opp.riskScore}/100\n`;
-        response += `   💎 TVL: $${(opp.tvl / 1000000).toFixed(2)}M\n`;
-        response += `   📝 ${opp.description}\n\n`;
+        response += `   ðŸ’° APY: ${opp.apy.toFixed(2)}% | Risk: ${opp.riskScore}/100\n`;
+        response += `   ðŸ’Ž TVL: $${(opp.tvl / 1000000).toFixed(2)}M\n`;
+        response += `   ðŸ“ ${opp.description}\n\n`;
       });
       
-      response += `💡 **Tip:** Higher APY often means higher risk. Always DYOR!`;
+      response += `ðŸ’¡ **Tip:** Higher APY often means higher risk. Always DYOR!`;
       
       return {
         userMessage: response,
@@ -10073,15 +10079,15 @@ ${gasInfo}
       
       if (success) {
         const community = communityManager.mockCommunities[communityId];
-        let response = `🎉 **Welcome to ${community.name}!**\n\n`;
-        response += `📝 **Description:** ${community.description}\n`;
-        response += `👥 **Members:** ${community.members}\n`;
-        response += `🔥 **Activity:** ${community.activity}\n`;
-        response += `🏷️ **Topics:** ${community.topics.join(', ')}\n\n`;
-        response += `💬 **Get started by:**\n`;
-        response += `• Sharing your first post\n`;
-        response += `• Asking questions\n`;
-        response += `• Connecting with other members`;
+        let response = `ðŸŽ‰ **Welcome to ${community.name}!**\n\n`;
+        response += `ðŸ“ **Description:** ${community.description}\n`;
+        response += `ðŸ‘¥ **Members:** ${community.members}\n`;
+        response += `ðŸ”¥ **Activity:** ${community.activity}\n`;
+        response += `ðŸ·ï¸ **Topics:** ${community.topics.join(', ')}\n\n`;
+        response += `ðŸ’¬ **Get started by:**\n`;
+        response += `â€¢ Sharing your first post\n`;
+        response += `â€¢ Asking questions\n`;
+        response += `â€¢ Connecting with other members`;
         
         return {
           userMessage: response,
@@ -10090,7 +10096,7 @@ ${gasInfo}
         };
       } else {
         return {
-          userMessage: "❌ You're already a member of this community or the community doesn't exist.",
+          userMessage: "âŒ You're already a member of this community or the community doesn't exist.",
           error: "Already joined or invalid community"
         };
       }
@@ -10115,13 +10121,13 @@ ${gasInfo}
       
       const signalId = communityManager.createSocialSignal(userId, signal);
       
-      let response = `📡 **Social Trading Signal Created!**\n\n`;
-      response += `🪙 **Token:** ${signal.tokenSymbol}\n`;
-      response += `📊 **Action:** ${signal.action.toUpperCase()}\n`;
-      response += `💰 **Price:** $${signal.price}\n`;
-      response += `💭 **Reason:** ${signal.reason}\n`;
-      response += `🆔 **Signal ID:** ${signalId}\n\n`;
-      response += `💡 **Your signal is now visible to the community!**`;
+      let response = `ðŸ“¡ **Social Trading Signal Created!**\n\n`;
+      response += `ðŸª™ **Token:** ${signal.tokenSymbol}\n`;
+      response += `ðŸ“Š **Action:** ${signal.action.toUpperCase()}\n`;
+      response += `ðŸ’° **Price:** $${signal.price}\n`;
+      response += `ðŸ’­ **Reason:** ${signal.reason}\n`;
+      response += `ðŸ†” **Signal ID:** ${signalId}\n\n`;
+      response += `ðŸ’¡ **Your signal is now visible to the community!**`;
       
       return {
         userMessage: response,
@@ -10142,14 +10148,14 @@ ${gasInfo}
     try {
       const insights = communityManager.getCommunityInsights(userId);
       
-      let response = `👥 **Your Community Insights**\n\n`;
-      response += `🏘️ **Communities Joined:** ${insights.communitiesJoined}\n`;
-      response += `👥 **Total Members:** ${insights.totalMembers.toLocaleString()}\n`;
-      response += `📡 **Signals Created:** ${insights.signalsCreated}\n`;
-      response += `🔥 **Average Activity:** ${insights.averageActivity.toFixed(1)}/3\n\n`;
+      let response = `ðŸ‘¥ **Your Community Insights**\n\n`;
+      response += `ðŸ˜ï¸ **Communities Joined:** ${insights.communitiesJoined}\n`;
+      response += `ðŸ‘¥ **Total Members:** ${insights.totalMembers.toLocaleString()}\n`;
+      response += `ðŸ“¡ **Signals Created:** ${insights.signalsCreated}\n`;
+      response += `ðŸ”¥ **Average Activity:** ${insights.averageActivity.toFixed(1)}/3\n\n`;
       
       if (insights.topInterests.length > 0) {
-        response += `🎯 **Top Interests:**\n`;
+        response += `ðŸŽ¯ **Top Interests:**\n`;
         insights.topInterests.forEach((interest, index) => {
           response += `${index + 1}. ${interest}\n`;
         });
@@ -10157,7 +10163,7 @@ ${gasInfo}
       }
       
       if (insights.recommendations.length > 0) {
-        response += `💡 **Recommended Communities:**\n`;
+        response += `ðŸ’¡ **Recommended Communities:**\n`;
         insights.recommendations.forEach((rec, index) => {
           response += `${index + 1}. **${rec.name}** (${rec.members} members)\n`;
           response += `   ${rec.description}\n`;
@@ -10205,48 +10211,48 @@ ${gasInfo}
         riskScore: 85
       };
       
-      let response = `📊 **Transaction Analytics Report**\n\n`;
-      response += `📈 **Overview (${timeframe}):**\n`;
-      response += `• Total Transactions: ${mockAnalytics.totalTransactions}\n`;
-      response += `• Success Rate: ${mockAnalytics.successRate}%\n`;
-      response += `• Total Volume: ${mockAnalytics.totalVolume} ETH\n`;
-      response += `• Average Size: ${mockAnalytics.averageTransactionSize} ETH\n\n`;
+      let response = `ðŸ“Š **Transaction Analytics Report**\n\n`;
+      response += `ðŸ“ˆ **Overview (${timeframe}):**\n`;
+      response += `â€¢ Total Transactions: ${mockAnalytics.totalTransactions}\n`;
+      response += `â€¢ Success Rate: ${mockAnalytics.successRate}%\n`;
+      response += `â€¢ Total Volume: ${mockAnalytics.totalVolume} ETH\n`;
+      response += `â€¢ Average Size: ${mockAnalytics.averageTransactionSize} ETH\n\n`;
       
-      response += `🌐 **Chain Usage:**\n`;
-      response += `• Most Used: ${mockAnalytics.mostUsedChain.charAt(0).toUpperCase() + mockAnalytics.mostUsedChain.slice(1)}\n`;
-      response += `• Multi-chain: ${Object.keys(mockAnalytics.transactionTypes).length} different types\n\n`;
+      response += `ðŸŒ **Chain Usage:**\n`;
+      response += `â€¢ Most Used: ${mockAnalytics.mostUsedChain.charAt(0).toUpperCase() + mockAnalytics.mostUsedChain.slice(1)}\n`;
+      response += `â€¢ Multi-chain: ${Object.keys(mockAnalytics.transactionTypes).length} different types\n\n`;
       
-      response += `⚡ **Gas Efficiency:**\n`;
-      response += `• Total Gas Used: ${mockAnalytics.gasEfficiency.totalGasUsed} ETH\n`;
-      response += `• Average per TX: ${mockAnalytics.gasEfficiency.averageGasPerTransaction} ETH\n`;
-      response += `• Gas Savings: ${mockAnalytics.gasEfficiency.gasSavings} ETH\n\n`;
+      response += `âš¡ **Gas Efficiency:**\n`;
+      response += `â€¢ Total Gas Used: ${mockAnalytics.gasEfficiency.totalGasUsed} ETH\n`;
+      response += `â€¢ Average per TX: ${mockAnalytics.gasEfficiency.averageGasPerTransaction} ETH\n`;
+      response += `â€¢ Gas Savings: ${mockAnalytics.gasEfficiency.gasSavings} ETH\n\n`;
       
-      response += `🎯 **Transaction Types:**\n`;
+      response += `ðŸŽ¯ **Transaction Types:**\n`;
       Object.entries(mockAnalytics.transactionTypes).forEach(([type, count]) => {
-        const emoji = type === 'transfers' ? '💸' : type === 'swaps' ? '🔄' : type === 'defi' ? '💰' : '🎨';
-        response += `• ${emoji} ${type.charAt(0).toUpperCase() + type.slice(1)}: ${count}\n`;
+        const emoji = type === 'transfers' ? 'ðŸ’¸' : type === 'swaps' ? 'ðŸ”„' : type === 'defi' ? 'ðŸ’°' : 'ðŸŽ¨';
+        response += `â€¢ ${emoji} ${type.charAt(0).toUpperCase() + type.slice(1)}: ${count}\n`;
       });
       
-      response += `\n⏱️ **Performance:**\n`;
-      response += `• Average Confirmation: ${mockAnalytics.averageConfirmationTime} seconds\n`;
-      response += `• Peak Hours: ${mockAnalytics.peakHours.map(h => `${h}:00`).join(', ')}\n`;
-      response += `• Risk Score: ${mockAnalytics.riskScore}/100\n\n`;
+      response += `\nâ±ï¸ **Performance:**\n`;
+      response += `â€¢ Average Confirmation: ${mockAnalytics.averageConfirmationTime} seconds\n`;
+      response += `â€¢ Peak Hours: ${mockAnalytics.peakHours.map(h => `${h}:00`).join(', ')}\n`;
+      response += `â€¢ Risk Score: ${mockAnalytics.riskScore}/100\n\n`;
       
-      response += `💡 **Insights:**\n`;
+      response += `ðŸ’¡ **Insights:**\n`;
       if (mockAnalytics.successRate >= 95) {
-        response += `• Excellent transaction success rate!\n`;
+        response += `â€¢ Excellent transaction success rate!\n`;
       } else if (mockAnalytics.successRate >= 90) {
-        response += `• Good transaction success rate\n`;
+        response += `â€¢ Good transaction success rate\n`;
       } else {
-        response += `• Consider reviewing failed transactions\n`;
+        response += `â€¢ Consider reviewing failed transactions\n`;
       }
       
       if (mockAnalytics.mostUsedChain === 'base') {
-        response += `• You're maximizing Base's low fees!\n`;
+        response += `â€¢ You're maximizing Base's low fees!\n`;
       }
       
       if (mockAnalytics.gasEfficiency.gasSavings > 0.01) {
-        response += `• Great gas efficiency - you're saving money!\n`;
+        response += `â€¢ Great gas efficiency - you're saving money!\n`;
       }
       
       return {
@@ -10271,7 +10277,7 @@ ${gasInfo}
       if (!ethAddressRegex.test(agentAddress)) {
         return {
           error: "Invalid agent address format",
-          userMessage: "❌ Sorry, there's an issue with the agent address. Please try again."
+          userMessage: "âŒ Sorry, there's an issue with the agent address. Please try again."
         };
       }
       
@@ -10283,38 +10289,38 @@ ${gasInfo}
       
       switch (context) {
         case 'trading':
-          message = `📈 **Trading Assistant Deeplink** 📈\n\nStart a private conversation for personalized trading insights!\n\n**Deeplink:** \`${deeplink}\`\n\n**Private Trading Features:**\n• Portfolio analysis\n• Market predictions\n• Risk management\n• Trading signals\n• Strategy optimization`;
+          message = `ðŸ“ˆ **Trading Assistant Deeplink** ðŸ“ˆ\n\nStart a private conversation for personalized trading insights!\n\n**Deeplink:** \`${deeplink}\`\n\n**Private Trading Features:**\nâ€¢ Portfolio analysis\nâ€¢ Market predictions\nâ€¢ Risk management\nâ€¢ Trading signals\nâ€¢ Strategy optimization`;
           quickActions = [
-            { id: "trading_analysis", label: "📊 Portfolio Analysis", style: "primary" },
-            { id: "market_prediction", label: "🔮 Market Prediction", style: "secondary" },
-            { id: "risk_assessment", label: "⚠️ Risk Assessment", style: "secondary" }
+            { id: "trading_analysis", label: "ðŸ“Š Portfolio Analysis", style: "primary" },
+            { id: "market_prediction", label: "ðŸ”® Market Prediction", style: "secondary" },
+            { id: "risk_assessment", label: "âš ï¸ Risk Assessment", style: "secondary" }
           ];
           break;
           
         case 'defi':
-          message = `🌾 **DeFi Expert Deeplink** 🌾\n\nGet detailed DeFi guidance in a private chat!\n\n**Deeplink:** \`${deeplink}\`\n\n**Private DeFi Features:**\n• Protocol analysis\n• Yield optimization\n• Risk assessment\n• Strategy planning\n• APY comparisons`;
+          message = `ðŸŒ¾ **DeFi Expert Deeplink** ðŸŒ¾\n\nGet detailed DeFi guidance in a private chat!\n\n**Deeplink:** \`${deeplink}\`\n\n**Private DeFi Features:**\nâ€¢ Protocol analysis\nâ€¢ Yield optimization\nâ€¢ Risk assessment\nâ€¢ Strategy planning\nâ€¢ APY comparisons`;
           quickActions = [
-            { id: "protocol_analysis", label: "🔍 Protocol Analysis", style: "primary" },
-            { id: "yield_optimization", label: "💰 Yield Optimization", style: "secondary" },
-            { id: "defi_strategy", label: "📋 DeFi Strategy", style: "secondary" }
+            { id: "protocol_analysis", label: "ðŸ” Protocol Analysis", style: "primary" },
+            { id: "yield_optimization", label: "ðŸ’° Yield Optimization", style: "secondary" },
+            { id: "defi_strategy", label: "ðŸ“‹ DeFi Strategy", style: "secondary" }
           ];
           break;
           
         case 'gaming':
-          message = `🎮 **Gaming Companion Deeplink** 🎮\n\nJoin private chat for gaming insights and competitions!\n\n**Deeplink:** \`${deeplink}\`\n\n**Private Gaming Features:**\n• Game recommendations\n• Tournament updates\n• Leaderboard tracking\n• Strategy tips\n• Community events`;
+          message = `ðŸŽ® **Gaming Companion Deeplink** ðŸŽ®\n\nJoin private chat for gaming insights and competitions!\n\n**Deeplink:** \`${deeplink}\`\n\n**Private Gaming Features:**\nâ€¢ Game recommendations\nâ€¢ Tournament updates\nâ€¢ Leaderboard tracking\nâ€¢ Strategy tips\nâ€¢ Community events`;
           quickActions = [
-            { id: "game_recommendations", label: "🎯 Game Recommendations", style: "primary" },
-            { id: "tournament_info", label: "🏆 Tournament Info", style: "secondary" },
-            { id: "leaderboard", label: "📊 Leaderboard", style: "secondary" }
+            { id: "game_recommendations", label: "ðŸŽ¯ Game Recommendations", style: "primary" },
+            { id: "tournament_info", label: "ðŸ† Tournament Info", style: "secondary" },
+            { id: "leaderboard", label: "ðŸ“Š Leaderboard", style: "secondary" }
           ];
           break;
           
         default:
-          message = `🔗 **Dragman Agent Deeplink** 🔗\n\nStart a private conversation for personalized crypto assistance!\n\n**Deeplink:** \`${deeplink}\`\n\n**Private Chat Features:**\n• Personalized assistance\n• Detailed analysis\n• Portfolio tracking\n• Trading insights\n• DeFi guidance\n• Gaming tips`;
+          message = `ðŸ”— **Dragman Agent Deeplink** ðŸ”—\n\nStart a private conversation for personalized crypto assistance!\n\n**Deeplink:** \`${deeplink}\`\n\n**Private Chat Features:**\nâ€¢ Personalized assistance\nâ€¢ Detailed analysis\nâ€¢ Portfolio tracking\nâ€¢ Trading insights\nâ€¢ DeFi guidance\nâ€¢ Gaming tips`;
           quickActions = [
-            { id: "personalized_help", label: "💬 Personalized Help", style: "primary" },
-            { id: "portfolio_tracking", label: "📊 Portfolio Tracking", style: "secondary" },
-            { id: "crypto_analysis", label: "🔍 Crypto Analysis", style: "secondary" }
+            { id: "personalized_help", label: "ðŸ’¬ Personalized Help", style: "primary" },
+            { id: "portfolio_tracking", label: "ðŸ“Š Portfolio Tracking", style: "secondary" },
+            { id: "crypto_analysis", label: "ðŸ” Crypto Analysis", style: "secondary" }
           ];
       }
       
@@ -10332,7 +10338,7 @@ ${gasInfo}
       log('error', `--- CREATE BASE APP DEEPLINK END --- ERROR`, { error: error.message });
       return {
         error: "Failed to create deeplink",
-        userMessage: "❌ Sorry, I couldn't create the deeplink right now. Please try again."
+        userMessage: "âŒ Sorry, I couldn't create the deeplink right now. Please try again."
       };
     }
   },
@@ -10345,7 +10351,7 @@ ${gasInfo}
       // Validate target address
       if (!isAddress(targetAddress)) {
         return {
-          userMessage: "❌ Invalid agent address format. Please provide a valid Ethereum address (0x...).",
+          userMessage: "âŒ Invalid agent address format. Please provide a valid Ethereum address (0x...).",
           error: "Invalid address format"
         };
       }
@@ -10354,7 +10360,7 @@ ${gasInfo}
       const deeplink = `cbwallet://messaging/${targetAddress}`;
       
       // Generate context-aware message
-      let message = "💬 **Start a Private Conversation**\n\n";
+      let message = "ðŸ’¬ **Start a Private Conversation**\n\n";
       
       if (context.source === 'group') {
         message += "Want to chat privately? I can provide personalized assistance without cluttering the group chat.\n\n";
@@ -10364,22 +10370,22 @@ ${gasInfo}
         message += "Ready for a one-on-one conversation? I'm here to help with personalized crypto guidance.\n\n";
       }
       
-      message += `🔗 **Tap to start private chat:**\n${deeplink}\n\n`;
+      message += `ðŸ”— **Tap to start private chat:**\n${deeplink}\n\n`;
       
       // Add context-specific benefits
       if (context.action) {
         switch (context.action) {
           case 'trading':
-            message += "💡 **Private chat benefits:**\n• Personal trading strategies\n• Portfolio analysis\n• Market insights\n• Risk management tips";
+            message += "ðŸ’¡ **Private chat benefits:**\nâ€¢ Personal trading strategies\nâ€¢ Portfolio analysis\nâ€¢ Market insights\nâ€¢ Risk management tips";
             break;
           case 'defi':
-            message += "💡 **Private chat benefits:**\n• DeFi protocol analysis\n• Yield farming strategies\n• Risk assessment\n• Gas optimization tips";
+            message += "ðŸ’¡ **Private chat benefits:**\nâ€¢ DeFi protocol analysis\nâ€¢ Yield farming strategies\nâ€¢ Risk assessment\nâ€¢ Gas optimization tips";
             break;
           case 'gaming':
-            message += "💡 **Private chat benefits:**\n• Game strategies\n• Leaderboard tips\n• Community connections\n• Achievement guidance";
+            message += "ðŸ’¡ **Private chat benefits:**\nâ€¢ Game strategies\nâ€¢ Leaderboard tips\nâ€¢ Community connections\nâ€¢ Achievement guidance";
             break;
           default:
-            message += "💡 **Private chat benefits:**\n• Personalized assistance\n• Detailed explanations\n• Custom recommendations\n• One-on-one support";
+            message += "ðŸ’¡ **Private chat benefits:**\nâ€¢ Personalized assistance\nâ€¢ Detailed explanations\nâ€¢ Custom recommendations\nâ€¢ One-on-one support";
         }
       }
       
@@ -10405,13 +10411,13 @@ ${gasInfo}
       
       if (!isAddress(agentAddress)) {
         return {
-          userMessage: "❌ Agent address not configured properly. Please contact support.",
+          userMessage: "âŒ Agent address not configured properly. Please contact support.",
           error: "Invalid agent address"
         };
       }
       
       // Create invitation message based on context
-      let invitationMessage = "👋 **Private Chat Invitation**\n\n";
+      let invitationMessage = "ðŸ‘‹ **Private Chat Invitation**\n\n";
       
       if (context.trigger === 'help_request') {
         invitationMessage += "I noticed you might need some help! Let's continue our conversation privately where I can provide detailed, personalized assistance.\n\n";
@@ -10424,14 +10430,14 @@ ${gasInfo}
       }
       
       const deeplink = `cbwallet://messaging/${agentAddress}`;
-      invitationMessage += `🔗 **Tap here to start our private conversation:**\n${deeplink}\n\n`;
+      invitationMessage += `ðŸ”— **Tap here to start our private conversation:**\n${deeplink}\n\n`;
       
-      invitationMessage += "💡 **What you'll get in private chat:**\n";
-      invitationMessage += "• Personalized crypto guidance\n";
-      invitationMessage += "• Detailed explanations\n";
-      invitationMessage += "• Custom recommendations\n";
-      invitationMessage += "• One-on-one support\n";
-      invitationMessage += "• Advanced features access";
+      invitationMessage += "ðŸ’¡ **What you'll get in private chat:**\n";
+      invitationMessage += "â€¢ Personalized crypto guidance\n";
+      invitationMessage += "â€¢ Detailed explanations\n";
+      invitationMessage += "â€¢ Custom recommendations\n";
+      invitationMessage += "â€¢ One-on-one support\n";
+      invitationMessage += "â€¢ Advanced features access";
       
       return {
         userMessage: invitationMessage,
@@ -10452,7 +10458,7 @@ ${gasInfo}
     try {
       if (!isAddress(targetAddress)) {
         return {
-          userMessage: "❌ Invalid agent address format.",
+          userMessage: "âŒ Invalid agent address format.",
           error: "Invalid address format"
         };
       }
@@ -10465,53 +10471,53 @@ ${gasInfo}
       
       switch (context.action) {
         case 'trading_analysis':
-          message = "📈 **Trading Analysis Request**\n\n";
+          message = "ðŸ“ˆ **Trading Analysis Request**\n\n";
           message += "I can provide detailed trading analysis and market insights in our private chat.\n\n";
-          message += `🔗 **Start private trading chat:**\n${deeplink}\n\n`;
-          message += "🎯 **What I'll help with:**\n• Technical analysis\n• Market sentiment\n• Risk assessment\n• Entry/exit strategies";
+          message += `ðŸ”— **Start private trading chat:**\n${deeplink}\n\n`;
+          message += "ðŸŽ¯ **What I'll help with:**\nâ€¢ Technical analysis\nâ€¢ Market sentiment\nâ€¢ Risk assessment\nâ€¢ Entry/exit strategies";
           quickActions = [
-            { id: "technical_analysis", label: "📊 Technical Analysis", style: "primary" },
-            { id: "market_sentiment", label: "📰 Market Sentiment", style: "secondary" },
-            { id: "risk_assessment", label: "🛡️ Risk Assessment", style: "secondary" }
+            { id: "technical_analysis", label: "ðŸ“Š Technical Analysis", style: "primary" },
+            { id: "market_sentiment", label: "ðŸ“° Market Sentiment", style: "secondary" },
+            { id: "risk_assessment", label: "ðŸ›¡ï¸ Risk Assessment", style: "secondary" }
           ];
           break;
           
         case 'defi_guidance':
-          message = "💰 **DeFi Guidance Request**\n\n";
+          message = "ðŸ’° **DeFi Guidance Request**\n\n";
           message += "Let's discuss DeFi strategies and protocol analysis privately.\n\n";
-          message += `🔗 **Start private DeFi chat:**\n${deeplink}\n\n`;
-          message += "🎯 **What I'll help with:**\n• Protocol analysis\n• Yield optimization\n• Risk management\n• Gas efficiency";
+          message += `ðŸ”— **Start private DeFi chat:**\n${deeplink}\n\n`;
+          message += "ðŸŽ¯ **What I'll help with:**\nâ€¢ Protocol analysis\nâ€¢ Yield optimization\nâ€¢ Risk management\nâ€¢ Gas efficiency";
           quickActions = [
-            { id: "protocol_analysis", label: "🔍 Protocol Analysis", style: "primary" },
-            { id: "yield_optimization", label: "📈 Yield Optimization", style: "secondary" },
-            { id: "risk_management", label: "🛡️ Risk Management", style: "secondary" }
+            { id: "protocol_analysis", label: "ðŸ” Protocol Analysis", style: "primary" },
+            { id: "yield_optimization", label: "ðŸ“ˆ Yield Optimization", style: "secondary" },
+            { id: "risk_management", label: "ðŸ›¡ï¸ Risk Management", style: "secondary" }
           ];
           break;
           
         case 'gaming_support':
-          message = "🎮 **Gaming Support Request**\n\n";
+          message = "ðŸŽ® **Gaming Support Request**\n\n";
           message += "Need help with crypto games? Let's chat privately for personalized gaming support.\n\n";
-          message += `🔗 **Start private gaming chat:**\n${deeplink}\n\n`;
-          message += "🎯 **What I'll help with:**\n• Game strategies\n• Leaderboard tips\n• Community connections\n• Achievement guidance";
+          message += `ðŸ”— **Start private gaming chat:**\n${deeplink}\n\n`;
+          message += "ðŸŽ¯ **What I'll help with:**\nâ€¢ Game strategies\nâ€¢ Leaderboard tips\nâ€¢ Community connections\nâ€¢ Achievement guidance";
           quickActions = [
-            { id: "game_strategies", label: "🎯 Game Strategies", style: "primary" },
-            { id: "leaderboard_tips", label: "🏆 Leaderboard Tips", style: "secondary" },
-            { id: "community_connections", label: "👥 Community", style: "secondary" }
+            { id: "game_strategies", label: "ðŸŽ¯ Game Strategies", style: "primary" },
+            { id: "leaderboard_tips", label: "ðŸ† Leaderboard Tips", style: "secondary" },
+            { id: "community_connections", label: "ðŸ‘¥ Community", style: "secondary" }
           ];
           break;
           
         default:
-          message = "💬 **Private Chat Request**\n\n";
+          message = "ðŸ’¬ **Private Chat Request**\n\n";
           message += "Let's continue our conversation privately for personalized assistance.\n\n";
-          message += `🔗 **Start private chat:**\n${deeplink}`;
+          message += `ðŸ”— **Start private chat:**\n${deeplink}`;
       }
       
       // Add metadata if provided
       if (metadata.gameId) {
-        message += `\n\n🎮 **Game ID:** ${metadata.gameId}`;
+        message += `\n\nðŸŽ® **Game ID:** ${metadata.gameId}`;
       }
       if (metadata.topic) {
-        message += `\n\n📝 **Topic:** ${metadata.topic}`;
+        message += `\n\nðŸ“ **Topic:** ${metadata.topic}`;
       }
       
       return {
@@ -10542,41 +10548,41 @@ ${gasInfo}
         support: "0x5678901234567890123456789012345678901234"  // Support Agent
       };
       
-      let message = "🤖 **Connect with Specialized Agents**\n\n";
+      let message = "ðŸ¤– **Connect with Specialized Agents**\n\n";
       message += "Choose the agent that best fits your needs:\n\n";
       
       const agentMenu = [
         {
           id: "trading_agent",
-          name: "🏦 Trading Bot",
+          name: "ðŸ¦ Trading Bot",
           description: "Portfolio management & market insights",
           address: agentAddresses.trading,
           deeplink: `cbwallet://messaging/${agentAddresses.trading}`
         },
         {
           id: "gaming_agent", 
-          name: "🎮 Game Master",
+          name: "ðŸŽ® Game Master",
           description: "Competitions & leaderboards",
           address: agentAddresses.gaming,
           deeplink: `cbwallet://messaging/${agentAddresses.gaming}`
         },
         {
           id: "defi_agent",
-          name: "💰 DeFi Expert", 
+          name: "ðŸ’° DeFi Expert", 
           description: "Yield farming & protocol analysis",
           address: agentAddresses.defi,
           deeplink: `cbwallet://messaging/${agentAddresses.defi}`
         },
         {
           id: "social_agent",
-          name: "👥 Social Hub",
+          name: "ðŸ‘¥ Social Hub",
           description: "Community events & networking", 
           address: agentAddresses.social,
           deeplink: `cbwallet://messaging/${agentAddresses.social}`
         },
         {
           id: "support_agent",
-          name: "🛠️ Support Agent",
+          name: "ðŸ› ï¸ Support Agent",
           description: "Technical help & troubleshooting",
           address: agentAddresses.support,
           deeplink: `cbwallet://messaging/${agentAddresses.support}`
@@ -10590,25 +10596,25 @@ ${gasInfo}
         message += `   ${agent.deeplink}\n\n`;
       });
       
-      message += "💡 **Each agent specializes in their domain for the best experience!**\n\n";
-      message += "🎯 **Recommendation:** Based on your context, I'd suggest starting with the ";
+      message += "ðŸ’¡ **Each agent specializes in their domain for the best experience!**\n\n";
+      message += "ðŸŽ¯ **Recommendation:** Based on your context, I'd suggest starting with the ";
       
       // Context-based recommendation
       switch (context) {
         case 'trading':
-          message += "🏦 **Trading Bot** for market insights and portfolio management.";
+          message += "ðŸ¦ **Trading Bot** for market insights and portfolio management.";
           break;
         case 'gaming':
-          message += "🎮 **Game Master** for gaming strategies and competitions.";
+          message += "ðŸŽ® **Game Master** for gaming strategies and competitions.";
           break;
         case 'defi':
-          message += "💰 **DeFi Expert** for yield farming and protocol analysis.";
+          message += "ðŸ’° **DeFi Expert** for yield farming and protocol analysis.";
           break;
         case 'social':
-          message += "👥 **Social Hub** for community connections and events.";
+          message += "ðŸ‘¥ **Social Hub** for community connections and events.";
           break;
         default:
-          message += "🛠️ **Support Agent** for general assistance and guidance.";
+          message += "ðŸ› ï¸ **Support Agent** for general assistance and guidance.";
       }
       
       return {
@@ -10632,7 +10638,7 @@ ${gasInfo}
       
       if (!deeplinkRegex.test(deeplink)) {
         return {
-          userMessage: "❌ Invalid deeplink format. Deeplinks must follow the format: cbwallet://messaging/0x...",
+          userMessage: "âŒ Invalid deeplink format. Deeplinks must follow the format: cbwallet://messaging/0x...",
           error: "Invalid deeplink format",
           isValid: false
         };
@@ -10644,7 +10650,7 @@ ${gasInfo}
       // Additional security checks
       if (!isAddress(address)) {
         return {
-          userMessage: "❌ Invalid agent address in deeplink.",
+          userMessage: "âŒ Invalid agent address in deeplink.",
           error: "Invalid address format",
           isValid: false
         };
@@ -10664,8 +10670,8 @@ ${gasInfo}
       
       return {
         userMessage: isKnownAgent ? 
-          "✅ **Deeplink is valid and points to a trusted agent!**" :
-          "⚠️ **Deeplink is valid but points to an unknown agent. Proceed with caution.**",
+          "âœ… **Deeplink is valid and points to a trusted agent!**" :
+          "âš ï¸ **Deeplink is valid but points to an unknown agent. Proceed with caution.**",
         isValid: true,
         isKnownAgent: isKnownAgent,
         address: address,
@@ -10692,12 +10698,12 @@ ${gasInfo}
     try {
       if (!isAddress(agentAddress)) {
         return {
-          userMessage: "❌ Invalid agent address format.",
+          userMessage: "âŒ Invalid agent address format.",
           error: "Invalid address format"
         };
       }
       
-      let message = "🔗 **Can't open direct chat?**\n\n";
+      let message = "ðŸ”— **Can't open direct chat?**\n\n";
       message += "Here are alternative ways to connect:\n\n";
       
       // Fallback options
@@ -10736,16 +10742,16 @@ ${gasInfo}
       
       // Add context-specific fallbacks
       if (context.source === 'group') {
-        message += "💡 **Group Chat Alternative:**\n";
+        message += "ðŸ’¡ **Group Chat Alternative:**\n";
         message += "You can also continue asking questions here in the group. I'll do my best to help publicly!\n\n";
       }
       
       if (context.urgent) {
-        message += "🚨 **Urgent Support:**\n";
+        message += "ðŸš¨ **Urgent Support:**\n";
         message += "If this is urgent, try the community chat first - it's usually the fastest way to get help.\n\n";
       }
       
-      message += "🔄 **Try Again:**\n";
+      message += "ðŸ”„ **Try Again:**\n";
       message += "Sometimes deeplinks work better after a few seconds. You can try the original deeplink again:\n";
       message += `cbwallet://messaging/${agentAddress}`;
       
@@ -10775,25 +10781,25 @@ ${gasInfo}
         platform: "ios"
       };
       
-      let message = "🔍 **Environment Detection**\n\n";
+      let message = "ðŸ” **Environment Detection**\n\n";
       message += "I've detected your client environment:\n\n";
-      message += `📱 **Platform:** ${mockEnvironment.platform.toUpperCase()}\n`;
-      message += `🏷️ **App:** ${mockEnvironment.isBaseApp ? 'Base App' : 'Unknown'}\n`;
-      message += `🔗 **Deeplinks:** ${mockEnvironment.supportsDeeplinks ? 'Supported ✅' : 'Not Supported ❌'}\n`;
-      message += `📊 **Version:** ${mockEnvironment.clientVersion}\n\n`;
+      message += `ðŸ“± **Platform:** ${mockEnvironment.platform.toUpperCase()}\n`;
+      message += `ðŸ·ï¸ **App:** ${mockEnvironment.isBaseApp ? 'Base App' : 'Unknown'}\n`;
+      message += `ðŸ”— **Deeplinks:** ${mockEnvironment.supportsDeeplinks ? 'Supported âœ…' : 'Not Supported âŒ'}\n`;
+      message += `ðŸ“Š **Version:** ${mockEnvironment.clientVersion}\n\n`;
       
       if (mockEnvironment.supportsDeeplinks) {
-        message += "✅ **Great news!** Your client supports deeplinks, so you can use all the private chat features.\n\n";
-        message += "🎯 **Recommended actions:**\n";
-        message += "• Use deeplinks for private conversations\n";
-        message += "• Try multi-agent coordination\n";
-        message += "• Access context-aware features\n";
+        message += "âœ… **Great news!** Your client supports deeplinks, so you can use all the private chat features.\n\n";
+        message += "ðŸŽ¯ **Recommended actions:**\n";
+        message += "â€¢ Use deeplinks for private conversations\n";
+        message += "â€¢ Try multi-agent coordination\n";
+        message += "â€¢ Access context-aware features\n";
       } else {
-        message += "⚠️ **Limited support detected.** Some features may not work as expected.\n\n";
-        message += "🔄 **Alternative options:**\n";
-        message += "• Use fallback methods for private chats\n";
-        message += "• Continue conversations in group chat\n";
-        message += "• Visit our website for full features\n";
+        message += "âš ï¸ **Limited support detected.** Some features may not work as expected.\n\n";
+        message += "ðŸ”„ **Alternative options:**\n";
+        message += "â€¢ Use fallback methods for private chats\n";
+        message += "â€¢ Continue conversations in group chat\n";
+        message += "â€¢ Visit our website for full features\n";
       }
       
       return {
@@ -10815,14 +10821,14 @@ ${gasInfo}
       // Validate payment details
       if (!amount || parseFloat(amount) <= 0) {
         return {
-          userMessage: "❌ Invalid payment amount. Please provide a valid amount greater than 0.",
+          userMessage: "âŒ Invalid payment amount. Please provide a valid amount greater than 0.",
           error: "Invalid payment amount"
         };
       }
       
       if (!isAddress(recipient)) {
         return {
-          userMessage: "❌ Invalid recipient address format. Please provide a valid Ethereum address (0x...).",
+          userMessage: "âŒ Invalid recipient address format. Please provide a valid Ethereum address (0x...).",
           error: "Invalid recipient address"
         };
       }
@@ -10833,7 +10839,7 @@ ${gasInfo}
       
       if (paymentAmount > maxPaymentLimit) {
         return {
-          userMessage: `❌ Payment amount exceeds safety limit of ${maxPaymentLimit} ${currency}. Please contact support for larger payments.`,
+          userMessage: `âŒ Payment amount exceeds safety limit of ${maxPaymentLimit} ${currency}. Please contact support for larger payments.`,
           error: "Payment amount too high"
         };
       }
@@ -10862,14 +10868,14 @@ ${gasInfo}
         status: 'pending'
       });
       
-      let response = `💰 **Payment Processing**\n\n`;
-      response += `📤 **Amount:** ${amount} ${currency}\n`;
-      response += `📥 **Recipient:** ${recipient.slice(0, 6)}...${recipient.slice(-4)}\n`;
-      response += `🔗 **Reference:** ${paymentDetails.reference}\n`;
-      response += `🌐 **Network:** Base\n\n`;
-      response += `⏳ **Status:** Processing payment...\n`;
-      response += `🆔 **Payment ID:** ${paymentResult.payment.id}\n\n`;
-      response += `💡 **Note:** Payment is being processed on-chain. This may take a few moments to confirm.`;
+      let response = `ðŸ’° **Payment Processing**\n\n`;
+      response += `ðŸ“¤ **Amount:** ${amount} ${currency}\n`;
+      response += `ðŸ“¥ **Recipient:** ${recipient.slice(0, 6)}...${recipient.slice(-4)}\n`;
+      response += `ðŸ”— **Reference:** ${paymentDetails.reference}\n`;
+      response += `ðŸŒ **Network:** Base\n\n`;
+      response += `â³ **Status:** Processing payment...\n`;
+      response += `ðŸ†” **Payment ID:** ${paymentResult.payment.id}\n\n`;
+      response += `ðŸ’¡ **Note:** Payment is being processed on-chain. This may take a few moments to confirm.`;
       
       return {
         userMessage: response,
@@ -10926,7 +10932,7 @@ ${gasInfo}
       const featureConfig = premiumFeatures[feature];
       if (!featureConfig) {
         return {
-          userMessage: `❌ Unknown premium feature: ${feature}. Available features: ${Object.keys(premiumFeatures).join(', ')}`,
+          userMessage: `âŒ Unknown premium feature: ${feature}. Available features: ${Object.keys(premiumFeatures).join(', ')}`,
           error: "Unknown premium feature"
         };
       }
@@ -10939,17 +10945,17 @@ ${gasInfo}
         currency: featureConfig.currency
       };
       
-      let response = `💎 **Premium Feature: ${featureConfig.name}**\n\n`;
-      response += `📝 **Description:** ${featureConfig.description}\n`;
-      response += `💰 **Price:** ${featureConfig.price} ${featureConfig.currency}\n\n`;
-      response += `🔗 **Payment Required**\n`;
+      let response = `ðŸ’Ž **Premium Feature: ${featureConfig.name}**\n\n`;
+      response += `ðŸ“ **Description:** ${featureConfig.description}\n`;
+      response += `ðŸ’° **Price:** ${featureConfig.price} ${featureConfig.currency}\n\n`;
+      response += `ðŸ”— **Payment Required**\n`;
       response += `To access this premium feature, a payment of ${featureConfig.price} ${featureConfig.currency} is required.\n\n`;
-      response += `💡 **What you'll get:**\n`;
-      response += `• ${featureConfig.description}\n`;
-      response += `• Detailed analysis and insights\n`;
-      response += `• Professional-grade data\n`;
-      response += `• Priority support\n\n`;
-      response += `🎯 **Ready to proceed?** The payment will be processed automatically once you confirm.`;
+      response += `ðŸ’¡ **What you'll get:**\n`;
+      response += `â€¢ ${featureConfig.description}\n`;
+      response += `â€¢ Detailed analysis and insights\n`;
+      response += `â€¢ Professional-grade data\n`;
+      response += `â€¢ Priority support\n\n`;
+      response += `ðŸŽ¯ **Ready to proceed?** The payment will be processed automatically once you confirm.`;
       
       return {
         userMessage: response,
@@ -10972,7 +10978,7 @@ ${gasInfo}
       // Validate payment details
       if (!paymentDetails.amount || !paymentDetails.recipient) {
         return {
-          userMessage: "❌ Invalid payment details. Missing amount or recipient.",
+          userMessage: "âŒ Invalid payment details. Missing amount or recipient.",
           error: "Invalid payment details"
         };
       }
@@ -10990,11 +10996,11 @@ ${gasInfo}
       if (mockApiResponse.success) {
         paymentAnalytics.successfulPayments++;
         
-        let response = `✅ **Payment Successful!**\n\n`;
-        response += `💰 **Amount Paid:** ${paymentDetails.amount} ${paymentDetails.currency}\n`;
-        response += `🆔 **Payment ID:** ${paymentResult.payment.id}\n`;
-        response += `⏰ **Timestamp:** ${new Date().toLocaleString()}\n\n`;
-        response += `📊 **Premium Data:**\n`;
+        let response = `âœ… **Payment Successful!**\n\n`;
+        response += `ðŸ’° **Amount Paid:** ${paymentDetails.amount} ${paymentDetails.currency}\n`;
+        response += `ðŸ†” **Payment ID:** ${paymentResult.payment.id}\n`;
+        response += `â° **Timestamp:** ${new Date().toLocaleString()}\n\n`;
+        response += `ðŸ“Š **Premium Data:**\n`;
         response += successMessage || mockApiResponse.data;
         
         return {
@@ -11006,7 +11012,7 @@ ${gasInfo}
       } else {
         paymentAnalytics.failedPayments++;
         return {
-          userMessage: "❌ Payment processed but service unavailable. Please try again or contact support.",
+          userMessage: "âŒ Payment processed but service unavailable. Please try again or contact support.",
           error: "Service unavailable after payment"
         };
       }
@@ -11040,26 +11046,26 @@ ${gasInfo}
       const successRate = paymentAnalytics.totalPayments > 0 ? 
         (paymentAnalytics.successfulPayments / paymentAnalytics.totalPayments * 100).toFixed(1) : 0;
       
-      let response = `📊 **Payment Analytics (${timeframe})**\n\n`;
-      response += `💰 **Total Revenue:** $${paymentAnalytics.totalRevenue.toFixed(3)} USDC\n`;
-      response += `📈 **Total Payments:** ${paymentAnalytics.totalPayments}\n`;
-      response += `✅ **Successful:** ${paymentAnalytics.successfulPayments}\n`;
-      response += `❌ **Failed:** ${paymentAnalytics.failedPayments}\n`;
-      response += `📊 **Success Rate:** ${successRate}%\n\n`;
+      let response = `ðŸ“Š **Payment Analytics (${timeframe})**\n\n`;
+      response += `ðŸ’° **Total Revenue:** $${paymentAnalytics.totalRevenue.toFixed(3)} USDC\n`;
+      response += `ðŸ“ˆ **Total Payments:** ${paymentAnalytics.totalPayments}\n`;
+      response += `âœ… **Successful:** ${paymentAnalytics.successfulPayments}\n`;
+      response += `âŒ **Failed:** ${paymentAnalytics.failedPayments}\n`;
+      response += `ðŸ“Š **Success Rate:** ${successRate}%\n\n`;
       
       if (userPayments.length > 0) {
-        response += `👤 **Your Payments:**\n`;
+        response += `ðŸ‘¤ **Your Payments:**\n`;
         userPayments.slice(-5).forEach((payment, index) => {
-          const status = payment.status === 'completed' ? '✅' : payment.status === 'pending' ? '⏳' : '❌';
+          const status = payment.status === 'completed' ? 'âœ…' : payment.status === 'pending' ? 'â³' : 'âŒ';
           response += `${status} ${payment.amount} ${payment.currency} (${new Date(payment.timestamp).toLocaleDateString()})\n`;
         });
         response += `\n`;
       }
       
-      response += `🔍 **Recent Payments:**\n`;
+      response += `ðŸ” **Recent Payments:**\n`;
       filteredPayments.slice(-3).forEach((payment, index) => {
-        const status = payment.status === 'completed' ? '✅' : payment.status === 'pending' ? '⏳' : '❌';
-        response += `${status} ${payment.amount} ${payment.currency} → ${payment.recipient.slice(0, 6)}...${payment.recipient.slice(-4)}\n`;
+        const status = payment.status === 'completed' ? 'âœ…' : payment.status === 'pending' ? 'â³' : 'âŒ';
+        response += `${status} ${payment.amount} ${payment.currency} â†’ ${payment.recipient.slice(0, 6)}...${payment.recipient.slice(-4)}\n`;
       });
       
       return {
@@ -11088,7 +11094,7 @@ ${gasInfo}
       const app = miniAppCatalog[appType];
       if (!app) {
         return {
-          userMessage: `❌ Unknown Mini App: ${appType}. Available apps: ${Object.keys(miniAppCatalog).join(', ')}`,
+          userMessage: `âŒ Unknown Mini App: ${appType}. Available apps: ${Object.keys(miniAppCatalog).join(', ')}`,
           error: "Unknown Mini App"
         };
       }
@@ -11113,20 +11119,20 @@ ${gasInfo}
       }
       userSessions.get(userId).push(sessionId);
       
-      let message = `🎮 **${app.name}**\n\n`;
-      message += `📝 **Description:** ${app.description}\n`;
-      message += `🔗 **Tap to launch:** ${app.url}\n\n`;
+      let message = `ðŸŽ® **${app.name}**\n\n`;
+      message += `ðŸ“ **Description:** ${app.description}\n`;
+      message += `ðŸ”— **Tap to launch:** ${app.url}\n\n`;
       
       if (context.groupChat) {
-        message += `👥 **Group Activity:** This Mini App is perfect for group participation!\n`;
-        message += `🎯 **How to join:** Tap the link above and invite others to join the fun.\n\n`;
+        message += `ðŸ‘¥ **Group Activity:** This Mini App is perfect for group participation!\n`;
+        message += `ðŸŽ¯ **How to join:** Tap the link above and invite others to join the fun.\n\n`;
       }
       
-      message += `💡 **Features:**\n`;
-      message += `• Interactive experience\n`;
-      message += `• Real-time updates\n`;
-      message += `• Social features\n`;
-      message += `• Achievement tracking`;
+      message += `ðŸ’¡ **Features:**\n`;
+      message += `â€¢ Interactive experience\n`;
+      message += `â€¢ Real-time updates\n`;
+      message += `â€¢ Social features\n`;
+      message += `â€¢ Achievement tracking`;
       
       return {
         userMessage: message,
@@ -11148,7 +11154,7 @@ ${gasInfo}
       if (!neynar) {
         log('info', `Neynar not available, using fallback for ${address}`);
         return {
-          userMessage: `👤 **Address:** ${address}\n**Display Name:** Neynar not configured\n**Fallback:** ${address.slice(0, 8)}...\n\n💡 **Tip:** Add NEYNAR_API_KEY to your .env file for @username resolution`,
+          userMessage: `ðŸ‘¤ **Address:** ${address}\n**Display Name:** Neynar not configured\n**Fallback:** ${address.slice(0, 8)}...\n\nðŸ’¡ **Tip:** Add NEYNAR_API_KEY to your .env file for @username resolution`,
           displayName: address.slice(0, 8),
           username: address.slice(0, 8),
           address: address
@@ -11160,14 +11166,14 @@ ${gasInfo}
       
       if (user && user.display_name) {
         return {
-          userMessage: `👤 **Display Name:** @${user.display_name}\n\n**Address:** ${address}\n**Username:** ${user.username || 'N/A'}`,
+          userMessage: `ðŸ‘¤ **Display Name:** @${user.display_name}\n\n**Address:** ${address}\n**Username:** ${user.username || 'N/A'}`,
           displayName: user.display_name,
           username: user.username,
           address: address
         };
       } else {
         return {
-          userMessage: `👤 **Address:** ${address}\n**Display Name:** Not found (using truncated address)\n**Fallback:** ${address.slice(0, 8)}...`,
+          userMessage: `ðŸ‘¤ **Address:** ${address}\n**Display Name:** Not found (using truncated address)\n**Fallback:** ${address.slice(0, 8)}...`,
           displayName: address.slice(0, 8),
           username: address.slice(0, 8),
           address: address
@@ -11176,7 +11182,7 @@ ${gasInfo}
     } catch (error) {
       log('error', `--- DISPLAY NAME ERROR ---`, { error: error.message });
       return {
-        userMessage: `👤 **Address:** ${address}\n**Display Name:** Error resolving (using truncated address)\n**Fallback:** ${address.slice(0, 8)}...`,
+        userMessage: `ðŸ‘¤ **Address:** ${address}\n**Display Name:** Error resolving (using truncated address)\n**Fallback:** ${address.slice(0, 8)}...`,
         displayName: address.slice(0, 8),
         username: address.slice(0, 8),
         address: address
@@ -11192,7 +11198,7 @@ ${gasInfo}
       const app = miniAppCatalog[gameType];
       if (!app) {
         return {
-          userMessage: `❌ Unknown game type: ${gameType}. Available games: ${Object.keys(miniAppCatalog).join(', ')}`,
+          userMessage: `âŒ Unknown game type: ${gameType}. Available games: ${Object.keys(miniAppCatalog).join(', ')}`,
           error: "Unknown game type"
         };
       }
@@ -11230,16 +11236,16 @@ ${gasInfo}
         }
       }
       
-      let message = `🎮 **${app.name} - Group Session**\n\n`;
-      message += `👥 **Participants:** ${participantNames.join(', ')}\n`;
-      message += `🎯 **Game Type:** ${gameType}\n`;
-      message += `🔗 **Join Game:** ${app.url}?session=${sessionId}\n\n`;
-      message += `📋 **Instructions:**\n`;
+      let message = `ðŸŽ® **${app.name} - Group Session**\n\n`;
+      message += `ðŸ‘¥ **Participants:** ${participantNames.join(', ')}\n`;
+      message += `ðŸŽ¯ **Game Type:** ${gameType}\n`;
+      message += `ðŸ”— **Join Game:** ${app.url}?session=${sessionId}\n\n`;
+      message += `ðŸ“‹ **Instructions:**\n`;
       message += `1. Tap the link above to join the game\n`;
       message += `2. Wait for all participants to join\n`;
       message += `3. Game will start automatically\n`;
       message += `4. I'll announce winners and scores\n\n`;
-      message += `🏆 **Ready to play?** Let's see who's the crypto champion!`;
+      message += `ðŸ† **Ready to play?** Let's see who's the crypto champion!`;
       
       return {
         userMessage: message,
@@ -11275,7 +11281,7 @@ ${gasInfo}
       
       if (detectedApps.length === 0) {
         return {
-          userMessage: "🤔 I didn't detect any Mini App context in your message. Try mentioning words like 'game', 'poll', 'trade', 'event', or 'portfolio'.",
+          userMessage: "ðŸ¤” I didn't detect any Mini App context in your message. Try mentioning words like 'game', 'poll', 'trade', 'event', or 'portfolio'.",
           detectedApps: [],
           isContextDetected: false
         };
@@ -11285,20 +11291,20 @@ ${gasInfo}
       detectedApps.sort((a, b) => b.confidence - a.confidence);
       const topApp = detectedApps[0];
       
-      let message = `🎯 **Mini App Context Detected!**\n\n`;
+      let message = `ðŸŽ¯ **Mini App Context Detected!**\n\n`;
       message += `I detected you might be interested in: **${topApp.app.name}**\n\n`;
-      message += `📝 **Description:** ${topApp.app.description}\n`;
-      message += `🔗 **Launch App:** ${topApp.app.url}\n\n`;
+      message += `ðŸ“ **Description:** ${topApp.app.description}\n`;
+      message += `ðŸ”— **Launch App:** ${topApp.app.url}\n\n`;
       
       if (detectedApps.length > 1) {
-        message += `💡 **Other options:**\n`;
+        message += `ðŸ’¡ **Other options:**\n`;
         detectedApps.slice(1, 3).forEach(app => {
-          message += `• ${app.app.name}: ${app.app.url}\n`;
+          message += `â€¢ ${app.app.name}: ${app.app.url}\n`;
         });
         message += `\n`;
       }
       
-      message += `🎮 **Ready to try it?** Tap the link above to launch the Mini App!`;
+      message += `ðŸŽ® **Ready to try it?** Tap the link above to launch the Mini App!`;
       
       return {
         userMessage: message,
@@ -11320,7 +11326,7 @@ ${gasInfo}
       const session = activeSessions.get(sessionId);
       if (!session) {
         return {
-          userMessage: `❌ Session not found: ${sessionId}`,
+          userMessage: `âŒ Session not found: ${sessionId}`,
           error: "Session not found"
         };
       }
@@ -11336,13 +11342,13 @@ ${gasInfo}
             const displayName = user?.display_name || userId.slice(0, 8);
             
             return {
-              userMessage: `✅ @${displayName} joined the session!\n\n👥 **Participants:** ${session.participants.length}\n🎮 **Session:** ${sessionId}\n🔗 **App:** ${session.appUrl}`,
+              userMessage: `âœ… @${displayName} joined the session!\n\nðŸ‘¥ **Participants:** ${session.participants.length}\nðŸŽ® **Session:** ${sessionId}\nðŸ”— **App:** ${session.appUrl}`,
               session: session,
               action: 'joined'
             };
           } else {
             return {
-              userMessage: `ℹ️ You're already in this session!`,
+              userMessage: `â„¹ï¸ You're already in this session!`,
               session: session,
               action: 'already_joined'
             };
@@ -11359,13 +11365,13 @@ ${gasInfo}
             const displayName = user?.display_name || userId.slice(0, 8);
             
             return {
-              userMessage: `👋 @${displayName} left the session.\n\n👥 **Remaining:** ${session.participants.length} participants`,
+              userMessage: `ðŸ‘‹ @${displayName} left the session.\n\nðŸ‘¥ **Remaining:** ${session.participants.length} participants`,
               session: session,
               action: 'left'
             };
           } else {
             return {
-              userMessage: `ℹ️ You're not in this session.`,
+              userMessage: `â„¹ï¸ You're not in this session.`,
               session: session,
               action: 'not_in_session'
             };
@@ -11373,7 +11379,7 @@ ${gasInfo}
           
         case 'status':
           return {
-            userMessage: `📊 **Session Status**\n\n🆔 **Session ID:** ${sessionId}\n👥 **Participants:** ${session.participants.length}\n🎮 **Type:** ${session.gameType || 'General'}\n⏰ **Started:** ${new Date(session.startedAt).toLocaleString()}\n🔗 **App:** ${session.appUrl}`,
+            userMessage: `ðŸ“Š **Session Status**\n\nðŸ†” **Session ID:** ${sessionId}\nðŸ‘¥ **Participants:** ${session.participants.length}\nðŸŽ® **Type:** ${session.gameType || 'General'}\nâ° **Started:** ${new Date(session.startedAt).toLocaleString()}\nðŸ”— **App:** ${session.appUrl}`,
             session: session,
             action: 'status'
           };
@@ -11381,14 +11387,14 @@ ${gasInfo}
         case 'end':
           activeSessions.delete(sessionId);
           return {
-            userMessage: `🏁 **Session Ended**\n\nSession ${sessionId} has been closed. Thanks for playing!`,
+            userMessage: `ðŸ **Session Ended**\n\nSession ${sessionId} has been closed. Thanks for playing!`,
             session: session,
             action: 'ended'
           };
           
         default:
           return {
-            userMessage: `❌ Unknown action: ${action}. Available actions: join, leave, status, end`,
+            userMessage: `âŒ Unknown action: ${action}. Available actions: join, leave, status, end`,
             error: "Unknown action"
           };
       }
@@ -11407,7 +11413,7 @@ ${gasInfo}
       const baseNameRegex = /^[a-zA-Z0-9-]+\.base\.eth$/;
       if (!baseNameRegex.test(baseName)) {
         return {
-          userMessage: "❌ Invalid Base name format. Base names should be in format: name.base.eth",
+          userMessage: "âŒ Invalid Base name format. Base names should be in format: name.base.eth",
           valid: false
         };
       }
@@ -11418,7 +11424,7 @@ ${gasInfo}
       
       if (reservedNames.includes(nameWithoutSuffix.toLowerCase())) {
         return {
-          userMessage: `❌ The name "${nameWithoutSuffix}" is reserved and cannot be used.`,
+          userMessage: `âŒ The name "${nameWithoutSuffix}" is reserved and cannot be used.`,
           valid: false
         };
       }
@@ -11428,14 +11434,14 @@ ${gasInfo}
       
       if (isAvailable) {
         return {
-          userMessage: `✅ Great news! "${baseName}" is available for registration!\n\n💡 **Next Steps:**\n1. Visit https://base.org/names\n2. Connect your agent's wallet\n3. Search for "${baseName}"\n4. Complete the purchase\n5. Set as primary name\n\n🎯 **Benefits:**\n• Users can message ${baseName} instead of long addresses\n• More professional and discoverable\n• Better user experience`,
+          userMessage: `âœ… Great news! "${baseName}" is available for registration!\n\nðŸ’¡ **Next Steps:**\n1. Visit https://base.org/names\n2. Connect your agent's wallet\n3. Search for "${baseName}"\n4. Complete the purchase\n5. Set as primary name\n\nðŸŽ¯ **Benefits:**\nâ€¢ Users can message ${baseName} instead of long addresses\nâ€¢ More professional and discoverable\nâ€¢ Better user experience`,
           valid: true,
           available: true,
           estimatedCost: "0.001 ETH"
         };
       } else {
         return {
-          userMessage: `❌ "${baseName}" is already taken. Try these alternatives:\n\n💡 **Suggestions:**\n• ${nameWithoutSuffix}2.base.eth\n• ${nameWithoutSuffix}agent.base.eth\n• ${nameWithoutSuffix}bot.base.eth\n• ${nameWithoutSuffix}ai.base.eth`,
+          userMessage: `âŒ "${baseName}" is already taken. Try these alternatives:\n\nðŸ’¡ **Suggestions:**\nâ€¢ ${nameWithoutSuffix}2.base.eth\nâ€¢ ${nameWithoutSuffix}agent.base.eth\nâ€¢ ${nameWithoutSuffix}bot.base.eth\nâ€¢ ${nameWithoutSuffix}ai.base.eth`,
           valid: true,
           available: false,
           suggestions: [
@@ -11503,7 +11509,7 @@ ${gasInfo}
       userMemory.lastUpdated = Date.now();
       
       return {
-        userMessage: `🧠 **Memory Updated!** I've stored that information about ${topic}. I'll remember this for our future conversations!`,
+        userMessage: `ðŸ§  **Memory Updated!** I've stored that information about ${topic}. I'll remember this for our future conversations!`,
         memoryId: userMemory.conversations[userMemory.conversations.length - 1].id
       };
     } catch (error) {
@@ -11518,7 +11524,7 @@ ${gasInfo}
     try {
       if (!analytics.userMemory || !analytics.userMemory.has(userId)) {
         return {
-          userMessage: "🧠 I don't have any stored memories about that topic yet. Tell me something and I'll remember it!",
+          userMessage: "ðŸ§  I don't have any stored memories about that topic yet. Tell me something and I'll remember it!",
           memories: []
         };
       }
@@ -11560,16 +11566,16 @@ ${gasInfo}
       
       if (relevantMemories.length === 0) {
         return {
-          userMessage: `🧠 I don't have any memories about "${topic}" in the ${timeframe} timeframe.`,
+          userMessage: `ðŸ§  I don't have any memories about "${topic}" in the ${timeframe} timeframe.`,
           memories: []
         };
       }
       
-      let response = `🧠 **Here's what I remember about "${topic}":**\n\n`;
+      let response = `ðŸ§  **Here's what I remember about "${topic}":**\n\n`;
       
       relevantMemories.forEach((memory, index) => {
         const date = new Date(memory.timestamp).toLocaleDateString();
-        const importanceEmoji = memory.importance === 'high' ? '🔴' : memory.importance === 'medium' ? '🟡' : '🟢';
+        const importanceEmoji = memory.importance === 'high' ? 'ðŸ”´' : memory.importance === 'medium' ? 'ðŸŸ¡' : 'ðŸŸ¢';
         response += `${index + 1}. ${importanceEmoji} **${memory.topic}** (${date})\n`;
         response += `   ${memory.details}\n\n`;
       });
@@ -11670,8 +11676,8 @@ ${gasInfo}
       
       return {
         userMessage: confidence > 0.5 ? 
-          `🎯 **I predict you're interested in ${topIntent}!** Here are some suggestions:\n\n${suggestions.map((s, i) => `${i + 1}. ${s}`).join('\n')}` :
-          `🤔 **I'm analyzing your message...** What would you like to explore?`,
+          `ðŸŽ¯ **I predict you're interested in ${topIntent}!** Here are some suggestions:\n\n${suggestions.map((s, i) => `${i + 1}. ${s}`).join('\n')}` :
+          `ðŸ¤” **I'm analyzing your message...** What would you like to explore?`,
         predictedIntent: topIntent,
         confidence: confidence,
         suggestions: suggestions,
@@ -11717,12 +11723,12 @@ ${gasInfo}
       const userPosition = filteredLeaderboard.findIndex(user => user.userId === userId) + 1;
       const userData = filteredLeaderboard.find(user => user.userId === userId);
       
-      let response = `🏆 **${category.toUpperCase()} Leaderboard**\n\n`;
+      let response = `ðŸ† **${category.toUpperCase()} Leaderboard**\n\n`;
       
       // Show top 5
-      response += `🥇 **Top Performers:**\n`;
+      response += `ðŸ¥‡ **Top Performers:**\n`;
       filteredLeaderboard.slice(0, 5).forEach((user, index) => {
-        const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '🏅';
+        const medal = index === 0 ? 'ðŸ¥‡' : index === 1 ? 'ðŸ¥ˆ' : index === 2 ? 'ðŸ¥‰' : 'ðŸ…';
         const isYou = user.userId === userId ? ' (You!)' : '';
         response += `${medal} **${user.name}**${isYou}\n`;
         response += `   Score: ${user.score} | Level: ${user.level} | Achievements: ${user.achievements}\n\n`;
@@ -11730,28 +11736,28 @@ ${gasInfo}
       
       // Show user's position if not in top 5
       if (userPosition > 5) {
-        response += `📍 **Your Position:** #${userPosition}\n`;
+        response += `ðŸ“ **Your Position:** #${userPosition}\n`;
         response += `   Score: ${userData?.score || 0} | Level: ${userData?.level || 1} | Achievements: ${userData?.achievements || 0}\n\n`;
       }
       
       // Add category-specific stats
       if (category === 'trading') {
-        response += `📊 **Trading Stats:**\n`;
-        response += `• Total trades tracked: ${Math.floor(Math.random() * 1000) + 100}\n`;
-        response += `• Average profit: +${(Math.random() * 50 + 10).toFixed(1)}%\n`;
-        response += `• Win rate: ${Math.floor(Math.random() * 30 + 60)}%\n\n`;
+        response += `ðŸ“Š **Trading Stats:**\n`;
+        response += `â€¢ Total trades tracked: ${Math.floor(Math.random() * 1000) + 100}\n`;
+        response += `â€¢ Average profit: +${(Math.random() * 50 + 10).toFixed(1)}%\n`;
+        response += `â€¢ Win rate: ${Math.floor(Math.random() * 30 + 60)}%\n\n`;
       } else if (category === 'defi') {
-        response += `💰 **DeFi Stats:**\n`;
-        response += `• Protocols used: ${Math.floor(Math.random() * 20) + 5}\n`;
-        response += `• Total yield earned: ${(Math.random() * 1000 + 100).toFixed(2)} ETH\n`;
-        response += `• Risk score: ${Math.floor(Math.random() * 40 + 60)}/100\n\n`;
+        response += `ðŸ’° **DeFi Stats:**\n`;
+        response += `â€¢ Protocols used: ${Math.floor(Math.random() * 20) + 5}\n`;
+        response += `â€¢ Total yield earned: ${(Math.random() * 1000 + 100).toFixed(2)} ETH\n`;
+        response += `â€¢ Risk score: ${Math.floor(Math.random() * 40 + 60)}/100\n\n`;
       }
       
-      response += `🎯 **Climb the ranks by:**\n`;
-      response += `• Using more features (price checks, transactions, etc.)\n`;
-      response += `• Unlocking achievements\n`;
-      response += `• Inviting friends to use the agent\n`;
-      response += `• Staying active daily`;
+      response += `ðŸŽ¯ **Climb the ranks by:**\n`;
+      response += `â€¢ Using more features (price checks, transactions, etc.)\n`;
+      response += `â€¢ Unlocking achievements\n`;
+      response += `â€¢ Inviting friends to use the agent\n`;
+      response += `â€¢ Staying active daily`;
       
       return {
         userMessage: response,
@@ -11781,7 +11787,7 @@ ${gasInfo}
           id: 'first_steps_nft',
           name: 'First Steps NFT',
           description: 'Complete your first interaction with Dragman',
-          emoji: '👶',
+          emoji: 'ðŸ‘¶',
           rarity: 'common',
           tokenId: '1',
           contractAddress: '0x1234567890123456789012345678901234567890',
@@ -11793,7 +11799,7 @@ ${gasInfo}
           id: 'crypto_explorer_nft',
           name: 'Crypto Explorer NFT',
           description: 'Check prices for 10 different tokens',
-          emoji: '🔍',
+          emoji: 'ðŸ”',
           rarity: 'rare',
           tokenId: '2',
           contractAddress: '0x1234567890123456789012345678901234567890',
@@ -11805,7 +11811,7 @@ ${gasInfo}
           id: 'defi_master_nft',
           name: 'DeFi Master NFT',
           description: 'Explore 25 DeFi opportunities',
-          emoji: '💰',
+          emoji: 'ðŸ’°',
           rarity: 'epic',
           tokenId: '3',
           contractAddress: '0x1234567890123456789012345678901234567890',
@@ -11817,7 +11823,7 @@ ${gasInfo}
           id: 'safety_guardian_nft',
           name: 'Safety Guardian NFT',
           description: 'Run 15 project safety checks',
-          emoji: '🛡️',
+          emoji: 'ðŸ›¡ï¸',
           rarity: 'epic',
           tokenId: '4',
           contractAddress: '0x1234567890123456789012345678901234567890',
@@ -11829,7 +11835,7 @@ ${gasInfo}
           id: 'crypto_whale_nft',
           name: 'Crypto Whale NFT',
           description: 'Track portfolio for 100 days',
-          emoji: '🐋',
+          emoji: 'ðŸ‹',
           rarity: 'legendary',
           tokenId: '5',
           contractAddress: '0x1234567890123456789012345678901234567890',
@@ -11841,7 +11847,7 @@ ${gasInfo}
           id: 'community_leader_nft',
           name: 'Community Leader NFT',
           description: 'Invite 10 friends to use the agent',
-          emoji: '👑',
+          emoji: 'ðŸ‘‘',
           rarity: 'legendary',
           tokenId: '6',
           contractAddress: '0x1234567890123456789012345678901234567890',
@@ -11859,18 +11865,18 @@ ${gasInfo}
       const rarityValues = { common: 0.01, rare: 0.05, epic: 0.25, legendary: 1.0 };
       const collectionValue = unlockedNFTs.reduce((total, nft) => total + rarityValues[nft.rarity], 0);
       
-      let response = `🎨 **Your NFT Achievement Collection**\n\n`;
-      response += `💰 **Collection Value:** ${collectionValue.toFixed(2)} ETH\n`;
-      response += `📊 **Total NFTs:** ${unlockedNFTs.length}/${nftAchievements.length}\n\n`;
+      let response = `ðŸŽ¨ **Your NFT Achievement Collection**\n\n`;
+      response += `ðŸ’° **Collection Value:** ${collectionValue.toFixed(2)} ETH\n`;
+      response += `ðŸ“Š **Total NFTs:** ${unlockedNFTs.length}/${nftAchievements.length}\n\n`;
       
       if (unlockedNFTs.length > 0) {
-        response += `🎉 **Your NFTs (${unlockedNFTs.length}):**\n`;
+        response += `ðŸŽ‰ **Your NFTs (${unlockedNFTs.length}):**\n`;
         unlockedNFTs.forEach((nft, index) => {
           const rarityEmoji = {
-            common: '⚪',
-            rare: '🔵',
-            epic: '🟣',
-            legendary: '🟡'
+            common: 'âšª',
+            rare: 'ðŸ”µ',
+            epic: 'ðŸŸ£',
+            legendary: 'ðŸŸ¡'
           };
           response += `${nft.emoji} ${rarityEmoji[nft.rarity]} **${nft.name}**\n`;
           response += `   ${nft.description}\n`;
@@ -11880,31 +11886,31 @@ ${gasInfo}
       }
       
       if (lockedNFTs.length > 0) {
-        response += `🔒 **Next NFTs to Unlock:**\n`;
+        response += `ðŸ”’ **Next NFTs to Unlock:**\n`;
         lockedNFTs.slice(0, 3).forEach(nft => {
           const rarityEmoji = {
-            common: '⚪',
-            rare: '🔵',
-            epic: '🟣',
-            legendary: '🟡'
+            common: 'âšª',
+            rare: 'ðŸ”µ',
+            epic: 'ðŸŸ£',
+            legendary: 'ðŸŸ¡'
           };
-          response += `❓ ${nft.emoji} ${rarityEmoji[nft.rarity]} **${nft.name}**\n`;
+          response += `â“ ${nft.emoji} ${rarityEmoji[nft.rarity]} **${nft.name}**\n`;
           response += `   ${nft.description}\n`;
           response += `   Value: ${rarityValues[nft.rarity]} ETH\n\n`;
         });
       }
       
-      response += `🎯 **How to Earn More NFTs:**\n`;
-      response += `• Complete more interactions with the agent\n`;
-      response += `• Unlock achievements and reach milestones\n`;
-      response += `• Invite friends and build the community\n`;
-      response += `• Stay active and explore new features\n\n`;
+      response += `ðŸŽ¯ **How to Earn More NFTs:**\n`;
+      response += `â€¢ Complete more interactions with the agent\n`;
+      response += `â€¢ Unlock achievements and reach milestones\n`;
+      response += `â€¢ Invite friends and build the community\n`;
+      response += `â€¢ Stay active and explore new features\n\n`;
       
-      response += `💡 **NFT Benefits:**\n`;
-      response += `• Collectible digital assets on Base\n`;
-      response += `• Proof of your crypto journey\n`;
-      response += `• Tradeable on NFT marketplaces\n`;
-      response += `• Exclusive access to future features`;
+      response += `ðŸ’¡ **NFT Benefits:**\n`;
+      response += `â€¢ Collectible digital assets on Base\n`;
+      response += `â€¢ Proof of your crypto journey\n`;
+      response += `â€¢ Tradeable on NFT marketplaces\n`;
+      response += `â€¢ Exclusive access to future features`;
       
       return {
         userMessage: response,
@@ -11931,34 +11937,34 @@ ${gasInfo}
       
       // Get user's achievements
       const achievements = [
-        { id: 'first_steps', name: 'First Steps', emoji: '👶', rarity: 'common' },
-        { id: 'crypto_explorer', name: 'Crypto Explorer', emoji: '🔍', rarity: 'common' },
-        { id: 'defi_master', name: 'DeFi Master', emoji: '💰', rarity: 'rare' },
-        { id: 'safety_guardian', name: 'Safety Guardian', emoji: '🛡️', rarity: 'rare' },
-        { id: 'power_user', name: 'Power User', emoji: '⚡', rarity: 'epic' },
-        { id: 'crypto_whale', name: 'Crypto Whale', emoji: '🐋', rarity: 'legendary' },
-        { id: 'community_leader', name: 'Community Leader', emoji: '👑', rarity: 'legendary' }
+        { id: 'first_steps', name: 'First Steps', emoji: 'ðŸ‘¶', rarity: 'common' },
+        { id: 'crypto_explorer', name: 'Crypto Explorer', emoji: 'ðŸ”', rarity: 'common' },
+        { id: 'defi_master', name: 'DeFi Master', emoji: 'ðŸ’°', rarity: 'rare' },
+        { id: 'safety_guardian', name: 'Safety Guardian', emoji: 'ðŸ›¡ï¸', rarity: 'rare' },
+        { id: 'power_user', name: 'Power User', emoji: 'âš¡', rarity: 'epic' },
+        { id: 'crypto_whale', name: 'Crypto Whale', emoji: 'ðŸ‹', rarity: 'legendary' },
+        { id: 'community_leader', name: 'Community Leader', emoji: 'ðŸ‘‘', rarity: 'legendary' }
       ];
       
       const achievement = achievements.find(a => a.id === achievementId);
       if (!achievement) {
         return {
-          userMessage: "❌ Achievement not found. Please try again with a valid achievement ID.",
+          userMessage: "âŒ Achievement not found. Please try again with a valid achievement ID.",
           error: "Achievement not found"
         };
       }
       
       // Generate shareable content
       const rarityEmoji = {
-        common: '⚪',
-        rare: '🔵',
-        epic: '🟣',
-        legendary: '🟡'
+        common: 'âšª',
+        rare: 'ðŸ”µ',
+        epic: 'ðŸŸ£',
+        legendary: 'ðŸŸ¡'
       };
       
-      const shareText = `🎉 Just unlocked the ${achievement.emoji} ${rarityEmoji[achievement.rarity]} **${achievement.name}** achievement in @DragmanAgent! 
+      const shareText = `ðŸŽ‰ Just unlocked the ${achievement.emoji} ${rarityEmoji[achievement.rarity]} **${achievement.name}** achievement in @DragmanAgent! 
 
-🚀 Building my crypto skills with the ultimate Base App companion!
+ðŸš€ Building my crypto skills with the ultimate Base App companion!
 
 #BaseApp #Crypto #DeFi #Achievement #DragmanAgent`;
 
@@ -11983,21 +11989,21 @@ ${gasInfo}
           shareLink = shareUrl;
       }
       
-      let response = `🎉 **Share Your Achievement!**\n\n`;
+      let response = `ðŸŽ‰ **Share Your Achievement!**\n\n`;
       response += `${achievement.emoji} ${rarityEmoji[achievement.rarity]} **${achievement.name}**\n\n`;
-      response += `📱 **Share on ${platform.charAt(0).toUpperCase() + platform.slice(1)}:**\n`;
+      response += `ðŸ“± **Share on ${platform.charAt(0).toUpperCase() + platform.slice(1)}:**\n`;
       response += `${shareText}\n\n`;
-      response += `🔗 **Share Link:** ${shareLink}\n\n`;
-      response += `💡 **Other Platforms:**\n`;
-      response += `• Twitter: Share your crypto journey\n`;
-      response += `• Farcaster: Connect with the community\n`;
-      response += `• Telegram: Tell your friends\n`;
-      response += `• Discord: Show off in servers\n\n`;
-      response += `🎯 **Benefits of Sharing:**\n`;
-      response += `• Inspire others to start their crypto journey\n`;
-      response += `• Connect with like-minded crypto enthusiasts\n`;
-      response += `• Build your reputation in the community\n`;
-      response += `• Get exclusive access to future features`;
+      response += `ðŸ”— **Share Link:** ${shareLink}\n\n`;
+      response += `ðŸ’¡ **Other Platforms:**\n`;
+      response += `â€¢ Twitter: Share your crypto journey\n`;
+      response += `â€¢ Farcaster: Connect with the community\n`;
+      response += `â€¢ Telegram: Tell your friends\n`;
+      response += `â€¢ Discord: Show off in servers\n\n`;
+      response += `ðŸŽ¯ **Benefits of Sharing:**\n`;
+      response += `â€¢ Inspire others to start their crypto journey\n`;
+      response += `â€¢ Connect with like-minded crypto enthusiasts\n`;
+      response += `â€¢ Build your reputation in the community\n`;
+      response += `â€¢ Get exclusive access to future features`;
       
       return {
         userMessage: response,
@@ -12029,7 +12035,7 @@ ${gasInfo}
           id: 'first_steps',
           name: 'First Steps',
           description: 'Complete your first interaction',
-          emoji: '👶',
+          emoji: 'ðŸ‘¶',
           condition: () => userInteractions.count >= 1,
           rarity: 'common'
         },
@@ -12037,7 +12043,7 @@ ${gasInfo}
           id: 'crypto_explorer',
           name: 'Crypto Explorer',
           description: 'Check prices for 5 different tokens',
-          emoji: '🔍',
+          emoji: 'ðŸ”',
           condition: () => (userInteractions.priceChecks || 0) >= 5,
           rarity: 'common'
         },
@@ -12045,7 +12051,7 @@ ${gasInfo}
           id: 'defi_master',
           name: 'DeFi Master',
           description: 'Explore 10 DeFi opportunities',
-          emoji: '💰',
+          emoji: 'ðŸ’°',
           condition: () => (userInteractions.defiAnalysis || 0) >= 10,
           rarity: 'rare'
         },
@@ -12053,7 +12059,7 @@ ${gasInfo}
           id: 'safety_guardian',
           name: 'Safety Guardian',
           description: 'Run 5 project safety checks',
-          emoji: '🛡️',
+          emoji: 'ðŸ›¡ï¸',
           condition: () => (userInteractions.safetyChecks || 0) >= 5,
           rarity: 'rare'
         },
@@ -12061,7 +12067,7 @@ ${gasInfo}
           id: 'power_user',
           name: 'Power User',
           description: 'Use 50+ features',
-          emoji: '⚡',
+          emoji: 'âš¡',
           condition: () => userInteractions.count >= 50,
           rarity: 'epic'
         },
@@ -12069,7 +12075,7 @@ ${gasInfo}
           id: 'crypto_whale',
           name: 'Crypto Whale',
           description: 'Track portfolio for 30 days',
-          emoji: '🐋',
+          emoji: 'ðŸ‹',
           condition: () => (userInteractions.portfolioChecks || 0) >= 30,
           rarity: 'legendary'
         },
@@ -12077,7 +12083,7 @@ ${gasInfo}
           id: 'community_leader',
           name: 'Community Leader',
           description: 'Invite 5 friends to use the agent',
-          emoji: '👑',
+          emoji: 'ðŸ‘‘',
           condition: () => (userInteractions.invites || 0) >= 5,
           rarity: 'legendary'
         }
@@ -12099,18 +12105,18 @@ ${gasInfo}
         legendary: unlockedAchievements.filter(a => a.rarity === 'legendary').length
       };
       
-      let response = `🏆 **Your Achievements & Progress**\n\n`;
-      response += `⭐ **Level ${userLevel}** (${Math.round(levelProgress * 100)}% to next level)\n`;
-      response += `📊 **Total Interactions:** ${userInteractions.count}\n\n`;
+      let response = `ðŸ† **Your Achievements & Progress**\n\n`;
+      response += `â­ **Level ${userLevel}** (${Math.round(levelProgress * 100)}% to next level)\n`;
+      response += `ðŸ“Š **Total Interactions:** ${userInteractions.count}\n\n`;
       
       if (unlockedAchievements.length > 0) {
-        response += `🎉 **Unlocked Achievements (${unlockedAchievements.length}):**\n`;
+        response += `ðŸŽ‰ **Unlocked Achievements (${unlockedAchievements.length}):**\n`;
         unlockedAchievements.forEach(achievement => {
           const rarityEmoji = {
-            common: '⚪',
-            rare: '🔵',
-            epic: '🟣',
-            legendary: '🟡'
+            common: 'âšª',
+            rare: 'ðŸ”µ',
+            epic: 'ðŸŸ£',
+            legendary: 'ðŸŸ¡'
           };
           response += `${achievement.emoji} ${rarityEmoji[achievement.rarity]} **${achievement.name}**\n`;
           response += `   ${achievement.description}\n\n`;
@@ -12118,17 +12124,17 @@ ${gasInfo}
       }
       
       if (lockedAchievements.length > 0) {
-        response += `🔒 **Next Achievements to Unlock:**\n`;
+        response += `ðŸ”’ **Next Achievements to Unlock:**\n`;
         lockedAchievements.slice(0, 3).forEach(achievement => {
-          response += `❓ ${achievement.emoji} **${achievement.name}**\n`;
+          response += `â“ ${achievement.emoji} **${achievement.name}**\n`;
           response += `   ${achievement.description}\n\n`;
         });
       }
       
       // Add leaderboard position (mock)
       const leaderboardPosition = Math.floor(Math.random() * 1000) + 1;
-      response += `🏅 **Leaderboard Position:** #${leaderboardPosition}\n`;
-      response += `📈 **Rarity Score:** ${rarityCounts.legendary * 100 + rarityCounts.epic * 50 + rarityCounts.rare * 25 + rarityCounts.common * 10} points`;
+      response += `ðŸ… **Leaderboard Position:** #${leaderboardPosition}\n`;
+      response += `ðŸ“ˆ **Rarity Score:** ${rarityCounts.legendary * 100 + rarityCounts.epic * 50 + rarityCounts.rare * 25 + rarityCounts.common * 10} points`;
       
       return {
         userMessage: response,
@@ -12154,15 +12160,15 @@ ${gasInfo}
       const userInteractions = analytics.userInteractions.get(userId) || { count: 0, features: [] };
       const userPrefs = smartContextLearning.userPreferences.get(userId);
       
-      let progressMessage = `🎯 **Your Progress with Dragman:**\n\n`;
+      let progressMessage = `ðŸŽ¯ **Your Progress with Dragman:**\n\n`;
       
       // Feature usage tracking
       const features = [
-        { name: 'Price Checks', count: userInteractions.priceChecks || 0, emoji: '📊' },
-        { name: 'Transactions', count: userInteractions.transactions || 0, emoji: '💸' },
-        { name: 'Safety Checks', count: userInteractions.safetyChecks || 0, emoji: '🛡️' },
-        { name: 'DeFi Analysis', count: userInteractions.defiAnalysis || 0, emoji: '💰' },
-        { name: 'Game Recommendations', count: userInteractions.gameRecs || 0, emoji: '🎮' }
+        { name: 'Price Checks', count: userInteractions.priceChecks || 0, emoji: 'ðŸ“Š' },
+        { name: 'Transactions', count: userInteractions.transactions || 0, emoji: 'ðŸ’¸' },
+        { name: 'Safety Checks', count: userInteractions.safetyChecks || 0, emoji: 'ðŸ›¡ï¸' },
+        { name: 'DeFi Analysis', count: userInteractions.defiAnalysis || 0, emoji: 'ðŸ’°' },
+        { name: 'Game Recommendations', count: userInteractions.gameRecs || 0, emoji: 'ðŸŽ®' }
       ];
       
       features.forEach(feature => {
@@ -12174,19 +12180,19 @@ ${gasInfo}
       // Unlock suggestions based on usage
       const totalUsage = features.reduce((sum, f) => sum + f.count, 0);
       if (totalUsage === 0) {
-        progressMessage += `\n🚀 **Get Started**: Try checking a crypto price or setting up a price alert!`;
+        progressMessage += `\nðŸš€ **Get Started**: Try checking a crypto price or setting up a price alert!`;
       } else if (totalUsage < 5) {
-        progressMessage += `\n💡 **Next Steps**: Explore DeFi opportunities or try our AI game recommendations!`;
+        progressMessage += `\nðŸ’¡ **Next Steps**: Explore DeFi opportunities or try our AI game recommendations!`;
       } else if (totalUsage < 15) {
-        progressMessage += `\n⭐ **Power User**: You're getting the hang of it! Try advanced features like portfolio tracking.`;
+        progressMessage += `\nâ­ **Power User**: You're getting the hang of it! Try advanced features like portfolio tracking.`;
       } else {
-        progressMessage += `\n🏆 **Expert Level**: You're a Dragman pro! Consider setting up smart automation.`;
+        progressMessage += `\nðŸ† **Expert Level**: You're a Dragman pro! Consider setting up smart automation.`;
       }
       
       // Personalized recommendations
       if (userPrefs && userPrefs.preferredTokens.size > 0) {
         const topToken = Array.from(userPrefs.preferredTokens)[0];
-        progressMessage += `\n\n🎯 **Personalized Tip**: Since you're interested in ${topToken.toUpperCase()}, try setting up a price alert!`;
+        progressMessage += `\n\nðŸŽ¯ **Personalized Tip**: Since you're interested in ${topToken.toUpperCase()}, try setting up a price alert!`;
       }
       
       return {
@@ -12220,126 +12226,126 @@ ${gasInfo}
       
       // Base actions that are always available
       const baseActions = [
-        { id: "check_portfolio", label: "📊 Check Portfolio", style: "primary" },
-        { id: "set_price_alert", label: "🔔 Set Price Alert", style: "primary" }
+        { id: "check_portfolio", label: "ðŸ“Š Check Portfolio", style: "primary" },
+        { id: "set_price_alert", label: "ðŸ”” Set Price Alert", style: "primary" }
       ];
       
       // Progressive features based on usage
       if (totalUsage >= 3) {
-        baseActions.push({ id: "find_defi_opportunities", label: "💰 Find DeFi Opportunities", style: "secondary" });
+        baseActions.push({ id: "find_defi_opportunities", label: "ðŸ’° Find DeFi Opportunities", style: "secondary" });
       }
       if (totalUsage >= 5) {
-        baseActions.push({ id: "safety_check", label: "🛡️ Safety Check", style: "secondary" });
+        baseActions.push({ id: "safety_check", label: "ðŸ›¡ï¸ Safety Check", style: "secondary" });
       }
       if (totalUsage >= 10) {
-        baseActions.push({ id: "get_user_progress", label: "📈 My Progress", style: "secondary" });
+        baseActions.push({ id: "get_user_progress", label: "ðŸ“ˆ My Progress", style: "secondary" });
       }
       if (totalUsage >= 15) {
-        baseActions.push({ id: "get_user_achievements", label: "🏆 Achievements", style: "secondary" });
+        baseActions.push({ id: "get_user_achievements", label: "ðŸ† Achievements", style: "secondary" });
       }
       if (totalUsage >= 20) {
-        baseActions.push({ id: "predict_intent", label: "🎯 AI Predictions", style: "primary" });
+        baseActions.push({ id: "predict_intent", label: "ðŸŽ¯ AI Predictions", style: "primary" });
       }
       if (totalUsage >= 25) {
-        baseActions.push({ id: "get_leaderboard", label: "🏆 Leaderboard", style: "secondary" });
+        baseActions.push({ id: "get_leaderboard", label: "ðŸ† Leaderboard", style: "secondary" });
       }
       if (totalUsage >= 30) {
-        baseActions.push({ id: "get_nft_achievements", label: "🎨 NFT Collection", style: "secondary" });
+        baseActions.push({ id: "get_nft_achievements", label: "ðŸŽ¨ NFT Collection", style: "secondary" });
       }
       if (totalUsage >= 35) {
-        baseActions.push({ id: "validate_base_name", label: "🏷️ Base Name", style: "secondary" });
+        baseActions.push({ id: "validate_base_name", label: "ðŸ·ï¸ Base Name", style: "secondary" });
       }
       if (totalUsage >= 40) {
-        baseActions.push({ id: "share_achievement", label: "📱 Share Achievement", style: "primary" });
+        baseActions.push({ id: "share_achievement", label: "ðŸ“± Share Achievement", style: "primary" });
       }
       
       // NEW: Transaction Enhancement Features
       if (totalUsage >= 3) {
-        baseActions.push({ id: "preview_transaction", label: "👁️ Preview Transaction", style: "secondary" });
+        baseActions.push({ id: "preview_transaction", label: "ðŸ‘ï¸ Preview Transaction", style: "secondary" });
       }
       if (totalUsage >= 2) {
-        baseActions.push({ id: "verify_recipient", label: "🔍 Verify Address", style: "secondary" });
+        baseActions.push({ id: "verify_recipient", label: "ðŸ” Verify Address", style: "secondary" });
       }
       if (totalUsage >= 1) {
-        baseActions.push({ id: "get_transaction_history", label: "📊 Transaction History", style: "secondary" });
+        baseActions.push({ id: "get_transaction_history", label: "ðŸ“Š Transaction History", style: "secondary" });
       }
       if (totalUsage >= 4) {
-        baseActions.push({ id: "create_batch_transaction", label: "📦 Batch Transactions", style: "secondary" });
+        baseActions.push({ id: "create_batch_transaction", label: "ðŸ“¦ Batch Transactions", style: "secondary" });
       }
       if (totalUsage >= 6) {
-        baseActions.push({ id: "create_enhanced_transaction", label: "🚀 Enhanced Transaction", style: "secondary" });
+        baseActions.push({ id: "create_enhanced_transaction", label: "ðŸš€ Enhanced Transaction", style: "secondary" });
       }
       if (totalUsage >= 8) {
-        baseActions.push({ id: "get_transaction_analytics", label: "📈 Transaction Analytics", style: "secondary" });
+        baseActions.push({ id: "get_transaction_analytics", label: "ðŸ“ˆ Transaction Analytics", style: "secondary" });
       }
       
       // NEW: Deeplink Features
       if (totalUsage >= 2) {
-        baseActions.push({ id: "invite_to_private_chat", label: "💬 Private Chat", style: "primary" });
+        baseActions.push({ id: "invite_to_private_chat", label: "ðŸ’¬ Private Chat", style: "primary" });
       }
       if (totalUsage >= 4) {
-        baseActions.push({ id: "create_multi_agent_menu", label: "🤖 Multi-Agent Menu", style: "secondary" });
+        baseActions.push({ id: "create_multi_agent_menu", label: "ðŸ¤– Multi-Agent Menu", style: "secondary" });
       }
       if (totalUsage >= 6) {
-        baseActions.push({ id: "detect_environment", label: "🔍 Check Environment", style: "secondary" });
+        baseActions.push({ id: "detect_environment", label: "ðŸ” Check Environment", style: "secondary" });
       }
       if (totalUsage >= 10) {
-        baseActions.push({ id: "create_fallback_options", label: "🔄 Fallback Options", style: "secondary" });
+        baseActions.push({ id: "create_fallback_options", label: "ðŸ”„ Fallback Options", style: "secondary" });
       }
       
       // NEW: x402 Payment Features
       if (totalUsage >= 3) {
-        baseActions.push({ id: "handle_premium_request", label: "💎 Premium Features", style: "primary" });
+        baseActions.push({ id: "handle_premium_request", label: "ðŸ’Ž Premium Features", style: "primary" });
       }
       if (totalUsage >= 5) {
-        baseActions.push({ id: "get_payment_analytics", label: "📊 Payment Analytics", style: "secondary" });
+        baseActions.push({ id: "get_payment_analytics", label: "ðŸ“Š Payment Analytics", style: "secondary" });
       }
       if (totalUsage >= 8) {
-        baseActions.push({ id: "execute_payment", label: "💰 Execute Payment", style: "secondary" });
+        baseActions.push({ id: "execute_payment", label: "ðŸ’° Execute Payment", style: "secondary" });
       }
       
       // NEW: Mini App Features
       if (totalUsage >= 2) {
-        baseActions.push({ id: "share_miniapp", label: "🎮 Share Mini App", style: "primary" });
+        baseActions.push({ id: "share_miniapp", label: "ðŸŽ® Share Mini App", style: "primary" });
       }
       if (totalUsage >= 3) {
-        baseActions.push({ id: "detect_miniapp_context", label: "🔍 Detect Context", style: "secondary" });
+        baseActions.push({ id: "detect_miniapp_context", label: "ðŸ” Detect Context", style: "secondary" });
       }
       if (totalUsage >= 4) {
-        baseActions.push({ id: "coordinate_group_game", label: "👥 Group Games", style: "secondary" });
+        baseActions.push({ id: "coordinate_group_game", label: "ðŸ‘¥ Group Games", style: "secondary" });
       }
       if (totalUsage >= 6) {
-        baseActions.push({ id: "get_display_name", label: "👤 Resolve Name", style: "secondary" });
+        baseActions.push({ id: "get_display_name", label: "ðŸ‘¤ Resolve Name", style: "secondary" });
       }
       
       // NEW: Real-Time Price Features
       if (totalUsage >= 1) {
-        baseActions.push({ id: "get_realtime_price", label: "📊 Real-Time Price", style: "primary" });
+        baseActions.push({ id: "get_realtime_price", label: "ðŸ“Š Real-Time Price", style: "primary" });
       }
       if (totalUsage >= 2) {
-        baseActions.push({ id: "get_multiple_prices", label: "📈 Multiple Prices", style: "secondary" });
+        baseActions.push({ id: "get_multiple_prices", label: "ðŸ“ˆ Multiple Prices", style: "secondary" });
       }
       if (totalUsage >= 3) {
-        baseActions.push({ id: "get_market_overview", label: "🌍 Market Overview", style: "secondary" });
+        baseActions.push({ id: "get_market_overview", label: "ðŸŒ Market Overview", style: "secondary" });
       }
       
       // NEW: DeFi Analysis Features
       if (totalUsage >= 4) {
-        baseActions.push({ id: "analyze_defi_protocol", label: "🔍 Analyze Protocol", style: "secondary" });
+        baseActions.push({ id: "analyze_defi_protocol", label: "ðŸ” Analyze Protocol", style: "secondary" });
       }
       if (totalUsage >= 5) {
-        baseActions.push({ id: "get_yield_opportunities", label: "🌾 Yield Opportunities", style: "secondary" });
+        baseActions.push({ id: "get_yield_opportunities", label: "ðŸŒ¾ Yield Opportunities", style: "secondary" });
       }
       
       // NEW: Community Features
       if (totalUsage >= 3) {
-        baseActions.push({ id: "join_community", label: "👥 Join Community", style: "primary" });
+        baseActions.push({ id: "join_community", label: "ðŸ‘¥ Join Community", style: "primary" });
       }
       if (totalUsage >= 4) {
-        baseActions.push({ id: "create_social_signal", label: "📡 Create Signal", style: "secondary" });
+        baseActions.push({ id: "create_social_signal", label: "ðŸ“¡ Create Signal", style: "secondary" });
       }
       if (totalUsage >= 5) {
-        baseActions.push({ id: "get_community_insights", label: "📊 Community Insights", style: "secondary" });
+        baseActions.push({ id: "get_community_insights", label: "ðŸ“Š Community Insights", style: "secondary" });
       }
       
       // Context-specific actions
@@ -12348,58 +12354,58 @@ ${gasInfo}
         case 'help':
           // Super intelligent help-specific quick actions
           contextActions = [
-            { id: "get_realtime_price", label: "📊 Check Prices", style: "primary" },
-            { id: "get_hottest_tokens", label: "🔥 Hottest Tokens", style: "primary" },
-            { id: "get_token_score", label: "🎯 Token Score", style: "primary" },
-            { id: "get_sentiment_analysis", label: "😊 Sentiment Analysis", style: "primary" },
-            { id: "get_real_time_gas_fees", label: "⛽ Gas Fees", style: "primary" },
-            { id: "create_baseapp_deeplink", label: "🔗 Private Chat", style: "primary" },
-            { id: "get_project_info", label: "🏗️ Project Info", style: "secondary" },
-            { id: "send_eth", label: "💸 Send Crypto", style: "secondary" },
-            { id: "scan_project", label: "🔍 Research Project", style: "secondary" },
-            { id: "detect_smart_wallet", label: "🔍 Wallet Type", style: "secondary" },
-            { id: "toggle_beta_mode", label: "🔄 Beta Mode", style: "secondary" },
-            { id: "connect_farcaster", label: "🐦 Connect Farcaster", style: "secondary" },
-            { id: "join_waitlist", label: "📋 Join Waitlist", style: "secondary" }
+            { id: "get_realtime_price", label: "ðŸ“Š Check Prices", style: "primary" },
+            { id: "get_hottest_tokens", label: "ðŸ”¥ Hottest Tokens", style: "primary" },
+            { id: "get_token_score", label: "ðŸŽ¯ Token Score", style: "primary" },
+            { id: "get_sentiment_analysis", label: "ðŸ˜Š Sentiment Analysis", style: "primary" },
+            { id: "get_real_time_gas_fees", label: "â›½ Gas Fees", style: "primary" },
+            { id: "create_baseapp_deeplink", label: "ðŸ”— Private Chat", style: "primary" },
+            { id: "get_project_info", label: "ðŸ—ï¸ Project Info", style: "secondary" },
+            { id: "send_eth", label: "ðŸ’¸ Send Crypto", style: "secondary" },
+            { id: "scan_project", label: "ðŸ” Research Project", style: "secondary" },
+            { id: "detect_smart_wallet", label: "ðŸ” Wallet Type", style: "secondary" },
+            { id: "toggle_beta_mode", label: "ðŸ”„ Beta Mode", style: "secondary" },
+            { id: "connect_farcaster", label: "ðŸ¦ Connect Farcaster", style: "secondary" },
+            { id: "join_waitlist", label: "ðŸ“‹ Join Waitlist", style: "secondary" }
           ];
           break;
         case 'trading':
           contextActions = [
-            { id: "get_market_news", label: "📰 Market News", style: "primary" },
-            { id: "check_gas_fees", label: "⛽ Check Gas Fees", style: "secondary" },
-            { id: "predictive_analysis", label: "🔮 Market Analysis", style: "secondary" }
+            { id: "get_market_news", label: "ðŸ“° Market News", style: "primary" },
+            { id: "check_gas_fees", label: "â›½ Check Gas Fees", style: "secondary" },
+            { id: "predictive_analysis", label: "ðŸ”® Market Analysis", style: "secondary" }
           ];
           break;
         case 'gaming':
           contextActions = [
-            { id: "ai_game_recommendations", label: "🎮 Game Recommendations", style: "primary" },
-            { id: "find_gaming_groups", label: "👥 Find Gaming Groups", style: "secondary" },
-            { id: "gaming_stats", label: "📈 Gaming Stats", style: "secondary" }
+            { id: "ai_game_recommendations", label: "ðŸŽ® Game Recommendations", style: "primary" },
+            { id: "find_gaming_groups", label: "ðŸ‘¥ Find Gaming Groups", style: "secondary" },
+            { id: "gaming_stats", label: "ðŸ“ˆ Gaming Stats", style: "secondary" }
           ];
           break;
         case 'social':
           contextActions = [
-            { id: "community_features", label: "🌐 Community Features", style: "primary" },
-            { id: "find_mentors", label: "👨‍🏫 Find Mentors", style: "secondary" },
-            { id: "social_analytics", label: "📊 Social Analytics", style: "secondary" }
+            { id: "community_features", label: "ðŸŒ Community Features", style: "primary" },
+            { id: "find_mentors", label: "ðŸ‘¨â€ðŸ« Find Mentors", style: "secondary" },
+            { id: "social_analytics", label: "ðŸ“Š Social Analytics", style: "secondary" }
           ];
           break;
         default:
           // Time-based actions
           if (hour >= 9 && hour <= 17) {
             contextActions = [
-              { id: "get_market_news", label: "📰 Market News", style: "primary" },
-              { id: "check_gas_fees", label: "⛽ Check Gas Fees", style: "secondary" }
+              { id: "get_market_news", label: "ðŸ“° Market News", style: "primary" },
+              { id: "check_gas_fees", label: "â›½ Check Gas Fees", style: "secondary" }
             ];
           } else if (hour >= 18 && hour <= 22) {
             contextActions = [
-              { id: "ai_game_recommendations", label: "🎮 Game Recommendations", style: "primary" },
-              { id: "community_features", label: "🌐 Community Features", style: "secondary" }
+              { id: "ai_game_recommendations", label: "ðŸŽ® Game Recommendations", style: "primary" },
+              { id: "community_features", label: "ðŸŒ Community Features", style: "secondary" }
             ];
           } else {
             contextActions = [
-              { id: "set_price_alert", label: "🔔 Set Price Alert", style: "primary" },
-              { id: "smart_automation_setup", label: "🤖 Setup Automation", style: "secondary" }
+              { id: "set_price_alert", label: "ðŸ”” Set Price Alert", style: "primary" },
+              { id: "smart_automation_setup", label: "ðŸ¤– Setup Automation", style: "secondary" }
             ];
           }
       }
@@ -12410,7 +12416,7 @@ ${gasInfo}
         const topToken = Array.from(userPrefs.preferredTokens)[0];
         personalizedActions.push({
           id: `price_${topToken}`,
-          label: `📈 ${topToken.toUpperCase()} Price`,
+          label: `ðŸ“ˆ ${topToken.toUpperCase()} Price`,
           style: "primary"
         });
       }
@@ -12424,25 +12430,25 @@ ${gasInfo}
       // Context-aware descriptions for super intelligence
       switch (context) {
         case 'help':
-          description = "🚀 Ready to explore? Choose your next crypto adventure:";
+          description = "ðŸš€ Ready to explore? Choose your next crypto adventure:";
           break;
         case 'trading':
-          description = "📈 Trading mode activated! What's your next move?";
+          description = "ðŸ“ˆ Trading mode activated! What's your next move?";
           break;
         case 'gaming':
-          description = "🎮 Game time! Let's have some fun:";
+          description = "ðŸŽ® Game time! Let's have some fun:";
           break;
         case 'social':
-          description = "👥 Social features unlocked! Connect with the community:";
+          description = "ðŸ‘¥ Social features unlocked! Connect with the community:";
           break;
         default:
           // Time-based intelligent descriptions
           if (hour >= 9 && hour <= 17) {
-            description = "🌅 Good morning! Ready to tackle the crypto markets?";
+            description = "ðŸŒ… Good morning! Ready to tackle the crypto markets?";
           } else if (hour >= 18 && hour <= 22) {
-            description = "🌆 Evening vibes! What crypto adventure awaits?";
+            description = "ðŸŒ† Evening vibes! What crypto adventure awaits?";
           } else {
-            description = "🌙 Late night crypto session! What's on your mind?";
+            description = "ðŸŒ™ Late night crypto session! What's on your mind?";
           }
       }
       
@@ -12454,7 +12460,7 @@ ${gasInfo}
       };
       
       return {
-        userMessage: "🎯 **Quick Actions Available!**\n\nChoose from the options below to get started:",
+        userMessage: "ðŸŽ¯ **Quick Actions Available!**\n\nChoose from the options below to get started:",
         quickActionsData: quickActionsData,
         isQuickActions: true
       };
@@ -13835,7 +13841,7 @@ async function main() {
   hasWalletKey: !!process.env.XMTP_WALLET_KEY,
   hasDbKey: !!process.env.XMTP_DB_ENCRYPTION_KEY
 });
-   log('info', '🛡️ Dragman Agent is online!');
+   log('info', 'ðŸ›¡ï¸ Dragman Agent is online!');
 
   // NEW: Start price alert checker
   setInterval(checkPriceAlerts, 60000); // Check every minute
@@ -13872,7 +13878,7 @@ async function main() {
     const now = Date.now();
 
     if (processingUsers.has(senderInboxId)) {
-      await ctx.sendText("👀 I'm still processing your last request. Please give me a moment!");
+      await ctx.sendText("ðŸ‘€ I'm still processing your last request. Please give me a moment!");
       return;
     }
 
@@ -13881,7 +13887,7 @@ async function main() {
       if (timeSinceLastRequest < RATE_LIMIT_MS) {
         const remainingTime = Math.ceil((RATE_LIMIT_MS - timeSinceLastRequest) / 1000);
         log('warn', `Rate limit exceeded for ${senderInboxId}`);
-        await ctx.sendText(`👀 Whoa, easy there! Let me catch my breath. Please wait ${remainingTime} seconds.`);
+        await ctx.sendText(`ðŸ‘€ Whoa, easy there! Let me catch my breath. Please wait ${remainingTime} seconds.`);
         return;
       }
     }
@@ -14018,38 +14024,38 @@ async function main() {
     }
     
     if (isFirstMessage) {
-      const onboardingMessage = `👋 Welcome to Dragman Agent!
+      const onboardingMessage = `ðŸ‘‹ Welcome to Dragman Agent!
 
 I'm your friendly crypto assistant for Base and blockchain. I'm here to help you navigate the crypto world with ease!
 
-🎯 QUICK START:
-• Prices: "what's the price of ETH?"
-• Send: "send 0.001 ETH to 0x123... on base"
-• Research: "is Uniswap safe?"
-• Games: "start game", "list games"
-• Help: type "/help" for full guide
+ðŸŽ¯ QUICK START:
+â€¢ Prices: "what's the price of ETH?"
+â€¢ Send: "send 0.001 ETH to 0x123... on base"
+â€¢ Research: "is Uniswap safe?"
+â€¢ Games: "start game", "list games"
+â€¢ Help: type "/help" for full guide
 
-💡 WHAT I CAN DO:
-📊 Crypto Prices - Real-time prices, market data, conversions
-💸 Transactions - Send crypto, check balances, gas fees
-🔍 Research - Project safety checks, DeFi analysis
-🧮 Calculations - Math, DeFi math, yield farming
-🎮 Gaming - Multiplayer games, Mini Apps, polls
-🔗 Base App - Navigation, features, RPC info
-📱 Social - Crypto leader profiles, news updates
-⚙️ Advanced - Reminders, preferences, feedback
+ðŸ’¡ WHAT I CAN DO:
+ðŸ“Š Crypto Prices - Real-time prices, market data, conversions
+ðŸ’¸ Transactions - Send crypto, check balances, gas fees
+ðŸ” Research - Project safety checks, DeFi analysis
+ðŸ§® Calculations - Math, DeFi math, yield farming
+ðŸŽ® Gaming - Multiplayer games, Mini Apps, polls
+ðŸ”— Base App - Navigation, features, RPC info
+ðŸ“± Social - Crypto leader profiles, news updates
+âš™ï¸ Advanced - Reminders, preferences, feedback
 
-💬 CHAT BEHAVIOR:
-• In DMs: I respond to all your messages
-• In group chats: I only respond when you @dragman or reply to my messages
-• Always look for my 👀 emoji to know I received your message
+ðŸ’¬ CHAT BEHAVIOR:
+â€¢ In DMs: I respond to all your messages
+â€¢ In group chats: I only respond when you @dragman or reply to my messages
+â€¢ Always look for my ðŸ‘€ emoji to know I received your message
 
-🚀 READY TO EXPLORE?
+ðŸš€ READY TO EXPLORE?
 Try: "ETH price" or "help me with Base App"
 
-💡 PRO TIP: Be specific! "send 0.001 ETH to 0x123... on base" works better than "send crypto"
+ðŸ’¡ PRO TIP: Be specific! "send 0.001 ETH to 0x123... on base" works better than "send crypto"
 
-I'm here to help with anything crypto-related! Just ask me naturally. 🚀`;
+I'm here to help with anything crypto-related! Just ask me naturally. ðŸš€`;
       
       await ctx.sendText(onboardingMessage);
       trackAnalytics('user_interaction', { userId });
@@ -14065,14 +14071,14 @@ I'm here to help with anything crypto-related! Just ask me naturally. 🚀`;
         lowerMessage === "gm" || lowerMessage === "gn" || lowerMessage === "good morning" || 
         lowerMessage === "good night" || lowerMessage === "test" || lowerMessage.startsWith("test ")) {
       
-      // 🧠 SUPER GENIUS: Get personalized greeting based on user preferences
+      // ðŸ§  SUPER GENIUS: Get personalized greeting based on user preferences
       const personalizedGreeting = smartContextLearning.getPersonalizedGreeting(senderInboxId);
       
       const greetings = [
-        "👀 GM! Dragman Agent here. What crypto adventure are we on today? Type /help for all features!",
-        "👀 Welcome back! Ready to explore Base? Type /help for the full guide!",
-        "👀 Hey! Dragman Agent at your service. What can I help you with? Type /help to see everything!",
-        "👀 GM! Your crypto expert is here. What's on your mind? Type /help for all features!"
+        "ðŸ‘€ GM! Dragman Agent here. What crypto adventure are we on today? Type /help for all features!",
+        "ðŸ‘€ Welcome back! Ready to explore Base? Type /help for the full guide!",
+        "ðŸ‘€ Hey! Dragman Agent at your service. What can I help you with? Type /help to see everything!",
+        "ðŸ‘€ GM! Your crypto expert is here. What's on your mind? Type /help for all features!"
       ];
       
       let greeting = greetings[Math.floor(Math.random() * greetings.length)];
@@ -14090,17 +14096,17 @@ I'm here to help with anything crypto-related! Just ask me naturally. 🚀`;
     // Only match exact "help" or "/help"
     if (userMessage === "/help" || userMessage === "help") {
       // Send the help text first
-      await ctx.sendText(`👋 Welcome to Dragman Agent! 🚀
+      await ctx.sendText(`ðŸ‘‹ Welcome to Dragman Agent! ðŸš€
 
 Your ultimate crypto companion for Base App, DeFi, and blockchain adventures!
 
-💬 HOW TO CHAT WITH ME
-• In DMs: I respond to all your messages
-• In group chats: Tag me @dragman or reply to my messages
-• Look for 👀 emoji - it means I received your message
-• Be specific for better results!
+ðŸ’¬ HOW TO CHAT WITH ME
+â€¢ In DMs: I respond to all your messages
+â€¢ In group chats: Tag me @dragman or reply to my messages
+â€¢ Look for ðŸ‘€ emoji - it means I received your message
+â€¢ Be specific for better results!
 
-🎯 QUICK COMMANDS
+ðŸŽ¯ QUICK COMMANDS
 /help - Show this welcome message
 /quickaction - Show all quick action features
 /gaming - Show all gaming & mini app features
@@ -14119,14 +14125,14 @@ Your ultimate crypto companion for Base App, DeFi, and blockchain adventures!
 /gamification - Show all gamification features
 /advanced - Show all advanced features
 
-💡 PRO TIPS
-• Be specific: "send 0.001 ETH to 0x123... on base"
-• Ask multiple: "prices for BTC, ETH, SOL"
-• Use natural language: "What's happening with Base?"
-• Try different commands: "help with trading", "DeFi guidance"
-• Explore features: "show me trending tokens", "market analysis"
+ðŸ’¡ PRO TIPS
+â€¢ Be specific: "send 0.001 ETH to 0x123... on base"
+â€¢ Ask multiple: "prices for BTC, ETH, SOL"
+â€¢ Use natural language: "What's happening with Base?"
+â€¢ Try different commands: "help with trading", "DeFi guidance"
+â€¢ Explore features: "show me trending tokens", "market analysis"
 
-Ready to explore the future of crypto? Just ask me anything! 🚀`);
+Ready to explore the future of crypto? Just ask me anything! ðŸš€`);
 
       // Now send intelligent quick actions for /help
       try {
@@ -14138,7 +14144,7 @@ Ready to explore the future of crypto? Just ask me anything! 🚀`);
         if (quickActionsResult.isQuickActions) {
           await ctx.sendContent("coinbase.com/actions:1.0", quickActionsResult.quickActionsData);
           analytics.baseAppMetrics.quickActionsSent++;
-          log('info', '✅ Help Quick Actions sent successfully');
+          log('info', 'âœ… Help Quick Actions sent successfully');
         }
       } catch (error) {
         log('error', 'Failed to send help Quick Actions', { error: error.message });
@@ -14150,409 +14156,416 @@ Ready to explore the future of crypto? Just ask me anything! 🚀`);
 
     // Handle focused help commands
     if (userMessage === "/quickaction" || userMessage === "quickaction") {
-      await ctx.sendText(`🎯 **QUICK ACTION FEATURES** 🎯
+      await ctx.sendText(`ðŸŽ¯ **QUICK ACTION FEATURES** ðŸŽ¯
 
-💰 **PRICING & MARKET**
-• "ETH price", "BTC price", "prices for BTC, ETH, SOL"
-• "market overview", "crypto market"
-• "hottest tokens", "trending tokens"
-• "token score ETH", "analyze BTC"
-• "sentiment analysis SOL"
+ðŸ’° **PRICING & MARKET**
+â€¢ "ETH price", "BTC price", "prices for BTC, ETH, SOL"
+â€¢ "market overview", "crypto market"
+â€¢ "hottest tokens", "trending tokens"
+â€¢ "token score ETH", "analyze BTC"
+â€¢ "sentiment analysis SOL"
 
-💸 **TRANSACTIONS**
-• "send 0.001 ETH to 0x123... on base"
-• "gas price base", "gas fee ethereum"
-• "transaction history", "check balance"
+ðŸ’¸ **TRANSACTIONS**
+â€¢ "send 0.001 ETH to 0x123... on base"
+â€¢ "gas price base", "gas fee ethereum"
+â€¢ "transaction history", "check balance"
 
-🔍 **RESEARCH & ANALYSIS**
-• "is Uniswap safe?", "scan project [name]"
-• "project info Aerodrome", "BaseSwap details"
-• "safety check [project]"
+ðŸ” **RESEARCH & ANALYSIS**
+â€¢ "is Uniswap safe?", "scan project [name]"
+â€¢ "project info Aerodrome", "BaseSwap details"
+â€¢ "safety check [project]"
 
-📊 **PORTFOLIO & TRACKING**
-• "create portfolio", "add asset BTC 0.5 45000"
-• "portfolio analysis", "track portfolio"
-• "create price alert BTC 50000 above"
+ðŸ“Š **PORTFOLIO & TRACKING**
+â€¢ "create portfolio", "add asset BTC 0.5 45000"
+â€¢ "portfolio analysis", "track portfolio"
+â€¢ "create price alert BTC 50000 above"
 
-🌾 **DeFi FEATURES**
-• "analyze aerodrome", "yield opportunities"
-• "DeFi protocols", "liquidity pools"
-• "APY comparison", "farming opportunities"
+ðŸŒ¾ **DeFi FEATURES**
+â€¢ "analyze aerodrome", "yield opportunities"
+â€¢ "DeFi protocols", "liquidity pools"
+â€¢ "APY comparison", "farming opportunities"
 
-👥 **COMMUNITY & SOCIAL**
-• "join base-traders", "create signal BTC buy 50000"
-• "community features", "find mentors"
-• "social trading", "trading signals"
+ðŸ‘¥ **COMMUNITY & SOCIAL**
+â€¢ "join base-traders", "create signal BTC buy 50000"
+â€¢ "community features", "find mentors"
+â€¢ "social trading", "trading signals"
 
-💡 **Quick Tip**: Use natural language! "What's the price of ETH?" works perfectly!`);
+ðŸ’¡ **Quick Tip**: Use natural language! "What's the price of ETH?" works perfectly!`);
       processingUsers.delete(senderInboxId);
       return;
     }
 
     if (userMessage === "/gaming" || userMessage === "gaming") {
-      await ctx.sendText(`🎮 **GAMING & MINI APPS** 🎮
+      await ctx.sendText(`ðŸŽ® **GAMING & MINI APPS** ðŸŽ®
 
-🎲 **GAME MANAGEMENT**
-• "start game", "new game"
-• "join game [GAME_ID]"
-• "list games", "active games"
-• "game categories", "game list"
+ðŸŽ² **GAME MANAGEMENT**
+â€¢ "start game", "new game"
+â€¢ "join game [GAME_ID]"
+â€¢ "list games", "active games"
+â€¢ "game categories", "game list"
 
-🎪 **SINGLE PLAYER GAMES**
-• Chess, Snake, 2048, Tetris
-• Solitaire, Sudoku, Word Search
-• Crosswords, Memory Games
+ðŸ‰ **ORIGINAL DRAGMAN GAME**
+â€¢ "dragman", "dragon game", "tap game"
+â€¢ "social dragon", "score challenge"
+â€¢ Fast-paced tapping game
+â€¢ Compete with friends
+â€¢ Daily challenges & leaderboards
 
-👥 **MULTIPLAYER GAMES**
-• Skribbl, Gartic Phone, Codenames
-• Bomb Party, Psych, Chess
-• Tournament Mode, Leaderboards
+ðŸŽª **SINGLE PLAYER GAMES**
+â€¢ Chess, Snake, 2048, Tetris
+â€¢ Solitaire, Sudoku, Word Search
+â€¢ Crosswords, Memory Games
 
-📱 **MINI APPS**
-• "share miniapp", "mini app"
-• "games", "polls", "events"
-• No-sign-in games, instant play
-• Group fun with friends
+ðŸ‘¥ **MULTIPLAYER GAMES**
+â€¢ Skribbl, Gartic Phone, Codenames
+â€¢ Bomb Party, Psych, Chess
+â€¢ Tournament Mode, Leaderboards
 
-🎯 **GAMING FEATURES**
-• AI Game Recommendations
-• Smart Game Suggestions
-• Gaming Community
-• Tournaments & Competitions
-• Achievement System
+ðŸ“± **MINI APPS**
+â€¢ "share miniapp", "mini app"
+â€¢ "games", "polls", "events"
+â€¢ No-sign-in games, instant play
+â€¢ Group fun with friends
 
-💡 **Quick Tip**: Just say "start game" or "play chess" to begin!`);
+ðŸŽ¯ **GAMING FEATURES**
+â€¢ AI Game Recommendations
+â€¢ Smart Game Suggestions
+â€¢ Gaming Community
+â€¢ Tournaments & Competitions
+â€¢ Achievement System
+
+ðŸ’¡ **Quick Tip**: Try "dragman" for the original dragon tapping game!`);
       processingUsers.delete(senderInboxId);
       return;
     }
 
     if (userMessage === "/baseapp" || userMessage === "baseapp") {
-      await ctx.sendText(`🚀 **BASE APP FEATURES** 🚀
+      await ctx.sendText(`ðŸš€ **BASE APP FEATURES** ðŸš€
 
-🏠 **NAVIGATION**
-• "Base App features", "navigate to swap"
-• "go to home", "Base App home"
-• "explore Base", "discover projects"
+ðŸ  **NAVIGATION**
+â€¢ "Base App features", "navigate to swap"
+â€¢ "go to home", "Base App home"
+â€¢ "explore Base", "discover projects"
 
-👤 **PROFILE & SETTINGS**
-• "Base App profile", "user settings"
-• "account info", "Base App settings"
-• "app preferences", "configuration"
+ðŸ‘¤ **PROFILE & SETTINGS**
+â€¢ "Base App profile", "user settings"
+â€¢ "account info", "Base App settings"
+â€¢ "app preferences", "configuration"
 
-📱 **CORE FEATURES**
-• "QR scanner", "scan QR code"
-• "send crypto", "receive crypto"
-• "token swap", "swap tokens"
-• "Base NFTs", "NFT marketplace"
+ðŸ“± **CORE FEATURES**
+â€¢ "QR scanner", "scan QR code"
+â€¢ "send crypto", "receive crypto"
+â€¢ "token swap", "swap tokens"
+â€¢ "Base NFTs", "NFT marketplace"
 
-📊 **ACTIVITY & TRACKING**
-• "transaction history", "activity feed"
-• "Base activity", "Base analytics"
-• "Base metrics", "Base performance"
+ðŸ“Š **ACTIVITY & TRACKING**
+â€¢ "transaction history", "activity feed"
+â€¢ "Base activity", "Base analytics"
+â€¢ "Base metrics", "Base performance"
 
-🔗 **WALLET & SECURITY**
-• "wallet management", "wallet security"
-• "detect wallet", "smart wallet"
-• "migrate wallet", "wallet migration"
+ðŸ”— **WALLET & SECURITY**
+â€¢ "wallet management", "wallet security"
+â€¢ "detect wallet", "smart wallet"
+â€¢ "migrate wallet", "wallet migration"
 
-🌉 **BRIDGE & STAKING**
-• "Base App bridge", "baseapp bridge"
-• "staking rewards", "stake tokens"
-• "Base App staking", "baseapp staking"
+ðŸŒ‰ **BRIDGE & STAKING**
+â€¢ "Base App bridge", "baseapp bridge"
+â€¢ "staking rewards", "stake tokens"
+â€¢ "Base App staking", "baseapp staking"
 
-🔔 **NOTIFICATIONS & SOCIAL**
-• "app notifications", "Base notifications"
-• "social features", "Base friends"
-• "Farcaster connection", "social integration"
+ðŸ”” **NOTIFICATIONS & SOCIAL**
+â€¢ "app notifications", "Base notifications"
+â€¢ "social features", "Base friends"
+â€¢ "Farcaster connection", "social integration"
 
-🆕 **BETA FEATURES**
-• "beta mode", "toggle beta"
-• "join waitlist", "beta access"
-• "Base waitlist", "Base .eth"
+ðŸ†• **BETA FEATURES**
+â€¢ "beta mode", "toggle beta"
+â€¢ "join waitlist", "beta access"
+â€¢ "Base waitlist", "Base .eth"
 
-💡 **Quick Tip**: "Base App features" opens the main menu!`);
+ðŸ’¡ **Quick Tip**: "Base App features" opens the main menu!`);
       processingUsers.delete(senderInboxId);
       return;
     }
 
     if (userMessage === "/defi" || userMessage === "defi") {
-      await ctx.sendText(`🌾 **DeFi FEATURES** 🌾
+      await ctx.sendText(`ðŸŒ¾ **DeFi FEATURES** ðŸŒ¾
 
-🔍 **PROTOCOL ANALYSIS**
-• "analyze aerodrome", "analyze baseswap"
-• "DeFi protocols", "protocol safety"
-• "APY comparison", "yield analysis"
+ðŸ” **PROTOCOL ANALYSIS**
+â€¢ "analyze aerodrome", "analyze baseswap"
+â€¢ "DeFi protocols", "protocol safety"
+â€¢ "APY comparison", "yield analysis"
 
-💰 **YIELD FARMING**
-• "yield opportunities", "farming opportunities"
-• "liquidity pools", "LP tokens"
-• "staking rewards", "DeFi staking"
+ðŸ’° **YIELD FARMING**
+â€¢ "yield opportunities", "farming opportunities"
+â€¢ "liquidity pools", "LP tokens"
+â€¢ "staking rewards", "DeFi staking"
 
-🔄 **DEX & SWAPPING**
-• "DEX recommendations", "safe DEXs"
-• "token swap", "exchange crypto"
-• "liquidity provision", "LP farming"
+ðŸ”„ **DEX & SWAPPING**
+â€¢ "DEX recommendations", "safe DEXs"
+â€¢ "token swap", "exchange crypto"
+â€¢ "liquidity provision", "LP farming"
 
-📊 **DeFi ANALYTICS**
-• "DeFi market overview", "TVL analysis"
-• "protocol comparison", "DeFi trends"
-• "yield farming strategies"
+ðŸ“Š **DeFi ANALYTICS**
+â€¢ "DeFi market overview", "TVL analysis"
+â€¢ "protocol comparison", "DeFi trends"
+â€¢ "yield farming strategies"
 
-🏦 **LENDING & BORROWING**
-• "lending protocols", "borrow crypto"
-• "collateral management", "liquidation"
-• "interest rates", "DeFi loans"
+ðŸ¦ **LENDING & BORROWING**
+â€¢ "lending protocols", "borrow crypto"
+â€¢ "collateral management", "liquidation"
+â€¢ "interest rates", "DeFi loans"
 
-🎯 **POPULAR PROTOCOLS**
-• Aerodrome Finance, BaseSwap
-• Compound Base, Aave Base
-• Uniswap V3, Curve Finance
+ðŸŽ¯ **POPULAR PROTOCOLS**
+â€¢ Aerodrome Finance, BaseSwap
+â€¢ Compound Base, Aave Base
+â€¢ Uniswap V3, Curve Finance
 
-💡 **Quick Tip**: "analyze aerodrome" gives you detailed DeFi insights!`);
+ðŸ’¡ **Quick Tip**: "analyze aerodrome" gives you detailed DeFi insights!`);
       processingUsers.delete(senderInboxId);
       return;
     }
 
     if (userMessage === "/trading" || userMessage === "trading") {
-      await ctx.sendText(`📈 **TRADING FEATURES** 📈
+      await ctx.sendText(`ðŸ“ˆ **TRADING FEATURES** ðŸ“ˆ
 
-💰 **PRICE ANALYSIS**
-• "ETH price", "BTC price", "SOL price"
-• "price 1h", "price 4h", "price 7d", "price 30d"
-• "hottest tokens", "trending tokens"
-• "market overview", "crypto market"
+ðŸ’° **PRICE ANALYSIS**
+â€¢ "ETH price", "BTC price", "SOL price"
+â€¢ "price 1h", "price 4h", "price 7d", "price 30d"
+â€¢ "hottest tokens", "trending tokens"
+â€¢ "market overview", "crypto market"
 
-📊 **MARKET DATA**
-• "token score ETH", "analyze BTC"
-• "sentiment analysis SOL", "market sentiment"
-• "predictive analysis ETH", "market prediction"
+ðŸ“Š **MARKET DATA**
+â€¢ "token score ETH", "analyze BTC"
+â€¢ "sentiment analysis SOL", "market sentiment"
+â€¢ "predictive analysis ETH", "market prediction"
 
-🔍 **RESEARCH & SAFETY**
-• "scan project [name]", "is [project] safe?"
-• "safety check [project]", "project analysis"
-• "risk assessment", "security audit"
+ðŸ” **RESEARCH & SAFETY**
+â€¢ "scan project [name]", "is [project] safe?"
+â€¢ "safety check [project]", "project analysis"
+â€¢ "risk assessment", "security audit"
 
-💸 **TRANSACTIONS**
-• "send 0.001 ETH to 0x123... on base"
-• "gas price base", "gas fee ethereum"
-• "transaction preview", "estimate gas"
+ðŸ’¸ **TRANSACTIONS**
+â€¢ "send 0.001 ETH to 0x123... on base"
+â€¢ "gas price base", "gas fee ethereum"
+â€¢ "transaction preview", "estimate gas"
 
-📊 **PORTFOLIO MANAGEMENT**
-• "create portfolio", "add asset BTC 0.5 45000"
-• "portfolio analysis", "track portfolio"
-• "portfolio optimization", "rebalancing"
+ðŸ“Š **PORTFOLIO MANAGEMENT**
+â€¢ "create portfolio", "add asset BTC 0.5 45000"
+â€¢ "portfolio analysis", "track portfolio"
+â€¢ "portfolio optimization", "rebalancing"
 
-🔔 **ALERTS & SIGNALS**
-• "create price alert BTC 50000 above"
-• "trading signals", "market alerts"
-• "price notifications", "custom alerts"
+ðŸ”” **ALERTS & SIGNALS**
+â€¢ "create price alert BTC 50000 above"
+â€¢ "trading signals", "market alerts"
+â€¢ "price notifications", "custom alerts"
 
-👥 **SOCIAL TRADING**
-• "join base-traders", "trading community"
-• "create signal BTC buy 50000", "social signals"
-• "trading insights", "community analysis"
+ðŸ‘¥ **SOCIAL TRADING**
+â€¢ "join base-traders", "trading community"
+â€¢ "create signal BTC buy 50000", "social signals"
+â€¢ "trading insights", "community analysis"
 
-💡 **Quick Tip**: "ETH price 1h" shows 1-hour price changes!`);
+ðŸ’¡ **Quick Tip**: "ETH price 1h" shows 1-hour price changes!`);
       processingUsers.delete(senderInboxId);
       return;
     }
 
     if (userMessage === "/research" || userMessage === "research") {
-      await ctx.sendText(`🔍 **RESEARCH & ANALYSIS** 🔍
+      await ctx.sendText(`ðŸ” **RESEARCH & ANALYSIS** ðŸ”
 
-🌐 **WEB SEARCH**
-• "search for [topic]", "find information about [project]"
-• "research [topic]", "deep dive [project]"
-• "market analysis [token]", "trends for [sector]"
+ðŸŒ **WEB SEARCH**
+â€¢ "search for [topic]", "find information about [project]"
+â€¢ "research [topic]", "deep dive [project]"
+â€¢ "market analysis [token]", "trends for [sector]"
 
-📱 **SOCIAL PROFILES**
-• "X profile [name]", "twitter [username]"
-• "social media analysis", "community sentiment"
-• "influencer analysis", "social trends"
+ðŸ“± **SOCIAL PROFILES**
+â€¢ "X profile [name]", "twitter [username]"
+â€¢ "social media analysis", "community sentiment"
+â€¢ "influencer analysis", "social trends"
 
-📊 **PROJECT SCANNING**
-• "scan project [name]", "is [project] safe?"
-• "safety check [project]", "security audit"
-• "project analysis", "risk assessment"
+ðŸ“Š **PROJECT SCANNING**
+â€¢ "scan project [name]", "is [project] safe?"
+â€¢ "safety check [project]", "security audit"
+â€¢ "project analysis", "risk assessment"
 
-📈 **SENTIMENT ANALYSIS**
-• "sentiment [token]", "market sentiment [symbol]"
-• "community sentiment", "social sentiment"
-• "sentiment trends", "sentiment analysis"
+ðŸ“ˆ **SENTIMENT ANALYSIS**
+â€¢ "sentiment [token]", "market sentiment [symbol]"
+â€¢ "community sentiment", "social sentiment"
+â€¢ "sentiment trends", "sentiment analysis"
 
-🔍 **SAFETY CHECKS**
-• "is [project] safe?", "check [project] safety"
-• "security analysis", "audit reports"
-• "risk factors", "safety score"
+ðŸ” **SAFETY CHECKS**
+â€¢ "is [project] safe?", "check [project] safety"
+â€¢ "security analysis", "audit reports"
+â€¢ "risk factors", "safety score"
 
-📊 **MARKET DATA**
-• Real-time prices, market caps, trading volumes
-• Market trends, price movements, volatility
-• Trading patterns, technical analysis
+ðŸ“Š **MARKET DATA**
+â€¢ Real-time prices, market caps, trading volumes
+â€¢ Market trends, price movements, volatility
+â€¢ Trading patterns, technical analysis
 
-🌾 **PROTOCOL ANALYSIS**
-• DeFi safety scores, APY calculations
-• Risk assessment, protocol comparison
-• Smart contract analysis, audit reports
+ðŸŒ¾ **PROTOCOL ANALYSIS**
+â€¢ DeFi safety scores, APY calculations
+â€¢ Risk assessment, protocol comparison
+â€¢ Smart contract analysis, audit reports
 
-👥 **COMMUNITY INSIGHTS**
-• Trading signals, social sentiment
-• User recommendations, community analysis
-• Market intelligence, trend analysis
+ðŸ‘¥ **COMMUNITY INSIGHTS**
+â€¢ Trading signals, social sentiment
+â€¢ User recommendations, community analysis
+â€¢ Market intelligence, trend analysis
 
-💡 **Quick Tip**: "scan project Aerodrome" gives comprehensive analysis!`);
+ðŸ’¡ **Quick Tip**: "scan project Aerodrome" gives comprehensive analysis!`);
       processingUsers.delete(senderInboxId);
       return;
     }
 
     if (userMessage === "/payments" || userMessage === "payments") {
-      await ctx.sendText(`💰 **PAYMENT FEATURES** 💰
+      await ctx.sendText(`ðŸ’° **PAYMENT FEATURES** ðŸ’°
 
-💳 **x402 PAYMENTS**
-• "x402 payment", "execute payment"
-• "payment status", "check payment status"
-• "payment history", "x402 history"
+ðŸ’³ **x402 PAYMENTS**
+â€¢ "x402 payment", "execute payment"
+â€¢ "payment status", "check payment status"
+â€¢ "payment history", "x402 history"
 
-🧪 **TEST PAYMENTS**
-• "test x402 payment", "test payment"
-• "payment simulation", "mock payment"
-• "payment testing", "sandbox payment"
+ðŸ§ª **TEST PAYMENTS**
+â€¢ "test x402 payment", "test payment"
+â€¢ "payment simulation", "mock payment"
+â€¢ "payment testing", "sandbox payment"
 
-🔧 **PREMIUM SERVICES**
-• "setup premium service", "premium features"
-• "advanced features", "premium access"
-• "service upgrade", "premium subscription"
+ðŸ”§ **PREMIUM SERVICES**
+â€¢ "setup premium service", "premium features"
+â€¢ "advanced features", "premium access"
+â€¢ "service upgrade", "premium subscription"
 
-💸 **PAYMENT PROCESSING**
-• Autonomous economic transactions
-• Payment retry, automatic retry
-• Payment timeout, 30-second timeout
-• Payment security, rate limiting
+ðŸ’¸ **PAYMENT PROCESSING**
+â€¢ Autonomous economic transactions
+â€¢ Payment retry, automatic retry
+â€¢ Payment timeout, 30-second timeout
+â€¢ Payment security, rate limiting
 
-📊 **PAYMENT ANALYTICS**
-• Payment history, transaction logs
-• Payment metrics, success rates
-• Payment trends, usage statistics
+ðŸ“Š **PAYMENT ANALYTICS**
+â€¢ Payment history, transaction logs
+â€¢ Payment metrics, success rates
+â€¢ Payment trends, usage statistics
 
-🔄 **PAYMENT MANAGEMENT**
-• Payment retry with payment headers
-• Payment validation, security checks
-• Payment optimization, cost reduction
+ðŸ”„ **PAYMENT MANAGEMENT**
+â€¢ Payment retry with payment headers
+â€¢ Payment validation, security checks
+â€¢ Payment optimization, cost reduction
 
-🛡️ **PAYMENT SECURITY**
-• Rate limiting and validation
-• Security protocols, fraud prevention
-• Payment encryption, secure transactions
+ðŸ›¡ï¸ **PAYMENT SECURITY**
+â€¢ Rate limiting and validation
+â€¢ Security protocols, fraud prevention
+â€¢ Payment encryption, secure transactions
 
-💡 **Quick Tip**: "x402 payment" handles autonomous payments!`);
+ðŸ’¡ **Quick Tip**: "x402 payment" handles autonomous payments!`);
       processingUsers.delete(senderInboxId);
       return;
     }
 
     if (userMessage === "/advanced" || userMessage === "advanced") {
-      await ctx.sendText(`🔧 **ADVANCED FEATURES** 🔧
+      await ctx.sendText(`ðŸ”§ **ADVANCED FEATURES** ðŸ”§
 
-🌐 **RPC & NETWORK**
-• "RPC endpoints for base", "gas prices for ethereum"
-• "Base RPC", "Base endpoints", "Base network"
-• "network status", "chain health"
+ðŸŒ **RPC & NETWORK**
+â€¢ "RPC endpoints for base", "gas prices for ethereum"
+â€¢ "Base RPC", "Base endpoints", "Base network"
+â€¢ "network status", "chain health"
 
-🔄 **DEX & SWAPPING**
-• "DEX recommendations for base", "safe DEXs for swapping"
-• "token swap", "exchange crypto"
-• "liquidity provision", "LP farming"
+ðŸ”„ **DEX & SWAPPING**
+â€¢ "DEX recommendations for base", "safe DEXs for swapping"
+â€¢ "token swap", "exchange crypto"
+â€¢ "liquidity provision", "LP farming"
 
-📈 **SENTIMENT & TRENDS**
-• "sentiment analysis ETH", "trending topics base"
-• "market sentiment", "social sentiment"
-• "trend analysis", "market trends"
+ðŸ“ˆ **SENTIMENT & TRENDS**
+â€¢ "sentiment analysis ETH", "trending topics base"
+â€¢ "market sentiment", "social sentiment"
+â€¢ "trend analysis", "market trends"
 
-🚀 **BASE APP ADVANCED**
-• "Base App features", "navigate to swap"
-• "enhanced transaction tray", "enhanced deeplink"
-• "Base App analytics", "Base metrics"
+ðŸš€ **BASE APP ADVANCED**
+â€¢ "Base App features", "navigate to swap"
+â€¢ "enhanced transaction tray", "enhanced deeplink"
+â€¢ "Base App analytics", "Base metrics"
 
-💡 **ENHANCED FEATURES**
-• "enhanced transaction tray", "enhanced deeplink"
-• "smart automation", "automation setup"
-• "predictive analysis", "market prediction"
+ðŸ’¡ **ENHANCED FEATURES**
+â€¢ "enhanced transaction tray", "enhanced deeplink"
+â€¢ "smart automation", "automation setup"
+â€¢ "predictive analysis", "market prediction"
 
-🔗 **DEEPLINKS & INTEGRATION**
-• "create deeplink", "private chat"
-• "direct messaging", "agent communication"
-• "Base name service", "validate base name"
+ðŸ”— **DEEPLINKS & INTEGRATION**
+â€¢ "create deeplink", "private chat"
+â€¢ "direct messaging", "agent communication"
+â€¢ "Base name service", "validate base name"
 
-🎮 **MINI APPS & GAMING**
-• "share miniapp", "mini app"
-• "games", "polls", "events"
-• "gaming community", "tournaments"
+ðŸŽ® **MINI APPS & GAMING**
+â€¢ "share miniapp", "mini app"
+â€¢ "games", "polls", "events"
+â€¢ "gaming community", "tournaments"
 
-🏷️ **BASE NAMES & IDENTITY**
-• "Base name service", "validate base name"
-• "Base .eth", "identity management"
-• "wallet resolution", "display names"
+ðŸ·ï¸ **BASE NAMES & IDENTITY**
+â€¢ "Base name service", "validate base name"
+â€¢ "Base .eth", "identity management"
+â€¢ "wallet resolution", "display names"
 
-📊 **ANALYTICS & INSIGHTS**
-• "Base App analytics", "Base metrics"
-• "performance tracking", "usage analytics"
-• "user insights", "behavior analysis"
+ðŸ“Š **ANALYTICS & INSIGHTS**
+â€¢ "Base App analytics", "Base metrics"
+â€¢ "performance tracking", "usage analytics"
+â€¢ "user insights", "behavior analysis"
 
-🛠️ **SUPPORT & TROUBLESHOOTING**
-• "Base App help", "Base troubleshooting"
-• "Base issues", "technical support"
-• "error resolution", "problem solving"
+ðŸ› ï¸ **SUPPORT & TROUBLESHOOTING**
+â€¢ "Base App help", "Base troubleshooting"
+â€¢ "Base issues", "technical support"
+â€¢ "error resolution", "problem solving"
 
-💡 **Quick Tip**: "enhanced transaction tray" provides advanced transaction features!`);
+ðŸ’¡ **Quick Tip**: "enhanced transaction tray" provides advanced transaction features!`);
       processingUsers.delete(senderInboxId);
       return;
     }
 
     if (userMessage === "/deeplink" || userMessage === "deeplink") {
-      await ctx.sendText(`🔗 **DEEPLINK FEATURES** 🔗
+      await ctx.sendText(`ðŸ”— **DEEPLINK FEATURES** ðŸ”—
 
 Base App deeplinks let you start private conversations with agents seamlessly!
 
-🌐 **DEEPLINK FORMAT**
-• Format: \`cbwallet://messaging/{agentAddress}\`
-• Example: \`cbwallet://messaging/0x5993B8F560E17E438310c76BCac1Af3E6DA2A58A\`
-• Standard: XIP-67 compliant
+ðŸŒ **DEEPLINK FORMAT**
+â€¢ Format: \`cbwallet://messaging/{agentAddress}\`
+â€¢ Example: \`cbwallet://messaging/0x5993B8F560E17E438310c76BCac1Af3E6DA2A58A\`
+â€¢ Standard: XIP-67 compliant
 
-🎯 **HOW TO USE**
-• "deeplink" - Get general deeplink
-• "private chat" - Get private chat deeplink
-• "direct message" - Get direct message deeplink
-• "trading deeplink" - Get trading-focused deeplink
-• "defi deeplink" - Get DeFi-focused deeplink
-• "gaming deeplink" - Get gaming-focused deeplink
+ðŸŽ¯ **HOW TO USE**
+â€¢ "deeplink" - Get general deeplink
+â€¢ "private chat" - Get private chat deeplink
+â€¢ "direct message" - Get direct message deeplink
+â€¢ "trading deeplink" - Get trading-focused deeplink
+â€¢ "defi deeplink" - Get DeFi-focused deeplink
+â€¢ "gaming deeplink" - Get gaming-focused deeplink
 
-📱 **QUICK ACTIONS**
-• Click "🔗 Private Chat" in /help
-• Use context-specific deeplinks
-• Get personalized agent links
+ðŸ“± **QUICK ACTIONS**
+â€¢ Click "ðŸ”— Private Chat" in /help
+â€¢ Use context-specific deeplinks
+â€¢ Get personalized agent links
 
-🔧 **CONTEXT TYPES**
-• **General**: Personalized assistance, detailed analysis
-• **Trading**: Portfolio analysis, market predictions, risk management
-• **DeFi**: Protocol analysis, yield optimization, strategy planning
-• **Gaming**: Game recommendations, tournaments, leaderboards
+ðŸ”§ **CONTEXT TYPES**
+â€¢ **General**: Personalized assistance, detailed analysis
+â€¢ **Trading**: Portfolio analysis, market predictions, risk management
+â€¢ **DeFi**: Protocol analysis, yield optimization, strategy planning
+â€¢ **Gaming**: Game recommendations, tournaments, leaderboards
 
-🛡️ **SECURITY & VALIDATION**
-• Address validation (Ethereum format)
-• XIP-67 compliance
-• Error handling for invalid addresses
-• Fallbacks for unsupported clients
+ðŸ›¡ï¸ **SECURITY & VALIDATION**
+â€¢ Address validation (Ethereum format)
+â€¢ XIP-67 compliance
+â€¢ Error handling for invalid addresses
+â€¢ Fallbacks for unsupported clients
 
-💡 **PRO TIPS**
-• Copy deeplink and paste in Base App
-• Use context-specific deeplinks for better experience
-• Private chats offer more detailed assistance
-• Deeplinks work across Base App versions
+ðŸ’¡ **PRO TIPS**
+â€¢ Copy deeplink and paste in Base App
+â€¢ Use context-specific deeplinks for better experience
+â€¢ Private chats offer more detailed assistance
+â€¢ Deeplinks work across Base App versions
 
-🚀 **BENEFITS**
-• Seamless navigation within Base App
-• Direct agent-to-user communication
-• Context-aware responses
-• Enhanced user experience
+ðŸš€ **BENEFITS**
+â€¢ Seamless navigation within Base App
+â€¢ Direct agent-to-user communication
+â€¢ Context-aware responses
+â€¢ Enhanced user experience
 
 Ready to create a deeplink? Just say "deeplink" or click the Private Chat button!`);
       processingUsers.delete(senderInboxId);
@@ -14560,48 +14573,48 @@ Ready to create a deeplink? Just say "deeplink" or click the Private Chat button
     }
 
     if (userMessage === "/voice" || userMessage === "voice") {
-      await ctx.sendText(`🎤 **VOICE COMMAND FEATURES** 🎤
+      await ctx.sendText(`ðŸŽ¤ **VOICE COMMAND FEATURES** ðŸŽ¤
 
 Control your crypto experience with advanced voice commands!
 
-🎯 **BASIC VOICE COMMANDS**
-• "price ETH" - Get token price
-• "analyze BTC" - Token analysis
-• "trending tokens" - Hottest tokens
-• "gas fees base" - Gas fee analysis
-• "defi analysis Uniswap" - DeFi protocol analysis
-• "game recommendations" - AI game suggestions
-• "market news" - Latest crypto news
+ðŸŽ¯ **BASIC VOICE COMMANDS**
+â€¢ "price ETH" - Get token price
+â€¢ "analyze BTC" - Token analysis
+â€¢ "trending tokens" - Hottest tokens
+â€¢ "gas fees base" - Gas fee analysis
+â€¢ "defi analysis Uniswap" - DeFi protocol analysis
+â€¢ "game recommendations" - AI game suggestions
+â€¢ "market news" - Latest crypto news
 
-🚀 **ADVANCED VOICE COMMANDS**
-• "set alert ETH 4000" - Price alert setup
-• "execute trade buy ETH 0.1" - Trade execution
-• "social insights" - Community analysis
-• "wallet type" - Smart wallet detection
-• "beta mode" - Beta mode status
-• "farcaster" - Farcaster connection
-• "waitlist" - Waitlist information
-• "migrate wallet" - Wallet migration guide
-• "sentiment analysis BTC" - Sentiment analysis
-• "project info Aerodrome" - Project information
+ðŸš€ **ADVANCED VOICE COMMANDS**
+â€¢ "set alert ETH 4000" - Price alert setup
+â€¢ "execute trade buy ETH 0.1" - Trade execution
+â€¢ "social insights" - Community analysis
+â€¢ "wallet type" - Smart wallet detection
+â€¢ "beta mode" - Beta mode status
+â€¢ "farcaster" - Farcaster connection
+â€¢ "waitlist" - Waitlist information
+â€¢ "migrate wallet" - Wallet migration guide
+â€¢ "sentiment analysis BTC" - Sentiment analysis
+â€¢ "project info Aerodrome" - Project information
 
-🧠 **NLP PROCESSING**
-• Synonym matching (price/cost/value)
-• Context awareness
-• Natural language understanding
-• Smart command recognition
+ðŸ§  **NLP PROCESSING**
+â€¢ Synonym matching (price/cost/value)
+â€¢ Context awareness
+â€¢ Natural language understanding
+â€¢ Smart command recognition
 
-💡 **PRO TIPS**
-• Use natural language: "What's the price of Ethereum?"
-• Try variations: "cost", "value", "analyze", "analysis"
-• Voice commands work in any language
-• Combine commands: "analyze ETH and set alert"
+ðŸ’¡ **PRO TIPS**
+â€¢ Use natural language: "What's the price of Ethereum?"
+â€¢ Try variations: "cost", "value", "analyze", "analysis"
+â€¢ Voice commands work in any language
+â€¢ Combine commands: "analyze ETH and set alert"
 
-🎯 **EXAMPLES**
-• "Hey, what's trending in crypto?"
-• "Analyze Bitcoin and give me trading signals"
-• "Set up a price alert for Solana at $200"
-• "Show me the latest DeFi opportunities"
+ðŸŽ¯ **EXAMPLES**
+â€¢ "Hey, what's trending in crypto?"
+â€¢ "Analyze Bitcoin and give me trading signals"
+â€¢ "Set up a price alert for Solana at $200"
+â€¢ "Show me the latest DeFi opportunities"
 
 Ready to try voice commands? Just speak naturally!`);
       processingUsers.delete(senderInboxId);
@@ -14609,45 +14622,45 @@ Ready to try voice commands? Just speak naturally!`);
     }
 
     if (userMessage === "/nft" || userMessage === "nft") {
-      await ctx.sendText(`🎨 **NFT FEATURES** 🎨
+      await ctx.sendText(`ðŸŽ¨ **NFT FEATURES** ðŸŽ¨
 
 Comprehensive NFT collection analysis and rarity calculations!
 
-📊 **NFT COLLECTION ANALYSIS**
-• "analyze nft collection [address]" - Full collection analysis
-• Floor price tracking
-• Volume analysis (24h, 7d, 30d)
-• Market cap calculations
-• Owner distribution
-• Trait analysis
-• Recent sales tracking
-• Top holders analysis
+ðŸ“Š **NFT COLLECTION ANALYSIS**
+â€¢ "analyze nft collection [address]" - Full collection analysis
+â€¢ Floor price tracking
+â€¢ Volume analysis (24h, 7d, 30d)
+â€¢ Market cap calculations
+â€¢ Owner distribution
+â€¢ Trait analysis
+â€¢ Recent sales tracking
+â€¢ Top holders analysis
 
-🏆 **NFT RARITY CALCULATOR**
-• "calculate nft rarity [tokenId] [collection]" - Rarity analysis
-• Trait breakdown with percentages
-• Rarity scores and rankings
-• Rarity levels: Legendary, Epic, Rare, Uncommon, Common
-• Market value predictions
+ðŸ† **NFT RARITY CALCULATOR**
+â€¢ "calculate nft rarity [tokenId] [collection]" - Rarity analysis
+â€¢ Trait breakdown with percentages
+â€¢ Rarity scores and rankings
+â€¢ Rarity levels: Legendary, Epic, Rare, Uncommon, Common
+â€¢ Market value predictions
 
-📈 **COLLECTION SCORING**
-• Volume-based scoring
-• Ownership distribution analysis
-• Floor price evaluation
-• Rarity factor weighting
-• Overall collection rating
+ðŸ“ˆ **COLLECTION SCORING**
+â€¢ Volume-based scoring
+â€¢ Ownership distribution analysis
+â€¢ Floor price evaluation
+â€¢ Rarity factor weighting
+â€¢ Overall collection rating
 
-💡 **PRO TIPS**
-• Use collection addresses for analysis
-• Check rarity before buying NFTs
-• Monitor floor prices for opportunities
-• Analyze top holders for insights
+ðŸ’¡ **PRO TIPS**
+â€¢ Use collection addresses for analysis
+â€¢ Check rarity before buying NFTs
+â€¢ Monitor floor prices for opportunities
+â€¢ Analyze top holders for insights
 
-🎯 **EXAMPLES**
-• "analyze nft collection 0x123..."
-• "calculate nft rarity 1234 0x456..."
-• "NFT collection score for Base Punks"
-• "What's the rarity of token #5678?"
+ðŸŽ¯ **EXAMPLES**
+â€¢ "analyze nft collection 0x123..."
+â€¢ "calculate nft rarity 1234 0x456..."
+â€¢ "NFT collection score for Base Punks"
+â€¢ "What's the rarity of token #5678?"
 
 Ready to explore NFTs? Just ask about any collection!`);
       processingUsers.delete(senderInboxId);
@@ -14655,46 +14668,46 @@ Ready to explore NFTs? Just ask about any collection!`);
     }
 
     if (userMessage === "/mobile" || userMessage === "mobile") {
-      await ctx.sendText(`📱 **MOBILE OPTIMIZATION FEATURES** 📱
+      await ctx.sendText(`ðŸ“± **MOBILE OPTIMIZATION FEATURES** ðŸ“±
 
 Optimized experience for mobile devices with touch gestures!
 
-🔧 **MOBILE OPTIMIZATIONS**
-• "mobile mode" - Enable mobile optimizations
-• Compact response format
-• Shorter messages (max 500 chars)
-• Limited quick actions (4 buttons max)
-• Small image sizes
-• Simple chart types
-• Push notifications
-• Battery saver mode
+ðŸ”§ **MOBILE OPTIMIZATIONS**
+â€¢ "mobile mode" - Enable mobile optimizations
+â€¢ Compact response format
+â€¢ Shorter messages (max 500 chars)
+â€¢ Limited quick actions (4 buttons max)
+â€¢ Small image sizes
+â€¢ Simple chart types
+â€¢ Push notifications
+â€¢ Battery saver mode
 
-👆 **TOUCH GESTURES**
-• "swipe left" - Quick actions menu
-• "swipe right" - Advanced features
-• "long press" - Settings menu
-• "double tap" - Instant actions
-• Voice input support
-• Quick replies
-• Offline mode
+ðŸ‘† **TOUCH GESTURES**
+â€¢ "swipe left" - Quick actions menu
+â€¢ "swipe right" - Advanced features
+â€¢ "long press" - Settings menu
+â€¢ "double tap" - Instant actions
+â€¢ Voice input support
+â€¢ Quick replies
+â€¢ Offline mode
 
-📱 **MOBILE COMMANDS**
-• "compact view" - Switch to compact format
-• "voice on" - Enable voice commands
-• "offline mode" - Enable offline features
-• "battery saver" - Optimize for battery life
+ðŸ“± **MOBILE COMMANDS**
+â€¢ "compact view" - Switch to compact format
+â€¢ "voice on" - Enable voice commands
+â€¢ "offline mode" - Enable offline features
+â€¢ "battery saver" - Optimize for battery life
 
-💡 **PRO TIPS**
-• Mobile mode auto-detects your device
-• Use gestures for quick access
-• Voice commands work great on mobile
-• Offline mode for basic features
+ðŸ’¡ **PRO TIPS**
+â€¢ Mobile mode auto-detects your device
+â€¢ Use gestures for quick access
+â€¢ Voice commands work great on mobile
+â€¢ Offline mode for basic features
 
-🎯 **EXAMPLES**
-• "mobile mode" - Enable optimizations
-• "compact view" - Switch format
-• "swipe left" - Quick actions
-• "voice on" - Enable voice
+ðŸŽ¯ **EXAMPLES**
+â€¢ "mobile mode" - Enable optimizations
+â€¢ "compact view" - Switch format
+â€¢ "swipe left" - Quick actions
+â€¢ "voice on" - Enable voice
 
 Ready for mobile? Your experience is automatically optimized!`);
       processingUsers.delete(senderInboxId);
@@ -14702,45 +14715,45 @@ Ready for mobile? Your experience is automatically optimized!`);
     }
 
     if (userMessage === "/portfolio" || userMessage === "portfolio") {
-      await ctx.sendText(`📊 **PORTFOLIO TRACKING FEATURES** 📊
+      await ctx.sendText(`ðŸ“Š **PORTFOLIO TRACKING FEATURES** ðŸ“Š
 
 Visual portfolio tracking with charts and detailed analysis!
 
-📈 **VISUAL PORTFOLIO CHARTS**
-• "portfolio chart [timeframe]" - Create visual charts
-• ASCII performance charts
-• Asset breakdown with percentage bars
-• Multiple timeframes: 7d, 30d, 90d, 1y
-• Chart types: line, bar, pie
-• Real-time value tracking
+ðŸ“ˆ **VISUAL PORTFOLIO CHARTS**
+â€¢ "portfolio chart [timeframe]" - Create visual charts
+â€¢ ASCII performance charts
+â€¢ Asset breakdown with percentage bars
+â€¢ Multiple timeframes: 7d, 30d, 90d, 1y
+â€¢ Chart types: line, bar, pie
+â€¢ Real-time value tracking
 
-💰 **PORTFOLIO ANALYSIS**
-• Total value tracking
-• Change calculations (24h, 7d, 30d)
-• Asset allocation visualization
-• Performance metrics
-• Risk assessment
-• Diversification analysis
+ðŸ’° **PORTFOLIO ANALYSIS**
+â€¢ Total value tracking
+â€¢ Change calculations (24h, 7d, 30d)
+â€¢ Asset allocation visualization
+â€¢ Performance metrics
+â€¢ Risk assessment
+â€¢ Diversification analysis
 
-🎯 **PORTFOLIO COMMANDS**
-• "create portfolio" - Set up portfolio
-• "add asset [token] [amount] [price]" - Add assets
-• "portfolio analysis" - Detailed analysis
-• "track portfolio" - Real-time tracking
-• "portfolio chart 7d" - 7-day chart
-• "portfolio chart 30d" - 30-day chart
+ðŸŽ¯ **PORTFOLIO COMMANDS**
+â€¢ "create portfolio" - Set up portfolio
+â€¢ "add asset [token] [amount] [price]" - Add assets
+â€¢ "portfolio analysis" - Detailed analysis
+â€¢ "track portfolio" - Real-time tracking
+â€¢ "portfolio chart 7d" - 7-day chart
+â€¢ "portfolio chart 30d" - 30-day chart
 
-💡 **PRO TIPS**
-• Track multiple timeframes
-• Monitor asset allocation
-• Set up price alerts
-• Analyze performance trends
+ðŸ’¡ **PRO TIPS**
+â€¢ Track multiple timeframes
+â€¢ Monitor asset allocation
+â€¢ Set up price alerts
+â€¢ Analyze performance trends
 
-🎯 **EXAMPLES**
-• "portfolio chart 7d" - 7-day performance
-• "add asset ETH 2.5 3500" - Add Ethereum
-• "portfolio analysis" - Detailed breakdown
-• "track portfolio" - Real-time updates
+ðŸŽ¯ **EXAMPLES**
+â€¢ "portfolio chart 7d" - 7-day performance
+â€¢ "add asset ETH 2.5 3500" - Add Ethereum
+â€¢ "portfolio analysis" - Detailed breakdown
+â€¢ "track portfolio" - Real-time updates
 
 Ready to track your portfolio? Start with "create portfolio"!`);
       processingUsers.delete(senderInboxId);
@@ -14748,53 +14761,53 @@ Ready to track your portfolio? Start with "create portfolio"!`);
     }
 
     if (userMessage === "/signals" || userMessage === "signals") {
-      await ctx.sendText(`📈 **TRADING SIGNALS FEATURES** 📈
+      await ctx.sendText(`ðŸ“ˆ **TRADING SIGNALS FEATURES** ðŸ“ˆ
 
 Automated trading signals with technical and fundamental analysis!
 
-🚨 **TRADING SIGNALS**
-• "trading signals [token] [timeframe]" - Generate signals
-• Buy/sell recommendations
-• Confidence scores
-• Price targets
-• Signal reasons
-• Timeframe analysis
+ðŸš¨ **TRADING SIGNALS**
+â€¢ "trading signals [token] [timeframe]" - Generate signals
+â€¢ Buy/sell recommendations
+â€¢ Confidence scores
+â€¢ Price targets
+â€¢ Signal reasons
+â€¢ Timeframe analysis
 
-📊 **TECHNICAL ANALYSIS**
-• RSI (Relative Strength Index)
-• MACD (Moving Average Convergence Divergence)
-• Bollinger Bands
-• Support and resistance levels
-• Trend analysis
-• Volume analysis
+ðŸ“Š **TECHNICAL ANALYSIS**
+â€¢ RSI (Relative Strength Index)
+â€¢ MACD (Moving Average Convergence Divergence)
+â€¢ Bollinger Bands
+â€¢ Support and resistance levels
+â€¢ Trend analysis
+â€¢ Volume analysis
 
-📰 **FUNDAMENTAL ANALYSIS**
-• Market cap evaluation
-• Liquidity assessment
-• News sentiment
-• Community sentiment
-• Volume patterns
-• Market conditions
+ðŸ“° **FUNDAMENTAL ANALYSIS**
+â€¢ Market cap evaluation
+â€¢ Liquidity assessment
+â€¢ News sentiment
+â€¢ Community sentiment
+â€¢ Volume patterns
+â€¢ Market conditions
 
-🎯 **SIGNAL TYPES**
-• "signals ETH 1h" - 1-hour signals
-• "signals BTC 4h" - 4-hour signals
-• "signals SOL 1d" - Daily signals
-• "signals ADA 1w" - Weekly signals
+ðŸŽ¯ **SIGNAL TYPES**
+â€¢ "signals ETH 1h" - 1-hour signals
+â€¢ "signals BTC 4h" - 4-hour signals
+â€¢ "signals SOL 1d" - Daily signals
+â€¢ "signals ADA 1w" - Weekly signals
 
-💡 **PRO TIPS**
-• Use multiple timeframes
-• Check confidence scores
-• Consider market conditions
-• Always DYOR (Do Your Own Research)
+ðŸ’¡ **PRO TIPS**
+â€¢ Use multiple timeframes
+â€¢ Check confidence scores
+â€¢ Consider market conditions
+â€¢ Always DYOR (Do Your Own Research)
 
-⚠️ **RISK WARNING**
+âš ï¸ **RISK WARNING**
 Trading signals are for informational purposes only. Always DYOR!
 
-🎯 **EXAMPLES**
-• "trading signals ETH 4h" - Ethereum 4h signals
-• "signals BTC 1d" - Bitcoin daily signals
-• "trading analysis SOL" - Solana analysis
+ðŸŽ¯ **EXAMPLES**
+â€¢ "trading signals ETH 4h" - Ethereum 4h signals
+â€¢ "signals BTC 1d" - Bitcoin daily signals
+â€¢ "trading analysis SOL" - Solana analysis
 
 Ready for trading signals? Just specify token and timeframe!`);
       processingUsers.delete(senderInboxId);
@@ -14802,43 +14815,43 @@ Ready for trading signals? Just specify token and timeframe!`);
     }
 
     if (userMessage === "/social" || userMessage === "social") {
-      await ctx.sendText(`👥 **SOCIAL FEATURES** 👥
+      await ctx.sendText(`ðŸ‘¥ **SOCIAL FEATURES** ðŸ‘¥
 
 Build your crypto network with friends and social graphs!
 
-👤 **FRIEND MANAGEMENT**
-• "add friend [address] [name]" - Add a friend
-• "remove friend [address]" - Remove a friend
-• "list friends" - Show your friend list
-• "block user [address]" - Block a user
-• "unblock user [address]" - Unblock a user
-• "social graph" - View your network
+ðŸ‘¤ **FRIEND MANAGEMENT**
+â€¢ "add friend [address] [name]" - Add a friend
+â€¢ "remove friend [address]" - Remove a friend
+â€¢ "list friends" - Show your friend list
+â€¢ "block user [address]" - Block a user
+â€¢ "unblock user [address]" - Unblock a user
+â€¢ "social graph" - View your network
 
-🕸️ **SOCIAL GRAPH ANALYSIS**
-• Network connections
-• Mutual friends
-• Trust scores
-• Shared interests
-• Activity tracking
-• Connection strength
+ðŸ•¸ï¸ **SOCIAL GRAPH ANALYSIS**
+â€¢ Network connections
+â€¢ Mutual friends
+â€¢ Trust scores
+â€¢ Shared interests
+â€¢ Activity tracking
+â€¢ Connection strength
 
-🤝 **COLLABORATION FEATURES**
-• "share portfolio with [friend]" - Portfolio sharing
-• "collaborate with [friend]" - Trading together
-• "friend activity [name]" - View friend activity
-• "social insights" - Community analysis
+ðŸ¤ **COLLABORATION FEATURES**
+â€¢ "share portfolio with [friend]" - Portfolio sharing
+â€¢ "collaborate with [friend]" - Trading together
+â€¢ "friend activity [name]" - View friend activity
+â€¢ "social insights" - Community analysis
 
-💡 **PRO TIPS**
-• Build a strong network
-• Share insights with friends
-• Collaborate on trades
-• Learn from experienced traders
+ðŸ’¡ **PRO TIPS**
+â€¢ Build a strong network
+â€¢ Share insights with friends
+â€¢ Collaborate on trades
+â€¢ Learn from experienced traders
 
-🎯 **EXAMPLES**
-• "add friend 0x123... John" - Add friend
-• "list friends" - Show friends
-• "social graph" - Network analysis
-• "share portfolio with John" - Share portfolio
+ðŸŽ¯ **EXAMPLES**
+â€¢ "add friend 0x123... John" - Add friend
+â€¢ "list friends" - Show friends
+â€¢ "social graph" - Network analysis
+â€¢ "share portfolio with John" - Share portfolio
 
 Ready to build your network? Start by adding friends!`);
       processingUsers.delete(senderInboxId);
@@ -14846,49 +14859,49 @@ Ready to build your network? Start by adding friends!`);
     }
 
     if (userMessage === "/gamification" || userMessage === "gamification") {
-      await ctx.sendText(`🎮 **GAMIFICATION FEATURES** 🎮
+      await ctx.sendText(`ðŸŽ® **GAMIFICATION FEATURES** ðŸŽ®
 
 Make crypto fun with points, levels, achievements, and rewards!
 
-⭐ **POINTS & LEVELS**
-• "earn points" - Earn points for activities
-• "view profile" - See your gamification profile
-• XP system with level progression
-• Point multipliers for activities
-• Level-based rewards
+â­ **POINTS & LEVELS**
+â€¢ "earn points" - Earn points for activities
+â€¢ "view profile" - See your gamification profile
+â€¢ XP system with level progression
+â€¢ Point multipliers for activities
+â€¢ Level-based rewards
 
-🏅 **ACHIEVEMENTS**
-• "check achievements" - View available achievements
-• First Trade, Analysis Master, Social Butterfly
-• Game Champion, Signal Generator, Portfolio Builder
-• DeFi Explorer, NFT Collector, Community Leader
-• Power User (Level 10)
+ðŸ… **ACHIEVEMENTS**
+â€¢ "check achievements" - View available achievements
+â€¢ First Trade, Analysis Master, Social Butterfly
+â€¢ Game Champion, Signal Generator, Portfolio Builder
+â€¢ DeFi Explorer, NFT Collector, Community Leader
+â€¢ Power User (Level 10)
 
-🎖️ **BADGES & REWARDS**
-• Daily rewards system
-• Streak tracking (daily, weekly, monthly)
-• Badge collection
-• Level-up rewards
-• Exclusive features unlock
+ðŸŽ–ï¸ **BADGES & REWARDS**
+â€¢ Daily rewards system
+â€¢ Streak tracking (daily, weekly, monthly)
+â€¢ Badge collection
+â€¢ Level-up rewards
+â€¢ Exclusive features unlock
 
-🏆 **LEADERBOARD**
-• "leaderboard" - See the leaderboard
-• Global rankings
-• Friend comparisons
-• Achievement tracking
-• Progress monitoring
+ðŸ† **LEADERBOARD**
+â€¢ "leaderboard" - See the leaderboard
+â€¢ Global rankings
+â€¢ Friend comparisons
+â€¢ Achievement tracking
+â€¢ Progress monitoring
 
-💡 **PRO TIPS**
-• Complete daily tasks
-• Maintain streaks
-• Unlock achievements
-• Climb the leaderboard
+ðŸ’¡ **PRO TIPS**
+â€¢ Complete daily tasks
+â€¢ Maintain streaks
+â€¢ Unlock achievements
+â€¢ Climb the leaderboard
 
-🎯 **EXAMPLES**
-• "earn points" - Earn points
-• "view profile" - Your profile
-• "daily rewards" - Claim rewards
-• "leaderboard" - See rankings
+ðŸŽ¯ **EXAMPLES**
+â€¢ "earn points" - Earn points
+â€¢ "view profile" - Your profile
+â€¢ "daily rewards" - Claim rewards
+â€¢ "leaderboard" - See rankings
 
 Ready to level up? Start earning points today!`);
       processingUsers.delete(senderInboxId);
@@ -14897,48 +14910,48 @@ Ready to level up? Start earning points today!`);
 
     // Handle simple conversational questions directly
     if (lowerMessage.includes("how are you") || lowerMessage.includes("how do you do") || lowerMessage.includes("what's up")) {
-      await ctx.sendText("👀 I'm doing great! Ready to help with crypto. What do you need? Type /help for all features!");
+      await ctx.sendText("ðŸ‘€ I'm doing great! Ready to help with crypto. What do you need? Type /help for all features!");
       processingUsers.delete(senderInboxId);
       return;
     }
 
     // Handle crypto market questions
     if (lowerMessage.includes("market") || lowerMessage.includes("bull") || lowerMessage.includes("bear") || lowerMessage.includes("moon") || lowerMessage.includes("crash")) {
-      await ctx.sendText("👀 Market talk! What specific token or trend interests you? Type /help for market analysis tools!");
+      await ctx.sendText("ðŸ‘€ Market talk! What specific token or trend interests you? Type /help for market analysis tools!");
       processingUsers.delete(senderInboxId);
       return;
     }
 
     // Handle specific Base App features
     if (lowerMessage.includes("baseapp bridge") || lowerMessage.includes("base app bridge")) {
-      await ctx.sendText(`🌉 **Base Bridge** 🌉
+      await ctx.sendText(`ðŸŒ‰ **Base Bridge** ðŸŒ‰
 
 The Base Bridge lets you move assets between Ethereum and Base network seamlessly!
 
-🔗 **How to Use:**
+ðŸ”— **How to Use:**
 1. Visit https://bridge.base.org
 2. Connect your wallet
 3. Select tokens to bridge
 4. Choose amount and confirm
 
-💰 **Supported Tokens:**
-• ETH, USDC, USDT
-• Popular ERC-20 tokens
-• NFTs (coming soon)
+ðŸ’° **Supported Tokens:**
+â€¢ ETH, USDC, USDT
+â€¢ Popular ERC-20 tokens
+â€¢ NFTs (coming soon)
 
-⏱️ **Bridge Times:**
-• Ethereum → Base: ~7 minutes
-• Base → Ethereum: ~7 minutes
+â±ï¸ **Bridge Times:**
+â€¢ Ethereum â†’ Base: ~7 minutes
+â€¢ Base â†’ Ethereum: ~7 minutes
 
-💡 **Pro Tips:**
-• Bridge during low gas times
-• Use Base for lower fees
-• Check bridge status before large transfers
+ðŸ’¡ **Pro Tips:**
+â€¢ Bridge during low gas times
+â€¢ Use Base for lower fees
+â€¢ Check bridge status before large transfers
 
-🚀 **Benefits:**
-• Access Base DeFi ecosystem
-• Lower transaction costs
-• Fast finality on Base
+ðŸš€ **Benefits:**
+â€¢ Access Base DeFi ecosystem
+â€¢ Lower transaction costs
+â€¢ Fast finality on Base
 
 Need help with a specific bridge transaction? Just ask!`);
       processingUsers.delete(senderInboxId);
@@ -14946,36 +14959,36 @@ Need help with a specific bridge transaction? Just ask!`);
     }
 
     if (lowerMessage.includes("baseapp swap") || lowerMessage.includes("base app swap")) {
-      await ctx.sendText(`🔄 **Base Swap** 🔄
+      await ctx.sendText(`ðŸ”„ **Base Swap** ðŸ”„
 
 Base Swap is Base's native DEX for token trading with low fees!
 
-🏪 **Popular DEXs on Base:**
-• **BaseSwap** - https://baseswap.fi
-• **Uniswap V3** - https://app.uniswap.org/#/base
-• **SushiSwap** - https://sushi.com/base
-• **Aerodrome** - https://aerodrome.finance
+ðŸª **Popular DEXs on Base:**
+â€¢ **BaseSwap** - https://baseswap.fi
+â€¢ **Uniswap V3** - https://app.uniswap.org/#/base
+â€¢ **SushiSwap** - https://sushi.com/base
+â€¢ **Aerodrome** - https://aerodrome.finance
 
-💰 **How to Swap:**
+ðŸ’° **How to Swap:**
 1. Connect your wallet
 2. Select tokens
 3. Enter amount
 4. Confirm transaction
 
-⛽ **Gas Fees:**
-• Base: ~$0.01-0.05
-• Much cheaper than Ethereum
+â›½ **Gas Fees:**
+â€¢ Base: ~$0.01-0.05
+â€¢ Much cheaper than Ethereum
 
-🎯 **Features:**
-• Low slippage
-• High liquidity
-• MEV protection
-• Mobile friendly
+ðŸŽ¯ **Features:**
+â€¢ Low slippage
+â€¢ High liquidity
+â€¢ MEV protection
+â€¢ Mobile friendly
 
-💡 **Pro Tips:**
-• Check multiple DEXs for best rates
-• Use limit orders for large trades
-• Monitor gas prices
+ðŸ’¡ **Pro Tips:**
+â€¢ Check multiple DEXs for best rates
+â€¢ Use limit orders for large trades
+â€¢ Monitor gas prices
 
 Want me to analyze a specific DEX or help with a swap?`);
       processingUsers.delete(senderInboxId);
@@ -14983,44 +14996,44 @@ Want me to analyze a specific DEX or help with a swap?`);
     }
 
     if (lowerMessage.includes("baseapp profile") || lowerMessage.includes("base app profile")) {
-      await ctx.sendText(`👤 **Base Profile** 👤
+      await ctx.sendText(`ðŸ‘¤ **Base Profile** ðŸ‘¤
 
 Your Base profile is your identity in the Base ecosystem!
 
-🏷️ **Base Names (.base.eth):**
-• Human-readable addresses
-• Like dragman.base.eth
-• Easy to remember and share
+ðŸ·ï¸ **Base Names (.base.eth):**
+â€¢ Human-readable addresses
+â€¢ Like dragman.base.eth
+â€¢ Easy to remember and share
 
-🔗 **Profile Features:**
-• Display name and avatar
-• Social links
-• Transaction history
-• NFT collections
+ðŸ”— **Profile Features:**
+â€¢ Display name and avatar
+â€¢ Social links
+â€¢ Transaction history
+â€¢ NFT collections
 
-⚙️ **Profile Settings:**
-• Privacy controls
-• Notification preferences
-• Wallet connections
-• Social integrations
+âš™ï¸ **Profile Settings:**
+â€¢ Privacy controls
+â€¢ Notification preferences
+â€¢ Wallet connections
+â€¢ Social integrations
 
-🌐 **Social Features:**
-• Farcaster integration
-• Social trading
-• Community participation
-• Reputation system
+ðŸŒ **Social Features:**
+â€¢ Farcaster integration
+â€¢ Social trading
+â€¢ Community participation
+â€¢ Reputation system
 
-💡 **How to Set Up:**
+ðŸ’¡ **How to Set Up:**
 1. Go to Base App
 2. Tap your profile
 3. Customize settings
 4. Connect social accounts
 
-🎯 **Benefits:**
-• Professional identity
-• Easy discovery
-• Social features
-• Reputation building
+ðŸŽ¯ **Benefits:**
+â€¢ Professional identity
+â€¢ Easy discovery
+â€¢ Social features
+â€¢ Reputation building
 
 Need help setting up your Base profile or Base name?`);
       processingUsers.delete(senderInboxId);
@@ -15028,42 +15041,42 @@ Need help setting up your Base profile or Base name?`);
     }
 
     if (lowerMessage.includes("baseapp nft") || lowerMessage.includes("base app nft")) {
-      await ctx.sendText(`🎨 **Base NFTs** 🎨
+      await ctx.sendText(`ðŸŽ¨ **Base NFTs** ðŸŽ¨
 
 Base has a thriving NFT ecosystem with low minting and trading fees!
 
-🛒 **NFT Marketplaces:**
-• **OpenSea** - https://opensea.io/assets/base
-• **Zora** - https://zora.co/collect/base
-• **Manifold** - https://marketplace.manifold.xyz/base
+ðŸ›’ **NFT Marketplaces:**
+â€¢ **OpenSea** - https://opensea.io/assets/base
+â€¢ **Zora** - https://zora.co/collect/base
+â€¢ **Manifold** - https://marketplace.manifold.xyz/base
 
-🎯 **Popular Collections:**
-• Base Punks
-• Base Apes
-• Base Art
-• Community projects
+ðŸŽ¯ **Popular Collections:**
+â€¢ Base Punks
+â€¢ Base Apes
+â€¢ Base Art
+â€¢ Community projects
 
-💰 **Trading Costs:**
-• Minting: ~$0.01-0.05
-• Trading: ~$0.01-0.03
-• Much cheaper than Ethereum
+ðŸ’° **Trading Costs:**
+â€¢ Minting: ~$0.01-0.05
+â€¢ Trading: ~$0.01-0.03
+â€¢ Much cheaper than Ethereum
 
-🔍 **How to Explore:**
+ðŸ” **How to Explore:**
 1. Visit NFT marketplaces
 2. Filter by Base network
 3. Browse collections
 4. Check floor prices
 
-💡 **Pro Tips:**
-• Research before buying
-• Check collection utility
-• Monitor floor prices
-• Join community Discord
+ðŸ’¡ **Pro Tips:**
+â€¢ Research before buying
+â€¢ Check collection utility
+â€¢ Monitor floor prices
+â€¢ Join community Discord
 
-🎨 **Creating NFTs:**
-• Use Zora or Manifold
-• Low minting costs
-• Easy deployment
+ðŸŽ¨ **Creating NFTs:**
+â€¢ Use Zora or Manifold
+â€¢ Low minting costs
+â€¢ Easy deployment
 
 Want help finding specific NFTs or creating your own?`);
       processingUsers.delete(senderInboxId);
@@ -15071,44 +15084,44 @@ Want help finding specific NFTs or creating your own?`);
     }
 
     if (lowerMessage.includes("baseapp staking") || lowerMessage.includes("base app staking")) {
-      await ctx.sendText(`🎯 **Base Staking** 🎯
+      await ctx.sendText(`ðŸŽ¯ **Base Staking** ðŸŽ¯
 
 Base offers various staking opportunities for earning rewards!
 
-🏦 **Staking Options:**
-• **ETH Staking** - Ethereum 2.0 staking
-• **Liquid Staking** - stETH, rETH
-• **DeFi Staking** - Protocol tokens
-• **Yield Farming** - LP tokens
+ðŸ¦ **Staking Options:**
+â€¢ **ETH Staking** - Ethereum 2.0 staking
+â€¢ **Liquid Staking** - stETH, rETH
+â€¢ **DeFi Staking** - Protocol tokens
+â€¢ **Yield Farming** - LP tokens
 
-💰 **Rewards:**
-• ETH staking: ~4-5% APY
-• Liquid staking: ~3-4% APY
-• DeFi staking: Variable APY
-• Yield farming: Higher APY, higher risk
+ðŸ’° **Rewards:**
+â€¢ ETH staking: ~4-5% APY
+â€¢ Liquid staking: ~3-4% APY
+â€¢ DeFi staking: Variable APY
+â€¢ Yield farming: Higher APY, higher risk
 
-🔒 **Security:**
-• Non-custodial options
-• Audited protocols
-• Insurance coverage
-• Risk assessment
+ðŸ”’ **Security:**
+â€¢ Non-custodial options
+â€¢ Audited protocols
+â€¢ Insurance coverage
+â€¢ Risk assessment
 
-⚙️ **How to Stake:**
+âš™ï¸ **How to Stake:**
 1. Choose staking method
 2. Connect wallet
 3. Select amount
 4. Confirm transaction
 
-💡 **Pro Tips:**
-• Start with liquid staking
-• Diversify across protocols
-• Monitor rewards regularly
-• Understand risks
+ðŸ’¡ **Pro Tips:**
+â€¢ Start with liquid staking
+â€¢ Diversify across protocols
+â€¢ Monitor rewards regularly
+â€¢ Understand risks
 
-🎯 **Popular Protocols:**
-• Lido, Rocket Pool
-• Compound, Aave
-• Aerodrome, BaseSwap
+ðŸŽ¯ **Popular Protocols:**
+â€¢ Lido, Rocket Pool
+â€¢ Compound, Aave
+â€¢ Aerodrome, BaseSwap
 
 Need help choosing the best staking strategy?`);
       processingUsers.delete(senderInboxId);
@@ -15120,7 +15133,7 @@ Need help choosing the best staking strategy?`);
       const agentAddress = process.env.XMTP_WALLET_ADDRESS || "0x5993B8F560E17E438310c76BCac1Af3E6DA2A58A";
       const deeplink = `cbwallet://messaging/${agentAddress}`;
       
-      await ctx.sendText(`🔗 **Base App Deeplink** 🔗
+      await ctx.sendText(`ðŸ”— **Base App Deeplink** ðŸ”—
 
 Want to chat with me privately? Use this deeplink to start a direct conversation!
 
@@ -15132,63 +15145,66 @@ Want to chat with me privately? Use this deeplink to start a direct conversation
 3. Or tap the link if supported
 
 **Features in private chat:**
-• Personalized assistance
-• Detailed crypto analysis
-• Portfolio tracking
-• Trading insights
-• DeFi guidance
+â€¢ Personalized assistance
+â€¢ Detailed crypto analysis
+â€¢ Portfolio tracking
+â€¢ Trading insights
+â€¢ DeFi guidance
 
 **Alternative ways to connect:**
-• Search for "Dragman Agent" in Base App
-• Join our community chat
-• Use the agent address: \`${agentAddress}\`
+â€¢ Search for "Dragman Agent" in Base App
+â€¢ Join our community chat
+â€¢ Use the agent address: \`${agentAddress}\`
 
-💡 **Pro Tip:** Private chats offer more detailed and personalized crypto insights!`);
+ðŸ’¡ **Pro Tip:** Private chats offer more detailed and personalized crypto insights!`);
       processingUsers.delete(senderInboxId);
       return;
     }
 
     // Handle Base App specific questions
     if (lowerMessage.includes("base app") || lowerMessage.includes("baseapp") || lowerMessage.includes("base ecosystem")) {
-      await ctx.sendText("👀 Base App is amazing! Low fees, great UX. What Base feature interests you? Type /help for Base tools!");
+      await ctx.sendText("ðŸ‘€ Base App is amazing! Low fees, great UX. What Base feature interests you? Type /help for Base tools!");
       processingUsers.delete(senderInboxId);
       return;
     }
 
     // Handle DeFi questions
     if (lowerMessage.includes("defi") || lowerMessage.includes("yield") || lowerMessage.includes("farming") || lowerMessage.includes("liquidity")) {
-      await ctx.sendText("👀 DeFi magic! Yield farming, liquidity, protocols. What DeFi topic interests you? Type /help for DeFi tools!");
+      await ctx.sendText("ðŸ‘€ DeFi magic! Yield farming, liquidity, protocols. What DeFi topic interests you? Type /help for DeFi tools!");
       processingUsers.delete(senderInboxId);
       return;
     }
 
     // Handle game categories FIRST (before general game detection)
     if (lowerMessage.includes("game category") || lowerMessage.includes("game categories") || lowerMessage.includes("game list")) {
-      let message = "🎮 **GAME CATEGORIES**\n\n";
-      message += "👥 **MULTIPLAYER GAMES**\n\n";
-      message += "🎨 Creative: Skribbl.io, Gartic Phone\n";
-      message += "🔗 https://skribbl.io\n";
-      message += "🔗 https://garticphone.com\n\n";
-      message += "🧠 Strategy: Codenames, Chess.com\n";
-      message += "🔗 https://codenames.game\n";
-      message += "🔗 https://www.chess.com/play/online\n\n";
-      message += "💣 Fast-paced: Bomb Party\n";
-      message += "🔗 https://jklm.fun\n\n";
-      message += "😄 Social: Psych!\n";
-      message += "🔗 https://www.psych.online\n\n";
-      message += "🎯 **SINGLE PLAYER GAMES**\n\n";
-      message += "🧠 Strategy: Chess, Sudoku\n";
-      message += "🔗 https://www.chess.com/play/computer\n";
-      message += "🔗 https://www.coolmathgames.com/0-sudoku\n\n";
-      message += "🎯 Arcade: Snake, Tetris\n";
-      message += "🔗 https://www.coolmathgames.com/0-snake\n";
-      message += "🔗 https://www.coolmathgames.com/0-tetris\n\n";
-      message += "🧮 Puzzle: 2048, Word Search\n";
-      message += "🔗 https://www.coolmathgames.com/0-2048\n";
-      message += "🔗 https://www.coolmathgames.com/0-word-search\n\n";
-      message += "🃏 Card: Solitaire\n";
-      message += "🔗 https://www.coolmathgames.com/0-solitaire\n\n";
-      message += "**Perfect for instant fun - no sign-in required!** 🎮";
+      let message = "ðŸŽ® **GAME CATEGORIES**\n\n";
+      message += "ðŸ‰ **ORIGINAL DRAGMAN GAME**\n\n";
+      message += "ðŸŽ¯ Fast-paced tapping game with social features\n";
+      message += "ðŸ”— https://dragman.xyz/\n\n";
+      message += "ðŸ‘¥ **MULTIPLAYER GAMES**\n\n";
+      message += "ðŸŽ¨ Creative: Skribbl.io, Gartic Phone\n";
+      message += "ðŸ”— https://skribbl.io\n";
+      message += "ðŸ”— https://garticphone.com\n\n";
+      message += "ðŸ§  Strategy: Codenames, Chess.com\n";
+      message += "ðŸ”— https://codenames.game\n";
+      message += "ðŸ”— https://www.chess.com/play/online\n\n";
+      message += "ðŸ’£ Fast-paced: Bomb Party\n";
+      message += "ðŸ”— https://jklm.fun\n\n";
+      message += "ðŸ˜„ Social: Psych!\n";
+      message += "ðŸ”— https://www.psych.online\n\n";
+      message += "ðŸŽ¯ **SINGLE PLAYER GAMES**\n\n";
+      message += "ðŸ§  Strategy: Chess, Sudoku\n";
+      message += "ðŸ”— https://www.chess.com/play/computer\n";
+      message += "ðŸ”— https://www.coolmathgames.com/0-sudoku\n\n";
+      message += "ðŸŽ¯ Arcade: Snake, Tetris\n";
+      message += "ðŸ”— https://www.coolmathgames.com/0-snake\n";
+      message += "ðŸ”— https://www.coolmathgames.com/0-tetris\n\n";
+      message += "ðŸ§® Puzzle: 2048, Word Search\n";
+      message += "ðŸ”— https://www.coolmathgames.com/0-2048\n";
+      message += "ðŸ”— https://www.coolmathgames.com/0-word-search\n\n";
+      message += "ðŸƒ Card: Solitaire\n";
+      message += "ðŸ”— https://www.coolmathgames.com/0-solitaire\n\n";
+      message += "**Perfect for instant fun - no sign-in required!** ðŸŽ®";
       
       await ctx.sendText(message);
       processingUsers.delete(senderInboxId);
@@ -15209,38 +15225,38 @@ Want to chat with me privately? Use this deeplink to start a direct conversation
           feedback: feedback,
           category: 'general'
         });
-        await ctx.sendText(result.userMessage || result.error || "👀 Thanks for your feedback!");
+        await ctx.sendText(result.userMessage || result.error || "ðŸ‘€ Thanks for your feedback!");
         processingUsers.delete(senderInboxId);
         return;
       } else {
-        await ctx.sendText(`📝 **Rate Your Experience** 📝
+        await ctx.sendText(`ðŸ“ **Rate Your Experience** ðŸ“
 
 How would you rate your experience with Dragman Agent?
 
-⭐ **Rating Scale:**
-• 5 ⭐⭐⭐⭐⭐ - Excellent! Love it!
-• 4 ⭐⭐⭐⭐ - Very good, minor improvements
-• 3 ⭐⭐⭐ - Good, some issues
-• 2 ⭐⭐ - Fair, needs work
-• 1 ⭐ - Poor, major issues
+â­ **Rating Scale:**
+â€¢ 5 â­â­â­â­â­ - Excellent! Love it!
+â€¢ 4 â­â­â­â­ - Very good, minor improvements
+â€¢ 3 â­â­â­ - Good, some issues
+â€¢ 2 â­â­ - Fair, needs work
+â€¢ 1 â­ - Poor, major issues
 
 **How to rate:**
-• Type "rate 5" for excellent
-• Type "rate 4" for very good
-• Type "rate 3" for good
-• Type "rate 2" for fair
-• Type "rate 1" for poor
+â€¢ Type "rate 5" for excellent
+â€¢ Type "rate 4" for very good
+â€¢ Type "rate 3" for good
+â€¢ Type "rate 2" for fair
+â€¢ Type "rate 1" for poor
 
 **Optional feedback:**
 Add comments after the rating, e.g., "rate 5 great job!"
 
-Your feedback helps me improve and potentially get featured in Base App! 🚀`);
+Your feedback helps me improve and potentially get featured in Base App! ðŸš€`);
         processingUsers.delete(senderInboxId);
         return;
       }
     }
 
-    // 🧠 NEW: Advanced AI Feature Handlers
+    // ðŸ§  NEW: Advanced AI Feature Handlers
     if (lowerMessage.includes("smart learning") || lowerMessage.includes("learn from me")) {
       const result = await availableFunctions.smart_context_learning({ 
         userId: senderInboxId, 
@@ -15348,23 +15364,23 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
         return;
       } else {
         // Show network selection prompt
-        const networkSelection = `⛽ **Choose Your Network for Gas Fees** ⛽
+        const networkSelection = `â›½ **Choose Your Network for Gas Fees** â›½
 
-🌐 **Available Networks:**
-• **Base** - Low fees, fast transactions
-• **Ethereum** - Mainnet, higher fees
-• **Arbitrum** - Layer 2, low fees
-• **Optimism** - Layer 2, low fees
-• **BSC** - Binance Smart Chain
-• **Polygon** - Low fees, fast
+ðŸŒ **Available Networks:**
+â€¢ **Base** - Low fees, fast transactions
+â€¢ **Ethereum** - Mainnet, higher fees
+â€¢ **Arbitrum** - Layer 2, low fees
+â€¢ **Optimism** - Layer 2, low fees
+â€¢ **BSC** - Binance Smart Chain
+â€¢ **Polygon** - Low fees, fast
 
-💡 **Usage:** Just say "gas price [network]"
+ðŸ’¡ **Usage:** Just say "gas price [network]"
 **Examples:**
-• "gas price base"
-• "gas fee ethereum"
-• "gas price arbitrum"
+â€¢ "gas price base"
+â€¢ "gas fee ethereum"
+â€¢ "gas price arbitrum"
 
-🚀 **Pro Tip:** Base has the lowest fees for most transactions!`;
+ðŸš€ **Pro Tip:** Base has the lowest fees for most transactions!`;
         
         await ctx.sendText(networkSelection);
         processingUsers.delete(senderInboxId);
@@ -15457,7 +15473,7 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
     // Add the user's message to the history
     history.push({ role: "user", content: ctx.message.content });
     
-    // 🧠 NEW: Learn from user interaction automatically
+    // ðŸ§  NEW: Learn from user interaction automatically
     try {
       smartContextLearning.learnFromInteraction(senderInboxId, userMessage, '', {
         timestamp: Date.now(),
@@ -15481,10 +15497,10 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
     }
 
     try {
-      // NEW: Send 👀 emoji first to confirm message receipt
-      await ctx.sendText("👀");
+      // NEW: Send ðŸ‘€ emoji first to confirm message receipt
+      await ctx.sendText("ðŸ‘€");
       
-      await ctx.sendText("One moment, crunching the data with my advanced crypto analytics... 🤔 ");
+      await ctx.sendText("One moment, crunching the data with my advanced crypto analytics... ðŸ¤” ");
 
       const timeout = new Promise((_, reject) => 
         setTimeout(() => reject(new Error('Request timed out')), 60000)
@@ -15501,7 +15517,7 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
            - Super friendly, enthusiastic, and genuinely excited about crypto
            - The go-to expert for everything Base App related
            - Conversational, engaging, and always ready to chat about crypto
-           - Use 👀 emoji to acknowledge every message
+           - Use ðŸ‘€ emoji to acknowledge every message
            - Keep responses concise but warm (1-3 sentences unless details needed)
            - Be proactive and suggest cool things users can try
 
@@ -15531,7 +15547,7 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
            - Social features, group coordination, user interactions
 
            **CONVERSATION STYLE:**
-           - Start with 👀 and be genuinely excited to help
+           - Start with ðŸ‘€ and be genuinely excited to help
            - Ask engaging follow-up questions
            - Share your opinions and insights about crypto
            - Suggest relevant tools and actions
@@ -15547,10 +15563,10 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
            - Keep technical explanations simple and brief
 
            **EXAMPLES:**
-           - "👀 Base is absolutely crushing it! New projects launching daily. Want me to check some trending Base gems?"
-           - "👀 ETH at $2,800 and looking strong! Should I set up a price alert for you?"
-           - "👀 That project looks solid! DYOR though. Want me to run a safety check?"
-           - "👀 Brian Armstrong's X: @brian_armstrong - Copy this URL: https://x.com/brian_armstrong"
+           - "ðŸ‘€ Base is absolutely crushing it! New projects launching daily. Want me to check some trending Base gems?"
+           - "ðŸ‘€ ETH at $2,800 and looking strong! Should I set up a price alert for you?"
+           - "ðŸ‘€ That project looks solid! DYOR though. Want me to run a safety check?"
+           - "ðŸ‘€ Brian Armstrong's X: @brian_armstrong - Copy this URL: https://x.com/brian_armstrong"
 
            **PROACTIVE SUGGESTIONS:**
            - After price queries: suggest portfolio tracking or alerts
@@ -15559,7 +15575,7 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
            - After Base App questions: suggest exploring more features
            - After Mini App mentions: suggest gaming or social features
 
-           **Remember:** You're the crypto friend everyone wishes they had - knowledgeable, enthusiastic, and always ready to explore the exciting world of Base App and blockchain technology together! Let's make crypto fun and accessible! 🚀`
+           **Remember:** You're the crypto friend everyone wishes they had - knowledgeable, enthusiastic, and always ready to explore the exciting world of Base App and blockchain technology together! Let's make crypto fun and accessible! ðŸš€`
           },
           ...history,
         ],
@@ -15614,19 +15630,19 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
                   const validation = validateTransactionData(functionResponse.transactionData);
                   if (!validation.valid) {
                     log('error', 'Invalid transaction data', { error: validation.error });
-                    responseContent = functionResponse.userMessage + "\n\n⚠️ Transaction validation failed. Please try again.";
+                    responseContent = functionResponse.userMessage + "\n\nâš ï¸ Transaction validation failed. Please try again.";
                     await ctx.sendText(responseContent);
                   } else {
                     // Send transaction tray using Base App content type
                     try {
                       await ctx.sendContent("xmtp.org/walletSendCalls:1.0", functionResponse.transactionData);
-                      log('info', '✅ Transaction tray sent successfully');
+                      log('info', 'âœ… Transaction tray sent successfully');
                       analytics.baseAppMetrics.transactionTraysSent++;
                       analytics.baseAppMetrics.contentTypesUsed.set('xmtp.org/walletSendCalls:1.0', 
                         (analytics.baseAppMetrics.contentTypesUsed.get('xmtp.org/walletSendCalls:1.0') || 0) + 1);
                       responseContent = functionResponse.userMessage;
                     } catch (error) {
-                      log('error', '❌ Failed to send transaction tray', { error: error.message });
+                      log('error', 'âŒ Failed to send transaction tray', { error: error.message });
                       // Fallback to manual instructions
                       const result = await sendTransaction(ctx, functionResponse.transactionData, functionResponse.userMessage, functionResponse.functionArgs);
                       responseContent = result.message;
@@ -15637,20 +15653,20 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
                   const validation = validateQuickActions(functionResponse.quickActionsData);
                   if (!validation.valid) {
                     log('error', 'Invalid Quick Actions data', { error: validation.error });
-                    responseContent = functionResponse.userMessage + "\n\n⚠️ Quick Actions validation failed. Please try again.";
+                    responseContent = functionResponse.userMessage + "\n\nâš ï¸ Quick Actions validation failed. Please try again.";
                     await ctx.sendText(responseContent);
                   } else {
                     // Send Quick Actions content type (coinbase.com/actions:1.0)
                     try {
                       await ctx.sendContent("coinbase.com/actions:1.0", functionResponse.quickActionsData);
-                      log('info', '✅ Quick Actions content sent successfully');
+                      log('info', 'âœ… Quick Actions content sent successfully');
                       analytics.baseAppMetrics.quickActionsSent++;
                       analytics.baseAppMetrics.contentTypesUsed.set('coinbase.com/actions:1.0', 
                         (analytics.baseAppMetrics.contentTypesUsed.get('coinbase.com/actions:1.0') || 0) + 1);
                       responseContent = functionResponse.userMessage;
                     } catch (error) {
-                      log('error', '❌ Failed to send Quick Actions', { error: error.message });
-                      responseContent = functionResponse.userMessage + "\n\n⚠️ Quick Actions may not be supported in your Base App version.";
+                      log('error', 'âŒ Failed to send Quick Actions', { error: error.message });
+                      responseContent = functionResponse.userMessage + "\n\nâš ï¸ Quick Actions may not be supported in your Base App version.";
                     }
                   }
                 } else {
@@ -15670,20 +15686,20 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
               log('error', `!!! ERROR EXECUTING ${functionName} ---`, { error: e.message });
               
               // Enhanced user-friendly error messages
-              let userFriendlyMessage = "👀 Oops! Something went wrong while I was processing that request.";
+              let userFriendlyMessage = "ðŸ‘€ Oops! Something went wrong while I was processing that request.";
               
               if (e.message.includes('timeout')) {
-                userFriendlyMessage = "👀 That request took too long to process. My crypto circuits are a bit overloaded right now! Please try again in a moment.";
+                userFriendlyMessage = "ðŸ‘€ That request took too long to process. My crypto circuits are a bit overloaded right now! Please try again in a moment.";
               } else if (e.message.includes('network') || e.message.includes('fetch')) {
-                userFriendlyMessage = "👀 I'm having trouble connecting to the crypto networks right now. Please try again in a moment!";
+                userFriendlyMessage = "ðŸ‘€ I'm having trouble connecting to the crypto networks right now. Please try again in a moment!";
               } else if (e.message.includes('invalid') || e.message.includes('format')) {
-                userFriendlyMessage = "👀 I couldn't understand that request format. Could you try rephrasing it?";
+                userFriendlyMessage = "ðŸ‘€ I couldn't understand that request format. Could you try rephrasing it?";
               } else if (e.message.includes('rate limit') || e.message.includes('429')) {
-                userFriendlyMessage = "👀 I'm being rate-limited by the crypto APIs. So many people want crypto info! Please give me a moment to rest.";
+                userFriendlyMessage = "ðŸ‘€ I'm being rate-limited by the crypto APIs. So many people want crypto info! Please give me a moment to rest.";
               } else if (e.message.includes('unauthorized') || e.message.includes('401')) {
-                userFriendlyMessage = "👀 I'm having authentication issues with the crypto services. This should resolve itself shortly!";
+                userFriendlyMessage = "ðŸ‘€ I'm having authentication issues with the crypto services. This should resolve itself shortly!";
               } else if (e.message.includes('not found') || e.message.includes('404')) {
-                userFriendlyMessage = "👀 I couldn't find that information right now. The crypto data might be temporarily unavailable.";
+                userFriendlyMessage = "ðŸ‘€ I couldn't find that information right now. The crypto data might be temporarily unavailable.";
               }
               
               await ctx.sendText(userFriendlyMessage);
@@ -15704,15 +15720,15 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
                 ],
             });
             history.push(secondResponse.choices[0].message);
-            const secondResponseText = secondResponse.choices[0].message.content.startsWith('👀') ? secondResponse.choices[0].message.content : `👀 ${secondResponse.choices[0].message.content}`;
+            const secondResponseText = secondResponse.choices[0].message.content.startsWith('ðŸ‘€') ? secondResponse.choices[0].message.content : `ðŸ‘€ ${secondResponse.choices[0].message.content}`;
             await ctx.sendText(secondResponseText);
         }
 
       } else {
-        // Add 👀 emoji to all responses to indicate message received
-        let responseText = responseMessage.content.startsWith('👀') ? responseMessage.content : `👀 ${responseMessage.content}`;
+        // Add ðŸ‘€ emoji to all responses to indicate message received
+        let responseText = responseMessage.content.startsWith('ðŸ‘€') ? responseMessage.content : `ðŸ‘€ ${responseMessage.content}`;
         
-        // 🧠 NEW: Add proactive AI suggestions based on user behavior
+        // ðŸ§  NEW: Add proactive AI suggestions based on user behavior
         try {
           const suggestions = smartContextLearning.predictUserNeeds(senderInboxId, {
             message: userMessage,
@@ -15722,24 +15738,24 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
           if (suggestions.length > 0 && Math.random() < 0.3) { // 30% chance to add suggestions
             const suggestion = suggestions[0];
             const suggestionText = suggestion.replace('_', ' ').toUpperCase();
-            responseText += `\n\n💡 **Pro Tip:** Try "${suggestionText}" for more insights!`;
+            responseText += `\n\nðŸ’¡ **Pro Tip:** Try "${suggestionText}" for more insights!`;
           }
 
-          // 🚀 Progressive features based on user engagement
+          // ðŸš€ Progressive features based on user engagement
           const userInteractions = analytics.userInteractions.get(senderInboxId) || { count: 0, features: [] };
           
           if (userInteractions.count >= 5 && !userInteractions.features.includes('advanced_analysis')) {
-            responseText += `\n\n🎉 **New Feature Unlocked!** You've used me ${userInteractions.count} times. Try "advanced analysis" for deeper insights!`;
+            responseText += `\n\nðŸŽ‰ **New Feature Unlocked!** You've used me ${userInteractions.count} times. Try "advanced analysis" for deeper insights!`;
             userInteractions.features.push('advanced_analysis');
           }
           
           if (userInteractions.count >= 10 && !userInteractions.features.includes('portfolio_tracking')) {
-            responseText += `\n\n🏆 **Portfolio Tracker Unlocked!** You're becoming a power user! Try "create portfolio" to track your crypto journey.`;
+            responseText += `\n\nðŸ† **Portfolio Tracker Unlocked!** You're becoming a power user! Try "create portfolio" to track your crypto journey.`;
             userInteractions.features.push('portfolio_tracking');
           }
           
           if (userInteractions.count >= 20 && !userInteractions.features.includes('social_trading')) {
-            responseText += `\n\n👥 **Social Trading Unlocked!** You're a crypto expert! Try "join base-traders" to connect with the community.`;
+            responseText += `\n\nðŸ‘¥ **Social Trading Unlocked!** You're a crypto expert! Try "join base-traders" to connect with the community.`;
             userInteractions.features.push('social_trading');
           }
           
@@ -15748,9 +15764,9 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
           
           // Suggest next steps based on user behavior
           if (userInteractions.count === 3) {
-            responseText += `\n\n🚀 **Getting Started:** You're doing great! Try setting up a price alert or exploring DeFi opportunities.`;
+            responseText += `\n\nðŸš€ **Getting Started:** You're doing great! Try setting up a price alert or exploring DeFi opportunities.`;
           } else if (userInteractions.count === 10) {
-            responseText += `\n\n⭐ **Power User:** You're becoming a Dragman expert! Check out advanced features like portfolio tracking.`;
+            responseText += `\n\nâ­ **Power User:** You're becoming a Dragman expert! Check out advanced features like portfolio tracking.`;
           }
         } catch (error) {
           log('error', 'Error adding proactive suggestions', { error: error.message });
@@ -15760,12 +15776,12 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
       }
     } catch (error) {
       log('error', "!!! OPENAI API ERROR", { error: error.message });
-      let userErrorMessage = "👀 I'm having some technical difficulties right now. Please try again in a moment.";
+      let userErrorMessage = "ðŸ‘€ I'm having some technical difficulties right now. Please try again in a moment.";
       if (error.message === 'Request timed out') {
-        userErrorMessage = "👀 The request timed out. My advanced crypto circuits are processing too much data! Please try again.";
+        userErrorMessage = "ðŸ‘€ The request timed out. My advanced crypto circuits are processing too much data! Please try again.";
       } else if (error instanceof OpenAI.APIError) {
-        if (error.status === 401) userErrorMessage = "👀 My API key is invalid. Please check my configuration.";
-        else if (error.status === 429) userErrorMessage = "👀 I'm being rate-limited. So many people want my crypto expertise! Please give me a moment to rest.";
+        if (error.status === 401) userErrorMessage = "ðŸ‘€ My API key is invalid. Please check my configuration.";
+        else if (error.status === 429) userErrorMessage = "ðŸ‘€ I'm being rate-limited. So many people want my crypto expertise! Please give me a moment to rest.";
       }
       await ctx.sendText(userErrorMessage);
       
@@ -15790,7 +15806,7 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
     const validation = validateIntent(intentData);
     if (!validation.valid) {
       log('error', 'Invalid Intent content type', { intentData, error: validation.error });
-      await ctx.sendText("👀 I received an invalid intent message. Please try using the Quick Actions buttons instead!");
+      await ctx.sendText("ðŸ‘€ I received an invalid intent message. Please try using the Quick Actions buttons instead!");
       return;
     }
 
@@ -15800,141 +15816,141 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
     // Handle different action types with proper validation
     try {
       if (actionId === "safety_check_prompt") {
-        responseText = "👀 Absolutely! I'd be happy to run a comprehensive safety analysis. Just drop the project name and I'll dig deep into its fundamentals, community, and security measures. What project would you like me to investigate?";
+        responseText = "ðŸ‘€ Absolutely! I'd be happy to run a comprehensive safety analysis. Just drop the project name and I'll dig deep into its fundamentals, community, and security measures. What project would you like me to investigate?";
       } else if (actionId === "gas_fees" || actionId === "check_gas_fees") {
         const result = await availableFunctions.get_network_status();
-        responseText = result.startsWith('👀') ? result : `👀 ${result}`;
+        responseText = result.startsWith('ðŸ‘€') ? result : `ðŸ‘€ ${result}`;
       } else if (actionId === "price_eth") {
         const result = await availableFunctions.get_crypto_price({ tokens: ['eth'] });
-        responseText = result.startsWith('👀') ? result : `👀 ${result}`;
+        responseText = result.startsWith('ðŸ‘€') ? result : `ðŸ‘€ ${result}`;
       } else if (actionId === "price_btc") {
         const result = await availableFunctions.get_crypto_price({ tokens: ['btc'] });
-        responseText = result.startsWith('👀') ? result : `👀 ${result}`;
+        responseText = result.startsWith('ðŸ‘€') ? result : `ðŸ‘€ ${result}`;
       } else if (actionId.startsWith("price_")) {
         const token = actionId.replace("price_", "");
         const result = await availableFunctions.get_crypto_price({ tokens: [token] });
-        responseText = result.startsWith('👀') ? result : `👀 ${result}`;
+        responseText = result.startsWith('ðŸ‘€') ? result : `ðŸ‘€ ${result}`;
       } else if (actionId === "send_10") {
-        responseText = "👀 Ready to send $10 worth of ETH? I'll need the recipient's address and preferred chain. Try: 'send 0.003 ETH to 0x123... on base'";
+        responseText = "ðŸ‘€ Ready to send $10 worth of ETH? I'll need the recipient's address and preferred chain. Try: 'send 0.003 ETH to 0x123... on base'";
       } else if (actionId === "send_custom") {
-        responseText = "👀 For custom amounts, just tell me how much and where! For example: 'send 0.01 ETH to 0x123... on base'";
+        responseText = "ðŸ‘€ For custom amounts, just tell me how much and where! For example: 'send 0.01 ETH to 0x123... on base'";
       } else if (actionId === "check_portfolio") {
-        responseText = "👀 I'd love to help you check your portfolio! Please provide your wallet address and I'll analyze your holdings across different chains.";
+        responseText = "ðŸ‘€ I'd love to help you check your portfolio! Please provide your wallet address and I'll analyze your holdings across different chains.";
       } else if (actionId === "set_price_alert") {
-        responseText = "👀 Great idea! Price alerts help you stay on top of the market. Just tell me which token and what price level you want to monitor!";
+        responseText = "ðŸ‘€ Great idea! Price alerts help you stay on top of the market. Just tell me which token and what price level you want to monitor!";
       } else if (actionId === "find_defi_opportunities") {
-        responseText = "👀 Let me scan the DeFi landscape for you! I'll look for the best yield farming opportunities, liquidity mining, and staking rewards across Base and other chains.";
+        responseText = "ðŸ‘€ Let me scan the DeFi landscape for you! I'll look for the best yield farming opportunities, liquidity mining, and staking rewards across Base and other chains.";
       } else if (actionId === "safety_check") {
-        responseText = "👀 Safety first! I'll help you analyze any project's security, team, and fundamentals. What project would you like me to investigate?";
+        responseText = "ðŸ‘€ Safety first! I'll help you analyze any project's security, team, and fundamentals. What project would you like me to investigate?";
       } else if (actionId === "get_market_news") {
         const result = await availableFunctions.get_market_news();
-        responseText = result.startsWith('👀') ? result : `👀 ${result}`;
+        responseText = result.startsWith('ðŸ‘€') ? result : `ðŸ‘€ ${result}`;
       } else if (actionId === "ai_game_recommendations") {
         const result = await availableFunctions.ai_game_recommendations({ userId: ctx.inboxId, groupSize: 1, timeAvailable: 30, preferences: [] });
-        responseText = result.userMessage || result.error || "👀 Let me find some great games for you!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me find some great games for you!";
       } else if (actionId === "community_features") {
         const result = await availableFunctions.community_features({ action: "find_mentors", userId: ctx.inboxId, interests: ["crypto", "defi"] });
-        responseText = result.userMessage || result.error || "👀 Let me connect you with the community!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me connect you with the community!";
       } else if (actionId === "predictive_analysis") {
-        responseText = "👀 I'll run a comprehensive market analysis for you! Which token would you like me to analyze? I'll look at sentiment, trends, and potential price movements.";
+        responseText = "ðŸ‘€ I'll run a comprehensive market analysis for you! Which token would you like me to analyze? I'll look at sentiment, trends, and potential price movements.";
       } else if (actionId === "smart_automation_setup") {
-        responseText = "👀 Let's set up some smart automation! I can help you create rules for price alerts, portfolio rebalancing, or trading strategies. What would you like to automate?";
+        responseText = "ðŸ‘€ Let's set up some smart automation! I can help you create rules for price alerts, portfolio rebalancing, or trading strategies. What would you like to automate?";
       } else if (actionId === "get_user_progress") {
         const result = await availableFunctions.get_user_progress({ userId: ctx.inboxId });
-        responseText = result.userMessage || result.error || "👀 Let me check your progress!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me check your progress!";
       } else if (actionId === "get_user_achievements") {
         const result = await availableFunctions.get_user_achievements({ userId: ctx.inboxId });
-        responseText = result.userMessage || result.error || "👀 Let me check your achievements!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me check your achievements!";
       } else if (actionId === "predict_intent") {
         const result = await availableFunctions.predict_user_intent({ 
           userId: ctx.inboxId, 
           currentMessage: "user interaction",
           context: { source: "quick_actions" }
         });
-        responseText = result.userMessage || result.error || "👀 Let me predict what you might want to do!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me predict what you might want to do!";
       } else if (actionId === "get_leaderboard") {
         const result = await availableFunctions.get_leaderboard({ userId: ctx.inboxId, category: 'overall' });
-        responseText = result.userMessage || result.error || "👀 Let me show you the leaderboard!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me show you the leaderboard!";
       } else if (actionId === "get_nft_achievements") {
         const result = await availableFunctions.get_nft_achievements({ userId: ctx.inboxId });
-        responseText = result.userMessage || result.error || "👀 Let me show your NFT collection!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me show your NFT collection!";
       } else if (actionId === "validate_base_name") {
         const result = await availableFunctions.validate_base_name({ baseName: 'dragman.base.eth' });
-        responseText = result.userMessage || result.error || "👀 Let me check that Base name!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me check that Base name!";
       } else if (actionId === "share_achievement") {
         const result = await availableFunctions.share_achievement({ 
           userId: ctx.inboxId, 
           achievementId: 'first_steps',
           platform: 'twitter'
         });
-        responseText = result.userMessage || result.error || "👀 Let me help you share your achievement!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me help you share your achievement!";
       } else if (actionId === "preview_transaction") {
-        responseText = "👀 I'll help you preview your transaction with gas fees and total cost! Please provide the amount, recipient address, and chain.";
+        responseText = "ðŸ‘€ I'll help you preview your transaction with gas fees and total cost! Please provide the amount, recipient address, and chain.";
       } else if (actionId === "verify_recipient") {
-        responseText = "👀 I'll verify the recipient address for safety! Please provide the address and chain you want to verify.";
+        responseText = "ðŸ‘€ I'll verify the recipient address for safety! Please provide the address and chain you want to verify.";
       } else if (actionId === "get_transaction_history") {
         const result = await availableFunctions.get_transaction_history({ userId: ctx.inboxId, chain: 'all', limit: 10 });
-        responseText = result.userMessage || result.error || "👀 Let me show your transaction history!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me show your transaction history!";
       } else if (actionId === "create_batch_transaction") {
-        responseText = "👀 I'll help you create a batch transaction for multiple recipients! Please provide the list of transactions and chain.";
+        responseText = "ðŸ‘€ I'll help you create a batch transaction for multiple recipients! Please provide the list of transactions and chain.";
       } else if (actionId === "create_enhanced_transaction") {
-        responseText = "👀 I'll create an enhanced transaction with rich metadata! Please provide the transaction details and context.";
+        responseText = "ðŸ‘€ I'll create an enhanced transaction with rich metadata! Please provide the transaction details and context.";
       } else if (actionId === "get_transaction_analytics") {
         const result = await availableFunctions.get_transaction_analytics({ userId: ctx.inboxId, timeframe: 'week' });
-        responseText = result.userMessage || result.error || "👀 Let me show your transaction analytics!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me show your transaction analytics!";
       } else if (actionId === "create_baseapp_deeplink") {
         const result = await availableFunctions.create_baseapp_deeplink({ userId: ctx.inboxId, context: 'general' });
-        responseText = result.userMessage || result.error || "👀 Let me create a Base App deeplink for you!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me create a Base App deeplink for you!";
       } else if (actionId === "create_deeplink") {
-        responseText = "👀 I'll help you create a deeplink for private messaging! Please provide the target agent address.";
+        responseText = "ðŸ‘€ I'll help you create a deeplink for private messaging! Please provide the target agent address.";
       } else if (actionId === "invite_to_private_chat") {
         const result = await availableFunctions.invite_to_private_chat({ userId: ctx.inboxId, context: { trigger: 'user_request' } });
-        responseText = result.userMessage || result.error || "👀 Let me invite you to a private chat!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me invite you to a private chat!";
       } else if (actionId === "create_contextual_deeplink") {
-        responseText = "👀 I'll create a context-aware deeplink! Please specify the context and target agent.";
+        responseText = "ðŸ‘€ I'll create a context-aware deeplink! Please specify the context and target agent.";
       } else if (actionId === "create_multi_agent_menu") {
         const result = await availableFunctions.create_multi_agent_menu({ userId: ctx.inboxId, context: 'general' });
-        responseText = result.userMessage || result.error || "👀 Let me show you the multi-agent menu!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me show you the multi-agent menu!";
       } else if (actionId === "validate_deeplink") {
-        responseText = "👀 I'll validate a deeplink for you! Please provide the deeplink to validate.";
+        responseText = "ðŸ‘€ I'll validate a deeplink for you! Please provide the deeplink to validate.";
       } else if (actionId === "create_fallback_options") {
         const agentAddress = process.env.XMTP_WALLET_ADDRESS || "0x5993B8F560E17E438310c76BCac1Af3E6DA2A58A";
         const result = await availableFunctions.create_fallback_options({ userId: ctx.inboxId, agentAddress: agentAddress });
-        responseText = result.userMessage || result.error || "👀 Let me show you fallback options!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me show you fallback options!";
       } else if (actionId === "detect_environment") {
         const result = await availableFunctions.detect_environment({ userId: ctx.inboxId });
-        responseText = result.userMessage || result.error || "👀 Let me detect your environment!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me detect your environment!";
       } else if (actionId === "execute_payment") {
-        responseText = "👀 I'll help you execute a payment using the x402 protocol! Please provide the amount, recipient address, and reference.";
+        responseText = "ðŸ‘€ I'll help you execute a payment using the x402 protocol! Please provide the amount, recipient address, and reference.";
       } else if (actionId === "handle_premium_request") {
-        responseText = "👀 I'll help you access premium features! Please specify which premium feature you'd like to use.";
+        responseText = "ðŸ‘€ I'll help you access premium features! Please specify which premium feature you'd like to use.";
       } else if (actionId === "process_payment_and_retry") {
-        responseText = "👀 I'll process the payment and retry your request! Please provide the endpoint and payment details.";
+        responseText = "ðŸ‘€ I'll process the payment and retry your request! Please provide the endpoint and payment details.";
       } else if (actionId === "get_payment_analytics") {
         const result = await availableFunctions.get_payment_analytics({ userId: ctx.inboxId, timeframe: 'week' });
-        responseText = result.userMessage || result.error || "👀 Let me show your payment analytics!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me show your payment analytics!";
       } else if (actionId === "share_miniapp") {
-        responseText = "👀 I'll help you share a Mini App! Please specify which Mini App you'd like to share (games, polls, trading, events, portfolio).";
+        responseText = "ðŸ‘€ I'll help you share a Mini App! Please specify which Mini App you'd like to share (games, polls, trading, events, portfolio).";
       } else if (actionId === "get_display_name") {
-        responseText = "👀 I'll resolve a wallet address to a display name! Please provide the wallet address you want to look up.";
+        responseText = "ðŸ‘€ I'll resolve a wallet address to a display name! Please provide the wallet address you want to look up.";
       } else if (actionId === "coordinate_group_game") {
-        responseText = "👀 I'll coordinate a group game for you! Please specify the game type and participants.";
+        responseText = "ðŸ‘€ I'll coordinate a group game for you! Please specify the game type and participants.";
       } else if (actionId === "detect_miniapp_context") {
         const result = await availableFunctions.detect_miniapp_context({ userId: ctx.inboxId, message: ctx.message.content });
-        responseText = result.userMessage || result.error || "👀 Let me detect Mini App context from your message!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me detect Mini App context from your message!";
       } else if (actionId === "manage_miniapp_session") {
-        responseText = "👀 I'll help you manage a Mini App session! Please provide the session ID and action (join, leave, status, end).";
+        responseText = "ðŸ‘€ I'll help you manage a Mini App session! Please provide the session ID and action (join, leave, status, end).";
       } else if (actionId === "get_realtime_price") {
-        responseText = "👀 I'll get real-time price data for you! Please specify which token you want the price for (e.g., bitcoin, ethereum, solana).";
+        responseText = "ðŸ‘€ I'll get real-time price data for you! Please specify which token you want the price for (e.g., bitcoin, ethereum, solana).";
       } else if (actionId === "get_hottest_tokens") {
         const result = await availableFunctions.get_hottest_tokens({ limit: 10 });
         responseText = result;
       } else if (actionId === "get_token_score") {
-        responseText = "👀 I'll analyze a token's score for you! Please specify which token you want analyzed (e.g., eth, btc, sol).";
+        responseText = "ðŸ‘€ I'll analyze a token's score for you! Please specify which token you want analyzed (e.g., eth, btc, sol).";
       } else if (actionId === "get_sentiment_analysis") {
-        responseText = "👀 I'll analyze sentiment for you! Please specify which token you want analyzed (e.g., eth, btc, sol).";
+        responseText = "ðŸ‘€ I'll analyze sentiment for you! Please specify which token you want analyzed (e.g., eth, btc, sol).";
       } else if (actionId === "get_project_info") {
-        responseText = "👀 I'll get project information for you! Please specify which project you want info about (e.g., aerodrome, baseswap, friend.tech).";
+        responseText = "ðŸ‘€ I'll get project information for you! Please specify which project you want info about (e.g., aerodrome, baseswap, friend.tech).";
       } else if (actionId === "get_real_time_gas_fees") {
         const result = await availableFunctions.get_real_time_gas_fees({ chain: 'base' });
         responseText = result;
@@ -15954,27 +15970,27 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
         const result = await availableFunctions.migrate_wallet({ userId: ctx.inboxId, fromEOA: true, toSmart: true });
         responseText = result;
       } else if (actionId === "get_multiple_prices") {
-        responseText = "👀 I'll get prices for multiple tokens! Please specify which tokens you want (e.g., bitcoin, ethereum, solana).";
+        responseText = "ðŸ‘€ I'll get prices for multiple tokens! Please specify which tokens you want (e.g., bitcoin, ethereum, solana).";
       } else if (actionId === "get_market_overview") {
         const result = await availableFunctions.get_market_overview();
-        responseText = result.userMessage || result.error || "👀 Let me get the market overview for you!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me get the market overview for you!";
       } else if (actionId === "analyze_defi_protocol") {
-        responseText = "👀 I'll analyze a DeFi protocol for you! Please specify which protocol (e.g., aerodrome, baseswap, compound-base, aave-base).";
+        responseText = "ðŸ‘€ I'll analyze a DeFi protocol for you! Please specify which protocol (e.g., aerodrome, baseswap, compound-base, aave-base).";
       } else if (actionId === "get_yield_opportunities") {
-        responseText = "👀 I'll find yield farming opportunities for you! Please specify your risk tolerance (low, medium, high).";
+        responseText = "ðŸ‘€ I'll find yield farming opportunities for you! Please specify your risk tolerance (low, medium, high).";
       } else if (actionId === "join_community") {
-        responseText = "👀 I'll help you join a community! Available communities: base-traders, defi-yield, crypto-research.";
+        responseText = "ðŸ‘€ I'll help you join a community! Available communities: base-traders, defi-yield, crypto-research.";
       } else if (actionId === "create_social_signal") {
-        responseText = "👀 I'll help you create a social trading signal! Please specify the token, action (buy/sell/hold), price, and reason.";
+        responseText = "ðŸ‘€ I'll help you create a social trading signal! Please specify the token, action (buy/sell/hold), price, and reason.";
       } else if (actionId === "get_community_insights") {
         const result = await availableFunctions.get_community_insights({ userId: ctx.inboxId });
-        responseText = result.userMessage || result.error || "👀 Let me show your community insights!";
+        responseText = result.userMessage || result.error || "ðŸ‘€ Let me show your community insights!";
       } else {
-        responseText = "👀 Hmm, that's not an action I recognize. Try the Quick Actions buttons or just ask me directly about anything crypto-related!";
+        responseText = "ðŸ‘€ Hmm, that's not an action I recognize. Try the Quick Actions buttons or just ask me directly about anything crypto-related!";
       }
     } catch (error) {
       log('error', 'Error handling intent action', { actionId, error: error.message });
-      responseText = "👀 Oops! I had trouble processing that action. Please try again or ask me directly!";
+      responseText = "ðŸ‘€ Oops! I had trouble processing that action. Please try again or ask me directly!";
     }
 
     await ctx.sendText(responseText);
@@ -15992,12 +16008,12 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
     // Handle reactions to agent messages
     analytics.baseAppMetrics.reactionCount++;
     
-    if (reactionData.reaction === "👀") {
-      log('info', 'User acknowledged message with 👀');
-    } else if (reactionData.reaction === "❤️") {
-      await ctx.sendText("👀 Thanks for the love! I'm here to help with all your crypto needs!");
-    } else if (reactionData.reaction === "👍") {
-      await ctx.sendText("👀 Glad I could help! Anything else you'd like to know about crypto?");
+    if (reactionData.reaction === "ðŸ‘€") {
+      log('info', 'User acknowledged message with ðŸ‘€');
+    } else if (reactionData.reaction === "â¤ï¸") {
+      await ctx.sendText("ðŸ‘€ Thanks for the love! I'm here to help with all your crypto needs!");
+    } else if (reactionData.reaction === "ðŸ‘") {
+      await ctx.sendText("ðŸ‘€ Glad I could help! Anything else you'd like to know about crypto?");
     }
   });
 
@@ -16005,21 +16021,21 @@ Your feedback helps me improve and potentially get featured in Base App! 🚀`);
   agent.on("conversation_initiated", async (ctx) => {
     log('info', `New conversation initiated with ${ctx.inboxId}`);
     
-    const welcomeMessage = `👀 Hey! I'm Dragman, your crypto assistant. I can help with prices, transfers, DeFi, games, and more. Type /help for all features!
+    const welcomeMessage = `ðŸ‘€ Hey! I'm Dragman, your crypto assistant. I can help with prices, transfers, DeFi, games, and more. Type /help for all features!
 
-🚀 **What I can do:**
-• 📊 Real-time crypto prices & market analysis
-• 💸 Send crypto with low fees on Base
-• 🔍 Research projects & safety checks
-• 🎮 Gaming & mini apps
-• 🌾 DeFi protocols & yield farming
-• 🔗 Private chats & deeplinks
+ðŸš€ **What I can do:**
+â€¢ ðŸ“Š Real-time crypto prices & market analysis
+â€¢ ðŸ’¸ Send crypto with low fees on Base
+â€¢ ðŸ” Research projects & safety checks
+â€¢ ðŸŽ® Gaming & mini apps
+â€¢ ðŸŒ¾ DeFi protocols & yield farming
+â€¢ ðŸ”— Private chats & deeplinks
 
-💡 **Try these commands:**
-• "ETH price" - Get real-time prices
-• "send 0.001 ETH to 0x123... on base" - Send crypto
-• "scan project Aerodrome" - Research projects
-• "deeplink" - Start private chat
+ðŸ’¡ **Try these commands:**
+â€¢ "ETH price" - Get real-time prices
+â€¢ "send 0.001 ETH to 0x123... on base" - Send crypto
+â€¢ "scan project Aerodrome" - Research projects
+â€¢ "deeplink" - Start private chat
 
 What would you like to do first?`;
 
