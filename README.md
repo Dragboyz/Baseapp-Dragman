@@ -1,114 +1,26 @@
-# 🤖 Dragman Agent - Base App AI Assistant
+npm installe
 
-A powerful AI agent for Base App with advanced crypto features, voice commands, NFT analysis, and gamification.
+### Quick Actions Menu
+- **1️⃣ Check Price** - "price ETH" or "check price BTC"
+- **2️⃣ Gas Prices** - "gas base" or "gas ethereum"
+- **3️⃣ DeFi & Yield** - "defi uniswap" or "yield farming"
+- **4️⃣ Gaming** - "game axie" or "gamefi"
+- **5️⃣ Base** - "base app" or "base ecosystem"
 
-## ✨ Features
-
-### 🎤 Voice Commands
-- 20+ voice commands with NLP processing
-- Natural language understanding
-- Synonym matching and context awareness
-
-### 🎨 NFT Analysis
-- Collection analysis with floor price tracking
-- Rarity calculator with trait breakdown
-- Market cap and volume analysis
-
-### 📱 Mobile Optimization
-- Touch gestures (swipe, long press, double tap)
-- Compact response format
-- Battery saver mode
-
-### 📊 Portfolio Tracking
-- Visual ASCII charts
-- Real-time value tracking
-- Multiple timeframes (7d, 30d, 90d, 1y)
-
-### 📈 Trading Signals
-- Automated buy/sell recommendations
-- Technical analysis (RSI, MACD, Bollinger Bands)
-- Fundamental analysis with confidence scores
-
-### 👥 Social Features
-- Friend management system
-- Social graph analysis
-- Collaboration tools
-
-### 🎮 Gamification
-- Points, levels, and XP system
-- 10+ achievements to unlock
-- Daily rewards and streaks
-- Global leaderboard
-
-## 🚀 Quick Start
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Dragboyz/Baseapp-Dragman.git
-   cd Baseapp-Dragman
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your API keys
-   ```
-
-4. **Run the agent**
-   ```bash
-   npm start
-   # or
-   yarn start
-   ```
-
-## 🔧 Configuration
-
-### Required Environment Variables
-```env
-XMTP_WALLET_KEY=your_wallet_private_key
-XMTP_DB_ENCRYPTION_KEY=your_db_encryption_key
-OPENAI_API_KEY=your_openai_api_key
-CDP_API_KEY_ID=your_coinbase_api_key_id
-CDP_API_KEY_PRIVATE_KEY=your_coinbase_api_private_key
-NEYNAR_API_KEY=your_neynar_api_key
-```
-
-## 📖 Usage
-
-### Basic Commands
-- `/help` - Show all available features
-- `/voice` - Voice command features
-- `/nft` - NFT analysis features
-- `/mobile` - Mobile optimization
-- `/portfolio` - Portfolio tracking
-- `/signals` - Trading signals
-- `/social` - Social features
-- `/gamification` - Points and achievements
-
-### Voice Commands
-- "price ETH" - Get token price
-- "analyze BTC" - Token analysis
-- "trending tokens" - Hottest tokens
-- "gas fees base" - Gas fee analysis
-
-### NFT Commands
-- "analyze nft collection [address]" - Collection analysis
-- "calculate nft rarity [tokenId] [collection]" - Rarity analysis
+### Examples
+- "price ETH" - Get Ethereum price
+- "gas base" - Get Base gas prices
+- "defi aave" - Get Aave information
+- "game axie" - Get Axie Infinity info
+- "base names" - Get Basenames information
 
 ## 🏗️ Architecture
 
 - **Base App Integration**: Full XMTP messaging support
-- **AI-Powered**: OpenAI GPT integration
-- **Payment Processing**: Coinbase x402 protocol
-- **Social Features**: Farcaster integration
+- **AI-Powered**: OpenAI GPT-4 integration
+- **Real-time Data**: Multiple API integrations
 - **Cross-Chain**: Support for 15+ networks
+- **PM2 Deployment**: Production-ready with PM2
 
 ## 🤝 Contributing
 
@@ -119,11 +31,11 @@ NEYNAR_API_KEY=your_neynar_api_key
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the LICENSE.md file for details.
 
 ## 🙏 Acknowledgments
 
 - Base App team for the amazing platform
 - XMTP for decentralized messaging
 - OpenAI for AI capabilities
-- Coinbase for payment processing
+- Coinbase for Base ecosystem
