@@ -18,8 +18,10 @@
     "@neynar/nodejs-sdk": "^3.34.0",
     "@xmtp/agent-sdk": "^1.1.7",
     "@xmtp/xmtp-js": "^13.0.4",
+    "better-sqlite3": "^12.4.1",
     "dotenv": "^17.2.3",
     "ethers": "^6.15.0",
+    "node-cache": "^5.1.2",
     "openai": "^4.104.0",
     "uint8arrays": "^5.1.0",
     "viem": "^2.38.3"
