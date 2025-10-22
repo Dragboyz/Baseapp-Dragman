@@ -81,42 +81,44 @@ function clearUserContext(address) {
   userContexts.delete(address);
 }
 
+// Natural response delay to feel more human (2-5 seconds)
+// Prevents spam and makes it feel like agent is carefully reading/thinking
+async function naturalDelay() {
+  const delay = 2000 + Math.random() * 3000; // Random between 2-5 seconds
+  await new Promise(resolve => setTimeout(resolve, delay));
+}
+
 // ==================== QUICK ACTIONS ====================
 
 async function sendMainQuickActions(ctx, chatType) {
-  const mainActions = {
-    id: `dragman_main_${Date.now()}`,
-    description: "🐉 What would you like to do?",
-    actions: [
-      { id: "save_note", label: "💾 Save Note", style: "primary" },
-      { id: "search_notes", label: "🔍 Search Notes", style: "primary" },
-      { id: "view_categories", label: "📂 View Categories", style: "primary" },
-      { id: "help", label: "❓ Help", style: "primary" }
-    ],
-    expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
-  };
-
+  // Text-based menu (different for DM vs Group)
+  let interactiveMenu;
+  
+  if (chatType === 'group') {
+    interactiveMenu = `🐉 What would you like to do?\n\n` +
+      `🎯 QUICK ACTIONS\n\n` +
+      `1️⃣ 💾 Save Note\n` +
+      `2️⃣ 🔍 Search Notes\n` +
+      `3️⃣ 📂 View Categories\n` +
+      `4️⃣ ❓ Help\n\n` +
+      `💡 Just type the number (1-4) or command directly!\n` +
+      `🚀 Examples: "1", "save [note]", "search [keyword]"`;
+  } else {
+    // DM menu includes group features option
+    interactiveMenu = `🐉 What would you like to do?\n\n` +
+      `🎯 QUICK ACTIONS\n\n` +
+      `1️⃣ 💾 Save Note\n` +
+      `2️⃣ 🔍 Search Notes\n` +
+      `3️⃣ 📂 View Categories\n` +
+      `4️⃣ ❓ Help\n` +
+      `5️⃣ 🚀 Group Features\n\n` +
+      `💡 Just type the number (1-5) or command directly!\n` +
+      `🚀 Examples: "1", "save [note]", "search [keyword]"`;
+  }
+  
   try {
-    // Try using conversation.send with different formats
-    try {
-      await ctx.conversation.send(mainActions, 'coinbase.com/actions:1.0');
-      log('info', '✅ Quick Actions sent successfully!');
-      return;
-    } catch (error1) {
-      log('warn', 'First method failed, trying text fallback', { error: error1.message });
-      
-      // Fallback to text-based menu
-      const interactiveMenu = `🐉 What would you like to do?\n\n` +
-        `🎯 QUICK ACTIONS\n\n` +
-        `1️⃣ 💾 Save Note\n` +
-        `2️⃣ 🔍 Search Notes\n` +
-        `3️⃣ 📂 View Categories\n` +
-        `4️⃣ ❓ Help\n\n` +
-        `💡 Just type the number (1-4) or command directly!\n` +
-        `🚀 Examples: "1", "save [note]", "search [keyword]"`;
-      await ctx.sendText(interactiveMenu);
-      log('info', 'Sent text-based Quick Actions menu');
-    }
+    await ctx.sendText(interactiveMenu);
+    log('info', 'Sent Quick Actions menu', { chatType });
   } catch (error) {
     log('error', 'Failed to send Quick Actions', { error: error.message });
   }
@@ -448,7 +450,7 @@ async function handleDragmanCommands(ctx, userMessage, senderAddress, isGroupCha
     }
     
     await sendSearchResultActions(ctx, results, senderAddress);
-    return null;
+    return 'SEARCH_SENT';
   }
   
   // RECENT
@@ -574,7 +576,7 @@ async function handleDragmanCommands(ctx, userMessage, senderAddress, isGroupCha
   // CATEGORIES
   if (message === 'categories' || message === 'category' || message === 'topics') {
     await sendCategoryActions(ctx, chatId, senderAddress);
-    return null;
+    return 'CATEGORIES_SENT';
   }
   
   // STATS
@@ -681,9 +683,12 @@ async function handleDragmanCommands(ctx, userMessage, senderAddress, isGroupCha
       }
     }
     
-    // Otherwise, handle main menu selection (1-4)
-    if (number >= 1 && number <= 4) {
-      const actions = ['save_note', 'search_notes', 'view_categories', 'help'];
+    // Otherwise, handle main menu selection (1-4 for groups, 1-5 for DMs)
+    const maxOptions = isGroupChat ? 4 : 5;
+    if (number >= 1 && number <= maxOptions) {
+      const actions = isGroupChat 
+        ? ['save_note', 'search_notes', 'view_categories', 'help']
+        : ['save_note', 'search_notes', 'view_categories', 'help', 'group_features'];
       return await handleActionSelection(actions[number - 1], ctx, chatId, senderAddress, isGroupChat);
     }
   }
@@ -747,6 +752,39 @@ async function handleActionSelection(actionId, ctx, chatId, senderAddress, isGro
     
     case 'help':
       return getHelpMessage();
+    
+    case 'group_features':
+      return "🚀 DRAGMAN IN GROUPS\n\n" +
+             "The problem:\n" +
+             "Your friend shares a wallet address.\n" +
+             "2 weeks later: \"What was that address?\"\n" +
+             "Everyone scrolls forever... 😫\n\n" +
+             "The solution:\n" +
+             "Just ask me! I remember EVERYTHING. 🧠\n\n" +
+             "━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
+             "✨ LIVE EXAMPLE:\n\n" +
+             "Alice: save Prize: 0x742d...\n" +
+             "Bob: save Discord: discord.gg/base\n\n" +
+             "[2 weeks later...]\n\n" +
+             "Charlie: @dragman what's the prize wallet?\n\n" +
+             "Me: 🧠 Found it!\n" +
+             "    💾 Saved by Alice • 2 weeks ago\n" +
+             "    📝 Prize: 0x742d... ✅\n\n" +
+             "━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
+             "🎯 WHY IT'S AWESOME:\n" +
+             "• Shows WHO saved it\n" +
+             "• Shows WHEN it was saved\n" +
+             "• Tracks how many times viewed\n" +
+             "• Your group gets smarter over time!\n\n" +
+             "━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
+             "💡 TO ADD ME:\n" +
+             "1. Open any group chat\n" +
+             "2. Invite @dragman\n" +
+             "3. Start saving & asking!\n\n" +
+             "🎯 Perfect for:\n" +
+             "Gaming squads • Friend groups\n" +
+             "Communities • Project teams\n\n" +
+             "Type /menu to keep using personal notes 📝";
     
     default:
       return "❓ Unknown action. Type /menu to return to main menu.";
@@ -828,10 +866,35 @@ async function generateConversationalResponse(userMessage, chatType, chatId, sen
         
         if (results.length > 0) {
           const topNote = results[0];
-          return `🔍 Found this in your notes:\n\n` +
-                 `${getCategoryEmoji(topNote.category)} ${topNote.category}\n` +
-                 `📝 ${truncate(topNote.content, 200)}\n\n` +
-                 `💡 Type "search ${searchQuery}" to see all ${results.length} result(s)`;
+          incrementViewCount(topNote.id); // Track that this was viewed
+          
+          // Build answer with context (who, when, popularity)
+          let answer = `🧠 Found the answer in your ${chatType === 'group' ? 'team' : ''} notes!\n\n`;
+          answer += `${getCategoryEmoji(topNote.category)} ${topNote.category}\n`;
+          answer += `📝 ${truncate(topNote.content, 200)}\n\n`;
+          answer += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+          
+          // Show who saved it (especially useful in groups)
+          if (chatType === 'group') {
+            answer += `💾 Saved by: ${shortenAddress(topNote.savedBy)}\n`;
+          }
+          
+          answer += `📅 ${getRelativeTime(new Date(topNote.createdAt))}\n`;
+          answer += `👀 ${topNote.viewCount + 1} views`; // +1 for current view
+          
+          // Show if there are more results
+          if (results.length > 1) {
+            answer += `\n\n📚 Found ${results.length} related notes. Type "search ${searchQuery}" to see all`;
+          }
+          
+          // Encourage feedback in groups
+          if (chatType === 'group') {
+            answer += `\n\n❓ Was this helpful? Others can learn from your feedback!`;
+          } else {
+            answer += `\n\n💡 Save more notes to make searches even better!`;
+          }
+          
+          return answer;
         }
       }
     }
@@ -881,54 +944,64 @@ async function generateConversationalResponse(userMessage, chatType, chatId, sen
 
 function getOnboardingMessage(chatType) {
   if (chatType === 'group') {
-    return `🐉 Welcome to Dragman!
+    return `🐉 Hey! I'm Dragman - Your Group's Memory
 
-I'm your group's smart knowledge assistant.
+Stop scrolling to find old messages.
+I remember EVERYTHING your team saves!
 
-What I do for you:
-✅ Save important information from conversations
-✅ Never lose contract addresses, links, or ideas
-✅ Search instantly through all saved notes
-✅ Auto-organize everything into categories
+✨ MY SUPERPOWER:
 
-⚠️ IMPORTANT
-All notes saved here are visible to everyone in this group!
-For private notes, message me directly in DM.
+Ask me questions → Get instant answers!
 
-💡 TIP
-In groups, mention me with @dragman to use commands!
-Example: @dragman save my note
+━━━━━━━━━━━━━━━━━━━━━━━━
 
-━━━━━━━━━━━━━━━━
-PERFECT FOR
+💬 EXAMPLE:
 
-📜 Team contracts
-🔗 Shared resources
-💡 Group ideas
-📚 Team documentation
-📅 Meeting notes
+Alice: save Contract: 0x742d35Cc...
+Bob: save Docs: https://docs.base.org
 
-Select an option below to get started! 👇`;
+[2 weeks later...]
+
+Charlie: @dragman what's our contract?
+Me: 🧠 Found it! Shows Alice's note
+     with WHO saved it and WHEN ✅
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 HOW IT WORKS:
+💾 Anyone saves → I remember
+❓ Anyone asks → I answer
+🧠 Your group gets smarter over time!
+
+⚠️ Group Notes = Everyone can see
+💬 Want private notes? DM me instead
+
+👇 Pick an option to start!`;
   } else {
-    return `🐉 Welcome to Dragman!
+    return `🐉 Hey! I'm Dragman
 
-I'm your personal knowledge assistant.
+Your personal assistant that remembers everything.
 
-What I do for you:
-✅ Remember everything important
-✅ Never lose wallet addresses or API keys
-✅ Search instantly through your notes
-✅ Auto-organize with smart categories
+Ever lose a wallet address in chat history?
+Or forget where you saved that link?
+I've got you covered! 💪
 
-━━━━━━━━━━━━━━━━
-GREAT FOR
+━━━━━━━━━━━━━━━━━━━━━━━━
 
-📍 Addresses
-🔑 API keys
-🔗 Links
-💡 Ideas
+✨ WHAT I DO:
 
-Select an option below to get started! 👇`;
+💾 Save anything with one command
+🔍 Find it instantly when you need it
+📂 Auto-organize everything
+🔒 Keep it 100% private
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+Perfect for:
+Wallets • Links • Game codes • Ideas
+Notes • Resources • Quick reminders
+
+👇 Pick an option to get started!`;
   }
 }
 
@@ -959,6 +1032,9 @@ agent.on('text', async (ctx) => {
       return;
     }
     
+    // Natural delay to feel more human (looks like agent is reading/thinking)
+    await naturalDelay();
+    
     // Remove @dragman mention for processing
     const cleanMessage = userMessage.replace(/@dragman/gi, '').trim();
     
@@ -981,8 +1057,13 @@ agent.on('text', async (ctx) => {
     // Process commands
     const response = await handleDragmanCommands(ctx, cleanMessage, senderAddress, isGroupChat);
     
-    if (response) {
+    // Handle response (special flags indicate message already sent, don't send again)
+    const specialFlags = ['CATEGORIES_SENT', 'SEARCH_SENT'];
+    
+    if (response && !specialFlags.includes(response)) {
       await ctx.sendText(response);
+    } else if (specialFlags.includes(response)) {
+      // Do nothing - already sent by handler function
     } else if (isNewUser || cleanMessage.toLowerCase().includes('menu') || cleanMessage.toLowerCase().includes('start')) {
       // Send onboarding + Quick Actions for new users or menu requests
       const onboarding = getOnboardingMessage(isGroupChat ? 'group' : 'dm');
