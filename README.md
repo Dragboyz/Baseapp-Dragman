@@ -116,7 +116,7 @@ Level 4 → 87% to Level 5
 
 ## 📊 Stats
 
-* **1,954 lines** of production code
+* **2,915 lines** of production code
 * **15+ major features** (note management + group intelligence)
 * **8+ smart AI behaviors** (detection, search, suggestions, digest)
 * **9.0/10 uniqueness** for Base App
