@@ -207,8 +207,3 @@ MIT License - See [LICENSE.md](LICENSE.md)
 
 See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 
----
-
-**Built for Base App Agent Challenge** 🏆
-
-**Uniqueness Score: 9.0/10** | **Production Ready** ✅
