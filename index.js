@@ -312,7 +312,7 @@ async function sendMainQuickActions(ctx, chatType) {
       `2️⃣ 🔍 Search Notes\n` +
       `3️⃣ 📂 View Categories\n` +
       `4️⃣ ❓ Help\n\n` +
-      `💡 Just type the number (1-4) with reply or tag @dragman.base.eth first`;
+      `💡 Just type the number (1-4) with tag @dragman.base.eth first`;
   } else {
     // DM menu includes group features option
     interactiveMenu = `🐉 What would you like to do?\n\n` +
@@ -322,7 +322,7 @@ async function sendMainQuickActions(ctx, chatType) {
       `3️⃣ 📂 View Categories\n` +
       `4️⃣ ❓ Help\n` +
       `5️⃣ 🚀 Group Features\n\n` +
-      `💡 Just type or reply using the number (1-5)`;
+      `💡 Just type the number (1-5)`;
   }
   
   try {
@@ -2013,6 +2013,8 @@ agent.on('message', async (ctx) => {
   
   if (isReply) {
     console.log('✅ [MESSAGE EVENT] Detected Base App reply - processing...');
+    console.log('🚫 [REPLY DISABLED] Ignoring replies. Only tag mentions trigger responses.');
+    return;
     
     // Extract reply information
     const referencedMessageId = contentObj.reference;
@@ -2182,9 +2184,13 @@ async function processReplyMessage(ctx, userMessage, senderAddress, chatId, isGr
     // If no message text, send menu/help instead of defaulting to 'help'
     if (!cleanMessage || cleanMessage.length === 0) {
       console.log('📋 [EMPTY REPLY] Sending menu/help');
-      const onboarding = getOnboardingMessage(isGroupChat ? 'group' : 'dm');
-      await ctx.sendText(onboarding);
-      await sendMainQuickActions(ctx, isGroupChat ? 'group' : 'dm');
+      if (isGroupChat) {
+        await sendMainQuickActions(ctx, 'group');
+      } else {
+        const onboarding = getOnboardingMessage('dm');
+        await ctx.sendText(onboarding);
+        await sendMainQuickActions(ctx, 'dm');
+      }
       console.log('✅ [REPLY RESPONSE] Sent menu for empty reply');
       return;
     }
@@ -2208,9 +2214,15 @@ async function processReplyMessage(ctx, userMessage, senderAddress, chatId, isGr
     // Handle /menu command - it returns null, which means we should send the menu
     if (response === null && (cleanMessage.toLowerCase() === '/menu' || cleanMessage.toLowerCase() === 'menu')) {
       console.log('📋 [MENU COMMAND] Sending menu/quick actions');
-      const onboarding = getOnboardingMessage(isGroupChat ? 'group' : 'dm');
-      await ctx.sendText(onboarding);
-      await sendMainQuickActions(ctx, isGroupChat ? 'group' : 'dm');
+      if (isGroupChat) {
+        // Group: only one message (Quick Actions)
+        await sendMainQuickActions(ctx, 'group');
+      } else {
+        // DM: keep onboarding + Quick Actions
+        const onboarding = getOnboardingMessage('dm');
+        await ctx.sendText(onboarding);
+        await sendMainQuickActions(ctx, 'dm');
+      }
       console.log('✅ [REPLY RESPONSE] Sent menu');
       return;
     }
@@ -2386,6 +2398,12 @@ agent.on('text', async (ctx) => {
       // We'll still process it if we can verify it's a reply to agent
     }
     
+    // DISABLE replies entirely: do not process reply messages in text handler
+    if (isReplyMessage) {
+      console.log('🚫 [REPLY DISABLED - TEXT HANDLER] Ignoring reply message in text event');
+      return;
+    }
+
     // chatId already declared above at line 2212, continue with debugging
     // ENHANCED DEBUGGING: Log ALL message properties to understand reply structure
     // This will help us see what Base App/XMTP actually sends for replies
@@ -2445,6 +2463,12 @@ agent.on('text', async (ctx) => {
     // Check for mentions FIRST
     const agentMentionPattern = new RegExp(`@dragman(\\.base\\.eth)?`, 'i');
     const isMentioned = agentMentionPattern.test(userMessage);
+
+    // REQUIRE mention to trigger any response
+    if (!isMentioned) {
+      console.log('⏭️ [SKIP] No agent mention found. Only tagged messages trigger responses.');
+      return;
+    }
     
     // ENHANCED REPLY DETECTION: Try multiple ways to detect reply to agent
     // Base App/XMTP might store reply info in different places - check ALL possible locations
@@ -2805,10 +2829,14 @@ agent.on('text', async (ctx) => {
     } else if (specialFlags.includes(response)) {
       // Do nothing - already sent by handler function
     } else if (isNewUser || cleanMessage.toLowerCase().includes('menu') || cleanMessage.toLowerCase().includes('start')) {
-      // Send onboarding + Quick Actions for new users or menu requests
-      const onboarding = getOnboardingMessage(isGroupChat ? 'group' : 'dm');
-      await ctx.sendText(onboarding);
-      await sendMainQuickActions(ctx, isGroupChat ? 'group' : 'dm');
+      // On group: only Quick Actions (single message). On DM: onboarding + Quick Actions
+      if (isGroupChat) {
+        await sendMainQuickActions(ctx, 'group');
+      } else {
+        const onboarding = getOnboardingMessage('dm');
+        await ctx.sendText(onboarding);
+        await sendMainQuickActions(ctx, 'dm');
+      }
     } else {
       // Check if weekly digest is pending (optional proactive hint)
       const stats = weeklyStats.get(chatId);
