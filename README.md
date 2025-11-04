@@ -116,7 +116,7 @@ Level 4 → 87% to Level 5
 
 ## 📊 Stats
 
-* **1,954 lines** of production code
+* **2,915 lines** of production code
 * **15+ major features** (note management + group intelligence)
 * **8+ smart AI behaviors** (detection, search, suggestions, digest)
 * **9.0/10 uniqueness** for Base App
@@ -207,8 +207,3 @@ MIT License - See [LICENSE.md](LICENSE.md)
 
 See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 
----
-
-**Built for Base App Agent Challenge** 🏆
-
-**Uniqueness Score: 9.0/10** | **Production Ready** ✅
